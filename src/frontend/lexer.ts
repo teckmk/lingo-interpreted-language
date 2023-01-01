@@ -1,6 +1,4 @@
-import * as path from "path"
 import * as os from "os"
-import * as fs from "fs"
 
 export enum TokenType {
   Number,
@@ -11,6 +9,7 @@ export enum TokenType {
   OpenParen,
   CloseParen,
   BinaryOperator,
+  EOF,
 }
 
 const KEYWORDS: Record<string, TokenType> = {
@@ -68,7 +67,7 @@ export function tokenize(sourceCode: string): Token[] {
         if (reserved) {
           tokens.push(token(str, reserved))
         } else {
-          tokens.push(token(str, TokenType.String))
+          tokens.push(token(str, TokenType.Identifier))
         }
       } else if (isskippable(src[0])) {
         src.shift()
@@ -79,9 +78,7 @@ export function tokenize(sourceCode: string): Token[] {
     }
   }
 
+  tokens.push({ value: "EndOfFile", type: TokenType.EOF })
+
   return tokens
 }
-
-const source = fs.readFileSync(path.join(__dirname, "test.lingo"), { encoding: "utf-8" })
-console.log(source)
-for (const token of tokenize(source)) console.log(token)

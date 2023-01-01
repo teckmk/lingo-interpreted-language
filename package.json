@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile:lexer": "tsc lexer.ts",
-    "run:lexer": "npm run compile:lexer && node lexer.js"
+    "lexer": "tsc && node ./dist/lexer.js",
+    "repl": "tsc && node ./dist/main.js"
   },
   "keywords": [],
   "author": "",
