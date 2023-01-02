@@ -1,6 +1,7 @@
 import * as os from "os"
 
 export enum TokenType {
+  Null,
   Number,
   String,
   Identifier,
@@ -14,6 +15,7 @@ export enum TokenType {
 
 const KEYWORDS: Record<string, TokenType> = {
   let: TokenType.Let,
+  null: TokenType.Null,
 }
 
 export interface Token {
@@ -64,7 +66,7 @@ export function tokenize(sourceCode: string): Token[] {
 
         // check for reserved keywords
         const reserved = KEYWORDS[str]
-        if (reserved) {
+        if (typeof reserved === "number") {
           tokens.push(token(str, reserved))
         } else {
           tokens.push(token(str, TokenType.Identifier))

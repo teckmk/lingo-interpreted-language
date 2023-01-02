@@ -1,4 +1,4 @@
-import { Stmt, Expr, Program, Identifier, NumericLiteral, BinaryExpr } from "./ast"
+import { Stmt, Expr, Program, Identifier, NumericLiteral, BinaryExpr, NullLiteral } from "./ast"
 import { TokenType, Token, tokenize } from "./lexer"
 
 export default class Parser {
@@ -73,12 +73,18 @@ export default class Parser {
     switch (tk) {
       case TokenType.Identifier:
         return { kind: "Identifier", symbol: this.eat().value } as Identifier
+      case TokenType.Null:
+        this.eat()
+        return { kind: "NullLiteral", value: "null" } as NullLiteral
       case TokenType.Number:
         return { kind: "NumericLiteral", value: parseFloat(this.eat().value) } as NumericLiteral
       case TokenType.OpenParen:
         this.eat() // eat opening paren
         const value = this.parse_expr()
-        this.expect(TokenType.CloseParen, "Unexpected token found in parenthesized expression. Expected closing paren") // eat closing paren
+        this.expect(
+          TokenType.CloseParen,
+          "Unexpected token found in parenthesized expression. Expected closing paren"
+        ) // eat closing paren
         return value
       default:
         console.error("Unexpected token found in parser:", this.at())
