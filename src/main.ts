@@ -16,6 +16,7 @@ async function repl() {
 
     const program = parser.produceAST(input)
     console.log(program)
+    require("fs").writeFileSync(require("path").join(__dirname, "ast.json"), JSON.stringify(program))
   }
 }
 
