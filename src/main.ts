@@ -1,5 +1,6 @@
 import * as readline from "readline"
 import Parser from "./frontend/parser"
+import { evaluate } from "./runtime/interpreter"
 
 repl()
 
@@ -10,13 +11,14 @@ async function repl() {
   while (true) {
     const input = await prompt("> ")
 
-    if (!input || input.includes(".exit")) {
+    if (input.includes(".exit")) {
       process.exit(1)
     }
 
     const program = parser.produceAST(input)
-    console.log(program)
-    require("fs").writeFileSync(require("path").join(__dirname, "ast.json"), JSON.stringify(program))
+
+    const result = evaluate(program)
+    console.log(result)
   }
 }
 

@@ -25,14 +25,17 @@ export default class Parser {
     return prev
   }
 
+  // 1.
   private parse_stmt(): Stmt {
     return this.parse_expr()
   }
 
+  // 2.
   private parse_expr(): Expr {
     return this.parse_additive_expr()
   }
 
+  // 3.
   private parse_additive_expr(): Expr {
     let left = this.parse_multipicative_expr()
 
@@ -50,6 +53,7 @@ export default class Parser {
     return left
   }
 
+  // 4.
   private parse_multipicative_expr(): Expr {
     let left = this.parse_primary_expr()
 
@@ -67,6 +71,7 @@ export default class Parser {
     return left
   }
 
+  // 5.
   private parse_primary_expr(): Expr {
     const tk = this.at().type
 
@@ -92,6 +97,7 @@ export default class Parser {
     }
   }
 
+  // 0
   public produceAST(sourceCode: string): Program {
     this.tokens = tokenize(sourceCode)
     console.log({ tokens: this.tokens })
