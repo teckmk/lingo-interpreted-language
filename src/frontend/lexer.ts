@@ -1,7 +1,6 @@
 import * as os from "os"
 
 export enum TokenType {
-  Null,
   Number,
   String,
   Identifier,
@@ -15,7 +14,6 @@ export enum TokenType {
 
 const KEYWORDS: Record<string, TokenType> = {
   let: TokenType.Let,
-  null: TokenType.Null,
 }
 
 export interface Token {
