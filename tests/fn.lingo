@@ -1,0 +1,17 @@
+fn adder (offset){
+
+fn add(a, b) {
+  a + b + offset
+}
+
+}
+
+const obj = {
+    age : 10
+};
+
+print(adder)
+
+print(obj)
+
+print(adder(1)(10,4))

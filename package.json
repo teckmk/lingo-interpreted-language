@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lexer": "tsc && node ./dist/lexer.js",
-    "repl": "tsc && node ./dist/main.js"
+    "lexer": "node ./dist/lexer.js",
+    "mlang": "node ./bin"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +13,8 @@
   "devDependencies": {
     "@types/node": "^18.11.18",
     "typescript": "^4.9.4"
+  },
+  "bin": {
+    "mlang": "./bin"
   }
 }
