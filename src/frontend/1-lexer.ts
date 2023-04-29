@@ -8,6 +8,8 @@ export enum TokenType {
   Let,
   Const,
   Fn,
+  If,
+  Else,
   Semicolon,
   Comma,
   Dot,
@@ -35,6 +37,8 @@ const KEYWORDS: Record<string, TokenType> = {
   let: TokenType.Let,
   const: TokenType.Const,
   fn: TokenType.Fn,
+  if: TokenType.If,
+  else: TokenType.Else,
 }
 
 export interface Token {

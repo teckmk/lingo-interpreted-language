@@ -3,16 +3,17 @@ export type NodeType =
   | "Program"
   | "VarDeclaration"
   | "FunctionDeclaration"
+  | "IfElseStatement"
   // Expressions
   | "AssignmentExpr"
   | "MemberExpr"
   | "CallExpr"
+  | "BinaryExpr"
   // Literals
   | "Property"
   | "ObjectLiteral"
   | "NumericLiteral"
   | "Identifier"
-  | "BinaryExpr"
 
 export interface Stmt {
   kind: NodeType
@@ -41,6 +42,14 @@ export interface FunctionDeclaration extends Stmt {
   name: string
   parameters: string[]
   body: Stmt[]
+}
+
+export interface IfElseStatement extends Stmt {
+  kind: "IfElseStatement"
+  check: Expr
+  body: Stmt[]
+  childChecks?: IfElseStatement[] // "else if" checks
+  else?: Stmt[]
 }
 
 export interface Expr extends Stmt {}

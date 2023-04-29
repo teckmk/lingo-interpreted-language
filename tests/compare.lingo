@@ -1,7 +1,14 @@
-x > 10
+let x = 3;
+let y = 10;
+let z = 5;
+
+let r = x + y > 10;
 y >= 20
-x == y
-!x
+x + z == y * 9
 y != 10
 
-x > 10 && y <= 12 || foo == true
+print(true + 5 == false)
+print(true == false)
+
+print(r)
+print(x + y)

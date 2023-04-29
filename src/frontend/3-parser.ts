@@ -12,6 +12,7 @@ import {
   CallExpr,
   MemberExpr,
   FunctionDeclaration,
+  IfElseStatement,
 } from "./2-ast"
 import { TokenType, Token, tokenize } from "./1-lexer"
 
@@ -22,8 +23,8 @@ export default class Parser {
     return this.tokens[0].type !== TokenType.EOF
   }
 
-  private at() {
-    return this.tokens[0] as Token
+  private at(index = 0) {
+    return this.tokens[index] as Token
   }
 
   private eat() {
@@ -47,12 +48,27 @@ export default class Parser {
         return this.parse_var_declaration()
       case TokenType.Fn:
         return this.parse_fn_declaration()
+      case TokenType.If:
+        return this.parse_if_statement()
       default:
         return this.parse_expr()
     }
   }
 
-  parse_fn_declaration(): Stmt {
+  private parse_code_block(): Stmt[] {
+    this.expect(TokenType.OpenBrace, "Expected { in code block")
+
+    const block: Stmt[] = []
+
+    while (this.at().type != TokenType.EOF && this.at().type != TokenType.CloseBrace)
+      block.push(this.parse_stmt())
+
+    this.expect(TokenType.CloseBrace, "Missing } in after code block")
+
+    return block
+  }
+
+  private parse_fn_declaration(): Stmt {
     this.eat() // eat fn token
     const name = this.expect(
       TokenType.Identifier,
@@ -88,7 +104,59 @@ export default class Parser {
     return fn
   }
 
-  parse_var_declaration(): Stmt {
+  private parse_if_check(): Stmt {
+    this.expect(TokenType.OpenParen, "Expected open paren following if keyword")
+
+    const check = this.parse_expr() // parse condition
+
+    this.expect(TokenType.CloseParen, "Expected closing paren in if statement after condition")
+
+    return check
+  }
+
+  private parse_if_statement(): Stmt {
+    this.eat() // eat if token
+
+    const check = this.parse_if_check()
+
+    const body = this.parse_code_block() // parse if statement body
+
+    const childChecks = []
+
+    // parse 'else if' block, if there's any
+    while (this.at().type == TokenType.Else && this.at(1).type == TokenType.If) {
+      this.eat() // eat else token
+      this.eat() // eat if token
+
+      const childCheck = {
+        kind: "IfElseStatement",
+        check: this.parse_if_check(),
+        body: this.parse_code_block(),
+      } as IfElseStatement
+
+      childChecks.push(childCheck)
+    }
+
+    let elseBlock: Stmt[] = []
+
+    // parse 'else' block if there's any
+    if (this.at().type == TokenType.Else) {
+      this.eat() // eat else token
+      elseBlock = this.parse_code_block()
+    }
+
+    const ifStmt = {
+      kind: "IfElseStatement",
+      check,
+      body,
+      childChecks,
+      else: elseBlock,
+    } as IfElseStatement
+
+    return ifStmt
+  }
+
+  private parse_var_declaration(): Stmt {
     const isConstant = this.eat().type == TokenType.Const
 
     const identifier = this.expect(

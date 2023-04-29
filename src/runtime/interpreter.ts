@@ -1,12 +1,18 @@
 import Environment from "./environment"
 import { NumberVal, RuntimeVal } from "./values"
-import { eval_fn_declaration, eval_program, eval_var_declaration } from "./eval/statements"
+import {
+  eval_fn_declaration,
+  eval_if_else_statement,
+  eval_program,
+  eval_var_declaration,
+} from "./eval/statements"
 import {
   AssignmentExpr,
   BinaryExpr,
   CallExpr,
   FunctionDeclaration,
   Identifier,
+  IfElseStatement,
   NumericLiteral,
   ObjectLiteral,
   Program,
@@ -44,6 +50,8 @@ export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
       return eval_var_declaration(astNode as VarDeclaration, env)
     case "FunctionDeclaration":
       return eval_fn_declaration(astNode as FunctionDeclaration, env)
+    case "IfElseStatement":
+      return eval_if_else_statement(astNode as IfElseStatement, env)
     default:
       console.error("This AST can't be interpreted! For now atleast!", astNode)
       process.exit(0)

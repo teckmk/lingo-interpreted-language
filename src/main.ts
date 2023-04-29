@@ -46,6 +46,7 @@ function run(filename: string) {
   const input = readFileSync(validateFilename(filename), { encoding: "utf-8" })
 
   const program = parser.produceAST(input)
+  require("fs").writeFileSync("ast.json", JSON.stringify(program))
 
   evaluate(program, env)
 }

@@ -1,7 +1,14 @@
 import { Stmt } from "../frontend/2-ast"
 import Environment from "./environment"
 
-export type ValueType = "null" | "number" | "boolean" | "object" | "nativefn" | "function"
+export type ValueType =
+  | "null"
+  | "number"
+  | "boolean"
+  | "object"
+  | "nativefn"
+  | "function"
+  | "conditional"
 
 export interface RuntimeVal {
   type: ValueType
@@ -39,4 +46,12 @@ export interface FunctionVal extends RuntimeVal {
   paramteres: string[]
   declarationEnv: Environment
   body: Stmt[]
+}
+
+export interface ConditionalVal extends RuntimeVal {
+  type: "conditional"
+  check: RuntimeVal
+  body: Stmt[]
+  childChecks?: ConditionalVal[]
+  else?: Stmt[]
 }

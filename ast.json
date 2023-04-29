@@ -1,0 +1,58 @@
+{
+  "kind": "Program",
+  "body": [
+    {
+      "kind": "VarDeclaration",
+      "value": { "kind": "NumericLiteral", "value": 100 },
+      "identifier": "y",
+      "constant": false
+    },
+    {
+      "kind": "VarDeclaration",
+      "value": { "kind": "NumericLiteral", "value": 20 },
+      "identifier": "x",
+      "constant": false
+    },
+    {
+      "kind": "IfElseStatement",
+      "check": {
+        "kind": "BinaryExpr",
+        "left": { "kind": "Identifier", "symbol": "y" },
+        "right": { "kind": "Identifier", "symbol": "x" },
+        "operator": "<"
+      },
+      "body": [
+        {
+          "kind": "CallExpr",
+          "caller": { "kind": "Identifier", "symbol": "print" },
+          "args": [{ "kind": "Identifier", "symbol": "y" }]
+        }
+      ],
+      "childChecks": [
+        {
+          "kind": "IfElseStatement",
+          "check": {
+            "kind": "BinaryExpr",
+            "left": { "kind": "Identifier", "symbol": "y" },
+            "right": { "kind": "NumericLiteral", "value": 100 },
+            "operator": "=="
+          },
+          "body": [
+            {
+              "kind": "CallExpr",
+              "caller": { "kind": "Identifier", "symbol": "print" },
+              "args": [{ "kind": "NumericLiteral", "value": 100 }]
+            }
+          ]
+        }
+      ],
+      "else": [
+        {
+          "kind": "CallExpr",
+          "caller": { "kind": "Identifier", "symbol": "print" },
+          "args": [{ "kind": "Identifier", "symbol": "x" }]
+        }
+      ]
+    }
+  ]
+}
