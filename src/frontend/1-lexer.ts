@@ -87,58 +87,28 @@ export function tokenize(sourceCode: string): Token[] {
     else if (src[0] === ";") tokens.push(token(src.shift(), TokenType.Semicolon))
     else if (src[0] === ",") tokens.push(token(src.shift(), TokenType.Comma))
     else if (src[0] === ".") tokens.push(token(src.shift(), TokenType.Dot))
+    else if (src[0] === "=") {
+      if (src[1] === "=") tokens.push(token(src.shift() + src.shift()!, TokenType.Equality))
+      else tokens.push(token(src.shift(), TokenType.Equals))
+    } else if (src[0] === "!") {
+      if (src[1] === "=") tokens.push(token(src.shift() + src.shift()!, TokenType.NotEquality))
+      else tokens.push(token(src.shift(), TokenType.Exclamation))
+    } else if (src[0] === ">") {
+      if (src[1] === "=")
+        tokens.push(token(src.shift() + src.shift()!, TokenType.GreaterThanOrEqual))
+      else tokens.push(token(src.shift(), TokenType.GreaterThan))
+    } else if (src[0] === "<") {
+      if (src[1] === "=") tokens.push(token(src.shift() + src.shift()!, TokenType.LessThanOrEqual))
+      else tokens.push(token(src.shift(), TokenType.LessThan))
+    }
+    //  else if (src[0] === "|") {
+    //   if (src[1] === "|") tokens.push(token(src.shift() + src.shift()!, TokenType.Or))
+    // } else if (src[0] === "&") {
+    //   if (src[1] === "&") tokens.push(token(src.shift() + src.shift()!, TokenType.And))
+    // }
     // multi char tokens
     else {
-      // multi char comparison tokens
-      if (isComparisonChar(src[0])) {
-        let char = src.shift()
-        let tokenType: TokenType
-
-        if (src.length > 0 && src[0] === "=") {
-          switch (char) {
-            case "=":
-              tokenType = TokenType.Equality
-              break
-            case "!":
-              tokenType = TokenType.NotEquality
-              break
-            case ">":
-              tokenType = TokenType.GreaterThanOrEqual
-              break
-            case "<":
-              tokenType = TokenType.LessThanOrEqual
-              break
-
-            default:
-              throw new Error(`Unknown comparison operator ${src[0]}`)
-          }
-
-          char += src.shift()
-          tokens.push(token(char, tokenType))
-        }
-        // single char comparison tokens
-        else {
-          switch (char) {
-            case "=":
-              tokenType = TokenType.Equals
-              break
-            case "!":
-              tokenType = TokenType.Exclamation
-              break
-            case ">":
-              tokenType = TokenType.GreaterThan
-              break
-            case "<":
-              tokenType = TokenType.LessThan
-              break
-
-            default:
-              throw new Error(`Unknown comparison operator ${src[0]}`)
-          }
-
-          tokens.push(token(char, tokenType))
-        }
-      } else if (isint(src[0])) {
+      if (isint(src[0])) {
         let num = ""
         while (src.length > 0 && isint(src[0])) num += src.shift()
 

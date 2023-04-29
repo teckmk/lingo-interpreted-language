@@ -1,4 +1,4 @@
-import { FunctionVal } from "./../values"
+import { BooleanVal, FunctionVal } from "./../values"
 import {
   AssignmentExpr,
   BinaryExpr,
@@ -11,23 +11,44 @@ import { evaluate } from "../interpreter"
 import { MK_NULL } from "../macros"
 import { NativeFnVal, NumberVal, ObjectVal, RuntimeVal } from "../values"
 
-function eval_numeric_binary_expr(lhs: NumberVal, rhs: NumberVal, operator: string): NumberVal {
-  let result = 0
+function eval_numeric_binary_expr(
+  lhs: NumberVal,
+  rhs: NumberVal,
+  operator: string
+): NumberVal | BooleanVal {
+  if ([">", "<", "==", "!=", "==", ">=", "<="].includes(operator)) {
+    let result = false
+    if (operator == ">") result = lhs.value > rhs.value
+    else if (operator == "<") result = lhs.value < rhs.value
+    else if (operator == "==") result = lhs.value == rhs.value
+    else if (operator == "!=") result = lhs.value != rhs.value
+    else if (operator == ">=") result = lhs.value >= rhs.value
+    else if (operator == "<=") result = lhs.value <= rhs.value
 
-  if (operator == "+") {
-    result = lhs.value + rhs.value
-  } else if (operator == "-") {
-    result = lhs.value - rhs.value
-  } else if (operator == "*") {
-    result = lhs.value * rhs.value
-  } else if (operator == "/") {
-    // TODO: Division by zero-checks
-    result = lhs.value / rhs.value
-  } else {
-    result = lhs.value % rhs.value
+    return { type: "boolean", value: result }
   }
 
+  let result = 0
+
+  if (operator == "+") result = lhs.value + rhs.value
+  else if (operator == "-") result = lhs.value - rhs.value
+  else if (operator == "*") result = lhs.value * rhs.value
+  else if (operator == "/") result = lhs.value / rhs.value
+  else result = lhs.value % rhs.value
+
   return { type: "number", value: result }
+}
+
+export function eval_boolean_binary_expr(
+  lhs: BooleanVal,
+  rhs: BooleanVal,
+  operator: string
+): BooleanVal {
+  let result = false
+  if (operator == "==") result = lhs.value == rhs.value
+  else if (operator == "!=") result = lhs.value != rhs.value
+
+  return { type: "boolean", value: result }
 }
 
 export function eval_binary_expr(binop: BinaryExpr, env: Environment): RuntimeVal {
@@ -36,6 +57,10 @@ export function eval_binary_expr(binop: BinaryExpr, env: Environment): RuntimeVa
 
   if (lhs.type == "number" && rhs.type == "number") {
     return eval_numeric_binary_expr(lhs as NumberVal, rhs as NumberVal, binop.operator)
+  }
+
+  if (lhs.type == "boolean" && rhs.type == "boolean") {
+    return eval_boolean_binary_expr(lhs as BooleanVal, rhs as BooleanVal, binop.operator)
   }
 
   // One or both are NULL

@@ -139,7 +139,7 @@ export default class Parser {
 
   private parse_object_expr(): Expr {
     if (this.at().type != TokenType.OpenBrace) {
-      return this.parse_additive_expr()
+      return this.parse_comparitive_expr()
     }
 
     this.eat() // eat opening brace
@@ -173,6 +173,30 @@ export default class Parser {
 
     this.expect(TokenType.CloseBrace, "Object literal missing closing brace.")
     return { kind: "ObjectLiteral", properties: props } as ObjectLiteral
+  }
+
+  private parse_comparitive_expr(): Expr {
+    let left = this.parse_additive_expr()
+
+    while (
+      this.at().value == ">" ||
+      this.at().value == ">=" ||
+      this.at().value == "<" ||
+      this.at().value == "<=" ||
+      this.at().value == "==" ||
+      this.at().value == "!="
+    ) {
+      const operator = this.eat().value
+      const right = this.parse_additive_expr()
+      left = {
+        kind: "BinaryExpr",
+        left,
+        right,
+        operator,
+      } as BinaryExpr
+    }
+
+    return left
   }
 
   // 3.
