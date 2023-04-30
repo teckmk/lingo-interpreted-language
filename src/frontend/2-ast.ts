@@ -13,6 +13,7 @@ export type NodeType =
   // Literals
   | "Property"
   | "ObjectLiteral"
+  | "StringLiteral"
   | "NumericLiteral"
   | "Identifier"
 
@@ -89,6 +90,12 @@ export interface Identifier extends Expr {
 export interface NumericLiteral extends Expr {
   kind: "NumericLiteral"
   value: number
+}
+
+export interface StringLiteral extends Expr {
+  kind: "StringLiteral"
+  value: string
+  identifiers: string[] // handle embeded variables
 }
 
 export interface Property extends Expr {

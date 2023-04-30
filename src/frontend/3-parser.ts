@@ -14,6 +14,7 @@ import {
   FunctionDeclaration,
   IfElseStatement,
   WhileStatement,
+  StringLiteral,
 } from "./2-ast"
 import { TokenType, Token, tokenize } from "./1-lexer"
 
@@ -398,6 +399,16 @@ export default class Parser {
         return { kind: "Identifier", symbol: this.eat().value } as Identifier
       case TokenType.Number:
         return { kind: "NumericLiteral", value: parseFloat(this.eat().value) } as NumericLiteral
+      case TokenType.String:
+        const inputString = this.eat().value
+        const identRegex = /\$([a-zA-Z_]\w*)/g
+        const identifiers = inputString.match(identRegex) || []
+        return {
+          kind: "StringLiteral",
+          value: inputString,
+          identifiers,
+          exprssions: [],
+        } as StringLiteral
       case TokenType.OpenParen:
         this.eat() // eat opening paren
         const value = this.parse_expr()
