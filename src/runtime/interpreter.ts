@@ -5,6 +5,7 @@ import {
   eval_if_else_statement,
   eval_program,
   eval_var_declaration,
+  eval_while_statement,
 } from "./eval/statements"
 import {
   AssignmentExpr,
@@ -18,6 +19,7 @@ import {
   Program,
   Stmt,
   VarDeclaration,
+  WhileStatement,
 } from "../frontend/2-ast"
 import {
   eval_assignment,
@@ -52,6 +54,8 @@ export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
       return eval_fn_declaration(astNode as FunctionDeclaration, env)
     case "IfElseStatement":
       return eval_if_else_statement(astNode as IfElseStatement, env)
+    case "WhileStatement":
+      return eval_while_statement(astNode as WhileStatement, env)
     default:
       console.error("This AST can't be interpreted! For now atleast!", astNode)
       process.exit(0)

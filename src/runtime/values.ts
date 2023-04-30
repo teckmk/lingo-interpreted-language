@@ -9,6 +9,7 @@ export type ValueType =
   | "nativefn"
   | "function"
   | "conditional"
+  | "whileloop"
 
 export interface RuntimeVal {
   type: ValueType
@@ -54,4 +55,10 @@ export interface ConditionalVal extends RuntimeVal {
   body: Stmt[]
   childChecks?: ConditionalVal[]
   else?: Stmt[]
+}
+
+export interface WhileLoopVal extends RuntimeVal {
+  type: "whileloop"
+  check: RuntimeVal
+  body: Stmt[]
 }

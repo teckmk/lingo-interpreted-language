@@ -10,6 +10,7 @@ export enum TokenType {
   Fn,
   If,
   Else,
+  While,
   Semicolon,
   Comma,
   Dot,
@@ -39,6 +40,7 @@ const KEYWORDS: Record<string, TokenType> = {
   fn: TokenType.Fn,
   if: TokenType.If,
   else: TokenType.Else,
+  while: TokenType.While,
 }
 
 export interface Token {

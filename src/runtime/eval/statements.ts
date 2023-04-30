@@ -5,6 +5,7 @@ import {
   Program,
   Stmt,
   VarDeclaration,
+  WhileStatement,
 } from "../../frontend/2-ast"
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
@@ -51,7 +52,7 @@ export function eval_code_block(block: Stmt[], parentEnv: Environment) {
   return result
 }
 
-export function eval_if_check(check: Expr, env: Environment): BooleanVal {
+export function eval_condition(check: Expr, env: Environment): BooleanVal {
   const eval_check = evaluate(check, env) as BooleanVal
 
   if (eval_check.type != "boolean")
@@ -63,16 +64,24 @@ export function eval_if_check(check: Expr, env: Environment): BooleanVal {
 export function eval_if_else_statement(ifstmt: IfElseStatement, env: Environment): RuntimeVal {
   const { check, body, childChecks } = ifstmt
 
-  if (eval_if_check(check, env).value) {
+  if (eval_condition(check, env).value) {
     eval_code_block(body, env)
   } else if (childChecks && childChecks.length > 0) {
     for (const acheck of childChecks) {
-      if (eval_if_check(acheck.check, env).value) {
+      if (eval_condition(acheck.check, env).value) {
         eval_code_block(acheck.body, env)
         break
       }
     }
   } else if (ifstmt.else) eval_code_block(ifstmt.else, env)
+
+  return MK_NULL()
+}
+
+export function eval_while_statement(loop: WhileStatement, env: Environment): RuntimeVal {
+  while (eval_condition(loop.check, env).value) {
+    eval_code_block(loop.body, env)
+  }
 
   return MK_NULL()
 }

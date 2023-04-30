@@ -4,6 +4,7 @@ export type NodeType =
   | "VarDeclaration"
   | "FunctionDeclaration"
   | "IfElseStatement"
+  | "WhileStatement"
   // Expressions
   | "AssignmentExpr"
   | "MemberExpr"
@@ -50,6 +51,12 @@ export interface IfElseStatement extends Stmt {
   body: Stmt[]
   childChecks?: IfElseStatement[] // "else if" checks
   else?: Stmt[]
+}
+
+export interface WhileStatement extends Stmt {
+  kind: "WhileStatement"
+  check: Expr
+  body: Stmt[]
 }
 
 export interface Expr extends Stmt {}

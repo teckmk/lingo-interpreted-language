@@ -13,6 +13,7 @@ import {
   MemberExpr,
   FunctionDeclaration,
   IfElseStatement,
+  WhileStatement,
 } from "./2-ast"
 import { TokenType, Token, tokenize } from "./1-lexer"
 
@@ -50,6 +51,8 @@ export default class Parser {
         return this.parse_fn_declaration()
       case TokenType.If:
         return this.parse_if_statement()
+      case TokenType.While:
+        return this.parse_while_statement()
       default:
         return this.parse_expr()
     }
@@ -104,7 +107,7 @@ export default class Parser {
     return fn
   }
 
-  private parse_if_check(): Stmt {
+  private parse_condition(): Stmt {
     this.expect(TokenType.OpenParen, "Expected open paren following if keyword")
 
     const check = this.parse_expr() // parse condition
@@ -117,7 +120,7 @@ export default class Parser {
   private parse_if_statement(): Stmt {
     this.eat() // eat if token
 
-    const check = this.parse_if_check()
+    const check = this.parse_condition()
 
     const body = this.parse_code_block() // parse if statement body
 
@@ -130,7 +133,7 @@ export default class Parser {
 
       const childCheck = {
         kind: "IfElseStatement",
-        check: this.parse_if_check(),
+        check: this.parse_condition(),
         body: this.parse_code_block(),
       } as IfElseStatement
 
@@ -154,6 +157,16 @@ export default class Parser {
     } as IfElseStatement
 
     return ifStmt
+  }
+
+  private parse_while_statement(): Stmt {
+    this.eat() // eat while token
+
+    return {
+      kind: "WhileStatement",
+      check: this.parse_condition(),
+      body: this.parse_code_block(),
+    } as WhileStatement
   }
 
   private parse_var_declaration(): Stmt {
