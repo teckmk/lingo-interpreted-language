@@ -1,10 +1,11 @@
-import { BooleanVal, FunctionVal } from "./../values"
+import { BooleanVal, FunctionVal, StringVal } from "./../values"
 import {
   AssignmentExpr,
   BinaryExpr,
   CallExpr,
   Identifier,
   ObjectLiteral,
+  StringLiteral,
 } from "../../frontend/2-ast"
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
@@ -125,4 +126,14 @@ export function eval_assignment(node: AssignmentExpr, env: Environment): Runtime
 
   const varname = (node.assigne as Identifier).symbol
   return env.assignVar(varname, evaluate(node.value, env))
+}
+
+export function eval_string_literal(node: StringLiteral, env: Environment): RuntimeVal {
+  let str = node.value
+  for (const ident of node.identifiers) {
+    const result = env.lookupVar(ident.replace("$", "")) as StringVal | NumberVal | BooleanVal
+    str = str.replace(ident, result.value.toString())
+  }
+
+  return { type: "string", value: str } as StringVal
 }

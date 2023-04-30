@@ -1,5 +1,5 @@
 import Environment from "./environment"
-import { NumberVal, RuntimeVal } from "./values"
+import { NumberVal, RuntimeVal, StringVal } from "./values"
 import {
   eval_fn_declaration,
   eval_if_else_statement,
@@ -18,6 +18,7 @@ import {
   ObjectLiteral,
   Program,
   Stmt,
+  StringLiteral,
   VarDeclaration,
   WhileStatement,
 } from "../frontend/2-ast"
@@ -27,6 +28,7 @@ import {
   eval_call_expr,
   eval_identifier,
   eval_object_expr,
+  eval_string_literal,
 } from "./eval/expression"
 
 export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
@@ -36,6 +38,8 @@ export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
         value: (astNode as NumericLiteral).value,
         type: "number",
       } as NumberVal
+    case "StringLiteral":
+      return eval_string_literal(astNode as StringLiteral, env) as StringVal
     case "BinaryExpr":
       return eval_binary_expr(astNode as BinaryExpr, env)
     case "AssignmentExpr":
