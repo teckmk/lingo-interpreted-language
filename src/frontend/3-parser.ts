@@ -399,7 +399,7 @@ export default class Parser {
     const inputString = this.eat().value
     const expressions: { [key: string]: Expr } = {}
 
-    let exprPlaceholderStr = inputString
+    let outputString = inputString
 
     // handle expressions
     if (inputString.includes("${")) {
@@ -408,26 +408,25 @@ export default class Parser {
 
       if (matches.length) {
         let i = 0
-        let results = matches.map((match) => match.replace(regex, "$1"))
+        let results = matches.map((match) => match.replace(regex, "$1")) // remove ${ } from expressions
 
         // replace expressions with placeholders
-        exprPlaceholderStr = inputString.replace(regex, () => Placholder.expr(i++))
+        outputString = inputString.replace(regex, () => Placholder.expr(i++))
 
         // parse the expressions
         results.forEach((exprStr, i) => {
-          const expr = new Parser(exprStr).parse_expr()
-          expressions[Placholder.expr(i)] = expr
+          expressions[Placholder.expr(i)] = new Parser(exprStr).parse_expr()
         })
       }
     }
 
     // handle identifiers
     const identRegex = /\$([a-zA-Z_]\w*)/g
-    const identifiers = exprPlaceholderStr.match(identRegex) || []
+    const identifiers = outputString.match(identRegex) || []
 
     return {
       kind: "StringLiteral",
-      value: exprPlaceholderStr,
+      value: outputString,
       identifiers,
       expressions,
     } as StringLiteral

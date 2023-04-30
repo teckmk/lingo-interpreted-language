@@ -40,13 +40,17 @@ async function repl() {
 }
 
 function run(filename: string) {
+  const start = performance.now()
+
   const parser = new Parser()
   const env = new Environment()
 
   const input = readFileSync(validateFilename(filename), { encoding: "utf-8" })
 
   const program = parser.produceAST(input)
-  require("fs").writeFileSync("ast.json", JSON.stringify(program))
 
   evaluate(program, env)
+
+  console.log("Exited in", performance.now() - start, "milliseconds")
+  require("fs").writeFileSync("ast.json", JSON.stringify(program))
 }
