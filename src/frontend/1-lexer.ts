@@ -132,6 +132,13 @@ export function tokenize(sourceCode: string): Token[] {
         }
       } else if (isskippable(src[0])) {
         src.shift()
+      } else if (src[0] === '"') {
+        // handling strings
+        src.shift() // remove start quote
+        let str = ""
+        while (src.length > 0 && src[0] !== '"') str += src.shift()
+        src.shift() // remove end quote
+        tokens.push(token(str, TokenType.String))
       } else {
         console.log("Unidentified token in source: ", src[0])
         process.exit()
