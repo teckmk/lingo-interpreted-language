@@ -407,7 +407,6 @@ export default class Parser {
           kind: "StringLiteral",
           value: inputString,
           identifiers,
-          exprssions: [],
         } as StringLiteral
       case TokenType.OpenParen:
         this.eat() // eat opening paren
