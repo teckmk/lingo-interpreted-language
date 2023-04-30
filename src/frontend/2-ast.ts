@@ -96,6 +96,7 @@ export interface StringLiteral extends Expr {
   kind: "StringLiteral"
   value: string
   identifiers: string[] // handle embeded variables
+  expressions: { [key: string]: Expr }
 }
 
 export interface Property extends Expr {

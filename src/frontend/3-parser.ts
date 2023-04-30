@@ -17,8 +17,13 @@ import {
   StringLiteral,
 } from "./2-ast"
 import { TokenType, Token, tokenize } from "./1-lexer"
+import { Placholder } from "../helpers"
 
 export default class Parser {
+  constructor(inputString?: string) {
+    if (inputString) this.tokens = tokenize(inputString)
+  }
+
   private tokens: Token[] = []
 
   private not_eof(): boolean {
@@ -390,6 +395,44 @@ export default class Parser {
     return object
   }
 
+  private parse_string_literal() {
+    const inputString = this.eat().value
+    const expressions: { [key: string]: Expr } = {}
+
+    let exprPlaceholderStr = inputString
+
+    // handle expressions
+    if (inputString.includes("${")) {
+      const regex = /\${(.+?)}/g
+      const matches = inputString.match(regex) || []
+
+      if (matches.length) {
+        let i = 0
+        let results = matches.map((match) => match.replace(regex, "$1"))
+
+        // replace expressions with placeholders
+        exprPlaceholderStr = inputString.replace(regex, () => Placholder.expr(i++))
+
+        // parse the expressions
+        results.forEach((exprStr, i) => {
+          const expr = new Parser(exprStr).parse_expr()
+          expressions[Placholder.expr(i)] = expr
+        })
+      }
+    }
+
+    // handle identifiers
+    const identRegex = /\$([a-zA-Z_]\w*)/g
+    const identifiers = exprPlaceholderStr.match(identRegex) || []
+
+    return {
+      kind: "StringLiteral",
+      value: exprPlaceholderStr,
+      identifiers,
+      expressions,
+    } as StringLiteral
+  }
+
   // 5.
   private parse_primary_expr(): Expr {
     const tk = this.at().type
@@ -400,14 +443,7 @@ export default class Parser {
       case TokenType.Number:
         return { kind: "NumericLiteral", value: parseFloat(this.eat().value) } as NumericLiteral
       case TokenType.String:
-        const inputString = this.eat().value
-        const identRegex = /\$([a-zA-Z_]\w*)/g
-        const identifiers = inputString.match(identRegex) || []
-        return {
-          kind: "StringLiteral",
-          value: inputString,
-          identifiers,
-        } as StringLiteral
+        return this.parse_string_literal() as StringLiteral
       case TokenType.OpenParen:
         this.eat() // eat opening paren
         const value = this.parse_expr()

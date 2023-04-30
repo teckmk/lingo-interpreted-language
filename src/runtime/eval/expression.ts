@@ -135,5 +135,10 @@ export function eval_string_literal(node: StringLiteral, env: Environment): Runt
     str = str.replace(ident, result.value.toString())
   }
 
+  for (const [placeholder, expr] of Object.entries(node.expressions)) {
+    const result = evaluate(expr, env) as StringVal | NumberVal | BooleanVal
+    str = str.replace(placeholder, result.value.toString())
+  }
+
   return { type: "string", value: str } as StringVal
 }
