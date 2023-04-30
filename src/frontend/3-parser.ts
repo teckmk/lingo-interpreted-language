@@ -402,7 +402,7 @@ export default class Parser {
   // 0
   public produceAST(sourceCode: string): Program {
     this.tokens = tokenize(sourceCode)
-    console.log(this.tokens)
+    require("fs").writeFileSync("tokens.json", JSON.stringify(this.tokens))
 
     const program: Program = {
       kind: "Program",

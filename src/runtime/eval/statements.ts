@@ -67,7 +67,7 @@ export function eval_if_else_statement(ifstmt: IfElseStatement, env: Environment
     eval_code_block(body, env)
   } else if (childChecks && childChecks.length > 0) {
     for (const acheck of childChecks) {
-      if (eval_if_check(acheck.check, env)) {
+      if (eval_if_check(acheck.check, env).value) {
         eval_code_block(acheck.body, env)
         break
       }

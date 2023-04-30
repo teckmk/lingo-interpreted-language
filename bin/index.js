@@ -1,3 +1,3 @@
-#! /usr/env/node
+#! /usr/bin/env node
 
 require("../dist/main.js")
