@@ -22,7 +22,7 @@ export default class Environment {
       this.declareVar(
         "print",
         MK_NATIVE_FN((args: any[], _: Environment) => {
-          const vals = args.map((arg) => (arg.value ? arg.value : arg))
+          const vals = args.map((arg) => (arg.value != undefined ? arg.value : arg))
           console.log(...vals)
           return MK_NULL()
         }),

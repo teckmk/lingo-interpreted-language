@@ -51,6 +51,8 @@ function run(filename: string) {
 
   evaluate(program, env)
 
+  console.log("_________________________________________")
+
   console.log("Exited in", performance.now() - start, "milliseconds")
   require("fs").writeFileSync("ast.json", JSON.stringify(program))
 }
