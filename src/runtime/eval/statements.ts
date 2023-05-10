@@ -15,9 +15,7 @@ import { BooleanVal, FunctionVal, RuntimeVal } from "../values"
 export function eval_program(program: Program, env: Environment): RuntimeVal {
   let evaluated: RuntimeVal = MK_NULL()
 
-  for (const stmt of program.body) {
-    evaluated = evaluate(stmt, env)
-  }
+  for (const stmt of program.body) evaluated = evaluate(stmt, env)
 
   return evaluated
 }

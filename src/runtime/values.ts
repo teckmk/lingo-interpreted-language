@@ -1,4 +1,4 @@
-import { Stmt } from "../frontend/2-ast"
+import { Expr, Stmt } from "../frontend/2-ast"
 import Environment from "./environment"
 
 export type ValueType =
@@ -11,6 +11,7 @@ export type ValueType =
   | "function"
   | "conditional"
   | "whileloop"
+  | "array"
 
 export interface RuntimeVal {
   type: ValueType
@@ -67,4 +68,9 @@ export interface WhileLoopVal extends RuntimeVal {
   type: "whileloop"
   check: RuntimeVal
   body: Stmt[]
+}
+
+export interface ArrayVal extends RuntimeVal {
+  type: "array"
+  elements: RuntimeVal[]
 }

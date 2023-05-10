@@ -1,5 +1,5 @@
 import { MK_BOOL, MK_NATIVE_FN, MK_NULL } from "./macros"
-import { RuntimeVal } from "./values"
+import { ArrayVal, RuntimeVal } from "./values"
 
 export default class Environment {
   private parent?: Environment
@@ -25,6 +25,15 @@ export default class Environment {
           const vals = args.map((arg) => (arg.value != undefined ? arg.value : arg))
           console.log(...vals)
           return MK_NULL()
+        }),
+        true
+      )
+
+      this.declareVar(
+        "length",
+        MK_NATIVE_FN((args: any[], _: Environment) => {
+          const arr = args[0] as ArrayVal
+          return { type: "number", value: arr.elements.length }
         }),
         true
       )

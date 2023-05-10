@@ -15,6 +15,7 @@ import {
   IfElseStatement,
   WhileStatement,
   StringLiteral,
+  ArrayLiteral,
 } from "./2-ast"
 import { TokenType, Token, tokenize } from "./1-lexer"
 import { Placholder } from "../helpers"
@@ -42,6 +43,15 @@ export default class Parser {
     const prev = this.eat() as Token
     if (!prev || prev.type !== type) {
       console.log("Parser Error:\n", err, prev, "Expecting: ", type)
+      process.exit(1)
+    }
+    return prev
+  }
+
+  private expectOneOf(types: TokenType[], err: any) {
+    const prev = this.eat() as Token
+    if (!prev || types.indexOf(prev.type) === -1) {
+      console.log("Parser Error:\n", err, prev, "Expecting on of: ", types.join(" "))
       process.exit(1)
     }
     return prev
@@ -213,22 +223,34 @@ export default class Parser {
   }
 
   private parse_assignment_expr(): Expr {
-    const left = this.parse_object_expr()
+    const assigne = this.parse_assigne()
 
     if (this.at().type == TokenType.Equals) {
       this.eat()
       const value = this.parse_assignment_expr()
-      return { value, assigne: left, kind: "AssignmentExpr" } as AssignmentExpr
+      return { value, assigne, kind: "AssignmentExpr" } as AssignmentExpr
     }
 
-    return left
+    return assigne
+  }
+
+  private parse_array_expr(): Expr {
+    this.eat() // eat [ token
+
+    const elements = []
+
+    while (this.not_eof() && this.at().type != TokenType.CloseBracket) {
+      const el = this.parse_expr()
+      if (this.at().type == TokenType.Comma) this.eat() // eat comma
+      elements.push(el)
+    }
+
+    this.expect(TokenType.CloseBracket, "Expected ] in array declaration")
+
+    return { kind: "ArrayLiteral", elements } as ArrayLiteral
   }
 
   private parse_object_expr(): Expr {
-    if (this.at().type != TokenType.OpenBrace) {
-      return this.parse_comparitive_expr()
-    }
-
     this.eat() // eat opening brace
     const props = new Array<Property>()
 
@@ -260,6 +282,16 @@ export default class Parser {
 
     this.expect(TokenType.CloseBrace, "Object literal missing closing brace.")
     return { kind: "ObjectLiteral", properties: props } as ObjectLiteral
+  }
+
+  private parse_assigne(): Expr {
+    if (this.at().type == TokenType.OpenBracket) {
+      return this.parse_array_expr()
+    } else if (this.at().type == TokenType.OpenBrace) {
+      return this.parse_object_expr()
+    }
+
+    return this.parse_comparitive_expr()
   }
 
   private parse_comparitive_expr(): Expr {
@@ -376,7 +408,7 @@ export default class Parser {
         property = this.parse_primary_expr()
 
         if (property.kind != "Identifier")
-          throw new Error("Cannot use dot operator on token that is not identifier")
+          throw new Error("Dot operator can only be used on identifier")
       } else {
         // computed props
         computed = true

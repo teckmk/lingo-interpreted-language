@@ -8,12 +8,14 @@ import {
   eval_while_statement,
 } from "./eval/statements"
 import {
+  ArrayLiteral,
   AssignmentExpr,
   BinaryExpr,
   CallExpr,
   FunctionDeclaration,
   Identifier,
   IfElseStatement,
+  MemberExpr,
   NumericLiteral,
   ObjectLiteral,
   Program,
@@ -23,10 +25,12 @@ import {
   WhileStatement,
 } from "../frontend/2-ast"
 import {
+  eval_array_expr,
   eval_assignment,
   eval_binary_expr,
   eval_call_expr,
   eval_identifier,
+  eval_member_expr,
   eval_object_expr,
   eval_string_literal,
 } from "./eval/expression"
@@ -48,6 +52,8 @@ export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
       return eval_identifier(astNode as Identifier, env)
     case "ObjectLiteral":
       return eval_object_expr(astNode as ObjectLiteral, env)
+    case "ArrayLiteral":
+      return eval_array_expr(astNode as ArrayLiteral, env)
     case "CallExpr":
       return eval_call_expr(astNode as CallExpr, env)
     case "Program":
@@ -60,6 +66,8 @@ export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
       return eval_if_else_statement(astNode as IfElseStatement, env)
     case "WhileStatement":
       return eval_while_statement(astNode as WhileStatement, env)
+    case "MemberExpr":
+      return eval_member_expr(astNode as MemberExpr, env)
     default:
       console.error("This AST can't be interpreted! For now atleast!", astNode)
       process.exit(0)

@@ -1,9 +1,12 @@
-import { BooleanVal, FunctionVal, StringVal } from "./../values"
+import { ArrayVal, BooleanVal, FunctionVal, StringVal } from "./../values"
 import {
+  ArrayLiteral,
   AssignmentExpr,
   BinaryExpr,
   CallExpr,
   Identifier,
+  MemberExpr,
+  NumericLiteral,
   ObjectLiteral,
   StringLiteral,
 } from "../../frontend/2-ast"
@@ -85,6 +88,12 @@ export function eval_object_expr(obj: ObjectLiteral, env: Environment): RuntimeV
   return object
 }
 
+export function eval_array_expr(arr: ArrayLiteral, env: Environment): RuntimeVal {
+  const elements = arr.elements.map((el) => evaluate(el, env))
+
+  return { type: "array", elements } as ArrayVal
+}
+
 export function eval_call_expr(expr: CallExpr, env: Environment): RuntimeVal {
   const args = expr.args.map((arg) => evaluate(arg, env))
   const fn = evaluate(expr.caller, env)
@@ -141,4 +150,34 @@ export function eval_string_literal(node: StringLiteral, env: Environment): Runt
   }
 
   return { type: "string", value: str } as StringVal
+}
+
+export function eval_member_expr(expr: MemberExpr, env: Environment): RuntimeVal {
+  const varname = (expr.object as Identifier).symbol
+  const ident = env.resolve(varname).lookupVar(varname)
+
+  switch (ident.type) {
+    case "array":
+      const arr = ident as ArrayVal
+      if (expr.property.kind == "NumericLiteral") {
+        const index = expr.property as NumericLiteral
+
+        if (index.value >= arr.elements.length)
+          throw new Error(`Index ${index.value} is out of bounds of the array '${varname}'`)
+
+        return arr.elements[index.value]
+      } else if (expr.property.kind == "Identifier") {
+        const indexIdent = expr.property as Identifier
+        const index = env.resolve(indexIdent.symbol).lookupVar(indexIdent.symbol)
+        if (index.type !== "number") throw new Error("Index must be a number")
+
+        return arr.elements[(index as NumberVal).value]
+      }
+    case "object":
+      const obj = ident as ObjectVal
+      return {} as RuntimeVal
+
+    default:
+      throw new Error("Cannot identify the type of variable")
+  }
 }
