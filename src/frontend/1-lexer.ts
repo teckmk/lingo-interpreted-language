@@ -35,7 +35,7 @@ export enum TokenType {
 }
 
 const KEYWORDS: Record<string, TokenType> = {
-  let: TokenType.Let,
+  var: TokenType.Let,
   const: TokenType.Const,
   fn: TokenType.Fn,
   if: TokenType.If,
