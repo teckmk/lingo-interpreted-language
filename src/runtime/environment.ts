@@ -33,6 +33,7 @@ export default class Environment {
         "length",
         MK_NATIVE_FN((args: any[], _: Environment) => {
           const arr = args[0] as ArrayVal
+          if (arr.type !== "array") throw new Error(`Cannot get length of type '${arr.type}'`)
           return { type: "number", value: arr.elements.length }
         }),
         true

@@ -4,7 +4,7 @@ import Parser from "./frontend/3-parser"
 import Environment from "./runtime/environment"
 
 import { evaluate } from "./runtime/interpreter"
-import { prompt, validateFilename } from "./helper"
+import { prompt, validateFilename, emitTempFile } from "./helpers"
 
 main()
 
@@ -52,7 +52,7 @@ function run(filename: string) {
   evaluate(program, env)
 
   console.log("_________________________________________")
-
   console.log("Exited in", performance.now() - start, "milliseconds")
-  require("fs").writeFileSync("ast.json", JSON.stringify(program))
+
+  emitTempFile("ast.json", JSON.stringify(program))
 }

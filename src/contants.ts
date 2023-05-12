@@ -1,1 +1,1 @@
-export const EXT = ".lingo"
+export const EXT = ".lo"

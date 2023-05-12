@@ -18,7 +18,7 @@ import {
   ArrayLiteral,
 } from "./2-ast"
 import { TokenType, Token, tokenize } from "./1-lexer"
-import { Placholder } from "../helpers"
+import { Placholder, emitTempFile } from "../helpers"
 
 export default class Parser {
   constructor(inputString?: string) {
@@ -492,16 +492,16 @@ export default class Parser {
   // 0
   public produceAST(sourceCode: string): Program {
     this.tokens = tokenize(sourceCode)
-    require("fs").writeFileSync("tokens.json", JSON.stringify(this.tokens))
+
+    emitTempFile("tokens.json", JSON.stringify(this.tokens))
 
     const program: Program = {
       kind: "Program",
       body: [],
     }
 
-    while (this.not_eof()) {
-      program.body.push(this.parse_stmt())
-    }
+    while (this.not_eof()) program.body.push(this.parse_stmt())
+
     return program
   }
 }
