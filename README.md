@@ -138,6 +138,35 @@ const result = padder(10)(5,20)
 print(result) // 35
 ```
 
+## Operators
+
+| Operator | Description            |
+| -------- | ---------------------- |
+| >        | Greater Than           |
+| >=       | Greater Than Or Equals |
+| <        | Less Than              |
+| <=       | Less Than Or Equals    |
+| ==       | Equals                 |
+| !=       | Not Equals             |
+| =        | Assignment             |
+| &&       | And                    |
+| \|\|     | Or                     |
+| and      | And                    |
+| or       | Or                     |
+
+## Keywords
+
+| Keyword | Description         |
+| ------- | ------------------- |
+| var     | Declares a variable |
+| const   | Declares a constant |
+| while   | Loop                |
+| if      | Conditional         |
+| else    | Conditional         |
+| fn      | Declares a function |
+| and     | Logical 'and'       |
+| or      | Logical 'or'        |
+
 # In Progress
 
 - Comments
