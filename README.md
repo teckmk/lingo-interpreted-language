@@ -36,7 +36,7 @@
 - Constants, that cannot be reassigned
   ```javascript
   const numDaysInWeek = 7
-  numDaysInWeek = 8 // Error, cannot reassign a constant
+  numDaysInWeek = 8
   ```
 
 ## Strings and Interpolation
@@ -50,13 +50,22 @@ var name = "John Doe"
 To evaluate a variable inside the string prefix variable with $
 
 ```dart
-const message = "My name is $name" // Evaluates to: My name is John Doe
+const message = "My name is $name"
 ```
 
 To insert expressions in strings ${} syntax is used
 
 ```dart
-const result = "2 + 2 = ${2 + 2}" // Evaluates to: 2 + 2 = 4
+const result = "2 + 2 = ${2 + 2}"
+```
+
+## Comments
+
+Anything that starts with # is considered as comment and ignored
+
+```php
+# This is a comment
+print("Hello") # Prints Hello
 ```
 
 ## Printing to console
@@ -64,13 +73,13 @@ const result = "2 + 2 = ${2 + 2}" // Evaluates to: 2 + 2 = 4
 `print` is built-in function that is used to log the output
 
 ```javascript
-print("Hello World!") // Hello World!
+print("Hello World!")
 
-print(5 + 9) // 14
+print(5 + 9)
 
 const PI = 1.1314
 
-print("PI is $PI") // PI is 1.1314
+print("PI is $PI")
 ```
 
 ## Conditionals
@@ -135,7 +144,7 @@ fn padder(padding){
 }
 
 const result = padder(10)(5,20)
-print(result) // 35
+print(result)
 ```
 
 ## Operators
