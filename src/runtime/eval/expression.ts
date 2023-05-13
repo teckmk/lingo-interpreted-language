@@ -49,8 +49,11 @@ export function eval_boolean_binary_expr(
   operator: string
 ): BooleanVal {
   let result = false
+
   if (operator == "==") result = lhs.value == rhs.value
   else if (operator == "!=") result = lhs.value != rhs.value
+  else if (operator == "&&" || operator == "and") result = lhs.value && rhs.value
+  else if (operator == "||" || operator == "or") result = lhs.value || rhs.value
 
   return { type: "boolean", value: result }
 }

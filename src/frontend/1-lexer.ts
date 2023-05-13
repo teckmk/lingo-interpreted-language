@@ -41,6 +41,8 @@ const KEYWORDS: Record<string, TokenType> = {
   if: TokenType.If,
   else: TokenType.Else,
   while: TokenType.While,
+  and: TokenType.And,
+  or: TokenType.Or,
 }
 
 export interface Token {
@@ -54,10 +56,6 @@ function token(value = "", type: TokenType) {
 
 function isalpha(src: string) {
   return src.toUpperCase() !== src.toLowerCase()
-}
-
-function isComparisonChar(src: string) {
-  return ["=", "!", ">", "<", "&", "|"].includes(src)
 }
 
 function isint(src: string) {
@@ -106,12 +104,11 @@ export function tokenize(sourceCode: string): Token[] {
     } else if (src[0] === "<") {
       if (src[1] === "=") tokens.push(token(src.shift() + src.shift()!, TokenType.LessThanOrEqual))
       else tokens.push(token(src.shift(), TokenType.LessThan))
+    } else if (src[0] === "|") {
+      if (src[1] === "|") tokens.push(token(src.shift() + src.shift()!, TokenType.Or))
+    } else if (src[0] === "&") {
+      if (src[1] === "&") tokens.push(token(src.shift() + src.shift()!, TokenType.And))
     }
-    //  else if (src[0] === "|") {
-    //   if (src[1] === "|") tokens.push(token(src.shift() + src.shift()!, TokenType.Or))
-    // } else if (src[0] === "&") {
-    //   if (src[1] === "&") tokens.push(token(src.shift() + src.shift()!, TokenType.And))
-    // }
     // multi char tokens
     else {
       if (isint(src[0])) {
@@ -121,7 +118,8 @@ export function tokenize(sourceCode: string): Token[] {
         tokens.push(token(num, TokenType.Number))
       } else if (isalpha(src[0])) {
         let str = ""
-        while (src.length > 0 && isalpha(src[0])) str += src.shift()
+        while (src.length > 0 && (isalpha(src[0]) || isint(src[0]) || src[0] == "_"))
+          str += src.shift()
 
         // check for reserved keywords
         const reserved = KEYWORDS[str]

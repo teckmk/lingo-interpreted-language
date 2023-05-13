@@ -48,15 +48,6 @@ export default class Parser {
     return prev
   }
 
-  private expectOneOf(types: TokenType[], err: any) {
-    const prev = this.eat() as Token
-    if (!prev || types.indexOf(prev.type) === -1) {
-      console.log("Parser Error:\n", err, prev, "Expecting on of: ", types.join(" "))
-      process.exit(1)
-    }
-    return prev
-  }
-
   // 1.
   private parse_stmt(): Stmt {
     switch (this.at().type) {
@@ -303,7 +294,11 @@ export default class Parser {
       this.at().value == "<" ||
       this.at().value == "<=" ||
       this.at().value == "==" ||
-      this.at().value == "!="
+      this.at().value == "!=" ||
+      this.at().value == "&&" ||
+      this.at().value == "||" ||
+      this.at().value == "and" ||
+      this.at().value == "or"
     ) {
       const operator = this.eat().value
       const right = this.parse_additive_expr()
