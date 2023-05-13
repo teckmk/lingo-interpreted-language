@@ -181,7 +181,7 @@ export default class Parser {
 
     const identifier = this.expect(
       TokenType.Identifier,
-      "Expected identifier name following let | const keywords."
+      "Expected identifier name following variable declarator."
     ).value
 
     if (this.at().type == TokenType.Semicolon) {
@@ -202,8 +202,6 @@ export default class Parser {
       identifier,
       constant: isConstant,
     } as VarDeclaration
-
-    this.expect(TokenType.Semicolon, "Variable declaration statement must end with semicolon")
 
     return declaration
   }
