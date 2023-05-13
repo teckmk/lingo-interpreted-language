@@ -26,7 +26,8 @@ async function repl() {
   const parser = new Parser()
   const env = new Environment()
 
-  console.log("\nmlang REPL v0.1")
+  console.clear()
+  console.log("\nlingo REPL v0.1")
 
   while (true) {
     const input = await prompt("> ")
