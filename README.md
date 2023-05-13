@@ -33,6 +33,14 @@
   someVar = 20
   ```
 
+  Variables, can also be declared but initialized
+  later
+
+  ```php
+  var name; # Note the semicolon, it is mandatory here
+  name = "John Doe"
+  ```
+
 - Constants, that cannot be reassigned
   ```javascript
   const numDaysInWeek = 7
