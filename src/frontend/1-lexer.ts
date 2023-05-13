@@ -128,8 +128,6 @@ export function tokenize(sourceCode: string): Token[] {
         } else {
           tokens.push(token(str, TokenType.Identifier))
         }
-      } else if (isskippable(src[0])) {
-        src.shift()
       } else if (src[0] === '"') {
         // handling strings
         src.shift() // remove start quote
@@ -137,6 +135,20 @@ export function tokenize(sourceCode: string): Token[] {
         while (src.length > 0 && src[0] !== '"') str += src.shift()
         src.shift() // remove end quote
         tokens.push(token(str, TokenType.String))
+      } else if (src[0] === "#") {
+        src.shift() // remove hash token
+
+        if (os.EOL.length > 1) {
+          // @ts-ignore
+          while (src.length > 0 && src[0] !== "\n" && src[1] !== "\r") src.shift()
+          src.shift() // remove \n
+          src.shift() // remove \r
+        } else {
+          while (src.length > 0 && src[0] !== os.EOL) src.shift()
+          src.shift() // remove \n
+        }
+      } else if (isskippable(src[0])) {
+        src.shift()
       } else {
         console.log("Unidentified token in source: ", src[0])
         process.exit()

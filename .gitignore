@@ -3,3 +3,4 @@ dist
 
 tests
 *.json
+_temp_
