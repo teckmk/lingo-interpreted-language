@@ -1,1 +1,1 @@
-export const EXT = ".lo"
+export const EXT = ".cow"

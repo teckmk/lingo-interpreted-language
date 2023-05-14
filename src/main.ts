@@ -27,7 +27,7 @@ async function repl() {
   const env = new Environment()
 
   console.clear()
-  console.log("\nlingo REPL v0.1")
+  console.log("\ncowlang REPL v0.1")
 
   while (true) {
     const input = await prompt("> ")

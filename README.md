@@ -1,11 +1,12 @@
 # Getting Started
 
-`lingo` is a toy programming language created for learning interpretors.
+`cowlang` is a toy programming language created for learning interpretors.
 
 ## Requirements
 
 - Node.js
 - Typescript
+- Cowlang Language Support [(VS Code Extension)](https://marketplace.visualstudio.com/items?itemName=skmaky.cowlang)
 
 ## Installation
 
@@ -18,13 +19,13 @@
    ```bash
    npm install . -g
    ```
-4. Now you can run `lingo` code files that end with `.lo` extenstion
+4. Now you can run `cowlang` code files that end with `.lo` extenstion
 
 # Syntax
 
 ## Variables
 
-`lingo` supports two kinds of variables, one which can be reassigned and other which are constant and cannot be reassigned.
+`cowlang` supports two kinds of variables, one which can be reassigned and other which are constant and cannot be reassigned.
 
 - Variables, that can be reassigned
 
@@ -140,7 +141,7 @@ fn add(a,b){
 }
 ```
 
-> Note: Functions in `lingo` automatically return last evaluated result
+> Note: Functions in `cowlang` automatically return last evaluated result
 
 Functions can return functions, that are executed by appending another pair of parens
 

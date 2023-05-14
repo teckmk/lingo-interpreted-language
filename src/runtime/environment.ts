@@ -1,5 +1,13 @@
 import { MK_BOOL, MK_NATIVE_FN, MK_NULL } from "./macros"
-import { ArrayVal, RuntimeVal } from "./values"
+import {
+  ArrayVal,
+  RuntimeVal,
+  BooleanVal,
+  FunctionVal,
+  NumberVal,
+  StringVal,
+  NullVal,
+} from "./values"
 
 export default class Environment {
   private parent?: Environment
@@ -21,9 +29,22 @@ export default class Environment {
       // global native functions
       this.declareVar(
         "print",
-        MK_NATIVE_FN((args: any[], _: Environment) => {
-          const vals = args.map((arg) => (arg.value != undefined ? arg.value : arg))
-          console.log(...vals)
+        MK_NATIVE_FN((args: RuntimeVal[], _: Environment) => {
+          const getValue = (arg: RuntimeVal): any => {
+            if (arg.hasOwnProperty("value"))
+              return (arg as StringVal | NumberVal | BooleanVal | NullVal).value
+            else if (arg.type == "array") {
+              return (arg as ArrayVal).elements.map(getValue)
+            } else if (arg.type == "function") {
+              const fn = arg as FunctionVal
+              return `fn ${fn.name}(${fn.paramteres.join()})`
+            } else {
+              return arg
+            }
+          }
+
+          console.log(...args.map((arg) => getValue(arg)))
+
           return MK_NULL()
         }),
         true
