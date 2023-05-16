@@ -19,7 +19,7 @@
    ```bash
    npm install . -g
    ```
-4. Now you can run `cowlang` code files that end with `.lo` extenstion
+4. Now you can run `cowlang` code files that end with `.cow` extenstion
 
 # Running Code
 Code files in `cowlang` have `.cow` extension. In order to run your cow file, run:
