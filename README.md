@@ -21,6 +21,26 @@
    ```
 4. Now you can run `cowlang` code files that end with `.lo` extenstion
 
+# Running Code
+Code files in `cowlang` have `.cow` extension. In order to run your cow file, run:
+
+```bash
+cowlang milk-production.cow
+```
+Above command will run file named `milk-production.cow`
+
+# REPL
+Cowlang has built-in support to run code directly in the terminal. Just like Node REPL there's a cowlang REPL.  
+To enter in REPL, run:
+```bash
+cowlang
+```
+Running above command print something like below:
+```bash
+cowlang REPL vx.y.x
+>
+```
+Now you can write your code directly inside terminal, and it gets **executed** everytime you press **enter**.
 # Syntax
 
 ## Variables
