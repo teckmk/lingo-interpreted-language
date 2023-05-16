@@ -30,13 +30,18 @@ async function repl() {
   console.log("\ncowlang REPL v0.1")
 
   while (true) {
-    const input = await prompt("> ")
+    try {
+      const input = await prompt("> ")
 
-    if (input.includes(".exit")) process.exit(1)
+      if (input.includes(".exit")) process.exit(1)
 
-    const program = parser.produceAST(input)
+      const program = parser.produceAST(input)
 
-    evaluate(program, env)
+      evaluate(program, env)
+    } catch (err) {
+      // @ts-ignore
+      console.log(err.message)
+    }
   }
 }
 
