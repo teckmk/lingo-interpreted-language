@@ -33,10 +33,13 @@ export interface AssignmentExpr extends Expr {
   value: Expr
 }
 
+export type Type = "string" | "number" | "bool" | "array" | "object" | "dynamic"
+
 export interface VarDeclaration extends Stmt {
   kind: "VarDeclaration"
   constant: boolean
   identifier: string
+  type?: Type
   value?: Expr
 }
 

@@ -21,7 +21,17 @@ export function eval_program(program: Program, env: Environment): RuntimeVal {
 }
 
 export function eval_var_declaration(declaration: VarDeclaration, env: Environment): RuntimeVal {
-  const value = declaration.value ? evaluate(declaration.value, env) : MK_NULL()
+  let value = declaration.value ? evaluate(declaration.value, env) : MK_NULL()
+
+  if (declaration.type) {
+    if (declaration.type !== "dynamic" && declaration.type !== value.type) {
+      throw new Error(
+        `Can't initialize variable of type ${declaration.type} with value of type ${value.type}`
+      )
+    } else if (declaration.type === "dynamic") {
+      value = { ...value, type: "dynamic" }
+    }
+  }
 
   return env.declareVar(declaration.identifier, value, declaration.constant)
 }

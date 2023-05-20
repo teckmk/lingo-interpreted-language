@@ -16,10 +16,14 @@ import {
   WhileStatement,
   StringLiteral,
   ArrayLiteral,
+  Type,
 } from "./2-ast"
 import { TokenType, Token, tokenize } from "./1-lexer"
 import { Placholder, emitTempFile } from "../helpers"
 
+enum SearchGroup {
+  TypeAnnotation,
+}
 export default class Parser {
   constructor(inputString?: string) {
     if (inputString) this.tokens = tokenize(inputString)
@@ -43,6 +47,15 @@ export default class Parser {
     const prev = this.eat() as Token
     if (!prev || prev.type !== type) {
       console.log("Parser Error:\n", err, prev, "Expecting: ", type)
+      process.exit(1)
+    }
+    return prev
+  }
+
+  private expectOneOf(group: SearchGroup, types: TokenType[], err: any) {
+    const prev = this.eat() as Token
+    if (!prev || !types.includes(prev.type)) {
+      console.log("Parser Error:\n", err, prev, "Expecting: ", group)
       process.exit(1)
     }
     return prev
@@ -184,6 +197,24 @@ export default class Parser {
       "Expected identifier name following variable declarator."
     ).value
 
+    let type: Type | undefined
+
+    if (this.at().type == TokenType.Colon) {
+      this.eat() // eat :
+      type = this.expectOneOf(
+        SearchGroup.TypeAnnotation,
+        [
+          TokenType.ArrayType,
+          TokenType.NumberType,
+          TokenType.ObjectType,
+          TokenType.StringType,
+          TokenType.BooleanType,
+          TokenType.DynamicType,
+        ],
+        "Expected valid type annotation following ':'"
+      ).value as Type
+    }
+
     if (this.at().type == TokenType.Semicolon) {
       this.eat() // expect semicolon 🤔
       if (isConstant) {
@@ -191,7 +222,7 @@ export default class Parser {
         process.exit()
       }
 
-      return { kind: "VarDeclaration", identifier, constant: false } as VarDeclaration
+      return { kind: "VarDeclaration", identifier, constant: false, type } as VarDeclaration
     }
 
     this.expect(TokenType.Equals, "Expected equals token following identifier in var declaration.")
@@ -201,6 +232,7 @@ export default class Parser {
       value: this.parse_expr(),
       identifier,
       constant: isConstant,
+      type,
     } as VarDeclaration
 
     return declaration

@@ -9,6 +9,7 @@ import {
   NumericLiteral,
   ObjectLiteral,
   StringLiteral,
+  Type,
 } from "../../frontend/2-ast"
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
@@ -115,7 +116,7 @@ export function eval_call_expr(expr: CallExpr, env: Environment): RuntimeVal {
     // TODO Better error handling here
     if (args.length != numParams)
       throw new Error(
-        `Num of params passed to the function are greater of less than defined args in functin declaration`
+        `Num of params passed to the function are greater or less than defined args in functin declaration`
       )
 
     // create variables for params
@@ -130,14 +131,15 @@ export function eval_call_expr(expr: CallExpr, env: Environment): RuntimeVal {
     return result
   }
 
-  throw new Error("Cannot call value that is not function")
+  throw new Error("Cannot call value that is not a function")
 }
 
 export function eval_assignment(node: AssignmentExpr, env: Environment): RuntimeVal {
   if (node.assigne.kind !== "Identifier") throw new Error("Invalid LHS inside assignment expr")
-
   const varname = (node.assigne as Identifier).symbol
-  return env.assignVar(varname, evaluate(node.value, env))
+  const value = evaluate(node.value, env)
+
+  return env.assignVar(varname, value)
 }
 
 export function eval_string_literal(node: StringLiteral, env: Environment): RuntimeVal {

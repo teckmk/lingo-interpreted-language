@@ -1,3 +1,4 @@
+import { Type } from "../frontend/2-ast"
 import { MK_BOOL, MK_NATIVE_FN, MK_NULL } from "./macros"
 import {
   ArrayVal,
@@ -7,6 +8,7 @@ import {
   NumberVal,
   StringVal,
   NullVal,
+  ValueType,
 } from "./values"
 
 export default class Environment {
@@ -79,9 +81,21 @@ export default class Environment {
     if (this.constants.has(varname))
       throw new Error(`Cannot assign to a constant variable "${varname}"`)
 
-    env.variables.set(varname, value)
+    const prevVal = env.lookupVar(varname)
 
-    return value
+    let valueWithType = value
+
+    if (prevVal.type == "dynamic") {
+      valueWithType = { ...value, type: "dynamic" }
+    } else if (prevVal.type != value.type) {
+      throw new Error(
+        `Can't assign a value of type ${value.type} to a variable of type ${prevVal.type}`
+      )
+    }
+
+    env.variables.set(varname, valueWithType)
+
+    return valueWithType
   }
 
   public resolve(varname: string): Environment {

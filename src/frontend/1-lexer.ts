@@ -32,6 +32,14 @@ export enum TokenType {
   CloseBracket, // ]
   BinaryOperator,
   EOF,
+
+  // types
+  NumberType,
+  StringType,
+  ArrayType,
+  BooleanType,
+  ObjectType,
+  DynamicType,
 }
 
 const KEYWORDS: Record<string, TokenType> = {
@@ -43,6 +51,15 @@ const KEYWORDS: Record<string, TokenType> = {
   while: TokenType.While,
   and: TokenType.And,
   or: TokenType.Or,
+}
+
+const TYPES: Record<string, TokenType> = {
+  boolean: TokenType.BooleanType,
+  number: TokenType.NumberType,
+  string: TokenType.StringType,
+  array: TokenType.ArrayType,
+  object: TokenType.ObjectType,
+  dynamic: TokenType.DynamicType,
 }
 
 export interface Token {
@@ -123,8 +140,14 @@ export function tokenize(sourceCode: string): Token[] {
 
         // check for reserved keywords
         const reserved = KEYWORDS[str]
+
+        // check for built-in types
+        const builtInType = TYPES[str]
+
         if (typeof reserved === "number") {
           tokens.push(token(str, reserved))
+        } else if (typeof builtInType === "number") {
+          tokens.push(token(str, builtInType))
         } else {
           tokens.push(token(str, TokenType.Identifier))
         }

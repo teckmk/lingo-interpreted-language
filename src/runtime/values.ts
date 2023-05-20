@@ -12,6 +12,7 @@ export type ValueType =
   | "conditional"
   | "whileloop"
   | "array"
+  | "dynamic"
 
 export interface RuntimeVal {
   type: ValueType
