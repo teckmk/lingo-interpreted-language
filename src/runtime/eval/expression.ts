@@ -121,7 +121,7 @@ export function eval_call_expr(expr: CallExpr, env: Environment): RuntimeVal {
 
     // create variables for params
     for (let i = 0; i < numParams; i++) {
-      scope.declareVar(fnc.paramteres[i], args[i], false)
+      scope.declareVar(fnc.paramteres[i], args[i], "variable")
     }
 
     let result: RuntimeVal = MK_NULL()

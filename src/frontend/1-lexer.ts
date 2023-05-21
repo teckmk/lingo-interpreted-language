@@ -7,6 +7,7 @@ export enum TokenType {
   Equals,
   Let,
   Const,
+  Final,
   Fn,
   If,
   Else,
@@ -45,6 +46,7 @@ export enum TokenType {
 const KEYWORDS: Record<string, TokenType> = {
   var: TokenType.Let,
   const: TokenType.Const,
+  final: TokenType.Final,
   fn: TokenType.Fn,
   if: TokenType.If,
   else: TokenType.Else,

@@ -34,10 +34,11 @@ export interface AssignmentExpr extends Expr {
 }
 
 export type Type = "string" | "number" | "bool" | "array" | "object" | "dynamic"
+export type VarModifier = "constant" | "final" | "variable"
 
 export interface VarDeclaration extends Stmt {
   kind: "VarDeclaration"
-  constant: boolean
+  modifier: VarModifier
   identifier: string
   type?: Type
   value?: Expr

@@ -1,4 +1,4 @@
-import { Type } from "../frontend/2-ast"
+import { Type, VarModifier } from "../frontend/2-ast"
 import { MK_BOOL, MK_NATIVE_FN, MK_NULL } from "./macros"
 import {
   ArrayVal,
@@ -15,18 +15,20 @@ export default class Environment {
   private parent?: Environment
   private variables: Map<string, RuntimeVal>
   private constants: Set<string>
+  private finals: Set<string>
 
   constructor(parentEnv?: Environment) {
     this.parent = parentEnv
     this.variables = new Map()
     this.constants = new Set()
+    this.finals = new Set()
 
     const global = Boolean(parentEnv) == false
     if (global) {
       // global variables
-      this.declareVar("true", MK_BOOL(true), true)
-      this.declareVar("false", MK_BOOL(false), true)
-      this.declareVar("null", MK_NULL(), true)
+      this.declareVar("true", MK_BOOL(true), "constant")
+      this.declareVar("false", MK_BOOL(false), "constant")
+      this.declareVar("null", MK_NULL(), "constant")
 
       // global native functions
       this.declareVar(
@@ -49,7 +51,7 @@ export default class Environment {
 
           return MK_NULL()
         }),
-        true
+        "final"
       )
 
       this.declareVar(
@@ -59,16 +61,23 @@ export default class Environment {
           if (arr.type !== "array") throw new Error(`Cannot get length of type '${arr.type}'`)
           return { type: "number", value: arr.elements.length }
         }),
-        true
+        "final"
       )
     }
   }
 
-  public declareVar(varname: string, value: RuntimeVal, constant: boolean): RuntimeVal {
+  public declareVar(varname: string, value: RuntimeVal, modifier: VarModifier): RuntimeVal {
     if (this.variables.has(varname))
-      throw new Error(`Cannot declare vairable ${varname}. As it already is defined.`)
+      throw new Error(`Cannot declare variable ${varname}. As it already is defined.`)
 
-    if (constant) this.constants.add(varname)
+    switch (modifier) {
+      case "final":
+        this.finals.add(varname)
+        break
+      case "constant":
+        this.constants.add(varname)
+        break
+    }
 
     this.variables.set(varname, value)
     return value
@@ -77,8 +86,9 @@ export default class Environment {
   public assignVar(varname: string, value: RuntimeVal): RuntimeVal {
     const env = this.resolve(varname)
 
-    // Can't assign to a constant variable
-    if (this.constants.has(varname))
+    // Can't assign to a constant or final variable
+    if (this.finals.has(varname)) throw new Error(`Cannot assign to a final variable "${varname}"`)
+    else if (this.constants.has(varname))
       throw new Error(`Cannot assign to a constant variable "${varname}"`)
 
     const prevVal = env.lookupVar(varname)

@@ -66,6 +66,7 @@ export default class Parser {
     switch (this.at().type) {
       case TokenType.Let:
       case TokenType.Const:
+      case TokenType.Final:
         return this.parse_var_declaration()
       case TokenType.Fn:
         return this.parse_fn_declaration()
@@ -190,7 +191,10 @@ export default class Parser {
   }
 
   private parse_var_declaration(): Stmt {
-    const isConstant = this.eat().type == TokenType.Const
+    const declaratorType = this.eat().type
+
+    const isConstant = declaratorType == TokenType.Const
+    const isFinal = declaratorType == TokenType.Final
 
     const identifier = this.expect(
       TokenType.Identifier,
@@ -199,6 +203,7 @@ export default class Parser {
 
     let type: Type | undefined
 
+    // Check for types
     if (this.at().type == TokenType.Colon) {
       this.eat() // eat :
       type = this.expectOneOf(
@@ -217,12 +222,21 @@ export default class Parser {
 
     if (this.at().type == TokenType.Semicolon) {
       this.eat() // expect semicolon 🤔
-      if (isConstant) {
+
+      if (isFinal) {
+        console.log("Must assign value to final expression. No value provided.")
+        process.exit()
+      } else if (isConstant) {
         console.log("Must assign value to constant expression. No value provided.")
         process.exit()
       }
 
-      return { kind: "VarDeclaration", identifier, constant: false, type } as VarDeclaration
+      return {
+        kind: "VarDeclaration",
+        identifier,
+        modifier: "variable",
+        type,
+      } as VarDeclaration
     }
 
     this.expect(TokenType.Equals, "Expected equals token following identifier in var declaration.")
@@ -231,7 +245,7 @@ export default class Parser {
       kind: "VarDeclaration",
       value: this.parse_expr(),
       identifier,
-      constant: isConstant,
+      modifier: isFinal ? "final" : isConstant ? "constant" : "variable",
       type,
     } as VarDeclaration
 

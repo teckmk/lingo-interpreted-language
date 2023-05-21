@@ -33,7 +33,7 @@ export function eval_var_declaration(declaration: VarDeclaration, env: Environme
     }
   }
 
-  return env.declareVar(declaration.identifier, value, declaration.constant)
+  return env.declareVar(declaration.identifier, value, declaration.modifier)
 }
 
 export function eval_fn_declaration(
@@ -48,7 +48,7 @@ export function eval_fn_declaration(
     body: declaration.body,
   } as FunctionVal
 
-  return env.declareVar(declaration.name, fn, true)
+  return env.declareVar(declaration.name, fn, "final")
 }
 
 export function eval_code_block(block: Stmt[], parentEnv: Environment) {
