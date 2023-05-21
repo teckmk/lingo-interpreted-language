@@ -10,6 +10,7 @@ export type NodeType =
   | "MemberExpr"
   | "CallExpr"
   | "BinaryExpr"
+  | "FunctionParam"
   // Literals
   | "Property"
   | "ObjectLiteral"
@@ -44,10 +45,17 @@ export interface VarDeclaration extends Stmt {
   value?: Expr
 }
 
+export interface FunctionParam extends Stmt {
+  kind: "FunctionParam"
+  name: string
+  type?: Type
+  default?: Expr // to assign a default value
+}
+
 export interface FunctionDeclaration extends Stmt {
   kind: "FunctionDeclaration"
   name: string
-  parameters: string[]
+  parameters: FunctionParam[]
   body: Stmt[]
 }
 

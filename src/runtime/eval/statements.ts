@@ -10,7 +10,7 @@ import {
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
 import { MK_NULL } from "../macros"
-import { BooleanVal, FunctionVal, RuntimeVal } from "../values"
+import { BooleanVal, FunctionVal, ParamVal, RuntimeVal } from "../values"
 
 export function eval_program(program: Program, env: Environment): RuntimeVal {
   let evaluated: RuntimeVal = MK_NULL()
@@ -40,10 +40,19 @@ export function eval_fn_declaration(
   declaration: FunctionDeclaration,
   env: Environment
 ): RuntimeVal {
+  const parameters = declaration.parameters.map(
+    (param) =>
+      ({
+        type: "paramter",
+        name: param.name,
+        valueType: param.type,
+        default: param.default ? evaluate(param.default, env) : MK_NULL(),
+      } as ParamVal)
+  )
   const fn = {
     type: "function",
     name: declaration.name,
-    paramteres: declaration.parameters,
+    parameters,
     declarationEnv: env,
     body: declaration.body,
   } as FunctionVal

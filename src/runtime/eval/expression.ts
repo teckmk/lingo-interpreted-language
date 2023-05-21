@@ -110,18 +110,25 @@ export function eval_call_expr(expr: CallExpr, env: Environment): RuntimeVal {
   if (fn.type == "function") {
     const fnc = fn as FunctionVal
     const scope = new Environment(fnc.declarationEnv)
-    const numParams = fnc.paramteres.length
+    const numParams = fnc.parameters.length
 
     // Check if we got args for all params (params are required by default)
     // TODO Better error handling here
     if (args.length != numParams)
       throw new Error(
-        `Num of params passed to the function are greater or less than defined args in functin declaration`
+        `Num of params passed to the function are greater or less than defined args in function declaration`
       )
 
     // create variables for params
     for (let i = 0; i < numParams; i++) {
-      scope.declareVar(fnc.paramteres[i], args[i], "variable")
+      const param = fnc.parameters[i]
+      const arg = args[i]
+      scope.declareVar(
+        param.name,
+        arg.type != "null" ? arg : param.default,
+        "variable",
+        param.valueType
+      )
     }
 
     let result: RuntimeVal = MK_NULL()

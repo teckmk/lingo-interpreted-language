@@ -1,4 +1,4 @@
-import { Expr, Stmt } from "../frontend/2-ast"
+import { Expr, Stmt, Type } from "../frontend/2-ast"
 import Environment from "./environment"
 
 export type ValueType =
@@ -9,6 +9,7 @@ export type ValueType =
   | "object"
   | "nativefn"
   | "function"
+  | "paramter"
   | "conditional"
   | "whileloop"
   | "array"
@@ -49,10 +50,17 @@ export interface NativeFnVal extends RuntimeVal {
   call: FunctionCall
 }
 
+export interface ParamVal extends RuntimeVal {
+  type: "paramter"
+  name: string
+  valueType?: ValueType
+  default: RuntimeVal // to assign a default value
+}
+
 export interface FunctionVal extends RuntimeVal {
   type: "function"
   name: string
-  paramteres: string[]
+  parameters: ParamVal[]
   declarationEnv: Environment
   body: Stmt[]
 }

@@ -41,7 +41,7 @@ export default class Environment {
               return (arg as ArrayVal).elements.map(getValue)
             } else if (arg.type == "function") {
               const fn = arg as FunctionVal
-              return `fn ${fn.name}(${fn.paramteres.join()})`
+              return `fn ${fn.name}(${fn.parameters.join()})`
             } else {
               return arg
             }
@@ -66,7 +66,24 @@ export default class Environment {
     }
   }
 
-  public declareVar(varname: string, value: RuntimeVal, modifier: VarModifier): RuntimeVal {
+  private assertType(varType: ValueType, value: RuntimeVal) {
+    let valueWithType = value
+
+    if (value.type == "dynamic") {
+      valueWithType = { ...value, type: "dynamic" }
+    } else if (value.type != varType) {
+      throw new Error(`Can't assign a value of type ${value.type} to a variable of type ${varType}`)
+    }
+
+    return valueWithType
+  }
+
+  public declareVar(
+    varname: string,
+    value: RuntimeVal,
+    modifier: VarModifier,
+    type?: ValueType
+  ): RuntimeVal {
     if (this.variables.has(varname))
       throw new Error(`Cannot declare variable ${varname}. As it already is defined.`)
 
@@ -79,8 +96,11 @@ export default class Environment {
         break
     }
 
-    this.variables.set(varname, value)
-    return value
+    let valueWithType = value
+    if (type) valueWithType = this.assertType(type, value)
+    this.variables.set(varname, valueWithType)
+
+    return valueWithType
   }
 
   public assignVar(varname: string, value: RuntimeVal): RuntimeVal {
@@ -93,15 +113,7 @@ export default class Environment {
 
     const prevVal = env.lookupVar(varname)
 
-    let valueWithType = value
-
-    if (prevVal.type == "dynamic") {
-      valueWithType = { ...value, type: "dynamic" }
-    } else if (prevVal.type != value.type) {
-      throw new Error(
-        `Can't assign a value of type ${value.type} to a variable of type ${prevVal.type}`
-      )
-    }
+    let valueWithType = this.assertType(prevVal.type, value)
 
     env.variables.set(varname, valueWithType)
 

@@ -1,6 +1,32 @@
 # Getting Started
 
-`cowlang` is a toy programming language created for learning interpretors.
+`cowlang` is a programming language that is inspired by `Typescript` and `Dart`.  
+Getting best of both languages in one place.
+
+## Quick Links
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Development Setup](#dev-setup)
+- [Running Code](#running-code)
+- [REPL](#repl)
+- [Syntax](#syntax)
+  - [Variables](#variables)
+     - [Variable Types](#variable-types)
+  - [Strings and Interpolation](#strings-and-interpolation)
+  - [Comments](#comments)
+  - [Printing](#printing-to-console)
+  - [Conditionals](#conditionals)
+  - [Loops](#loops)
+  - [Arrays](#arrays)
+  - [Functions](#functions)
+    - [Paramter Types](#parameter-types)
+  - [Operators](#operators)
+  - [Keywords](#keywords)
+  - [Built-in Types](#built-in-types)
+- [In Progress](#in-progress)
+- [Comming Soon Features](#plans)
+- [Changelog](./CHANGLOG.md)
+
 
 ## Requirements
 
@@ -9,6 +35,14 @@
 - Cowlang Language Support [(VS Code Extension)](https://marketplace.visualstudio.com/items?itemName=skmaky.cowlang)
 
 ## Installation
+The interpreter can be installed using following command
+```bash
+npm install -g @cowlang/engine
+```
+
+> Above command may not work if package is not available on `npm`. In that case, for time being, follow the steps `Dev Setup` to try it out
+
+## Dev Setup
 
 1. Clone the project and `cd` in the project root
 2. Building
@@ -20,6 +54,7 @@
    npm install . -g
    ```
 4. Now you can run `cowlang` code files that end with `.cow` extenstion
+
 
 # Running Code
 Code files in `cowlang` have `.cow` extension. In order to run your cow file, run:
@@ -55,10 +90,10 @@ Now you can write your code directly inside terminal, and it gets **executed** e
   ```
 
   Variables, can also be declared but initialized
-  later
+  later, an uninitialized variable must've have expilicit dynamic type
 
   ```php
-  var name; # Note the semicolon, it is mandatory here
+  var name: dynamic; # Note the semicolon, it is mandatory here
   name = "John Doe"
   ```
 
@@ -68,6 +103,24 @@ Now you can write your code directly inside terminal, and it gets **executed** e
   numDaysInWeek = 8
   ```
 
+### Variable Types
+Type can be declared after a colon following the identifier.
+```typescript
+var name: string = "John Doe"
+var age: number = 20
+```
+ Types are infered in cowlang, if no type is given interpreter gets it from the value assigned
+```php
+var name = "John Doe"
+name = 20 # it will throw error, because name is string
+```
+To create dynamic variable, that can have any value of any type use `dynamic` type
+```typescript
+var store: dynamic = "some value"
+store = 20
+store = false
+store = [1.2, 3.5]
+```
 ## Strings and Interpolation
 
 Strings are declared using double quotes
@@ -175,6 +228,16 @@ fn padder(padding){
 const result = padder(10)(5,20)
 print(result)
 ```
+### Parameter Types
+Parameter types can be given same as in variables
+```php
+fn add(a: number, b: number){
+ a + b
+}
+
+add(1,2) # prints 3
+add(1, true) # throws error, becuase 'true' is not a number
+```
 
 ## Operators
 
@@ -204,12 +267,19 @@ print(result)
 | fn      | Declares a function |
 | and     | Logical 'and'       |
 | or      | Logical 'or'        |
+## Built-in Types
+
+| Type    | Description                          |
+| ------- | ------------------------------------ |
+| dynamic | A dynamic variable can have any type |
+| string  | String type                          |
+| number  | Integer and floats                   |
+| array   | Array                                |
+| object  | Object                               |
 
 # In Progress
 
-- Comments
-- Logic Gates: &&, ||
-- Static Type Checking
+- Param and return types
 
 # Plans
 
@@ -224,3 +294,6 @@ Architecture level things we're considering
 
 - Compiling to Byte Code
 - Adding Multi-threading
+
+
+# [Changelog](./CHANGLOG.md)

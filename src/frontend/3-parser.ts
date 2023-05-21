@@ -17,6 +17,7 @@ import {
   StringLiteral,
   ArrayLiteral,
   Type,
+  FunctionParam,
 } from "./2-ast"
 import { TokenType, Token, tokenize } from "./1-lexer"
 import { Placholder, emitTempFile } from "../helpers"
@@ -99,24 +100,17 @@ export default class Parser {
       "Expected function name following fn keyword"
     ).value
 
-    const args = this.parse_args()
+    const params = this.parse_params()
 
     // To make sure args are strings
-    const params: string[] = []
-    for (const arg of args) {
-      if (arg.kind != "Identifier") throw "Expected function parameter to be type of string"
+    // const params: string[] = []
+    // for (const arg of args) {
+    //   if (arg.kind != "Identifier") throw "Expected function parameter to be type of string"
 
-      params.push((arg as Identifier).symbol)
-    }
+    //   params.push((arg as Identifier).symbol)
+    // }
 
-    this.expect(TokenType.OpenBrace, "Expected function body in function declaration")
-
-    const body: Stmt[] = []
-
-    while (this.at().type != TokenType.EOF && this.at().type != TokenType.CloseBrace)
-      body.push(this.parse_stmt())
-
-    this.expect(TokenType.CloseBrace, "Missing } in function body")
+    const body = this.parse_code_block()
 
     const fn = {
       kind: "FunctionDeclaration",
@@ -190,21 +184,10 @@ export default class Parser {
     } as WhileStatement
   }
 
-  private parse_var_declaration(): Stmt {
-    const declaratorType = this.eat().type
-
-    const isConstant = declaratorType == TokenType.Const
-    const isFinal = declaratorType == TokenType.Final
-
-    const identifier = this.expect(
-      TokenType.Identifier,
-      "Expected identifier name following variable declarator."
-    ).value
-
-    let type: Type | undefined
-
+  private parse_type_anotation(): Type | null {
     // Check for types
     if (this.at().type == TokenType.Colon) {
+      let type: Type
       this.eat() // eat :
       type = this.expectOneOf(
         SearchGroup.TypeAnnotation,
@@ -218,7 +201,25 @@ export default class Parser {
         ],
         "Expected valid type annotation following ':'"
       ).value as Type
+
+      return type
     }
+
+    return null
+  }
+
+  private parse_var_declaration(): Stmt {
+    const declaratorType = this.eat().type
+
+    const isConstant = declaratorType == TokenType.Const
+    const isFinal = declaratorType == TokenType.Final
+
+    const identifier = this.expect(
+      TokenType.Identifier,
+      "Expected identifier name following variable declarator."
+    ).value
+
+    const type = this.parse_type_anotation()
 
     if (this.at().type == TokenType.Semicolon) {
       this.eat() // expect semicolon 🤔
@@ -431,6 +432,46 @@ export default class Parser {
     while (this.at().type == TokenType.Comma && this.eat()) args.push(this.parse_assignment_expr())
 
     return args
+  }
+
+  private parse_params(): Expr[] {
+    this.expect(TokenType.OpenParen, "Expected open paren")
+    const params = this.at().type == TokenType.CloseParen ? [] : this.parse_params_list()
+
+    this.expect(TokenType.CloseParen, "Missing closing paren")
+
+    return params
+  }
+
+  private parse_params_list(): Expr[] {
+    const params = [this.parse_parameter()]
+
+    while (this.at().type == TokenType.Comma && this.eat()) params.push(this.parse_parameter())
+
+    return params
+  }
+
+  private parse_parameter(): Expr {
+    const ident = this.expect(TokenType.Identifier, "Expected identifier in function parameter")
+
+    const type = this.parse_type_anotation()
+
+    // check for default values
+    if (this.at().type == TokenType.Equals) {
+      this.eat() // eat = token
+
+      let defaultVal: Expr
+      defaultVal = this.parse_expr()
+
+      return {
+        kind: "FunctionParam",
+        name: ident.value,
+        type,
+        default: defaultVal,
+      } as FunctionParam
+    }
+
+    return { kind: "FunctionParam", name: ident.value, type } as FunctionParam
   }
 
   private parse_member_expr(): Expr {
