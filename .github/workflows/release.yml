@@ -1,0 +1,185 @@
+name: Create Semantic Release
+run-name: "Build ${{ inputs.release-type }} | gh-pkg:${{ inputs.github-package }} | npm-pkg:${{ inputs.npm-package }}"
+on:
+  workflow_dispatch:
+    inputs:
+      release-type:
+        description: Release Type
+        required: false
+        default: none
+        type: choice
+        options:
+          - none
+          - major
+          - minor
+          - patch
+
+      release-candidate:
+        description: Is Release Candidate?
+        default: false
+        type: boolean
+
+      github-package:
+        description: Release Github Package?
+        default: false
+        type: boolean
+
+      npm-package:
+        description: Release NPM Package?
+        default: false
+        type: boolean
+
+env:
+  gh_pat: ${{ secrets.GITHUB_TOKEN }}
+  npm_pat: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Retrieve Release Notes
+        run: |
+          echo "NOTES_FILE_NAME=release_notes.md" >> $GITHUB_ENV
+
+          if [[ -s ${{ env.NOTES_FILE_NAME }} ]]; then
+            echo "RELEASE_NOTES=$(cat ${{ env.NOTES_FILE_NAME }})" >> $GITHUB_ENV
+          else
+            echo "Error: No release notes found or file is empty"
+            exit 1
+          fi
+
+      - name: Delete Release Notes File
+        run: |
+          rm -f ${{ env.NOTES_FILE_NAME }}
+
+      - name: Determine Previous Version
+        run: |
+          previous_version=$(cat .VERSION)
+          echo "PREV_VERSION=${previous_version}" >> $GITHUB_ENV
+
+      - name: Calculate New Version
+        id: calculate_version
+        run: |
+          release_type="${{ inputs.release-type }}"
+          release_candidate="${{ inputs.release-candidate }}"
+
+          previous_version="${{ env.PREV_VERSION }}"
+          build_number="${{ github.run_number }}"
+
+          IFS='.' read -ra version_parts <<< "$previous_version"
+          major=${version_parts[0]}
+          minor=${version_parts[1]}
+          patch=${version_parts[2]}
+          rc=${version_parts[3]}
+
+          case "$release_type" in
+            "major")
+              major=$((major + 1))
+              minor=0
+              patch=0
+              rc=""
+              ;;
+            "minor")
+              minor=$((minor + 1))
+              patch=0
+              rc=""
+              ;;
+            "patch")
+              patch=$((patch + 1))
+              rc=""
+              ;;
+          esac
+
+          if [ "$release_candidate" = true ]; then
+            if [ -n "$rc" ]; then
+              rc=$((rc + 1))
+            else
+              rc="1"
+            fi
+          fi
+
+          new_version="${major}.${minor}.${patch}+${build_number}"
+
+          if [ -n "$rc" ]; then
+            new_version="${new_version}-rc${rc}"
+          fi
+
+          echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
+
+      - name: Update Version File
+        run: |
+          # Update Version file, (replace '-rc' and '+' with '.')
+          echo "$(echo "${{ env.NEW_VERSION }}" | sed -e 's/-rc/./g' -e 's/+/./g')" > .VERSION
+
+          git add .VERSION
+          git commit -m "Update version file"
+
+      - name: Create Tag
+        id: create_tag
+        run: |
+          tag_name="${{ env.NEW_VERSION }}"
+          git tag $tag_name
+          git push origin $tag_name
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ env.gh_pat }}
+        with:
+          tag_name: ${{ env.NEW_VERSION  }}
+          release_name: Release ${{ env.NEW_VERSION  }}
+          body: |
+            Release ${{ env.NEW_VERSION  }}
+            ${{ env.RELEASE_NOTES }}
+          draft: false
+          prerelease: false
+
+  package_github:
+    name: Publish to GitHub Packages
+    needs: release
+    runs-on: ubuntu-latest
+    if: inputs.github-package
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Build Package
+        run: npm ci && npm run build
+
+      - name: Publish to GitHub Packages
+        run: echo "//npm.pkg.github.com/:_authToken=${{ env.gh_pat }}" >> ~/.npmrc && npm publish --registry=https://npm.pkg.github.com/
+
+  package_npm:
+    name: Publish to npm
+    needs: release
+    runs-on: ubuntu-latest
+    if: inputs.npm-package
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Build Package
+        run: npm ci && npm run build
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ env.npm_pat }}
