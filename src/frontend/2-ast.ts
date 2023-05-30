@@ -73,6 +73,7 @@ export interface WhileStatement extends Stmt {
   body: Stmt[]
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Expr extends Stmt {}
 
 export interface BinaryExpr extends Expr {

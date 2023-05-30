@@ -1,4 +1,4 @@
-import { Type, VarModifier } from "../frontend/2-ast"
+import { VarModifier } from "../frontend/2-ast"
 import { MK_BOOL, MK_NATIVE_FN, MK_NULL } from "./macros"
 import {
   ArrayVal,
@@ -113,7 +113,7 @@ export default class Environment {
 
     const prevVal = env.lookupVar(varname)
 
-    let valueWithType = this.assertType(prevVal.type, value)
+    const valueWithType = this.assertType(prevVal.type, value)
 
     env.variables.set(varname, valueWithType)
 
