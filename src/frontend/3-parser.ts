@@ -187,9 +187,8 @@ export default class Parser {
   private parse_type_anotation(): Type | null {
     // Check for types
     if (this.at().type == TokenType.Colon) {
-      let type: Type
       this.eat() // eat :
-      type = this.expectOneOf(
+      const type = this.expectOneOf(
         SearchGroup.TypeAnnotation,
         [
           TokenType.ArrayType,
@@ -460,8 +459,7 @@ export default class Parser {
     if (this.at().type == TokenType.Equals) {
       this.eat() // eat = token
 
-      let defaultVal: Expr
-      defaultVal = this.parse_expr()
+      const defaultVal = this.parse_expr()
 
       return {
         kind: "FunctionParam",
@@ -520,7 +518,7 @@ export default class Parser {
 
       if (matches.length) {
         let i = 0
-        let results = matches.map((match) => match.replace(regex, "$1")) // remove ${ } from expressions
+        const results = matches.map((match) => match.replace(regex, "$1")) // remove ${ } from expressions
 
         // replace expressions with placeholders
         outputString = inputString.replace(regex, () => Placholder.expr(i++))
@@ -544,6 +542,16 @@ export default class Parser {
     } as StringLiteral
   }
 
+  private parse_paren_expression() {
+    this.eat() // eat opening paren
+    const value = this.parse_expr()
+    this.expect(
+      TokenType.CloseParen,
+      "Unexpected token found in parenthesized expression. Expected closing paren"
+    ) // eat closing paren
+    return value
+  }
+
   // 5.
   private parse_primary_expr(): Expr {
     const tk = this.at().type
@@ -556,13 +564,7 @@ export default class Parser {
       case TokenType.String:
         return this.parse_string_literal() as StringLiteral
       case TokenType.OpenParen:
-        this.eat() // eat opening paren
-        const value = this.parse_expr()
-        this.expect(
-          TokenType.CloseParen,
-          "Unexpected token found in parenthesized expression. Expected closing paren"
-        ) // eat closing paren
-        return value
+        return this.parse_paren_expression()
       default:
         console.error("Unexpected token found in parser:", this.at())
         process.exit(1)

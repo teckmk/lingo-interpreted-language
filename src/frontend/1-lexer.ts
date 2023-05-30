@@ -164,6 +164,7 @@ export function tokenize(sourceCode: string): Token[] {
         src.shift() // remove hash token
 
         if (os.EOL.length > 1) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           while (src.length > 0 && src[0] !== "\n" && src[1] !== "\r") src.shift()
           src.shift() // remove \n

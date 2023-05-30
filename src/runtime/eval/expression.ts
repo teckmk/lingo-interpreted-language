@@ -9,7 +9,6 @@ import {
   NumericLiteral,
   ObjectLiteral,
   StringLiteral,
-  Type,
 } from "../../frontend/2-ast"
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
@@ -186,7 +185,7 @@ export function eval_member_expr(expr: MemberExpr, env: Environment): RuntimeVal
         return arr.elements[(index as NumberVal).value]
       }
     case "object":
-      const obj = ident as ObjectVal
+      // const obj = ident as ObjectVal
       return {} as RuntimeVal
 
     default:

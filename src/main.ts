@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 import { readFileSync } from "fs"
 
 import Parser from "./frontend/3-parser"
@@ -39,6 +40,7 @@ async function repl() {
 
       evaluate(program, env)
     } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       console.log(err.message)
     }
