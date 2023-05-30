@@ -17,11 +17,11 @@
       "hidden": true
     },
     {
-      "type": "refactor",
+      "type": "style",
       "hidden": true
     },
     {
-      "type": "dev",
+      "type": "refactor",
       "hidden": true
     },
     {
