@@ -6,9 +6,10 @@
   "scripts": {
     "lexer": "node ./dist/lexer.js",
     "mlang": "node ./bin",
+    "test": "echo 123",
     "prepare": "husky install",
-    "release:minor": "standard-version --release-as minor",
     "release:patch": "standard-version --release-as patch",
+    "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major"
   },
   "keywords": [],

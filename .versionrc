@@ -17,11 +17,11 @@
       "hidden": true
     },
     {
-      "type": "style",
+      "type": "refactor",
       "hidden": true
     },
     {
-      "type": "refactor",
+      "type": "dev",
       "hidden": true
     },
     {
@@ -33,6 +33,6 @@
       "hidden": true
     }
   ],
-  "commitUrlFormat": "https://github.com/mokkapps/changelog-generator-demo/commits/{{hash}}",
-  "compareUrlFormat": "https://github.com/mokkapps/changelog-generator-demo/compare/{{previousTag}}...{{currentTag}}"
+  "commitUrlFormat": "https://github.com/Abdullah-yasir/lingo-programming-language/commits/{{hash}}",
+  "compareUrlFormat": "https://github.com/Abdullah-yasir/lingo-programming-language/compare/{{previousTag}}...{{currentTag}}"
 }
