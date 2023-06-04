@@ -9,6 +9,7 @@ export type ValueType =
   | "object"
   | "nativefn"
   | "function"
+  | "return"
   | "paramter"
   | "conditional"
   | "whileloop"
@@ -17,6 +18,7 @@ export type ValueType =
 
 export interface RuntimeVal {
   type: ValueType
+  returned: boolean
 }
 
 export interface NullVal extends RuntimeVal {
@@ -63,6 +65,11 @@ export interface FunctionVal extends RuntimeVal {
   parameters: ParamVal[]
   declarationEnv: Environment
   body: Stmt[]
+}
+
+export interface ReturnVal extends RuntimeVal {
+  type: "return"
+  value: RuntimeVal
 }
 
 export interface ConditionalVal extends RuntimeVal {

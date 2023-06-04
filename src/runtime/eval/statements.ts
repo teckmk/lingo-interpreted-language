@@ -3,6 +3,7 @@ import {
   FunctionDeclaration,
   IfElseStatement,
   Program,
+  ReturnStatement,
   Stmt,
   VarDeclaration,
   WhileStatement,
@@ -10,7 +11,7 @@ import {
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
 import { MK_NULL } from "../macros"
-import { BooleanVal, FunctionVal, ParamVal, RuntimeVal } from "../values"
+import { BooleanVal, FunctionVal, ParamVal, ReturnVal, RuntimeVal } from "../values"
 
 export function eval_program(program: Program, env: Environment): RuntimeVal {
   let evaluated: RuntimeVal = MK_NULL()
@@ -60,13 +61,21 @@ export function eval_fn_declaration(
   return env.declareVar(declaration.name, fn, "final")
 }
 
-export function eval_code_block(block: Stmt[], parentEnv: Environment) {
-  let result: RuntimeVal = MK_NULL()
+export function eval_return_statement(stmt: Stmt, env: Environment): RuntimeVal {
+  return { type: "return", value: evaluate((stmt as ReturnStatement).value, env) } as ReturnVal
+}
+
+export function eval_code_block(block: Stmt[], parentEnv: Environment): RuntimeVal {
   const scope = new Environment(parentEnv)
 
-  for (const stmt of block) result = evaluate(stmt, scope)
+  let result: RuntimeVal = MK_NULL()
 
-  return result
+  for (const stmt of block) {
+    result = evaluate(stmt, scope)
+    if (result.type == "return" || result.returned) return { ...result, returned: true }
+  }
+
+  return MK_NULL()
 }
 
 export function eval_condition(check: Expr, env: Environment): BooleanVal {
@@ -81,18 +90,20 @@ export function eval_condition(check: Expr, env: Environment): BooleanVal {
 export function eval_if_else_statement(ifstmt: IfElseStatement, env: Environment): RuntimeVal {
   const { check, body, childChecks } = ifstmt
 
+  let result: RuntimeVal = MK_NULL()
+
   if (eval_condition(check, env).value) {
-    eval_code_block(body, env)
+    result = eval_code_block(body, env)
   } else if (childChecks && childChecks.length > 0) {
     for (const acheck of childChecks) {
       if (eval_condition(acheck.check, env).value) {
-        eval_code_block(acheck.body, env)
+        result = eval_code_block(acheck.body, env)
         break
       }
     }
-  } else if (ifstmt.else) eval_code_block(ifstmt.else, env)
+  } else if (ifstmt.else) result = eval_code_block(ifstmt.else, env)
 
-  return MK_NULL()
+  return result
 }
 
 export function eval_while_statement(loop: WhileStatement, env: Environment): RuntimeVal {

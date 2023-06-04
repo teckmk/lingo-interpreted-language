@@ -14,6 +14,7 @@ import Environment from "../environment"
 import { evaluate } from "../interpreter"
 import { MK_NULL } from "../macros"
 import { NativeFnVal, NumberVal, ObjectVal, RuntimeVal } from "../values"
+import { eval_code_block } from "./statements"
 
 function eval_numeric_binary_expr(
   lhs: NumberVal,
@@ -29,7 +30,7 @@ function eval_numeric_binary_expr(
     else if (operator == ">=") result = lhs.value >= rhs.value
     else if (operator == "<=") result = lhs.value <= rhs.value
 
-    return { type: "boolean", value: result }
+    return { type: "boolean", value: result, returned: false }
   }
 
   let result = 0
@@ -40,7 +41,7 @@ function eval_numeric_binary_expr(
   else if (operator == "/") result = lhs.value / rhs.value
   else result = lhs.value % rhs.value
 
-  return { type: "number", value: result }
+  return { type: "number", value: result, returned: false }
 }
 
 export function eval_boolean_binary_expr(
@@ -55,7 +56,7 @@ export function eval_boolean_binary_expr(
   else if (operator == "&&" || operator == "and") result = lhs.value && rhs.value
   else if (operator == "||" || operator == "or") result = lhs.value || rhs.value
 
-  return { type: "boolean", value: result }
+  return { type: "boolean", value: result, returned: false }
 }
 
 export function eval_binary_expr(binop: BinaryExpr, env: Environment): RuntimeVal {
@@ -132,7 +133,7 @@ export function eval_call_expr(expr: CallExpr, env: Environment): RuntimeVal {
 
     let result: RuntimeVal = MK_NULL()
 
-    for (const stmt of fnc.body) result = evaluate(stmt, scope)
+    result = eval_code_block(fnc.body, scope)
 
     return result
   }

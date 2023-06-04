@@ -4,6 +4,7 @@ import {
   eval_fn_declaration,
   eval_if_else_statement,
   eval_program,
+  eval_return_statement,
   eval_var_declaration,
   eval_while_statement,
 } from "./eval/statements"
@@ -19,6 +20,7 @@ import {
   NumericLiteral,
   ObjectLiteral,
   Program,
+  ReturnStatement,
   Stmt,
   StringLiteral,
   VarDeclaration,
@@ -62,6 +64,8 @@ export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
       return eval_var_declaration(astNode as VarDeclaration, env)
     case "FunctionDeclaration":
       return eval_fn_declaration(astNode as FunctionDeclaration, env)
+    case "ReturnStatement":
+      return eval_return_statement(astNode as ReturnStatement, env)
     case "IfElseStatement":
       return eval_if_else_statement(astNode as IfElseStatement, env)
     case "WhileStatement":

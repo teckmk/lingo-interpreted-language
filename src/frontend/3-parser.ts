@@ -18,6 +18,7 @@ import {
   ArrayLiteral,
   Type,
   FunctionParam,
+  ReturnStatement,
 } from "./2-ast"
 import { TokenType, Token, tokenize } from "./1-lexer"
 import { Placholder, emitTempFile } from "../helpers"
@@ -73,6 +74,8 @@ export default class Parser {
         return this.parse_fn_declaration()
       case TokenType.If:
         return this.parse_if_statement()
+      case TokenType.Return:
+        return this.parse_return_statement()
       case TokenType.While:
         return this.parse_while_statement()
       default:
@@ -102,14 +105,6 @@ export default class Parser {
 
     const params = this.parse_params()
 
-    // To make sure args are strings
-    // const params: string[] = []
-    // for (const arg of args) {
-    //   if (arg.kind != "Identifier") throw "Expected function parameter to be type of string"
-
-    //   params.push((arg as Identifier).symbol)
-    // }
-
     const body = this.parse_code_block()
 
     const fn = {
@@ -120,6 +115,14 @@ export default class Parser {
     } as FunctionDeclaration
 
     return fn
+  }
+
+  private parse_return_statement() {
+    this.eat() // eat return token
+
+    const value = this.parse_expr()
+
+    return { kind: "ReturnStatement", value } as ReturnStatement
   }
 
   private parse_condition(): Stmt {
