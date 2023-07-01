@@ -47,7 +47,9 @@ export default class Environment {
               return (arg as ArrayVal).elements.map(getValue)
             } else if (argType == "function") {
               const fn = arg as FunctionVal
-              return `fn ${fn.name}(${fn.parameters.join()})`
+              return `fn ${fn.name}(${fn.parameters
+                .map((p) => `${p.name}: ${p.valueType || "dynamic"}`)
+                .join()})`
             } else {
               return arg
             }
