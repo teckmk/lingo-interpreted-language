@@ -35,11 +35,17 @@ export default class Environment {
         "print",
         MK_NATIVE_FN((args: RuntimeVal[], _: Environment) => {
           const getValue = (arg: RuntimeVal): any => {
-            if (arg.hasOwnProperty("value"))
+            const argType = arg.type
+            if (
+              argType == "string" ||
+              argType == "number" ||
+              argType == "boolean" ||
+              argType == "null"
+            )
               return (arg as StringVal | NumberVal | BooleanVal | NullVal).value
-            else if (arg.type == "array") {
+            else if (argType == "array") {
               return (arg as ArrayVal).elements.map(getValue)
-            } else if (arg.type == "function") {
+            } else if (argType == "function") {
               const fn = arg as FunctionVal
               return `fn ${fn.name}(${fn.parameters.join()})`
             } else {
