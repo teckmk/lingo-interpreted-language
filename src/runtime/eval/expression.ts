@@ -169,7 +169,7 @@ export function eval_member_expr(expr: MemberExpr, env: Environment): RuntimeVal
   const ident = env.resolve(varname).lookupVar(varname)
 
   switch (ident.type) {
-    case "array":
+    case "array": {
       const arr = ident as ArrayVal
       if (expr.property.kind == "NumericLiteral") {
         const index = expr.property as NumericLiteral
@@ -185,6 +185,7 @@ export function eval_member_expr(expr: MemberExpr, env: Environment): RuntimeVal
 
         return arr.elements[(index as NumberVal).value]
       }
+    }
     case "object":
       // const obj = ident as ObjectVal
       return {} as RuntimeVal
