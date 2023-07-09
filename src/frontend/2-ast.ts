@@ -2,6 +2,7 @@ export type NodeType =
   // Statements
   | "Program"
   | "VarDeclaration"
+  | "MultiVarDeclaration"
   | "FunctionDeclaration"
   | "ReturnStatement"
   | "IfElseStatement"
@@ -20,6 +21,9 @@ export type NodeType =
   | "Identifier"
   | "ArrayLiteral"
 
+export type Type = "string" | "number" | "bool" | "array" | "object" | "dynamic"
+export type VarModifier = "constant" | "final" | "variable"
+
 export interface Stmt {
   kind: NodeType
 }
@@ -35,15 +39,17 @@ export interface AssignmentExpr extends Expr {
   value: Expr
 }
 
-export type Type = "string" | "number" | "bool" | "array" | "object" | "dynamic"
-export type VarModifier = "constant" | "final" | "variable"
-
 export interface VarDeclaration extends Stmt {
   kind: "VarDeclaration"
   modifier: VarModifier
   identifier: string
   type?: Type
   value?: Expr
+}
+
+export interface MultiVarDeclaration extends Stmt {
+  kind: "MultiVarDeclaration"
+  variables: VarDeclaration[]
 }
 
 export interface FunctionParam extends Stmt {

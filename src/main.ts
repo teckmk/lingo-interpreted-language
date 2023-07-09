@@ -48,19 +48,13 @@ async function repl() {
 }
 
 function run(filename: string) {
-  const start = performance.now()
-
   const parser = new Parser()
   const env = new Environment()
 
   const input = readFileSync(validateFilename(filename), { encoding: "utf-8" })
 
   const program = parser.produceAST(input)
+  emitTempFile("ast.json", JSON.stringify(program))
 
   evaluate(program, env)
-
-  console.log("_________________________________________")
-  console.log("Exited in", performance.now() - start, "milliseconds")
-
-  emitTempFile("ast.json", JSON.stringify(program))
 }

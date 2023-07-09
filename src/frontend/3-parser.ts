@@ -19,6 +19,8 @@ import {
   Type,
   FunctionParam,
   ReturnStatement,
+  MultiVarDeclaration,
+  VarModifier,
 } from "./2-ast"
 import { TokenType, Token, tokenize } from "./1-lexer"
 import { Placholder, emitTempFile } from "../helpers"
@@ -187,7 +189,7 @@ export default class Parser {
     } as WhileStatement
   }
 
-  private parse_type_anotation(): Type | null {
+  private parse_type_anotation(): Type | undefined {
     // Check for types
     if (this.at().type == TokenType.Colon) {
       this.eat() // eat :
@@ -207,7 +209,15 @@ export default class Parser {
       return type
     }
 
-    return null
+    return
+  }
+
+  private verify_must_assign(modifier: VarModifier) {
+    if (modifier == "final") {
+      throw new Error("Must assign a value to final expression.")
+    } else if (modifier == "constant") {
+      throw new Error("Must assign a value to constant expression.")
+    }
   }
 
   private parse_var_declaration(): Stmt {
@@ -216,6 +226,8 @@ export default class Parser {
     const isConstant = declaratorType == TokenType.Const
     const isFinal = declaratorType == TokenType.Final
 
+    const modifier = isFinal ? "final" : isConstant ? "constant" : "variable"
+
     const identifier = this.expect(
       TokenType.Identifier,
       "Expected identifier name following variable declarator."
@@ -223,16 +235,71 @@ export default class Parser {
 
     const type = this.parse_type_anotation()
 
-    if (this.at().type == TokenType.Semicolon) {
-      this.eat() // expect semicolon 🤔
+    if (this.at().type == TokenType.Comma) {
+      const shorthands: VarDeclaration[] = []
 
-      if (isFinal) {
-        console.log("Must assign value to final expression. No value provided.")
-        process.exit()
-      } else if (isConstant) {
-        console.log("Must assign value to constant expression. No value provided.")
-        process.exit()
+      // Get one before the comma
+      shorthands.push({
+        kind: "VarDeclaration",
+        identifier,
+        type,
+        modifier: "variable",
+      })
+
+      // Get rest of them
+      while (this.at().type == TokenType.Comma) {
+        this.eat() // eat comma
+        shorthands.push({
+          kind: "VarDeclaration",
+          identifier: this.expect(TokenType.Identifier, "Expected identifier after comma.").value,
+          type: this.parse_type_anotation(),
+          modifier: "variable",
+        })
       }
+
+      // Get values
+      if (this.at().type == TokenType.Equals) {
+        this.eat() // eat equals
+        const values = [this.parse_expr()] // get first value
+
+        // Check for multiple valuess
+        while (this.at().type == TokenType.Comma) {
+          this.eat() // eat comma
+          values.push(this.parse_expr())
+        }
+
+        const numShortHands = shorthands.length
+        const numValues = values.length
+        const diff = numShortHands - numValues
+
+        if (diff == 0) {
+          for (let i = 0; i < numShortHands; i++) shorthands[i].value = values[i]
+        } else if (numValues == 1) {
+          for (let i = 0; i < numShortHands; i++) shorthands[i].value = values[0]
+        } else {
+          if (diff > numShortHands) {
+            throw new Error(
+              `Expected values for all ${numShortHands} variables in shorthand expression`
+            )
+          } else if (diff < numShortHands) {
+            throw new Error(
+              `Expected ${numShortHands} values but got ${numValues} in shorthand expression`
+            )
+          }
+        }
+      } else {
+        // to make sure if constants and finals are being initialized
+        this.verify_must_assign(modifier)
+      }
+
+      return {
+        kind: "MultiVarDeclaration",
+        variables: shorthands,
+      } as MultiVarDeclaration
+    }
+
+    if (this.at().type != TokenType.Equals) {
+      this.verify_must_assign(modifier)
 
       return {
         kind: "VarDeclaration",
@@ -248,7 +315,7 @@ export default class Parser {
       kind: "VarDeclaration",
       value: this.parse_expr(),
       identifier,
-      modifier: isFinal ? "final" : isConstant ? "constant" : "variable",
+      modifier,
       type,
     } as VarDeclaration
 
