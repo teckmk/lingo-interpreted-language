@@ -6,6 +6,8 @@ import Environment from "./runtime/environment"
 
 import { evaluate } from "./runtime/interpreter"
 import { prompt, validateFilename, emitTempFile } from "./helpers"
+import Tokenizer from "./frontend/lexer/tokenizer"
+import { specs } from "./frontend/lexer/specs"
 
 main()
 
@@ -26,6 +28,7 @@ async function main() {
 async function repl() {
   const parser = new Parser()
   const env = new Environment()
+  const tokenizer = new Tokenizer(specs, "REPL")
 
   console.clear()
   console.log("\ncowlang REPL v0.1")
@@ -36,7 +39,8 @@ async function repl() {
 
       if (input.includes(".exit")) process.exit(1)
 
-      const program = parser.produceAST(input)
+      const tokens = tokenizer.tokenize(input)
+      const program = parser.produceAST(tokens)
 
       evaluate(program, env)
     } catch (err) {
@@ -50,11 +54,16 @@ async function repl() {
 function run(filename: string) {
   const parser = new Parser()
   const env = new Environment()
+  const tokenizer = new Tokenizer(specs, filename)
 
   const input = readFileSync(validateFilename(filename), { encoding: "utf-8" })
 
-  const program = parser.produceAST(input)
-  emitTempFile("ast.json", JSON.stringify(program))
+  const tokens = tokenizer.tokenize(input)
+
+  const program = parser.produceAST(tokens)
 
   evaluate(program, env)
+
+  emitTempFile("tokens.json", JSON.stringify(tokens))
+  emitTempFile("ast.json", JSON.stringify(program))
 }

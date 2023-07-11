@@ -22,17 +22,14 @@ import {
   MultiVarDeclaration,
   VarModifier,
 } from "./2-ast"
-import { TokenType, Token, tokenize } from "./1-lexer"
-import { Placholder, emitTempFile } from "../helpers"
+import { Placholder } from "../helpers"
+import { Token } from "./lexer/tokenizer"
+import { TokenType } from "./lexer/specs"
 
 enum SearchGroup {
   TypeAnnotation,
 }
 export default class Parser {
-  constructor(inputString?: string) {
-    if (inputString) this.tokens = tokenize(inputString)
-  }
-
   private tokens: Token[] = []
 
   private not_eof(): boolean {
@@ -195,14 +192,7 @@ export default class Parser {
       this.eat() // eat :
       const type = this.expectOneOf(
         SearchGroup.TypeAnnotation,
-        [
-          TokenType.ArrayType,
-          TokenType.NumberType,
-          TokenType.ObjectType,
-          TokenType.StringType,
-          TokenType.BooleanType,
-          TokenType.DynamicType,
-        ],
+        [TokenType.NumberType, TokenType.StringType, TokenType.BooleanType, TokenType.DynamicType],
         "Expected valid type annotation following ':'"
       ).value as Type
 
@@ -642,10 +632,8 @@ export default class Parser {
   }
 
   // 0
-  public produceAST(sourceCode: string): Program {
-    this.tokens = tokenize(sourceCode)
-
-    emitTempFile("tokens.json", JSON.stringify(this.tokens))
+  public produceAST(tokens: Token[]): Program {
+    this.tokens = tokens
 
     const program: Program = {
       kind: "Program",
