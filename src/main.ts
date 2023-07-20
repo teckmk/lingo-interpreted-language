@@ -26,9 +26,7 @@ async function main() {
 }
 
 async function repl() {
-  const parser = new Parser()
   const env = new Environment()
-  const tokenizer = new Tokenizer(specs, "REPL")
 
   console.clear()
   console.log("\ncowlang REPL v0.1")
@@ -38,9 +36,9 @@ async function repl() {
       const input = await prompt("> ")
 
       if (input.includes(".exit")) process.exit(1)
-
-      const tokens = tokenizer.tokenize(input)
-      const program = parser.produceAST(tokens)
+      const tokens = new Tokenizer(specs, "REPL").tokenize(input)
+      emitTempFile("tokens.json", JSON.stringify(tokens))
+      const program = new Parser(tokens).produceAST()
 
       evaluate(program, env)
     } catch (err) {
@@ -59,11 +57,11 @@ function run(filename: string) {
   const input = readFileSync(validateFilename(filename), { encoding: "utf-8" })
 
   const tokens = tokenizer.tokenize(input)
+  emitTempFile("tokens.json", JSON.stringify(tokens))
 
   const program = parser.produceAST(tokens)
 
   evaluate(program, env)
 
-  emitTempFile("tokens.json", JSON.stringify(tokens))
   emitTempFile("ast.json", JSON.stringify(program))
 }

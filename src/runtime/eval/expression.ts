@@ -1,3 +1,4 @@
+import { DocComment } from "./../../frontend/2-ast"
 import { ArrayVal, BooleanVal, FunctionVal, StringVal } from "./../values"
 import {
   ArrayLiteral,
@@ -193,4 +194,8 @@ export function eval_member_expr(expr: MemberExpr, env: Environment): RuntimeVal
     default:
       throw new Error("Cannot identify the type of variable")
   }
+}
+
+export function eval_comment_expr(_: DocComment, __: Environment): RuntimeVal {
+  return { type: "docs", returned: false }
 }

@@ -5,6 +5,7 @@ import {
   AssignmentExpr,
   BinaryExpr,
   CallExpr,
+  DocComment,
   FunctionDeclaration,
   Identifier,
   IfElseStatement,
@@ -34,6 +35,7 @@ import {
   eval_assignment,
   eval_binary_expr,
   eval_call_expr,
+  eval_comment_expr,
   eval_identifier,
   eval_member_expr,
   eval_object_expr,
@@ -77,6 +79,8 @@ export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
       return eval_while_statement(astNode as WhileStatement, env)
     case "MemberExpr":
       return eval_member_expr(astNode as MemberExpr, env)
+    case "DocComment":
+      return eval_comment_expr(astNode as DocComment, env)
     default:
       console.error("This AST can't be interpreted! For now atleast!", astNode)
       process.exit(0)

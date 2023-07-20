@@ -1,21 +1,23 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { InvalidIndentationError } from "../../error"
 import { Spec, TokenType } from "./specs"
 
 export type Token = {
   type: TokenType
   value: any
-  cursor: number
+  column: number
   line: number
+  code?: string
 }
 
 export default class Tokenizer {
   private _spec: Spec[]
   private _tokens: Token[] = []
-  private _lastTokenType: TokenType = TokenType.WhiteSpace
 
   private _cursor = 0
-  private _currentLine = 0
-  private _identation = 0
+  private _line = 1 // current line
+  private _tokenNumber = 1 // current column
+  private _indentation = 0
 
   private _code = ""
   private _filename = ""
@@ -29,13 +31,13 @@ export default class Tokenizer {
     this._code = code
     this._cursor = 0
 
-    while (!this._isEOF && this._hasNext) this._tokens.push(this._readToken())
+    while (!this._isEOF && this._hasNext) this._readToken()
 
     this._tokens.push({
       type: TokenType.EOF,
       value: "EOF",
-      cursor: this._cursor,
-      line: this._currentLine,
+      column: this._tokenNumber,
+      line: this._line,
     })
 
     return this._tokens
@@ -53,58 +55,90 @@ export default class Tokenizer {
     return this._cursor < this._code.length
   }
 
-  private _readToken(): Token {
+  private _indentWidth = 0
+  private _lastTokenType: TokenType | null = null
+  private _isIndented = false
+
+  private _readToken() {
     const code = this._code.slice(this._cursor)
 
     for (const { regex, tokenType } of this._spec) {
       const tokenValue = this._matched(regex, code)
 
+      // skip iteration if there's no match
       if (tokenValue == null) continue
 
-      // Capture Identation
-      if (this._lastTokenType == TokenType.EOL && tokenType == TokenType.Tab) {
+      if (this._lastTokenType == TokenType.EOL) {
         this._lastTokenType = tokenType
-        const tabLength = tokenValue!.length
+        this._line++
+        this._tokenNumber = 0 // now starting from 0 of the new line
 
-        if (tabLength > this._identation) {
-          this._identation += tabLength
-          return {
-            type: TokenType.Indent,
-            value: tokenValue,
-            cursor: this._cursor,
-            line: this._currentLine,
+        if (tokenType == TokenType.WhiteSpace) {
+          if (this._indentWidth == 0) this._indentWidth = tokenValue.length
+
+          const whitespace = tokenValue.length
+
+          if (whitespace % this._indentWidth != 0) {
+            throw InvalidIndentationError(this._indentWidth, this._line)
           }
-        } else if (tabLength < this._identation) {
-          this._identation -= tabLength
-          return {
-            type: TokenType.Dedent,
-            value: tokenValue,
-            cursor: this._cursor,
-            line: this._currentLine,
+
+          if (whitespace > this._indentation) {
+            this._indentation += this._indentWidth
+            this._isIndented = true
+            this._tokens.push({
+              type: TokenType.Indent,
+              value: tokenValue,
+              column: this._tokenNumber,
+              line: this._line,
+            })
+            return
+          } else if (whitespace < this._indentation) {
+            this._indentation -= this._indentWidth
+            this._isIndented = false
+            this._tokens.push({
+              type: TokenType.Dedent,
+              value: tokenValue,
+              column: this._tokenNumber,
+              line: this._line,
+            })
+            return
+          }
+        } else {
+          // handle last dedent (note: we are not returning after this block)
+          if (this._indentation == this._indentWidth && this._isIndented) {
+            this._indentation = 0
+            this._isIndented = false
+            this._tokens.push({
+              type: TokenType.Dedent,
+              value: tokenValue,
+              column: this._tokenNumber,
+              line: this._line,
+            })
           }
         }
       }
 
-      if (tokenType == TokenType.WhiteSpace || tokenType == TokenType.Tab) continue // Skipping whitespace
-
-      if (tokenType == TokenType.EOL) {
-        this._lastTokenType = tokenType
-        this._currentLine++
-        continue
-      }
-
       this._lastTokenType = tokenType
 
-      return {
+      if (
+        tokenType == TokenType.WhiteSpace ||
+        tokenType == TokenType.EOL ||
+        tokenType == TokenType.SingleLineComment
+      )
+        return
+
+      this._tokens.push({
         type: tokenType,
         value: tokenValue,
-        cursor: this._cursor,
-        line: this._currentLine,
-      }
+        column: this._tokenNumber,
+        line: this._line,
+        // code,
+      })
+      return
     }
 
     throw new Error(
-      `Unexpected token: "${code[0]}" at ${this._currentLine}:${this._cursor} in ${this._filename}`
+      `Unexpected token '${code[0]}' at ${this._line}:${this._tokenNumber} in ${this._filename}`
     )
   }
 
@@ -114,6 +148,7 @@ export default class Tokenizer {
     if (matched == null) return null
 
     this._cursor += matched[0].length
+    this._tokenNumber++
 
     return matched[0]
   }

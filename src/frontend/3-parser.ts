@@ -23,13 +23,17 @@ import {
   VarModifier,
 } from "./2-ast"
 import { Placholder } from "../helpers"
-import { Token } from "./lexer/tokenizer"
-import { TokenType } from "./lexer/specs"
+import { TokenType, specs } from "./lexer/specs"
+import Tokenizer, { Token } from "./lexer/tokenizer"
 
 enum SearchGroup {
   TypeAnnotation,
 }
 export default class Parser {
+  constructor(tokens?: Token[]) {
+    if (this.tokens) this.tokens = tokens!
+  }
+
   private tokens: Token[] = []
 
   private not_eof(): boolean {
@@ -393,16 +397,9 @@ export default class Parser {
     let left = this.parse_additive_expr()
 
     while (
-      this.at().value == ">" ||
-      this.at().value == ">=" ||
-      this.at().value == "<" ||
-      this.at().value == "<=" ||
-      this.at().value == "==" ||
-      this.at().value == "!=" ||
-      this.at().value == "&&" ||
-      this.at().value == "||" ||
-      this.at().value == "and" ||
-      this.at().value == "or"
+      this.at().type == TokenType.RelationalOperator ||
+      this.at().type == TokenType.EqualityOperator ||
+      this.at().type == TokenType.LogicGate
     ) {
       const operator = this.eat().value
       const right = this.parse_additive_expr()
@@ -421,7 +418,7 @@ export default class Parser {
   private parse_additive_expr(): Expr {
     let left = this.parse_multipicative_expr()
 
-    while (this.at().value == "+" || this.at().value == "-") {
+    while (this.at().type == TokenType.AdditiveOperator) {
       const operator = this.eat().value
       const right = this.parse_multipicative_expr()
       left = {
@@ -439,7 +436,7 @@ export default class Parser {
   private parse_multipicative_expr(): Expr {
     let left = this.parse_call_member_expr()
 
-    while (this.at().value == "/" || this.at().value == "*" || this.at().value == "%") {
+    while (this.at().type == TokenType.MulitipicativeOperator) {
       const operator = this.eat().value
       const right = this.parse_call_member_expr()
       left = {
@@ -578,14 +575,15 @@ export default class Parser {
 
       if (matches.length) {
         let i = 0
-        const results = matches.map((match) => match.replace(regex, "$1")) // remove ${ } from expressions
+        const results = matches.map((match: string) => match.replace(regex, "$1")) // remove ${ } from expressions
 
         // replace expressions with placeholders
         outputString = inputString.replace(regex, () => Placholder.expr(i++))
 
         // parse the expressions
-        results.forEach((exprStr, i) => {
-          expressions[Placholder.expr(i)] = new Parser(exprStr).parse_expr()
+        results.forEach((exprStr: string, i: number) => {
+          const tokens = new Tokenizer(specs, "string interpolation").tokenize(exprStr)
+          expressions[Placholder.expr(i)] = new Parser(tokens).parse_expr()
         })
       }
     }
@@ -619,9 +617,9 @@ export default class Parser {
     switch (tk) {
       case TokenType.Identifier:
         return { kind: "Identifier", symbol: this.eat().value } as Identifier
-      case TokenType.Number:
+      case TokenType.NumberLiteral:
         return { kind: "NumericLiteral", value: parseFloat(this.eat().value) } as NumericLiteral
-      case TokenType.String:
+      case TokenType.StringLiteral:
         return this.parse_string_literal() as StringLiteral
       case TokenType.OpenParen:
         return this.parse_paren_expression()
@@ -632,13 +630,14 @@ export default class Parser {
   }
 
   // 0
-  public produceAST(tokens: Token[]): Program {
-    this.tokens = tokens
-
+  public produceAST(tokens?: Token[]): Program {
+    if (tokens) this.tokens = tokens
     const program: Program = {
       kind: "Program",
       body: [],
     }
+
+    if (!this.tokens) throw new Error("Initialization Error: Parser is not initialized with tokens")
 
     while (this.not_eof()) program.body.push(this.parse_stmt())
 

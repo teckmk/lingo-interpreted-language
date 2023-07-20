@@ -20,6 +20,7 @@ export type NodeType =
   | "NumericLiteral"
   | "Identifier"
   | "ArrayLiteral"
+  | "DocComment"
 
 export type Type = "string" | "number" | "bool" | "array" | "object" | "dynamic"
 export type VarModifier = "constant" | "final" | "variable"
@@ -139,4 +140,8 @@ export interface ObjectLiteral extends Expr {
 export interface ArrayLiteral extends Expr {
   kind: "ArrayLiteral"
   elements: []
+}
+
+export interface DocComment extends Expr {
+  kind: "DocComment"
 }

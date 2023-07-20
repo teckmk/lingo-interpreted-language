@@ -1,8 +1,11 @@
+import { EOL } from "os"
+
 export enum TokenType {
   NumberLiteral = "NUMBER_LITERAL",
   StringLiteral = "STRING_LITERAL",
   Identifier = "IDENTIFIER",
   SingleLineComment = "SINLE_LINE_COMMENT",
+  DocComment = "DOC_COMMENT",
   MultiLineComment = "MULTI_LINE_COMMENT",
   WhiteSpace = "WHITE_SPACE",
   Tab = "TAB",
@@ -55,9 +58,8 @@ export const specs: Spec[] = [
   { regex: /^[+-]?([\d]*[.])?[\d]+/, tokenType: TokenType.NumberLiteral },
   { regex: /^"[^"]*"/, tokenType: TokenType.StringLiteral },
   { regex: /^'[^']*'/, tokenType: TokenType.StringLiteral },
-  { regex: /^\w+/, tokenType: TokenType.Identifier },
 
-  { regex: /^\blet\b/, tokenType: TokenType.Let },
+  { regex: /^\bvar\b/, tokenType: TokenType.Let },
   { regex: /^\bconst\b/, tokenType: TokenType.Const },
   { regex: /^\bfinal\b/, tokenType: TokenType.Final },
   { regex: /^\bfn\b/, tokenType: TokenType.Fn },
@@ -71,12 +73,17 @@ export const specs: Spec[] = [
   { regex: /^\bbool\b/, tokenType: TokenType.BooleanType },
   { regex: /^\bdynamic\b/, tokenType: TokenType.DynamicType },
 
+  { regex: /^[a-zA-Z_][a-zA-Z0-9_]*/, tokenType: TokenType.Identifier },
+
   { regex: /^\/\/.*/, tokenType: TokenType.SingleLineComment },
-  { regex: /^\/\*[\s\S]*?\*\//, tokenType: TokenType.MultiLineComment },
+  { regex: /^\/\/\/.*/, tokenType: TokenType.DocComment },
+
+  // these are making problem with line numbers, because they are read as single line, no matter how many lines they span on....
+  // { regex: /^\/\*[\s\S]*?\*\//, tokenType: TokenType.MultiLineComment },
 
   { regex: /^:/, tokenType: TokenType.Colon },
   { regex: /^,/, tokenType: TokenType.Comma },
-  { regex: /^./, tokenType: TokenType.Dot },
+  { regex: /^\./, tokenType: TokenType.Dot },
   { regex: /^=/, tokenType: TokenType.Equals },
   { regex: /^!/, tokenType: TokenType.Exclamation },
   { regex: /^\(/, tokenType: TokenType.OpenParen },
@@ -97,10 +104,7 @@ export const specs: Spec[] = [
   { regex: /^\band\b/, tokenType: TokenType.LogicGate },
   { regex: /^\bor\b/, tokenType: TokenType.LogicGate },
 
-  { regex: /^\\n/, tokenType: TokenType.EOL },
-  { regex: /^\\r\\n/, tokenType: TokenType.EOL },
+  { regex: RegExp(`^${EOL}`), tokenType: TokenType.EOL },
 
-  // By treating whitespace and tab as a token, we can add bash and python like features in future
-  { regex: /^\s+/, tokenType: TokenType.WhiteSpace }, // match on or more spaces
-  { regex: /^\\t+/, tokenType: TokenType.Tab }, // match one or more tabs
+  { regex: /^[^\S\r\n]+/, tokenType: TokenType.WhiteSpace }, // match one or more spaces and tabs
 ]
