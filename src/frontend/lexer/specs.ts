@@ -95,7 +95,7 @@ export const specs: Spec[] = [
 
   // operators
   { regex: /^[+-]/, tokenType: TokenType.AdditiveOperator },
-  { regex: /^[*\\%]/, tokenType: TokenType.MulitipicativeOperator },
+  { regex: /^[*/%]/, tokenType: TokenType.MulitipicativeOperator },
   { regex: /^[><]=?/, tokenType: TokenType.RelationalOperator },
   { regex: /^[=!]=/, tokenType: TokenType.EqualityOperator },
 
