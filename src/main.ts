@@ -59,9 +59,9 @@ function run(filename: string) {
   const tokens = tokenizer.tokenize(input)
   emitTempFile("tokens.json", JSON.stringify(tokens))
 
-  // const program = parser.produceAST(tokens)
+  const program = parser.produceAST(tokens)
 
-  // evaluate(program, env)
+  evaluate(program, env)
 
-  // emitTempFile("ast.json", JSON.stringify(program))
+  emitTempFile("ast.json", JSON.stringify(program))
 }

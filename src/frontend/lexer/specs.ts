@@ -81,6 +81,17 @@ export const specs: Spec[] = [
   // these are making problem with line numbers, because they are read as single line, no matter how many lines they span on....
   // { regex: /^\/\*[\s\S]*?\*\//, tokenType: TokenType.MultiLineComment },
 
+  // operators
+  { regex: /^[+-]/, tokenType: TokenType.AdditiveOperator },
+  { regex: /^[*/%]/, tokenType: TokenType.MulitipicativeOperator },
+  { regex: /^[><]=?/, tokenType: TokenType.RelationalOperator },
+  { regex: /^[=!]=/, tokenType: TokenType.EqualityOperator },
+
+  { regex: /^&&/, tokenType: TokenType.LogicGate },
+  { regex: /^\|\|/, tokenType: TokenType.LogicGate },
+  { regex: /^\band\b/, tokenType: TokenType.LogicGate },
+  { regex: /^\bor\b/, tokenType: TokenType.LogicGate },
+
   { regex: /^:/, tokenType: TokenType.Colon },
   { regex: /^,/, tokenType: TokenType.Comma },
   { regex: /^\./, tokenType: TokenType.Dot },
@@ -92,17 +103,6 @@ export const specs: Spec[] = [
   { regex: /^}/, tokenType: TokenType.CloseBrace },
   { regex: /^\[/, tokenType: TokenType.OpenBracket },
   { regex: /^\]/, tokenType: TokenType.CloseBracket },
-
-  // operators
-  { regex: /^[+-]/, tokenType: TokenType.AdditiveOperator },
-  { regex: /^[*/%]/, tokenType: TokenType.MulitipicativeOperator },
-  { regex: /^[><]=?/, tokenType: TokenType.RelationalOperator },
-  { regex: /^[=!]=/, tokenType: TokenType.EqualityOperator },
-
-  { regex: /^&&/, tokenType: TokenType.LogicGate },
-  { regex: /^\|\|/, tokenType: TokenType.LogicGate },
-  { regex: /^\band\b/, tokenType: TokenType.LogicGate },
-  { regex: /^\bor\b/, tokenType: TokenType.LogicGate },
 
   { regex: RegExp(`^${EOL}`), tokenType: TokenType.EOL },
 

@@ -26,8 +26,10 @@ import { Placholder } from "../helpers"
 import { TokenType, specs } from "./lexer/specs"
 import Tokenizer, { Token } from "./lexer/tokenizer"
 
-enum SearchGroup {
+enum TypesGroup {
   TypeAnnotation,
+  BlockOpening,
+  BlockClosing,
 }
 export default class Parser {
   constructor(tokens?: Token[]) {
@@ -57,10 +59,10 @@ export default class Parser {
     return prev
   }
 
-  private expectOneOf(group: SearchGroup, types: TokenType[], err: any) {
+  private expectOneOf(label: TypesGroup, types: TokenType[], err: any) {
     const prev = this.eat() as Token
     if (!prev || !types.includes(prev.type)) {
-      console.log("Parser Error:\n", err, prev, "Expecting: ", group)
+      console.log("Parser Error:\n", err, prev, "Expecting: ", label)
       process.exit(1)
     }
     return prev
@@ -87,14 +89,24 @@ export default class Parser {
   }
 
   private parse_code_block(): Stmt[] {
-    this.expect(TokenType.OpenBrace, "Expected { in code block")
+    const isIndented =
+      this.expectOneOf(
+        TypesGroup.BlockOpening,
+        [TokenType.OpenBrace, TokenType.Indent],
+        "Expected valid code block opening"
+      ).type == TokenType.Indent
 
     const block: Stmt[] = []
 
-    while (this.at().type != TokenType.EOF && this.at().type != TokenType.CloseBrace)
-      block.push(this.parse_stmt())
+    const blockEndingTypes = [TokenType.CloseBrace, TokenType.Dedent, TokenType.EOF]
 
-    this.expect(TokenType.CloseBrace, "Missing } in after code block")
+    while (!blockEndingTypes.includes(this.at().type)) block.push(this.parse_stmt())
+
+    if (isIndented) {
+      this.expect(TokenType.Dedent, "Unexpected ending of indented code block")
+    } else {
+      this.expect(TokenType.CloseBrace, "Unexpected ending of code block, expected '}'")
+    }
 
     return block
   }
@@ -195,7 +207,7 @@ export default class Parser {
     if (this.at().type == TokenType.Colon) {
       this.eat() // eat :
       const type = this.expectOneOf(
-        SearchGroup.TypeAnnotation,
+        TypesGroup.TypeAnnotation,
         [TokenType.NumberType, TokenType.StringType, TokenType.BooleanType, TokenType.DynamicType],
         "Expected valid type annotation following ':'"
       ).value as Type

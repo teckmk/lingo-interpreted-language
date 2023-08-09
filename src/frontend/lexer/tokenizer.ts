@@ -26,7 +26,7 @@ export default class Tokenizer {
 
   private _tabSize = 0
   private _indentation = 0
-  private _isIndented = false
+  private _isIndentMode = false
 
   constructor(spec: Spec[], filename: string) {
     this._spec = spec
@@ -75,23 +75,32 @@ export default class Tokenizer {
         this._tokenNumber = 0
       }
 
-      if (this._handleIndentation(tokenValue)) return
+      if (tokenType == TokenType.WhiteSpace) {
+        const indent = this._handleIndentation(tokenValue)
+        if (indent) return
+      }
+
+      if (this._isIndentMode) {
+        const dedent = this._handleDedentation(tokenValue, tokenType)
+        if (dedent) return
+      }
 
       if (
-        tokenType == TokenType.WhiteSpace ||
         tokenType == TokenType.EOL ||
-        tokenType == TokenType.SingleLineComment
-      )
+        tokenType == TokenType.SingleLineComment ||
+        tokenType == TokenType.WhiteSpace
+      ) {
+        this._updateQueue(tokenType)
         return
+      }
 
-      this._pushToken({
+      return this._pushToken({
         type: tokenType,
         value: tokenValue,
         column: this._tokenNumber,
         line: this._line,
         // code,
       })
-      return
     }
 
     throw new Error(
@@ -125,27 +134,27 @@ export default class Tokenizer {
 
   private _handleIndentation(tokenValue: string) {
     const q = this._tokenTypesQueue
+    const whitespace = tokenValue.length
 
     if (q.length != this.MAX_QUEUE_LEN) return false
 
-    if (q[0] != TokenType.Colon && q[1] != TokenType.EOL && q[2] != TokenType.WhiteSpace)
-      return false
+    // handle indent start
+    if (q[1] != TokenType.Colon && q[2] != TokenType.EOL) return false
 
-    const whitespace = tokenValue.length
+    // remove ':' token so it doesn't bother us in parser
+    if (this._tokens.at(-1)?.type == TokenType.Colon) this._tokens.pop()
 
     if (this._tabSize == 0) this._tabSize = whitespace
 
     if (whitespace % this._tabSize != 0) throw InvalidIndentationError(this._tabSize, this._line)
 
-    // By pushing braces instead of indents, we don't have to change anything in parser
-
     if (whitespace > this._indentation) {
       this._indentation += this._tabSize
-      this._isIndented = true
+      this._isIndentMode = true
 
       this._pushToken({
-        type: TokenType.OpenBrace, // TokenType.Indent
-        value: tokenValue,
+        type: TokenType.Indent,
+        value: whitespace,
         column: this._tokenNumber,
         line: this._line,
       })
@@ -153,26 +162,35 @@ export default class Tokenizer {
       return true
     }
 
-    if (whitespace < this._indentation) {
-      this._indentation -= this._tabSize
-      this._isIndented = false
+    return false
+  }
 
-      this._pushToken({
-        type: TokenType.CloseBrace, // TokenType.Dedent
-        value: tokenValue,
-        column: this._tokenNumber,
-        line: this._line,
-      })
+  private _handleDedentation(tokenValue: any, tokenType: TokenType) {
+    if (this._tokenTypesQueue[2] != TokenType.EOL) return false
 
-      return true
+    if (tokenType == TokenType.WhiteSpace) {
+      const whitespace = tokenValue.length
+
+      if (whitespace < this._indentation) {
+        this._indentation -= this._tabSize
+
+        this._pushToken({
+          type: TokenType.Dedent, // TokenType.Dedent
+          value: tokenValue,
+          column: this._tokenNumber,
+          line: this._line,
+        })
+
+        return true
+      }
     }
 
-    if (this._indentation == this._tabSize && this._isIndented) {
+    if (this._indentation == this._tabSize) {
       this._indentation = 0
-      this._isIndented = false
+      this._isIndentMode = false
 
       this._pushToken({
-        type: TokenType.CloseBrace, // TokenType.Dedent
+        type: TokenType.Dedent, // TokenType.Dedent
         value: tokenValue,
         column: this._tokenNumber,
         line: this._line,
@@ -180,5 +198,7 @@ export default class Tokenizer {
 
       return true
     }
+
+    return false
   }
 }
