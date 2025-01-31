@@ -9,6 +9,7 @@ import {
   StringVal,
   NullVal,
   ValueType,
+  ReturnVal,
 } from "./values"
 
 export default class Environment {
@@ -36,22 +37,29 @@ export default class Environment {
         MK_NATIVE_FN((args: RuntimeVal[], _: Environment) => {
           const getValue = (arg: RuntimeVal): any => {
             const argType = arg.type
-            if (
-              argType == "string" ||
-              argType == "number" ||
-              argType == "boolean" ||
-              argType == "null"
-            )
-              return (arg as StringVal | NumberVal | BooleanVal | NullVal).value
-            else if (argType == "array") {
-              return (arg as ArrayVal).elements.map(getValue)
-            } else if (argType == "function") {
-              const fn = arg as FunctionVal
-              return `fn ${fn.name}(${fn.parameters
-                .map((p) => `${p.name}: ${p.valueType || "dynamic"}`)
-                .join()})`
-            } else {
-              return arg
+
+            switch (argType) {
+              case "string":
+                return (arg as StringVal).value
+              case "number":
+                return (arg as NumberVal).value
+              case "boolean":
+                return (arg as BooleanVal).value
+              case "null":
+                return (arg as NullVal).value
+              case "array":
+                return (arg as ArrayVal).elements.map(getValue)
+              case "return":
+                return getValue((arg as ReturnVal).value)
+              case "function": {
+                const fn = arg as FunctionVal
+                return `fn ${fn.name}(${fn.parameters
+                  .map((p) => `${p.name}: ${p.valueType || "dynamic"}`)
+                  .join()})`
+              }
+
+              default:
+                return arg
             }
           }
 
