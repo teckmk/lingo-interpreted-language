@@ -1,16 +1,7 @@
 import { VarModifier } from "../frontend/2-ast"
-import { MK_BOOL, MK_NATIVE_FN, MK_NULL } from "./macros"
-import {
-  ArrayVal,
-  RuntimeVal,
-  BooleanVal,
-  FunctionVal,
-  NumberVal,
-  StringVal,
-  NullVal,
-  ValueType,
-  ReturnVal,
-} from "./values"
+import functions from "./built-ins/functions"
+import variables from "./built-ins/variables"
+import { RuntimeVal, ValueType } from "./values"
 
 export default class Environment {
   private parent?: Environment
@@ -27,58 +18,10 @@ export default class Environment {
     const global = Boolean(parentEnv) == false
     if (global) {
       // global variables
-      this.declareVar("true", MK_BOOL(true), "constant")
-      this.declareVar("false", MK_BOOL(false), "constant")
-      this.declareVar("null", MK_NULL(), "constant")
+      for (const _var of variables) this.declareVar(_var.name, _var.value, _var.modifier)
 
       // global native functions
-      this.declareVar(
-        "print",
-        MK_NATIVE_FN((args: RuntimeVal[], _: Environment) => {
-          const getValue = (arg: RuntimeVal): any => {
-            const argType = arg.type
-
-            switch (argType) {
-              case "string":
-                return (arg as StringVal).value
-              case "number":
-                return (arg as NumberVal).value
-              case "boolean":
-                return (arg as BooleanVal).value
-              case "null":
-                return (arg as NullVal).value
-              case "array":
-                return (arg as ArrayVal).elements.map(getValue)
-              case "return":
-                return getValue((arg as ReturnVal).value)
-              case "function": {
-                const fn = arg as FunctionVal
-                return `fn ${fn.name}(${fn.parameters
-                  .map((p) => `${p.name}: ${p.valueType || "dynamic"}`)
-                  .join()})`
-              }
-
-              default:
-                return arg
-            }
-          }
-
-          console.log(...args.map((arg) => getValue(arg)))
-
-          return MK_NULL()
-        }),
-        "final"
-      )
-
-      this.declareVar(
-        "length",
-        MK_NATIVE_FN((args: any[], _: Environment) => {
-          const arr = args[0] as ArrayVal
-          if (arr.type !== "array") throw new Error(`Cannot get length of type '${arr.type}'`)
-          return { type: "number", value: arr.elements.length, returned: false }
-        }),
-        "final"
-      )
+      for (const fn of functions) this.declareVar(fn.name, fn.value, fn.modifier)
     }
   }
 

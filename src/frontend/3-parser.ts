@@ -19,16 +19,21 @@ import {
   Type,
   FunctionParam,
   ReturnStatement,
+  MultiVarDeclaration,
+  VarModifier,
 } from "./2-ast"
-import { TokenType, Token, tokenize } from "./1-lexer"
-import { Placholder, emitTempFile } from "../helpers"
+import { Placholder } from "../helpers"
+import { TokenType, specs } from "./lexer/specs"
+import Tokenizer, { Token } from "./lexer/tokenizer"
 
-enum SearchGroup {
+enum TypesGroup {
   TypeAnnotation,
+  BlockOpening,
+  BlockClosing,
 }
 export default class Parser {
-  constructor(inputString?: string) {
-    if (inputString) this.tokens = tokenize(inputString)
+  constructor(tokens?: Token[]) {
+    if (this.tokens) this.tokens = tokens!
   }
 
   private tokens: Token[] = []
@@ -54,10 +59,10 @@ export default class Parser {
     return prev
   }
 
-  private expectOneOf(group: SearchGroup, types: TokenType[], err: any) {
+  private expectOneOf(label: TypesGroup, types: TokenType[], err: any) {
     const prev = this.eat() as Token
     if (!prev || !types.includes(prev.type)) {
-      console.log("Parser Error:\n", err, prev, "Expecting: ", group)
+      console.log("Parser Error:\n", err, prev, "Expecting: ", label)
       process.exit(1)
     }
     return prev
@@ -84,14 +89,24 @@ export default class Parser {
   }
 
   private parse_code_block(): Stmt[] {
-    this.expect(TokenType.OpenBrace, "Expected { in code block")
+    const isIndented =
+      this.expectOneOf(
+        TypesGroup.BlockOpening,
+        [TokenType.OpenBrace, TokenType.Indent],
+        "Expected valid code block opening"
+      ).type == TokenType.Indent
 
     const block: Stmt[] = []
 
-    while (this.at().type != TokenType.EOF && this.at().type != TokenType.CloseBrace)
-      block.push(this.parse_stmt())
+    const blockEndingTypes = [TokenType.CloseBrace, TokenType.Dedent, TokenType.EOF]
 
-    this.expect(TokenType.CloseBrace, "Missing } in after code block")
+    while (!blockEndingTypes.includes(this.at().type)) block.push(this.parse_stmt())
+
+    if (isIndented) {
+      this.expect(TokenType.Dedent, "Unexpected ending of indented code block")
+    } else {
+      this.expect(TokenType.CloseBrace, "Unexpected ending of code block, expected '}'")
+    }
 
     return block
   }
@@ -187,27 +202,28 @@ export default class Parser {
     } as WhileStatement
   }
 
-  private parse_type_anotation(): Type | null {
+  private parse_type_anotation(): Type | undefined {
     // Check for types
     if (this.at().type == TokenType.Colon) {
       this.eat() // eat :
       const type = this.expectOneOf(
-        SearchGroup.TypeAnnotation,
-        [
-          TokenType.ArrayType,
-          TokenType.NumberType,
-          TokenType.ObjectType,
-          TokenType.StringType,
-          TokenType.BooleanType,
-          TokenType.DynamicType,
-        ],
+        TypesGroup.TypeAnnotation,
+        [TokenType.NumberType, TokenType.StringType, TokenType.BooleanType, TokenType.DynamicType],
         "Expected valid type annotation following ':'"
       ).value as Type
 
       return type
     }
 
-    return null
+    return
+  }
+
+  private verify_must_assign(modifier: VarModifier) {
+    if (modifier == "final") {
+      throw new Error("Must assign a value to final expression.")
+    } else if (modifier == "constant") {
+      throw new Error("Must assign a value to constant expression.")
+    }
   }
 
   private parse_var_declaration(): Stmt {
@@ -216,6 +232,8 @@ export default class Parser {
     const isConstant = declaratorType == TokenType.Const
     const isFinal = declaratorType == TokenType.Final
 
+    const modifier = isFinal ? "final" : isConstant ? "constant" : "variable"
+
     const identifier = this.expect(
       TokenType.Identifier,
       "Expected identifier name following variable declarator."
@@ -223,16 +241,71 @@ export default class Parser {
 
     const type = this.parse_type_anotation()
 
-    if (this.at().type == TokenType.Semicolon) {
-      this.eat() // expect semicolon 🤔
+    if (this.at().type == TokenType.Comma) {
+      const shorthands: VarDeclaration[] = []
 
-      if (isFinal) {
-        console.log("Must assign value to final expression. No value provided.")
-        process.exit()
-      } else if (isConstant) {
-        console.log("Must assign value to constant expression. No value provided.")
-        process.exit()
+      // Get one before the comma
+      shorthands.push({
+        kind: "VarDeclaration",
+        identifier,
+        type,
+        modifier: "variable",
+      })
+
+      // Get rest of them
+      while (this.at().type == TokenType.Comma) {
+        this.eat() // eat comma
+        shorthands.push({
+          kind: "VarDeclaration",
+          identifier: this.expect(TokenType.Identifier, "Expected identifier after comma.").value,
+          type: this.parse_type_anotation(),
+          modifier: "variable",
+        })
       }
+
+      // Get values
+      if (this.at().type == TokenType.Equals) {
+        this.eat() // eat equals
+        const values = [this.parse_expr()] // get first value
+
+        // Check for multiple valuess
+        while (this.at().type == TokenType.Comma) {
+          this.eat() // eat comma
+          values.push(this.parse_expr())
+        }
+
+        const numShortHands = shorthands.length
+        const numValues = values.length
+        const diff = numShortHands - numValues
+
+        if (diff == 0) {
+          for (let i = 0; i < numShortHands; i++) shorthands[i].value = values[i]
+        } else if (numValues == 1) {
+          for (let i = 0; i < numShortHands; i++) shorthands[i].value = values[0]
+        } else {
+          if (diff > numShortHands) {
+            throw new Error(
+              `Expected values for all ${numShortHands} variables in shorthand expression`
+            )
+          } else if (diff < numShortHands) {
+            throw new Error(
+              `Expected ${numShortHands} values but got ${numValues} in shorthand expression`
+            )
+          }
+        }
+      } else {
+        // to make sure if constants and finals are being initialized
+        this.verify_must_assign(modifier)
+      }
+
+      return {
+        kind: "MultiVarDeclaration",
+        variables: shorthands,
+      } as MultiVarDeclaration
+    }
+
+    if (this.at().type != TokenType.Equals) {
+      this.verify_must_assign(modifier)
 
       return {
         kind: "VarDeclaration",
@@ -248,7 +321,7 @@ export default class Parser {
       kind: "VarDeclaration",
       value: this.parse_expr(),
       identifier,
-      modifier: isFinal ? "final" : isConstant ? "constant" : "variable",
+      modifier,
       type,
     } as VarDeclaration
 
@@ -336,16 +409,9 @@ export default class Parser {
     let left = this.parse_additive_expr()
 
     while (
-      this.at().value == ">" ||
-      this.at().value == ">=" ||
-      this.at().value == "<" ||
-      this.at().value == "<=" ||
-      this.at().value == "==" ||
-      this.at().value == "!=" ||
-      this.at().value == "&&" ||
-      this.at().value == "||" ||
-      this.at().value == "and" ||
-      this.at().value == "or"
+      this.at().type == TokenType.RelationalOperator ||
+      this.at().type == TokenType.EqualityOperator ||
+      this.at().type == TokenType.LogicGate
     ) {
       const operator = this.eat().value
       const right = this.parse_additive_expr()
@@ -364,7 +430,7 @@ export default class Parser {
   private parse_additive_expr(): Expr {
     let left = this.parse_multipicative_expr()
 
-    while (this.at().value == "+" || this.at().value == "-") {
+    while (this.at().type == TokenType.AdditiveOperator) {
       const operator = this.eat().value
       const right = this.parse_multipicative_expr()
       left = {
@@ -382,7 +448,7 @@ export default class Parser {
   private parse_multipicative_expr(): Expr {
     let left = this.parse_call_member_expr()
 
-    while (this.at().value == "/" || this.at().value == "*" || this.at().value == "%") {
+    while (this.at().type == TokenType.MulitipicativeOperator) {
       const operator = this.eat().value
       const right = this.parse_call_member_expr()
       left = {
@@ -521,14 +587,15 @@ export default class Parser {
 
       if (matches.length) {
         let i = 0
-        const results = matches.map((match) => match.replace(regex, "$1")) // remove ${ } from expressions
+        const results = matches.map((match: string) => match.replace(regex, "$1")) // remove ${ } from expressions
 
         // replace expressions with placeholders
         outputString = inputString.replace(regex, () => Placholder.expr(i++))
 
         // parse the expressions
-        results.forEach((exprStr, i) => {
-          expressions[Placholder.expr(i)] = new Parser(exprStr).parse_expr()
+        results.forEach((exprStr: string, i: number) => {
+          const tokens = new Tokenizer(specs, "string interpolation").tokenize(exprStr)
+          expressions[Placholder.expr(i)] = new Parser(tokens).parse_expr()
         })
       }
     }
@@ -562,9 +629,9 @@ export default class Parser {
     switch (tk) {
       case TokenType.Identifier:
         return { kind: "Identifier", symbol: this.eat().value } as Identifier
-      case TokenType.Number:
+      case TokenType.NumberLiteral:
         return { kind: "NumericLiteral", value: parseFloat(this.eat().value) } as NumericLiteral
-      case TokenType.String:
+      case TokenType.StringLiteral:
         return this.parse_string_literal() as StringLiteral
       case TokenType.OpenParen:
         return this.parse_paren_expression()
@@ -575,15 +642,14 @@ export default class Parser {
   }
 
   // 0
-  public produceAST(sourceCode: string): Program {
-    this.tokens = tokenize(sourceCode)
-
-    emitTempFile("tokens.json", JSON.stringify(this.tokens))
-
+  public produceAST(tokens?: Token[]): Program {
+    if (tokens) this.tokens = tokens
     const program: Program = {
       kind: "Program",
       body: [],
     }
+
+    if (!this.tokens) throw new Error("Initialization Error: Parser is not initialized with tokens")
 
     while (this.not_eof()) program.body.push(this.parse_stmt())
 

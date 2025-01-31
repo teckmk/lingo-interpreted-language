@@ -15,6 +15,7 @@ export type ValueType =
   | "whileloop"
   | "array"
   | "dynamic"
+  | "docs"
 
 export interface RuntimeVal {
   type: ValueType
@@ -89,4 +90,8 @@ export interface WhileLoopVal extends RuntimeVal {
 export interface ArrayVal extends RuntimeVal {
   type: "array"
   elements: RuntimeVal[]
+}
+
+export interface DocCommentVal extends RuntimeVal {
+  type: "docs"
 }

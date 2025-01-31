@@ -2,6 +2,7 @@ import {
   Expr,
   FunctionDeclaration,
   IfElseStatement,
+  MultiVarDeclaration,
   Program,
   ReturnStatement,
   Stmt,
@@ -11,7 +12,7 @@ import {
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
 import { MK_NULL } from "../macros"
-import { BooleanVal, FunctionVal, ParamVal, ReturnVal, RuntimeVal } from "../values"
+import { ArrayVal, BooleanVal, FunctionVal, ParamVal, ReturnVal, RuntimeVal } from "../values"
 
 export function eval_program(program: Program, env: Environment): RuntimeVal {
   let evaluated: RuntimeVal = MK_NULL()
@@ -35,6 +36,16 @@ export function eval_var_declaration(declaration: VarDeclaration, env: Environme
   }
 
   return env.declareVar(declaration.identifier, value, declaration.modifier)
+}
+
+export function eval_multi_var_declaration(
+  declaration: MultiVarDeclaration,
+  env: Environment
+): ArrayVal {
+  const values = []
+  for (const dec of declaration.variables) values.push(eval_var_declaration(dec, env))
+
+  return { type: "array", elements: values, returned: false }
 }
 
 export function eval_fn_declaration(

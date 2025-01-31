@@ -1,22 +1,16 @@
 import Environment from "./environment"
 import { NumberVal, RuntimeVal, StringVal } from "./values"
 import {
-  eval_fn_declaration,
-  eval_if_else_statement,
-  eval_program,
-  eval_return_statement,
-  eval_var_declaration,
-  eval_while_statement,
-} from "./eval/statements"
-import {
   ArrayLiteral,
   AssignmentExpr,
   BinaryExpr,
   CallExpr,
+  DocComment,
   FunctionDeclaration,
   Identifier,
   IfElseStatement,
   MemberExpr,
+  MultiVarDeclaration,
   NumericLiteral,
   ObjectLiteral,
   Program,
@@ -26,11 +20,22 @@ import {
   VarDeclaration,
   WhileStatement,
 } from "../frontend/2-ast"
+
+import {
+  eval_fn_declaration,
+  eval_if_else_statement,
+  eval_multi_var_declaration,
+  eval_program,
+  eval_return_statement,
+  eval_var_declaration,
+  eval_while_statement,
+} from "./eval/statements"
 import {
   eval_array_expr,
   eval_assignment,
   eval_binary_expr,
   eval_call_expr,
+  eval_comment_expr,
   eval_identifier,
   eval_member_expr,
   eval_object_expr,
@@ -62,6 +67,8 @@ export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
       return eval_program(astNode as Program, env)
     case "VarDeclaration":
       return eval_var_declaration(astNode as VarDeclaration, env)
+    case "MultiVarDeclaration":
+      return eval_multi_var_declaration(astNode as MultiVarDeclaration, env)
     case "FunctionDeclaration":
       return eval_fn_declaration(astNode as FunctionDeclaration, env)
     case "ReturnStatement":
@@ -72,6 +79,8 @@ export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
       return eval_while_statement(astNode as WhileStatement, env)
     case "MemberExpr":
       return eval_member_expr(astNode as MemberExpr, env)
+    case "DocComment":
+      return eval_comment_expr(astNode as DocComment, env)
     default:
       console.error("This AST can't be interpreted! For now atleast!", astNode)
       process.exit(0)

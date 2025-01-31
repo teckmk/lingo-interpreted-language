@@ -6,6 +6,8 @@ import Environment from "./runtime/environment"
 
 import { evaluate } from "./runtime/interpreter"
 import { prompt, validateFilename, emitTempFile } from "./helpers"
+import Tokenizer from "./frontend/lexer/tokenizer"
+import { specs } from "./frontend/lexer/specs"
 
 main()
 
@@ -24,7 +26,6 @@ async function main() {
 }
 
 async function repl() {
-  const parser = new Parser()
   const env = new Environment()
 
   console.clear()
@@ -35,8 +36,9 @@ async function repl() {
       const input = await prompt("> ")
 
       if (input.includes(".exit")) process.exit(1)
-
-      const program = parser.produceAST(input)
+      const tokens = new Tokenizer(specs, "REPL").tokenize(input)
+      emitTempFile("tokens.json", JSON.stringify(tokens))
+      const program = new Parser(tokens).produceAST()
 
       evaluate(program, env)
     } catch (err) {
@@ -48,19 +50,18 @@ async function repl() {
 }
 
 function run(filename: string) {
-  const start = performance.now()
-
   const parser = new Parser()
   const env = new Environment()
+  const tokenizer = new Tokenizer(specs, filename)
 
   const input = readFileSync(validateFilename(filename), { encoding: "utf-8" })
 
-  const program = parser.produceAST(input)
+  const tokens = tokenizer.tokenize(input)
+  emitTempFile("tokens.json", JSON.stringify(tokens))
+
+  const program = parser.produceAST(tokens)
 
   evaluate(program, env)
-
-  console.log("_________________________________________")
-  console.log("Exited in", performance.now() - start, "milliseconds")
 
   emitTempFile("ast.json", JSON.stringify(program))
 }
