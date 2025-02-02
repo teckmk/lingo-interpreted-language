@@ -67,7 +67,7 @@ export class Tokenizer {
 
       if (tokenType == TokenType.EOL) {
         this._line++
-        this._tokenNumber = 0
+        this._tokenNumber = 1
       }
 
       if (tokenType == TokenType.StringLiteral) {
@@ -84,7 +84,7 @@ export class Tokenizer {
     }
 
     throw new Error(
-      `Unexpected token '${code[0]}' at ${this._line}:${this._tokenNumber} in ${this._filename}`,
+      `Unexpected token '${code[0]}' at ${this._line}:${this._tokenNumber} in ${this._filename}`
     )
   }
 
@@ -181,7 +181,7 @@ export class Organizer {
   filter() {
     this._tokens = this._tokens.filter(({ type }, index) => {
       const skippable = [TokenType.WhiteSpace, TokenType.SingleLineComment, TokenType.EOL].includes(
-        type,
+        type
       )
 
       // skip colon token before indent token
@@ -220,8 +220,7 @@ function isRootKeyVal(q: Queue<TokenType>) {
   )
 }
 
-
- class Queue<T> {
+class Queue<T> {
   private items: T[] = []
   private maxLength: number
 
@@ -265,7 +264,7 @@ function isRootKeyVal(q: Queue<TokenType>) {
   }
 }
 
- function insertAtIndex<T>(array: T[], index: number, element: T): T[] {
+function insertAtIndex<T>(array: T[], index: number, element: T): T[] {
   if (index < 0 || index > array.length) {
     throw new Error("Index is out of range")
   }

@@ -1,6 +1,4 @@
 node_modules
 dist
-
-tests
 _temp_
 package-lock.json
