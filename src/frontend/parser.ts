@@ -24,7 +24,7 @@ import {
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType, specs } from "./lexer/specs"
-import  {Tokenizer, Token } from "./lexer/tokenizer"
+import { Tokenizer, Token } from "./lexer/tokenizer"
 
 enum TypesGroup {
   TypeAnnotation,
@@ -33,7 +33,9 @@ enum TypesGroup {
 }
 export default class Parser {
   constructor(tokens?: Token[]) {
-    if (this.tokens) this.tokens = tokens!
+    if (tokens) {
+      this.tokens = tokens
+    }
   }
 
   private tokens: Token[] = []

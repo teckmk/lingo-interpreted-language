@@ -186,6 +186,8 @@ export function eval_member_expr(expr: MemberExpr, env: Environment): RuntimeVal
 
         return arr.elements[(index as NumberVal).value]
       }
+
+      break // to satisfy TS
     }
     case "object":
       // const obj = ident as ObjectVal
