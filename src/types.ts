@@ -1,4 +1,4 @@
-import { VarModifier } from "./frontend/2-ast"
+import { VarModifier } from "./frontend/ast"
 import { RuntimeVal } from "./runtime/values"
 
 export type BuiltIn = {

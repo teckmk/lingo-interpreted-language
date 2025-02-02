@@ -1,4 +1,4 @@
-import { VarModifier } from "../frontend/2-ast"
+import { VarModifier } from "../frontend/ast"
 import functions from "./built-ins/functions"
 import variables from "./built-ins/variables"
 import { RuntimeVal, ValueType } from "./values"

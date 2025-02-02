@@ -1,0 +1,19 @@
+var a = 56
+
+var b = 45
+
+if (a > b) {
+    print("a is greater than b")
+} else {
+    print("b is greater than a")
+}
+
+# if else if
+
+if (a > b) {
+    print("a is greater than b")
+} else if (a < b) {
+    print("b is greater than a")
+} else {
+    print("a is equal to b")
+}

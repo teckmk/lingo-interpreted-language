@@ -11,7 +11,7 @@
     "release:major": "standard-version --release-as major",
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "echo 'no tests found'",
+    "test": "jest --coverage",
     "lint": "eslint .  --ignore-path .eslintignore",
     "lint:fix": "eslint -- --fix",
     "compiler": "node ./bin"
@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@commitlint/cli": "^17.6.3",
-    "@commitlint/config-conventional": "^17.6.3"
+    "@commitlint/config-conventional": "^17.6.3",
+    "tsx": "^4.19.2"
   }
 }

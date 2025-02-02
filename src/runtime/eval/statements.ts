@@ -8,7 +8,7 @@ import {
   Stmt,
   VarDeclaration,
   WhileStatement,
-} from "../../frontend/2-ast"
+} from "../../frontend/ast"
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
 import { MK_NULL } from "../macros"

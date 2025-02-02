@@ -1,3 +1,6 @@
 {
-  "deepscan.enable": true
+  "deepscan.enable": true,
+  "editor.formatOnType": false,
+  "editor.stickyScroll.scrollWithEditor": true,
+  "editor.stickyScroll.enabled": false
 }

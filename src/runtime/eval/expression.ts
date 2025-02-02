@@ -1,4 +1,4 @@
-import { DocComment } from "./../../frontend/2-ast"
+import { DocComment } from "../../frontend/ast"
 import { ArrayVal, BooleanVal, FunctionVal, StringVal } from "./../values"
 import {
   ArrayLiteral,
@@ -10,7 +10,7 @@ import {
   NumericLiteral,
   ObjectLiteral,
   StringLiteral,
-} from "../../frontend/2-ast"
+} from "../../frontend/ast"
 import Environment from "../environment"
 import { evaluate } from "../interpreter"
 import { MK_NULL } from "../macros"

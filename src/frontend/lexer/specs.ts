@@ -1,4 +1,3 @@
-import { EOL } from "os"
 
 export enum TokenType {
   NumberLiteral = "NUMBER_LITERAL",
@@ -55,7 +54,7 @@ export type Spec = {
 }
 
 export const specs: Spec[] = [
-  { regex: /^[+-]?([\d]*[.])?[\d]+/, tokenType: TokenType.NumberLiteral },
+  { regex: /^([\d]*[.])?[\d]+/, tokenType: TokenType.NumberLiteral },
   { regex: /^"[^"]*"/, tokenType: TokenType.StringLiteral },
   { regex: /^'[^']*'/, tokenType: TokenType.StringLiteral },
 
@@ -104,7 +103,8 @@ export const specs: Spec[] = [
   { regex: /^\[/, tokenType: TokenType.OpenBracket },
   { regex: /^\]/, tokenType: TokenType.CloseBracket },
 
-  { regex: RegExp(`^${EOL}`), tokenType: TokenType.EOL },
+  { regex: /^\r\n/, tokenType: TokenType.EOL },
+  { regex: /^\n/, tokenType: TokenType.EOL },
 
   { regex: /^[^\S\r\n]+/, tokenType: TokenType.WhiteSpace }, // match one or more spaces and tabs
 ]

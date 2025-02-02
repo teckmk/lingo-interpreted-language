@@ -1,0 +1,7 @@
+ISSUES:
+
+- 4+5 doesn't works, but 4 + 5 works. it treats +5 as a number
+- expressions in string interpolation are not working. e.g:
+    > print("every thing is coool ${5-90} times")
+    every thing is coool 5 times
+

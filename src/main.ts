@@ -1,12 +1,12 @@
 /* eslint-disable no-constant-condition */
 import { readFileSync } from "fs"
 
-import Parser from "./frontend/3-parser"
+import Parser from "./frontend/parser"
 import Environment from "./runtime/environment"
 
 import { evaluate } from "./runtime/interpreter"
 import { prompt, validateFilename, emitTempFile } from "./helpers"
-import Tokenizer from "./frontend/lexer/tokenizer"
+import  { Tokenizer,Organizer } from "./frontend/lexer/tokenizer"
 import { specs } from "./frontend/lexer/specs"
 
 main()
@@ -36,7 +36,10 @@ async function repl() {
       const input = await prompt("> ")
 
       if (input.includes(".exit")) process.exit(1)
-      const tokens = new Tokenizer(specs, "REPL").tokenize(input)
+      const tokenizer = new Tokenizer(specs, "REPL")
+
+      let tokens = tokenizer.tokenize(input)
+      tokens = new Organizer().organize(tokens).filter().filter().tokens
       emitTempFile("tokens.json", JSON.stringify(tokens))
       const program = new Parser(tokens).produceAST()
 
@@ -52,11 +55,14 @@ async function repl() {
 function run(filename: string) {
   const parser = new Parser()
   const env = new Environment()
-  const tokenizer = new Tokenizer(specs, filename)
 
   const input = readFileSync(validateFilename(filename), { encoding: "utf-8" })
 
-  const tokens = tokenizer.tokenize(input)
+  const tokenizer = new Tokenizer(specs, filename)
+
+  let tokens = tokenizer.tokenize(input)
+  tokens = new Organizer().organize(tokens).filter().filter().tokens
+
   emitTempFile("tokens.json", JSON.stringify(tokens))
 
   const program = parser.produceAST(tokens)

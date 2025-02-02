@@ -1,4 +1,4 @@
-import { Stmt } from "../frontend/2-ast"
+import { Stmt } from "../frontend/ast"
 import Environment from "./environment"
 
 export type ValueType =

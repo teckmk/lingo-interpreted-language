@@ -19,7 +19,7 @@ import {
   StringLiteral,
   VarDeclaration,
   WhileStatement,
-} from "../frontend/2-ast"
+} from "../frontend/ast"
 
 import {
   eval_fn_declaration,

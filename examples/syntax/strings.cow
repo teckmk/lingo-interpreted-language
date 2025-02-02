@@ -1,0 +1,7 @@
+var str = "Hello, World!"
+
+var num = 42
+
+var str2 = "The answer is $num"
+
+var str3 = "The answer is ${num + 1}"

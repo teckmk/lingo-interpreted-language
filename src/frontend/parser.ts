@@ -21,10 +21,10 @@ import {
   ReturnStatement,
   MultiVarDeclaration,
   VarModifier,
-} from "./2-ast"
+} from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType, specs } from "./lexer/specs"
-import Tokenizer, { Token } from "./lexer/tokenizer"
+import  {Tokenizer, Token } from "./lexer/tokenizer"
 
 enum TypesGroup {
   TypeAnnotation,
