@@ -119,4 +119,51 @@ foo()`
       { type: TokenType.EOF, value: "EOF", column: -1, line: 6 },
     ])
   })
+
+  it("should tokenize indented code block with variable indentation", () => {
+    const code = `
+a:
+    b:
+        c
+    d:
+        e
+        f
+    g
+h
+
+k`
+
+    const tokens = tokenizer.tokenize(code)
+
+    const indented = new IndentMaker()
+      .markIndents(tokens)
+      .removeUnwantedTokens()
+      .fixColumnNumbers().tokens
+
+    expect(indented).toEqual([
+      { type: TokenType.Identifier, value: "a", column: 1, line: 2 },
+      { type: TokenType.Indent, value: "indent", column: 1, line: 3 },
+      { type: TokenType.Identifier, value: "b", column: 2, line: 3 },
+
+      { type: TokenType.Indent, value: "indent", column: 1, line: 4 },
+      { type: TokenType.Identifier, value: "c", column: 2, line: 4 },
+
+      { type: TokenType.Dedent, value: "dedent", column: 1, line: 5 },
+      { type: TokenType.Identifier, value: "d", column: 2, line: 5 },
+
+      { type: TokenType.Indent, value: "indent", column: 1, line: 6 },
+      { type: TokenType.Identifier, value: "e", column: 2, line: 6 },
+
+      { type: TokenType.Identifier, value: "f", column: 1, line: 7 },
+
+      { type: TokenType.Dedent, value: "dedent", column: 1, line: 8 },
+      { type: TokenType.Identifier, value: "g", column: 2, line: 8 },
+
+      { type: TokenType.Dedent, value: "dedent", column: 1, line: 9 },
+      { type: TokenType.Identifier, value: "h", column: 2, line: 9 },
+
+      { type: TokenType.Identifier, value: "k", column: 1, line: 11 },
+      { type: TokenType.EOF, value: "EOF", column: -1, line: 11 },
+    ])
+  })
 })
