@@ -6,7 +6,7 @@ import Environment from "./runtime/environment"
 
 import { evaluate } from "./runtime/interpreter"
 import { prompt, validateFilename, emitTempFile } from "./helpers"
-import  { Tokenizer,Organizer } from "./frontend/lexer/tokenizer"
+import { Tokenizer, IndentMaker } from "./frontend/lexer/tokenizer"
 import { specs } from "./frontend/lexer/specs"
 
 main()
@@ -39,7 +39,10 @@ async function repl() {
       const tokenizer = new Tokenizer(specs, "REPL")
 
       let tokens = tokenizer.tokenize(input)
-      tokens = new Organizer().organize(tokens).filter().filter().tokens
+      tokens = new IndentMaker()
+        .markIndents(tokens)
+        .removeUnwantedTokens()
+        .fixColumnNumbers().tokens
       emitTempFile("tokens.json", JSON.stringify(tokens))
       const program = new Parser(tokens).produceAST()
 
@@ -61,7 +64,7 @@ function run(filename: string) {
   const tokenizer = new Tokenizer(specs, filename)
 
   let tokens = tokenizer.tokenize(input)
-  tokens = new Organizer().organize(tokens).filter().filter().tokens
+  tokens = new IndentMaker().markIndents(tokens).removeUnwantedTokens().fixColumnNumbers().tokens
 
   emitTempFile("tokens.json", JSON.stringify(tokens))
 

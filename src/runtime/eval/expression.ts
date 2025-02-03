@@ -196,6 +196,8 @@ export function eval_member_expr(expr: MemberExpr, env: Environment): RuntimeVal
     default:
       throw new Error("Cannot identify the type of variable")
   }
+
+  return MK_NULL() // to satisfy TS
 }
 
 export function eval_comment_expr(_: DocComment, __: Environment): RuntimeVal {

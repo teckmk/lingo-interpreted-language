@@ -71,7 +71,12 @@ export class Tokenizer {
       }
 
       if (tokenType == TokenType.StringLiteral) {
+        // remove quotes from string
         tokenValue = tokenValue.substring(1, tokenValue.length - 1)
+      }
+
+      if (tokenType == TokenType.EOL) {
+        tokenValue = "\n"
       }
 
       return this._pushToken({
@@ -104,163 +109,136 @@ export class Tokenizer {
   }
 }
 
-export class Organizer {
+export class IndentMaker {
   private _tokens: Token[] = []
 
   get tokens() {
     return this._tokens
   }
 
-  organize(tokens: Token[]): Organizer {
-    const indentQ = new Queue<TokenType>(3)
-    const nestedIndentQ = new Queue<TokenType>(5)
-    const rootKeyValQ = new Queue<TokenType>(3)
-
-    let indentWidth = 0
+  markIndents(tokens: Token[]): IndentMaker {
+    const indentStack: Stack<number> = new Stack([0]) // Initialize with root level 0
+    let afterColon = false
+    let afterEOL = false
 
     for (const token of tokens) {
-      this._tokens.push(token)
+      if (token.type === TokenType.Colon) {
+        afterColon = true
+        this._tokens.push(token)
+      } else if (afterColon && token.type === TokenType.EOL) {
+        this._tokens.push(token)
+        afterEOL = true
+      } else if (afterColon && afterEOL && token.type === TokenType.WhiteSpace) {
+        const currentIndent = indentStack.peek
+        const newIndent = token.value.length
 
-      indentQ.enqueue(token.type)
-      nestedIndentQ.enqueue(token.type)
-      rootKeyValQ.enqueue(token.type)
+        if (newIndent > currentIndent) {
+          // Indent level increased
+          indentStack.push(newIndent)
+          this._tokens.push(this._createIndentToken(token))
+        } else if (newIndent < currentIndent) {
+          // Indent level decreased
+          let dedentCount = 0
+          while (indentStack.length > 1 && indentStack.peek > newIndent) {
+            dedentCount++
+            indentStack.pop()
+          }
 
-      if (isIndent(indentQ)) {
-        // if new indent is started, and indentWidth is already > 0
-        // then push dedent for each indentWidth
-        if (!isNestedIndent(nestedIndentQ)) {
-          for (let i = indentWidth; i > 0; i--) {
-            insertAtIndex(this._tokens, this._tokens.length - 4, {
-              type: TokenType.Dedent,
-              value: "auto dedent",
-              column: token.column + 1,
-              line: token.column,
-            })
+          if (indentStack.peek !== newIndent) {
+            throw new Error(`Invalid indentation at ${token.line}:${token.column}`)
+          }
+
+          for (let i = 0; i < dedentCount; i++) {
+            this._tokens.push(this._createDedentToken(token))
           }
         }
-
-        indentWidth = token.value.length
-
-        this._tokens.push({
-          type: TokenType.Indent,
-          value: "indent",
-          column: token.column + 1,
-          line: token.column,
-        })
+        afterEOL = false
       }
-
-      if (token.type === TokenType.WhiteSpace) {
-        if (token.value.length < indentWidth) {
-          indentWidth = token.value.length
-          this._tokens.push({
-            type: TokenType.Dedent,
-            value: "dedent",
-            column: token.column + 1,
-            line: token.column,
-          })
-        }
+      // Token is not an EOL or whitespace
+      else {
+        this._tokens.push(token)
+        afterEOL = false
       }
+    }
 
-      if (isRootKeyVal(rootKeyValQ)) {
-        for (let i = indentWidth; i > 0; i--) {
-          insertAtIndex(this._tokens, this._tokens.length - 4, {
-            type: TokenType.Dedent,
-            value: "auto dedent",
-            column: token.column + 1,
-            line: token.column,
-          })
-        }
-
-        indentWidth = 0
-      }
+    // Add final dedents for remaining indentation levels
+    while (indentStack.length > 1) {
+      indentStack.pop()
+      // push dedent token(s), before EOF token
+      insertAtIndex(
+        this._tokens,
+        this._tokens.length - 1,
+        this._createDedentToken(this._tokens[this._tokens.length - 1])
+      )
     }
 
     return this
   }
 
-  filter() {
+  removeUnwantedTokens() {
     this._tokens = this._tokens.filter(({ type }, index) => {
-      const skippable = [TokenType.WhiteSpace, TokenType.SingleLineComment, TokenType.EOL].includes(
-        type
-      )
-
-      // skip colon token before indent token
+      const skippable = type === TokenType.WhiteSpace || type === TokenType.SingleLineComment
       const next = this._tokens[index + 1]
-      const indentColon = type === TokenType.Colon && next.type === TokenType.Indent
-
+      const nextOfNext = this._tokens[index + 2]
+      const indentColon =
+        type === TokenType.Colon &&
+        next?.type === TokenType.EOL &&
+        nextOfNext?.type === TokenType.Indent
       return !skippable && !indentColon
     })
-
     return this
   }
-}
 
-function isIndent(q: Queue<TokenType>) {
-  return (
-    q.peek(0) === TokenType.Colon &&
-    q.peek(1) === TokenType.EOL &&
-    q.peek(2) === TokenType.WhiteSpace
-  )
-}
+  fixColumnNumbers() {
+    let currentColumn = 1
+    let currentLine = 1
+    const tokens = []
 
-function isNestedIndent(q: Queue<TokenType>) {
-  return (
-    q.peek(0) === TokenType.WhiteSpace &&
-    q.peek(2) === TokenType.Colon &&
-    q.peek(3) === TokenType.EOL &&
-    q.peek(4) === TokenType.WhiteSpace
-  )
-}
+    for (const token of this._tokens) {
+      if (token.type === TokenType.EOL) {
+        currentLine++
+        currentColumn = 1
+        continue
+      }
 
-function isRootKeyVal(q: Queue<TokenType>) {
-  return (
-    q.peek(0) === TokenType.EOL &&
-    q.peek(1) === TokenType.Identifier &&
-    q.peek(2) === TokenType.Equals
-  )
-}
+      if (token.type === TokenType.Indent || token.type === TokenType.Dedent) {
+        currentColumn = 1
+      }
 
-class Queue<T> {
-  private items: T[] = []
-  private maxLength: number
+      const newToken = {
+        ...token,
+        column: currentColumn++,
+        line: currentLine,
+      }
 
-  constructor(maxLength: number) {
-    if (maxLength <= 0) {
-      throw new Error("Maximum length should be greater than zero")
+      // the EOF token should have the column number of -1
+      if (newToken.type === TokenType.EOF) {
+        newToken.column = -1
+      }
+
+      tokens.push(newToken)
     }
-    this.maxLength = maxLength
+
+    this._tokens = tokens
+    return this
   }
 
-  enqueue(item: T): void {
-    this.items.push(item)
-
-    if (this.items.length > this.maxLength) {
-      this.dequeue()
+  private _createIndentToken(baseToken: Token): Token {
+    return {
+      type: TokenType.Indent,
+      value: "indent",
+      column: 1,
+      line: baseToken.line + 1,
     }
   }
 
-  dequeue(): T | undefined {
-    return this.items.shift()
-  }
-
-  peek(index = 0): T | undefined {
-    return this.items[index]
-  }
-
-  toList() {
-    return [...this.items]
-  }
-
-  get size(): number {
-    return this.items.length
-  }
-
-  get empty(): boolean {
-    return this.items.length === 0
-  }
-
-  get full(): boolean {
-    return this.items.length === this.maxLength
+  private _createDedentToken(baseToken: Token): Token {
+    return {
+      type: TokenType.Dedent,
+      value: "dedent",
+      column: 1,
+      line: baseToken.line + 1,
+    }
   }
 }
 
@@ -273,4 +251,29 @@ function insertAtIndex<T>(array: T[], index: number, element: T): T[] {
   array.splice(index, 0, element)
 
   return array
+}
+
+// Create stack class
+class Stack<T> {
+  private stack: T[] = []
+
+  constructor(initialItems: T[] = []) {
+    this.stack = initialItems
+  }
+
+  get peek() {
+    return this.stack[this.stack.length - 1]
+  }
+
+  get length() {
+    return this.stack.length
+  }
+
+  push(item: T) {
+    this.stack.push(item)
+  }
+
+  pop(): T | undefined {
+    return this.stack.pop()
+  }
 }
