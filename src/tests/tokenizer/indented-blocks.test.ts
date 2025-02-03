@@ -74,7 +74,7 @@ fn foo():
     ])
   })
 
-  it.skip("should tokenize nested indented code block with variable indentation", () => {
+  it("should tokenize nested indented code block with variable indentation", () => {
     const code = `
 fn foo():
     if (x > 10):
@@ -88,8 +88,6 @@ foo()`
       .markIndents(tokens)
       .removeUnwantedTokens()
       .fixColumnNumbers().tokens
-
-    console.log(indented)
 
     expect(indented).toEqual([
       { type: TokenType.Fn, value: "fn", column: 1, line: 2 },
@@ -118,7 +116,7 @@ foo()`
       { type: TokenType.Identifier, value: "foo", column: 2, line: 6 },
       { type: TokenType.OpenParen, value: "(", column: 3, line: 6 },
       { type: TokenType.CloseParen, value: ")", column: 4, line: 6 },
-      { type: TokenType.EOF, value: "EOF", column: -1, line: 4 },
+      { type: TokenType.EOF, value: "EOF", column: -1, line: 6 },
     ])
   })
 })

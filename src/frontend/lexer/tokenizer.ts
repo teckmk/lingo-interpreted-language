@@ -118,18 +118,16 @@ export class IndentMaker {
 
   markIndents(tokens: Token[]): IndentMaker {
     const indentStack: Stack<number> = new Stack([0]) // Initialize with root level 0
-    let afterColon = false
     let afterEOL = false
 
     for (const token of tokens) {
       if (token.type === TokenType.Colon) {
-        afterColon = true
         this._tokens.push(token)
-      } else if (afterColon && token.type === TokenType.EOL) {
+      } else if (token.type === TokenType.EOL) {
         this._tokens.push(token)
         afterEOL = true
-      } else if (afterColon && afterEOL && token.type === TokenType.WhiteSpace) {
-        const currentIndent = indentStack.peek
+      } else if (afterEOL && token.type === TokenType.WhiteSpace) {
+        const currentIndent = indentStack.peek()
         const newIndent = token.value.length
 
         if (newIndent > currentIndent) {
@@ -139,12 +137,12 @@ export class IndentMaker {
         } else if (newIndent < currentIndent) {
           // Indent level decreased
           let dedentCount = 0
-          while (indentStack.length > 1 && indentStack.peek > newIndent) {
+          while (indentStack.length > 1 && indentStack.peek() > newIndent) {
             dedentCount++
             indentStack.pop()
           }
 
-          if (indentStack.peek !== newIndent) {
+          if (indentStack.peek() !== newIndent) {
             throw new Error(`Invalid indentation at ${token.line}:${token.column}`)
           }
 
@@ -153,18 +151,37 @@ export class IndentMaker {
           }
         }
         afterEOL = false
-      }
-      // Token is not an EOL or whitespace
-      else {
+      } else if (afterEOL) {
+        // Handle dedent when line starts with non-whitespace
+        const currentIndent = indentStack.peek()
+        const newIndent = 0
+
+        if (newIndent < currentIndent) {
+          let dedentCount = 0
+          while (indentStack.length > 1 && indentStack.peek() > newIndent) {
+            dedentCount++
+            indentStack.pop()
+          }
+
+          if (indentStack.peek() !== newIndent) {
+            throw new Error(`Invalid indentation at ${token.line}:${token.column}`)
+          }
+
+          for (let i = 0; i < dedentCount; i++) {
+            this._tokens.push(this._createDedentToken(token))
+          }
+        }
+
         this._tokens.push(token)
         afterEOL = false
+      } else {
+        this._tokens.push(token)
       }
     }
 
     // Add final dedents for remaining indentation levels
     while (indentStack.length > 1) {
       indentStack.pop()
-      // push dedent token(s), before EOF token
       insertAtIndex(
         this._tokens,
         this._tokens.length - 1,
@@ -261,12 +278,12 @@ class Stack<T> {
     this.stack = initialItems
   }
 
-  get peek() {
-    return this.stack[this.stack.length - 1]
-  }
-
   get length() {
     return this.stack.length
+  }
+
+  peek(): T {
+    return this.stack[this.stack.length - 1]
   }
 
   push(item: T) {
