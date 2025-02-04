@@ -167,7 +167,7 @@ k`
     ])
   })
 
-  it("should not insert indent/dedent tokens when not in indented block", () => {
+  it("should not insert indent/dedent tokens when in regular code block .ie. in { and }", () => {
     const code = `
 fn foo(){
     if (x > 10){
@@ -214,6 +214,31 @@ foo()`
       { type: TokenType.OpenParen, value: "(", column: 2, line: 8 },
       { type: TokenType.CloseParen, value: ")", column: 3, line: 8 },
       { type: TokenType.EOF, value: "EOF", column: -1, line: 8 },
+    ])
+  })
+
+  it("should indentify the indented block correctly", () => {
+    const code = `
+a
+    b
+        c
+    d
+e`
+
+    const tokens = tokenizer.tokenize(code)
+
+    const indented = new IndentMaker()
+      .markIndents(tokens)
+      .removeUnwantedTokens()
+      .fixColumnNumbers().tokens
+
+    expect(indented).toEqual([
+      { type: TokenType.Identifier, value: "a", column: 1, line: 2 },
+      { type: TokenType.Identifier, value: "b", column: 1, line: 3 },
+      { type: TokenType.Identifier, value: "c", column: 1, line: 4 },
+      { type: TokenType.Identifier, value: "d", column: 1, line: 5 },
+      { type: TokenType.Identifier, value: "e", column: 1, line: 6 },
+      { type: TokenType.EOF, value: "EOF", column: -1, line: 6 },
     ])
   })
 
