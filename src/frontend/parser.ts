@@ -24,7 +24,7 @@ import {
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType, specs } from "./lexer/specs"
-import { Tokenizer, Token, tokenize } from "./lexer/tokenizer"
+import { Token, tokenize } from "./lexer/tokenizer"
 
 enum TypesGroup {
   TypeAnnotation,
