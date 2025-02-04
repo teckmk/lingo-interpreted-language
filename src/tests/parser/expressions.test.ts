@@ -384,5 +384,189 @@ describe("Parser - Expressions", () => {
         ],
       })
     })
+
+    it("should parse string literal expressions with multiple embedded expressions and variables", () => {
+      const code = '"foo $bar ${bar + 3} ${foo * 2}"' // ${bar + 3} is an expression
+      const tokens = tokenize(specs, "test", code)
+
+      const ast = new Parser(tokens).produceAST()
+
+      expect(ast).toEqual({
+        kind: "Program",
+        body: [
+          {
+            kind: "StringLiteral",
+            value: "foo $bar #expr(0) #expr(1)",
+            identifiers: ["$bar"],
+            expressions: {
+              "#expr(0)": {
+                kind: "BinaryExpr",
+                left: { kind: "Identifier", symbol: "bar" },
+                right: { kind: "NumericLiteral", value: 3 },
+                operator: "+",
+              },
+              "#expr(1)": {
+                kind: "BinaryExpr",
+                left: { kind: "Identifier", symbol: "foo" },
+                right: { kind: "NumericLiteral", value: 2 },
+                operator: "*",
+              },
+            },
+          },
+        ],
+      })
+    })
+  })
+
+  describe("Object expressions", () => {
+    it("should parse object expressions", () => {
+      const code = "{ foo: 1, bar: 2 }"
+      const tokens = tokenize(specs, "test", code)
+
+      const ast = new Parser(tokens).produceAST()
+
+      expect(ast).toEqual({
+        kind: "Program",
+        body: [
+          {
+            kind: "ObjectLiteral",
+            properties: [
+              {
+                kind: "Property",
+                key: "foo",
+                value: { kind: "NumericLiteral", value: 1 },
+              },
+              {
+                kind: "Property",
+                key: "bar",
+                value: { kind: "NumericLiteral", value: 2 },
+              },
+            ],
+          },
+        ],
+      })
+    })
+
+    it("should parse object expressions with shorthand properties", () => {
+      const code = "{ foo, bar }"
+      const tokens = tokenize(specs, "test", code)
+
+      const ast = new Parser(tokens).produceAST()
+
+      expect(ast).toEqual({
+        kind: "Program",
+        body: [
+          {
+            kind: "ObjectLiteral",
+            properties: [
+              { kind: "Property", key: "foo" },
+              { kind: "Property", key: "bar" },
+            ],
+          },
+        ],
+      })
+    })
+
+    it("should parse object expressions with nested object expressions", () => {
+      const code = "{ foo: { bar: 1 } }"
+      const tokens = tokenize(specs, "test", code)
+
+      const ast = new Parser(tokens).produceAST()
+
+      expect(ast).toEqual({
+        kind: "Program",
+        body: [
+          {
+            kind: "ObjectLiteral",
+            properties: [
+              {
+                kind: "Property",
+                key: "foo",
+                value: {
+                  kind: "ObjectLiteral",
+                  properties: [
+                    { kind: "Property", key: "bar", value: { kind: "NumericLiteral", value: 1 } },
+                  ],
+                },
+              },
+            ],
+          },
+        ],
+      })
+    })
+  })
+
+  describe("Array expressions", () => {
+    it("should parse array expressions", () => {
+      const code = "[1, 2, 3]"
+      const tokens = tokenize(specs, "test", code)
+
+      const ast = new Parser(tokens).produceAST()
+
+      expect(ast).toEqual({
+        kind: "Program",
+        body: [
+          {
+            kind: "ArrayLiteral",
+            elements: [
+              { kind: "NumericLiteral", value: 1 },
+              { kind: "NumericLiteral", value: 2 },
+              { kind: "NumericLiteral", value: 3 },
+            ],
+          },
+        ],
+      })
+    })
+
+    it("should parse array expressions with nested array expressions", () => {
+      const code = "[1, [2, 3]]"
+      const tokens = tokenize(specs, "test", code)
+
+      const ast = new Parser(tokens).produceAST()
+
+      expect(ast).toEqual({
+        kind: "Program",
+        body: [
+          {
+            kind: "ArrayLiteral",
+            elements: [
+              { kind: "NumericLiteral", value: 1 },
+              {
+                kind: "ArrayLiteral",
+                elements: [
+                  { kind: "NumericLiteral", value: 2 },
+                  { kind: "NumericLiteral", value: 3 },
+                ],
+              },
+            ],
+          },
+        ],
+      })
+    })
+
+    it("should parse array expressions with nested object expressions", () => {
+      const code = "[1, { foo: 2 }]"
+      const tokens = tokenize(specs, "test", code)
+
+      const ast = new Parser(tokens).produceAST()
+
+      expect(ast).toEqual({
+        kind: "Program",
+        body: [
+          {
+            kind: "ArrayLiteral",
+            elements: [
+              { kind: "NumericLiteral", value: 1 },
+              {
+                kind: "ObjectLiteral",
+                properties: [
+                  { kind: "Property", key: "foo", value: { kind: "NumericLiteral", value: 2 } },
+                ],
+              },
+            ],
+          },
+        ],
+      })
+    })
   })
 })
