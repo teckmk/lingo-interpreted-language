@@ -1,4 +1,3 @@
-
 export enum TokenType {
   NumberLiteral = "NUMBER_LITERAL",
   StringLiteral = "STRING_LITERAL",
@@ -55,8 +54,7 @@ export type Spec = {
 
 export const specs: Spec[] = [
   { regex: /^([\d]*[.])?[\d]+/, tokenType: TokenType.NumberLiteral },
-  { regex: /^"[^"]*"/, tokenType: TokenType.StringLiteral },
-  { regex: /^'[^']*'/, tokenType: TokenType.StringLiteral },
+  { regex: /^"((?:\\.|[^"\\])*)"/, tokenType: TokenType.StringLiteral },
 
   { regex: /^\bvar\b/, tokenType: TokenType.Let },
   { regex: /^\bconst\b/, tokenType: TokenType.Const },

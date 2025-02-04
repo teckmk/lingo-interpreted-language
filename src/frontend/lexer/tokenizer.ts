@@ -71,8 +71,11 @@ export class Tokenizer {
       }
 
       if (tokenType == TokenType.StringLiteral) {
-        // remove quotes from string
-        tokenValue = tokenValue.substring(1, tokenValue.length - 1)
+        // Unescape escaped quotes and backslashes.
+        // TODO: expand this to support other escape sequences.
+        tokenValue = tokenValue.replace(/\\"/g, '"').replace(/\\\\/g, "\\")
+        // trim the quotes
+        tokenValue = tokenValue.slice(1, -1)
       }
 
       if (tokenType == TokenType.EOL) {
@@ -155,7 +158,9 @@ export class IndentMaker {
             indentStack.pop()
           }
           if (indentStack.peek() !== newIndent) {
-            throw new Error(`IndentationError: Invalid indentation at ${token.line}:${token.column}`)
+            throw new Error(
+              `IndentationError: Invalid indentation at ${token.line}:${token.column}`
+            )
           }
         }
         // Reset the flags after processing the whitespace.
