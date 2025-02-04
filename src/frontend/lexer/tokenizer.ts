@@ -308,3 +308,9 @@ class Stack<T> {
     return this.stack.pop()
   }
 }
+
+export function tokenize(specs: Spec[], filename: string, code: string): Token[] {
+  const tokens = new Tokenizer(specs, filename).tokenize(code)
+
+  return new IndentMaker().markIndents(tokens).removeUnwantedTokens().fixColumnNumbers().tokens
+}

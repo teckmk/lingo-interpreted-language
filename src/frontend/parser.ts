@@ -24,7 +24,7 @@ import {
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType, specs } from "./lexer/specs"
-import { Tokenizer, Token } from "./lexer/tokenizer"
+import { Tokenizer, Token, tokenize } from "./lexer/tokenizer"
 
 enum TypesGroup {
   TypeAnnotation,
@@ -596,7 +596,7 @@ export default class Parser {
 
         // parse the expressions
         results.forEach((exprStr: string, i: number) => {
-          const tokens = new Tokenizer(specs, "string interpolation").tokenize(exprStr)
+          const tokens = tokenize(specs, "string_expr", exprStr)
           expressions[Placholder.expr(i)] = new Parser(tokens).parse_expr()
         })
       }

@@ -34,12 +34,6 @@ export interface Program extends Stmt {
   body: Stmt[]
 }
 
-export interface AssignmentExpr extends Expr {
-  kind: "AssignmentExpr"
-  assigne: Expr
-  value: Expr
-}
-
 export interface VarDeclaration extends Stmt {
   kind: "VarDeclaration"
   modifier: VarModifier
@@ -94,6 +88,12 @@ export interface BinaryExpr extends Expr {
   left: Expr
   right: Expr
   operator: string
+}
+
+export interface AssignmentExpr extends Expr {
+  kind: "AssignmentExpr"
+  assigne: Expr
+  value: Expr
 }
 
 export interface MemberExpr extends Expr {
