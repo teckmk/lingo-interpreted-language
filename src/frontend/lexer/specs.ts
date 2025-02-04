@@ -28,6 +28,8 @@ export enum TokenType {
   MulitipicativeOperator = "MULTIPICATIVE_OPERATOR", // / * %
   EqualityOperator = "EQUALITY_OPERATOR", // == !=
   RelationalOperator = "RELATIONAL_OPERATOR", // > < >= <=
+  UpdateOperator = "UPDATE_OPERATOR", // ++ --
+  ExponentOperator = "EXPONENT_OPERATOR", // **
 
   // Reserved
   // KeyWords
@@ -70,6 +72,9 @@ export const specs: Spec[] = [
   { regex: /^\bbool\b/, tokenType: TokenType.BooleanType },
   { regex: /^\bdynamic\b/, tokenType: TokenType.DynamicType },
 
+  { regex: /^\band\b/, tokenType: TokenType.LogicGate },
+  { regex: /^\bor\b/, tokenType: TokenType.LogicGate },
+
   { regex: /^[a-zA-Z_][a-zA-Z0-9_]*/, tokenType: TokenType.Identifier },
 
   { regex: /^\/\/.*/, tokenType: TokenType.SingleLineComment },
@@ -79,6 +84,8 @@ export const specs: Spec[] = [
   // { regex: /^\/\*[\s\S]*?\*\//, tokenType: TokenType.MultiLineComment },
 
   // operators
+  { regex: /^\*\*/, tokenType: TokenType.ExponentOperator },
+  { regex: /^[+-]{2}/, tokenType: TokenType.UpdateOperator },
   { regex: /^[+-]/, tokenType: TokenType.AdditiveOperator },
   { regex: /^[*/%]/, tokenType: TokenType.MulitipicativeOperator },
   { regex: /^[><]=?/, tokenType: TokenType.RelationalOperator },
@@ -86,8 +93,6 @@ export const specs: Spec[] = [
 
   { regex: /^&&/, tokenType: TokenType.LogicGate },
   { regex: /^\|\|/, tokenType: TokenType.LogicGate },
-  { regex: /^\band\b/, tokenType: TokenType.LogicGate },
-  { regex: /^\bor\b/, tokenType: TokenType.LogicGate },
 
   { regex: /^:/, tokenType: TokenType.Colon },
   { regex: /^,/, tokenType: TokenType.Comma },
