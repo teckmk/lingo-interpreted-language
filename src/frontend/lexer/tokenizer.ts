@@ -117,69 +117,78 @@ export class IndentMaker {
   }
 
   markIndents(tokens: Token[]): IndentMaker {
-    const indentStack: Stack<number> = new Stack([0]) // Initialize with root level 0
+    const indentStack: Stack<number> = new Stack([0]) // initialize with root indent 0
     let afterEOL = false
+    let afterColon = false
 
     for (const token of tokens) {
+      // If the token is a colon, set the flag and push the token.
       if (token.type === TokenType.Colon) {
+        afterColon = true
         this._tokens.push(token)
-      } else if (token.type === TokenType.EOL) {
+        continue
+      }
+
+      // If the token is an end-of-line, push it and note that the next token starts a new line.
+      if (token.type === TokenType.EOL) {
         this._tokens.push(token)
         afterEOL = true
-      } else if (afterEOL && token.type === TokenType.WhiteSpace) {
+        continue
+      }
+
+      // If we’re at the start of a new line…
+      if (afterEOL && token.type === TokenType.WhiteSpace) {
         const currentIndent = indentStack.peek()
         const newIndent = token.value.length
 
+        // When indent increases, only allow it if the previous line ended with a colon.
         if (newIndent > currentIndent) {
-          // Indent level increased
-          indentStack.push(newIndent)
-          this._tokens.push(this._createIndentToken(token))
-        } else if (newIndent < currentIndent) {
-          // Indent level decreased
-          let dedentCount = 0
-          while (indentStack.length > 1 && indentStack.peek() > newIndent) {
-            dedentCount++
-            indentStack.pop()
-          }
-
-          if (indentStack.peek() !== newIndent) {
-            throw new Error(`Invalid indentation at ${token.line}:${token.column}`)
-          }
-
-          for (let i = 0; i < dedentCount; i++) {
-            this._tokens.push(this._createDedentToken(token))
+          if (afterColon) {
+            indentStack.push(newIndent)
+            this._tokens.push(this._createIndentToken(token))
           }
         }
+        // When indent decreases, insert one or more dedent tokens.
+        else if (newIndent < currentIndent) {
+          while (indentStack.length > 1 && indentStack.peek() > newIndent) {
+            this._tokens.push(this._createDedentToken(token))
+            indentStack.pop()
+          }
+          if (indentStack.peek() !== newIndent) {
+            throw new Error(`IndentationError: Invalid indentation at ${token.line}:${token.column}`)
+          }
+        }
+        // Reset the flags after processing the whitespace.
         afterEOL = false
-      } else if (afterEOL) {
-        // Handle dedent when line starts with non-whitespace
+        afterColon = false
+        // Do not push the whitespace token itself.
+        continue
+      }
+
+      // If we're at the start of a new line but the line does not start with whitespace…
+      if (afterEOL) {
         const currentIndent = indentStack.peek()
         const newIndent = 0
-
         if (newIndent < currentIndent) {
-          let dedentCount = 0
           while (indentStack.length > 1 && indentStack.peek() > newIndent) {
-            dedentCount++
+            this._tokens.push(this._createDedentToken(token))
             indentStack.pop()
           }
-
           if (indentStack.peek() !== newIndent) {
             throw new Error(`Invalid indentation at ${token.line}:${token.column}`)
           }
-
-          for (let i = 0; i < dedentCount; i++) {
-            this._tokens.push(this._createDedentToken(token))
-          }
         }
-
-        this._tokens.push(token)
         afterEOL = false
-      } else {
+        afterColon = false
         this._tokens.push(token)
+        continue
       }
+
+      // For all other tokens, just push them.
+      this._tokens.push(token)
     }
 
-    // Add final dedents for remaining indentation levels
+    // At the end, add any necessary dedent tokens for any remaining indents.
     while (indentStack.length > 1) {
       indentStack.pop()
       insertAtIndex(

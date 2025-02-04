@@ -36,7 +36,7 @@ describe("Tokenizer - Indented Code Blocks", () => {
     ])
   })
 
-  it("should tokenize nested indented code block", () => {
+  it("should tokenize nested and indented code block", () => {
     const code = `
 fn foo():
     if (x > 10):
@@ -165,5 +165,71 @@ k`
       { type: TokenType.Identifier, value: "k", column: 1, line: 11 },
       { type: TokenType.EOF, value: "EOF", column: -1, line: 11 },
     ])
+  })
+
+  it("should not insert indent/dedent tokens when not in indented block", () => {
+    const code = `
+fn foo(){
+    if (x > 10){
+      y = 20
+    }
+    return y
+}
+foo()`
+
+    const tokens = tokenizer.tokenize(code)
+
+    const indented = new IndentMaker()
+      .markIndents(tokens)
+      .removeUnwantedTokens()
+      .fixColumnNumbers().tokens
+
+    expect(indented).toEqual([
+      { type: TokenType.Fn, value: "fn", column: 1, line: 2 },
+      { type: TokenType.Identifier, value: "foo", column: 2, line: 2 },
+      { type: TokenType.OpenParen, value: "(", column: 3, line: 2 },
+      { type: TokenType.CloseParen, value: ")", column: 4, line: 2 },
+      { type: TokenType.OpenBrace, value: "{", column: 5, line: 2 },
+
+      { type: TokenType.If, value: "if", column: 1, line: 3 },
+      { type: TokenType.OpenParen, value: "(", column: 2, line: 3 },
+      { type: TokenType.Identifier, value: "x", column: 3, line: 3 },
+      { type: TokenType.RelationalOperator, value: ">", column: 4, line: 3 },
+      { type: TokenType.NumberLiteral, value: "10", column: 5, line: 3 },
+      { type: TokenType.CloseParen, value: ")", column: 6, line: 3 },
+      { type: TokenType.OpenBrace, value: "{", column: 7, line: 3 },
+
+      { type: TokenType.Identifier, value: "y", column: 1, line: 4 },
+      { type: TokenType.Equals, value: "=", column: 2, line: 4 },
+      { type: TokenType.NumberLiteral, value: "20", column: 3, line: 4 },
+
+      { type: TokenType.CloseBrace, value: "}", column: 1, line: 5 },
+
+      { type: TokenType.Return, value: "return", column: 1, line: 6 },
+      { type: TokenType.Identifier, value: "y", column: 2, line: 6 },
+
+      { type: TokenType.CloseBrace, value: "}", column: 1, line: 7 },
+
+      { type: TokenType.Identifier, value: "foo", column: 1, line: 8 },
+      { type: TokenType.OpenParen, value: "(", column: 2, line: 8 },
+      { type: TokenType.CloseParen, value: ")", column: 3, line: 8 },
+      { type: TokenType.EOF, value: "EOF", column: -1, line: 8 },
+    ])
+  })
+
+  it("should throw error when indented block is inside non-indented block", () => {
+    const code = `
+fn foo(){
+    if (x > 10):
+      y = 20
+    return y
+}
+foo()`
+
+    const tokens = tokenizer.tokenize(code)
+
+    expect(() => {
+      new IndentMaker().markIndents(tokens).removeUnwantedTokens().fixColumnNumbers()
+    }).toThrow("IndentationError: Invalid indentation at 5:2")
   })
 })
