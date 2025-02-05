@@ -228,6 +228,17 @@ export default class Parser {
     }
   }
 
+  // cases:
+  // var a
+  // var a: number
+  // var a = 10
+  // var a: number = 10
+  // var a, b
+  // var a, b = 10
+  // var a = 10, b = 20
+  // var a: number, b: number
+  // var a: number, b: number = 10
+  // var a: number = 10, b: number = 20
   private parse_var_declaration(): Stmt {
     const declaratorType = this.eat().type
 
@@ -243,6 +254,11 @@ export default class Parser {
 
     const type = this.parse_type_anotation()
 
+    // parse shorthands like:
+    // var a, b
+    // var a, b = 10
+    // var a: number, b: number
+    // var a: number, b: number = 10
     if (this.at().type == TokenType.Comma) {
       const shorthands: VarDeclaration[] = []
 
@@ -251,7 +267,7 @@ export default class Parser {
         kind: "VarDeclaration",
         identifier,
         type,
-        modifier: "variable",
+        modifier,
       })
 
       // Get rest of them
@@ -261,39 +277,18 @@ export default class Parser {
           kind: "VarDeclaration",
           identifier: this.expect(TokenType.Identifier, "Expected identifier after comma.").value,
           type: this.parse_type_anotation(),
-          modifier: "variable",
+          modifier,
         })
       }
 
       // Get values
       if (this.at().type == TokenType.Equals) {
         this.eat() // eat equals
-        const values = [this.parse_expr()] // get first value
 
-        // Check for multiple valuess
-        while (this.at().type == TokenType.Comma) {
-          this.eat() // eat comma
-          values.push(this.parse_expr())
-        }
-
-        const numShortHands = shorthands.length
-        const numValues = values.length
-        const diff = numShortHands - numValues
-
-        if (diff == 0) {
-          for (let i = 0; i < numShortHands; i++) shorthands[i].value = values[i]
-        } else if (numValues == 1) {
-          for (let i = 0; i < numShortHands; i++) shorthands[i].value = values[0]
-        } else {
-          if (diff > numShortHands) {
-            throw new Error(
-              `Expected values for all ${numShortHands} variables in shorthand expression`
-            )
-          } else if (diff < numShortHands) {
-            throw new Error(
-              `Expected ${numShortHands} values but got ${numValues} in shorthand expression`
-            )
-          }
+        // Assign value to shorthands
+        const value = this.parse_expr()
+        for (let i = 0; i < shorthands.length; i++) {
+          shorthands[i].value = value
         }
       } else {
         // to make sure if constants and finals are being initialized
@@ -306,28 +301,66 @@ export default class Parser {
       } as MultiVarDeclaration
     }
 
-    if (this.at().type != TokenType.Equals) {
-      this.verify_must_assign(modifier)
+    const shorthands: VarDeclaration[] = []
 
-      return {
+    // for case like
+    // const a: number = 10
+    // const a = 10, b = 20
+    // const a: number = 10, b: number = 20
+
+    // parse first declaration
+    if (this.at().type == TokenType.Equals) {
+      this.eat() // eat equals
+      shorthands.push({
         kind: "VarDeclaration",
         identifier,
-        modifier: "variable",
+        modifier,
         type,
-      } as VarDeclaration
+        value: this.parse_expr(),
+      } as VarDeclaration)
     }
 
-    this.expect(TokenType.Equals, "Expected equals token following identifier in var declaration.")
+    // parse rest of them
+    if (this.at().type == TokenType.Comma) {
+      while (this.at().type == TokenType.Comma) {
+        this.eat() // eat comma
+        const dec = {
+          kind: "VarDeclaration",
+          identifier: this.expect(TokenType.Identifier, "Expected identifier after comma.").value,
+          type: this.parse_type_anotation(),
+          modifier,
+        } as VarDeclaration
 
-    const declaration = {
+        this.expect(
+          TokenType.Equals,
+          "Expected equals token following identifier in var declaration."
+        )
+
+        dec.value = this.parse_expr()
+
+        shorthands.push(dec)
+      }
+
+      return {
+        kind: "MultiVarDeclaration",
+        variables: shorthands,
+      } as MultiVarDeclaration
+    }
+
+    if (shorthands.length == 1) return shorthands[0]
+
+    // make sure if constants and finals are being initialized
+    if (this.at().type != TokenType.Equals) {
+      this.verify_must_assign(modifier)
+    }
+
+    // if there's only one declaration, without a value
+    return {
       kind: "VarDeclaration",
-      value: this.parse_expr(),
       identifier,
       modifier,
       type,
     } as VarDeclaration
-
-    return declaration
   }
 
   // 2.
