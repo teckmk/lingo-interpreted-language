@@ -3,3 +3,7 @@ dist
 bin
 tsconfig.json
 jest.config.js
+coverage
+.husky
+.github
+examples
