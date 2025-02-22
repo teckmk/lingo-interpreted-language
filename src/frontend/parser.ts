@@ -160,7 +160,13 @@ export default class Parser {
   private parse_return_statement() {
     this.eat() // eat return token
 
-    const value = this.parse_expr()
+    let value: Expr | Expr[] = this.parse_expr()
+
+    while (this.at().type == TokenType.Comma) {
+      this.eat() // eat comma
+      if (!Array.isArray(value)) value = [value]
+      value.push(this.parse_expr())
+    }
 
     return { kind: "ReturnStatement", value } as ReturnStatement
   }

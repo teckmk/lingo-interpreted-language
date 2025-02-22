@@ -64,7 +64,7 @@ export interface FunctionDeclaration extends Stmt {
 
 export interface ReturnStatement extends Stmt {
   kind: "ReturnStatement"
-  value: Expr
+  value: Expr | Expr[] // to support multiple return values
 }
 
 export interface IfElseStatement extends Stmt {

@@ -72,25 +72,25 @@ describe("FunctionDeclaration", () => {
     })
   })
 
-    it("should parse function declarations with mulitple return types", () => {
-      const code = "fn a() -> number, string {}"
-      const tokens = tokenize(specs, "test", code)
+  it("should parse function declarations with mulitple return types", () => {
+    const code = "fn a() -> number, string {}"
+    const tokens = tokenize(specs, "test", code)
 
-      const ast = new Parser(tokens).produceAST()
+    const ast = new Parser(tokens).produceAST()
 
-      expect(ast).toEqual({
-        kind: "Program",
-        body: [
-          {
-            kind: "FunctionDeclaration",
-            name: "a",
-            parameters: [],
-            returnType: ["number", "string"],
-            body: [],
-          },
-        ],
-      })
+    expect(ast).toEqual({
+      kind: "Program",
+      body: [
+        {
+          kind: "FunctionDeclaration",
+          name: "a",
+          parameters: [],
+          returnType: ["number", "string"],
+          body: [],
+        },
+      ],
     })
+  })
 
   it("should parse function declarations with parameters and return type", () => {
     const code = "fn a(b: number, c: string) -> number {}"
@@ -209,6 +209,42 @@ describe("FunctionDeclaration", () => {
                 kind: "NumericLiteral",
                 value: 1,
               },
+            },
+          ],
+        },
+      ],
+    })
+  })
+
+  it("should parse function declarations with multiple return values", () => {
+    const code = `fn a() -> number, number { 
+      return 1, 2 
+      }`
+    const tokens = tokenize(specs, "test", code)
+
+    const ast = new Parser(tokens).produceAST()
+
+    expect(ast).toEqual({
+      kind: "Program",
+      body: [
+        {
+          kind: "FunctionDeclaration",
+          name: "a",
+          parameters: [],
+          returnType: ["number", "number"],
+          body: [
+            {
+              kind: "ReturnStatement",
+              value: [
+                {
+                  kind: "NumericLiteral",
+                  value: 1,
+                },
+                {
+                  kind: "NumericLiteral",
+                  value: 2,
+                },
+              ],
             },
           ],
         },
