@@ -1,11 +1,10 @@
-import { specs } from "../../frontend/lexer/specs"
 import { tokenize } from "../../frontend/lexer/tokenizer"
 import Parser from "../../frontend/parser"
 
 describe("Parser - Loops", () => {
   it("should parse infinite for loop", () => {
     const code = "for { }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -24,7 +23,7 @@ describe("Parser - Loops", () => {
 
   it("should parse for loop with condition", () => {
     const code = "for i < 10 { }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -55,7 +54,7 @@ describe("Parser - Loops", () => {
 
   it("should parse for loop with initializer, condition and update", () => {
     const code = "for var i = 0; i < 10; i = i + 1 { }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -115,7 +114,7 @@ describe("Parser - Loops", () => {
 
   it("should parse for in loop", () => {
     const code = "for var i,v in arr { }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -140,7 +139,7 @@ describe("Parser - Loops", () => {
 
   it("should parse for range loop", () => {
     const code = "for var i,v in range 0 to 10 { }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -170,7 +169,7 @@ describe("Parser - Loops", () => {
 
   it("should parse for range loop with step", () => {
     const code = "for var i,v in range 0 through 10 step 2 { }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -204,7 +203,7 @@ describe("Parser - Loops", () => {
 
   it("should parse for loop with label", () => {
     const code = "for label loop { }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -223,7 +222,7 @@ describe("Parser - Loops", () => {
 
   it("should parse for loop with label and condition", () => {
     const code = "for i < 10 label loop { }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -254,7 +253,7 @@ describe("Parser - Loops", () => {
 
   it("should parse for loop with label, initializer, condition and update", () => {
     const code = "for var i = 0; i < 10; i = i + 1 label loop { }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -314,7 +313,7 @@ describe("Parser - Loops", () => {
 
   it("should parse for in range loop with label", () => {
     const code = "for var i,v in range 0 to 10 label loop { }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -344,7 +343,7 @@ describe("Parser - Loops", () => {
 
   it("should parse for loop with break statement", () => {
     const code = "for { break }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -368,7 +367,7 @@ describe("Parser - Loops", () => {
 
   it("should not parse break statement outside of loop", () => {
     const code = "break"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     expect(() => new Parser(tokens).produceAST()).toThrow(
       "Unexpected break statement outside of loop."
@@ -377,7 +376,7 @@ describe("Parser - Loops", () => {
 
   it("should parse nested for loop with break statment with correct loop id", () => {
     const code = "for { for { break } }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -408,7 +407,7 @@ describe("Parser - Loops", () => {
 
   it("should parse nested for loop with label and break statement with correct loop id", () => {
     const code = "for label outer { for label inner { break outer } break }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -443,7 +442,7 @@ describe("Parser - Loops", () => {
 
   it("should parse for loop with continue statement", () => {
     const code = "for { skip }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -467,7 +466,7 @@ describe("Parser - Loops", () => {
 
   it("should not parse continue statement outside of loop", () => {
     const code = "skip"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     expect(() => new Parser(tokens).produceAST()).toThrow(
       "Unexpected continue statement outside of loop."
@@ -476,7 +475,7 @@ describe("Parser - Loops", () => {
 
   it("should parse nested for loop with continue statment with correct loop id", () => {
     const code = "for { for { skip } }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -507,7 +506,7 @@ describe("Parser - Loops", () => {
 
   it("should parse nested for loop with label and continue statement with correct loop id", () => {
     const code = "for label outer { for label inner { skip outer } skip }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -542,7 +541,7 @@ describe("Parser - Loops", () => {
 
   it("should not parse break statement with invalid label", () => {
     const code = "for { break invalid }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     expect(() => new Parser(tokens).produceAST()).toThrow(
       "Invalid label 'invalid' for break statement."
@@ -551,7 +550,7 @@ describe("Parser - Loops", () => {
 
   it("should not parse continue statement with invalid label", () => {
     const code = "for { skip invalid }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     expect(() => new Parser(tokens).produceAST()).toThrow(
       "Invalid label 'invalid' for skip statement."

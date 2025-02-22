@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Spec, TokenType } from "./specs"
+import { Spec, specs, TokenType } from "./specs"
 
 export type Token = {
   type: TokenType
@@ -309,7 +309,7 @@ class Stack<T> {
   }
 }
 
-export function tokenize(specs: Spec[], filename: string, code: string): Token[] {
+export function tokenize(filename: string, code: string): Token[] {
   const tokens = new Tokenizer(specs, filename).tokenize(code)
 
   return new IndentMaker().markIndents(tokens).removeUnwantedTokens().fixColumnNumbers().tokens

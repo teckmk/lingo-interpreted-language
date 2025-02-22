@@ -1,11 +1,10 @@
-import { specs } from "../../frontend/lexer/specs"
 import { tokenize } from "../../frontend/lexer/tokenizer"
 import Parser from "../../frontend/parser"
 
 describe("Parser - FunctionDeclaration", () => {
   it("should parse function declarations without parameters", () => {
     const code = "fn a() {}"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -24,7 +23,7 @@ describe("Parser - FunctionDeclaration", () => {
 
   it("should parse function declarations with parameters", () => {
     const code = "fn a(b: number, c: string) {}"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -54,7 +53,7 @@ describe("Parser - FunctionDeclaration", () => {
 
   it("should parse function declarations with return type", () => {
     const code = "fn a() -> number {}"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -74,7 +73,7 @@ describe("Parser - FunctionDeclaration", () => {
 
   it("should parse function declarations with mulitple return types", () => {
     const code = "fn a() -> number, string {}"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -94,7 +93,7 @@ describe("Parser - FunctionDeclaration", () => {
 
   it("should parse function declarations with parameters and return type", () => {
     const code = "fn a(b: number, c: string) -> number {}"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -125,7 +124,7 @@ describe("Parser - FunctionDeclaration", () => {
 
   it("should parse function declarations with body", () => {
     const code = "fn a() { return 1 }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -152,7 +151,7 @@ describe("Parser - FunctionDeclaration", () => {
 
   it("should parse function declarations with parameters and body", () => {
     const code = "fn a(b: number, c: string) { return 1 }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -190,7 +189,7 @@ describe("Parser - FunctionDeclaration", () => {
 
   it("should parse function declarations with return type and body", () => {
     const code = "fn a() -> number { return 1 }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -220,7 +219,7 @@ describe("Parser - FunctionDeclaration", () => {
     const code = `fn a() -> number, number { 
       return 1, 2 
       }`
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -254,7 +253,7 @@ describe("Parser - FunctionDeclaration", () => {
 
   it("should parse function declarations with parameters, return type and body", () => {
     const code = "fn a(b: number, c: string) -> number { return 1 }"
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -296,7 +295,7 @@ describe("Parser - FunctionDeclaration", () => {
       var b = 1
       return b 
     }`
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -335,7 +334,7 @@ describe("Parser - FunctionDeclaration", () => {
     const code = `fn a(): 
       var b = 1
       return b`
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 
@@ -374,7 +373,7 @@ describe("Parser - FunctionDeclaration", () => {
     const code = `fn a() -> number: 
       var b = 1
       return b`
-    const tokens = tokenize(specs, "test", code)
+    const tokens = tokenize("test", code)
 
     const ast = new Parser(tokens).produceAST()
 

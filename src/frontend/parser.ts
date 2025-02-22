@@ -28,7 +28,7 @@ import {
   ContinueStatement,
 } from "./ast"
 import { Placholder } from "../helpers"
-import { TokenType, specs } from "./lexer/specs"
+import { TokenType } from "./lexer/specs"
 import { Token, tokenize } from "./lexer/tokenizer"
 
 enum TypesGroup {
@@ -941,7 +941,7 @@ export default class Parser {
 
         // parse the expressions
         results.forEach((exprStr: string, i: number) => {
-          const tokens = tokenize(specs, "string_expr", exprStr)
+          const tokens = tokenize("string_expr", exprStr)
           expressions[Placholder.expr(i)] = new Parser(tokens).parse_expr()
         })
       }
@@ -1002,4 +1002,9 @@ export default class Parser {
 
     return program
   }
+}
+
+export function parse(filename: string, code: string): Program {
+  const tokens = tokenize(filename, code)
+  return new Parser(tokens).produceAST(tokens)
 }

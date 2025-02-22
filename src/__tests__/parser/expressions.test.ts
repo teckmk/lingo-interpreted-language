@@ -1,4 +1,3 @@
-import { specs } from "../../frontend/lexer/specs"
 import { tokenize } from "../../frontend/lexer/tokenizer"
 import Parser from "../../frontend/parser"
 
@@ -6,7 +5,7 @@ describe("Parser - Expressions", () => {
   describe("Binary expressions", () => {
     it("should parse binary expressions", () => {
       const code = "1 + 2"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -25,7 +24,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse nested binary expressions", () => {
       const code = "1 + 2 * 3"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -49,7 +48,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse nested binary expressions with parenthesis", () => {
       const code = "(1 + 2) * 3"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -73,7 +72,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse nested binary expressions with parenthesis", () => {
       const code = "1 + (2 * 3)"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -97,7 +96,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse nested binary expressions with parenthesis", () => {
       const code = "1 + (2 * 3) + 4"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -128,7 +127,7 @@ describe("Parser - Expressions", () => {
   describe("Assignment expressions", () => {
     it("should parse assignment expressions", () => {
       const code = "a = 1"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -146,7 +145,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse nested assignment expressions", () => {
       const code = "a = b = 1"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -170,7 +169,7 @@ describe("Parser - Expressions", () => {
   describe("Member expressions", () => {
     it("should parse member expressions", () => {
       const code = "a.b"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -191,7 +190,7 @@ describe("Parser - Expressions", () => {
   describe("Call expressions", () => {
     it("should parse call expressions", () => {
       const code = "foo()"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -209,7 +208,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse call expressions with arguments", () => {
       const code = "foo(1, 2)"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -230,7 +229,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse call expressions with nested call expressions", () => {
       const code = "foo(bar())"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -254,7 +253,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse call expressions with assignment expressions", () => {
       const code = "foo(a = 1)"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -278,7 +277,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse call expressions with following call expressions", () => {
       const code = "foo()()"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -302,7 +301,7 @@ describe("Parser - Expressions", () => {
   describe("Identifier expressions", () => {
     it("should parse identifier expressions", () => {
       const code = "foo"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -316,7 +315,7 @@ describe("Parser - Expressions", () => {
   describe("Numeric literal expressions", () => {
     it("should parse numeric literal expressions", () => {
       const code = "1"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -330,7 +329,7 @@ describe("Parser - Expressions", () => {
   describe("String literal expressions", () => {
     it("should parse string literal expressions", () => {
       const code = '"foo"'
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -342,7 +341,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse string literal expressions with embedded variables", () => {
       const code = '"foo $bar"'
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -361,7 +360,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse string literal expressions with embedded expressions", () => {
       const code = '"foo ${bar + 3}"' // ${bar + 3} is an expression
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -387,7 +386,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse string literal expressions with multiple embedded expressions and variables", () => {
       const code = '"foo $bar ${bar + 3} ${foo * 2}"' // ${bar + 3} is an expression
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -421,7 +420,7 @@ describe("Parser - Expressions", () => {
   describe("Object expressions", () => {
     it("should parse object expressions", () => {
       const code = "{ foo: 1, bar: 2 }"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -449,7 +448,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse object expressions with shorthand properties", () => {
       const code = "{ foo, bar }"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -469,7 +468,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse object expressions with nested object expressions", () => {
       const code = "{ foo: { bar: 1 } }"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -499,7 +498,7 @@ describe("Parser - Expressions", () => {
   describe("Array expressions", () => {
     it("should parse array expressions", () => {
       const code = "[1, 2, 3]"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -520,7 +519,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse array expressions with nested array expressions", () => {
       const code = "[1, [2, 3]]"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
@@ -546,7 +545,7 @@ describe("Parser - Expressions", () => {
 
     it("should parse array expressions with nested object expressions", () => {
       const code = "[1, { foo: 2 }]"
-      const tokens = tokenize(specs, "test", code)
+      const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
 
