@@ -12,6 +12,7 @@ export enum TokenType {
   EOF = "END_OF_FILE",
   EOL = "END_OF_LINE",
 
+  Arrow = "ARROW", // ->
   Equals = "ASSIGNMENT_OPERATOR", // =
   Comma = "COMMA", // ,
   Dot = "DOT", // .
@@ -84,6 +85,8 @@ export const specs: Spec[] = [
   // { regex: /^\/\*[\s\S]*?\*\//, tokenType: TokenType.MultiLineComment },
 
   // operators
+  { regex: /^->/, tokenType: TokenType.Arrow },
+
   { regex: /^\*\*/, tokenType: TokenType.ExponentOperator },
   { regex: /^[+-]{2}/, tokenType: TokenType.UpdateOperator },
   { regex: /^[+-]/, tokenType: TokenType.AdditiveOperator },

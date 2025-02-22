@@ -62,12 +62,12 @@ export default class Parser {
   }
 
   private expectOneOf(label: TypesGroup, types: TokenType[], err: any) {
-    const prev = this.eat() as Token
-    if (!prev || !types.includes(prev.type)) {
-      console.log("Parser Error:\n", err, prev, "Expecting: ", label)
+    const token = this.eat() as Token
+    if (!token || !types.includes(token.type)) {
+      console.log("Parser Error:\n", err, token, "Expecting: ", label)
       process.exit(1)
     }
-    return prev
+    return token
   }
 
   // 1.
@@ -91,12 +91,14 @@ export default class Parser {
   }
 
   private parse_code_block(): Stmt[] {
-    const isIndented =
-      this.expectOneOf(
-        TypesGroup.BlockOpening,
-        [TokenType.OpenBrace, TokenType.Indent],
-        "Expected valid code block opening"
-      ).type == TokenType.Indent
+    const indented = this.at().type === TokenType.Colon
+
+    if (indented) {
+      this.eat() // eat colon
+      this.expect(TokenType.Indent, "Expected indented code block")
+    } else {
+      this.expect(TokenType.OpenBrace, "Expected opening brace for code block")
+    }
 
     const block: Stmt[] = []
 
@@ -104,7 +106,7 @@ export default class Parser {
 
     while (!blockEndingTypes.includes(this.at().type)) block.push(this.parse_stmt())
 
-    if (isIndented) {
+    if (indented) {
       this.expect(TokenType.Dedent, "Unexpected ending of indented code block")
     } else {
       this.expect(TokenType.CloseBrace, "Unexpected ending of code block, expected '}'")
@@ -122,6 +124,12 @@ export default class Parser {
 
     const params = this.parse_params()
 
+    let returnType = undefined
+    if (this.at().type == TokenType.Arrow) {
+      this.eat() // eat arrow
+      returnType = this.parse_type_anotation()
+    }
+
     const body = this.parse_code_block()
 
     const fn = {
@@ -129,6 +137,7 @@ export default class Parser {
       name,
       parameters: params,
       body,
+      returnType,
     } as FunctionDeclaration
 
     return fn
@@ -206,18 +215,13 @@ export default class Parser {
 
   private parse_type_anotation(): Type | undefined {
     // Check for types
-    if (this.at().type == TokenType.Colon) {
-      this.eat() // eat :
-      const type = this.expectOneOf(
-        TypesGroup.TypeAnnotation,
-        [TokenType.NumberType, TokenType.StringType, TokenType.BooleanType, TokenType.DynamicType],
-        "Expected valid type annotation following ':'"
-      ).value as Type
+    const type = this.expectOneOf(
+      TypesGroup.TypeAnnotation,
+      [TokenType.NumberType, TokenType.StringType, TokenType.BooleanType, TokenType.DynamicType],
+      "Expected valid type annotation following ':'"
+    ).value as Type
 
-      return type
-    }
-
-    return
+    return type
   }
 
   private verify_must_assign(modifier: VarModifier) {
@@ -252,7 +256,11 @@ export default class Parser {
       "Expected identifier name following variable declarator."
     ).value
 
-    const type = this.parse_type_anotation()
+    let type = undefined
+    if (this.at().type == TokenType.Colon) {
+      this.eat() // eat colon
+      type = this.parse_type_anotation()
+    }
 
     // parse shorthands like:
     // var a, b
@@ -273,10 +281,22 @@ export default class Parser {
       // Get rest of them
       while (this.at().type == TokenType.Comma) {
         this.eat() // eat comma
+
+        const identifier = this.expect(
+          TokenType.Identifier,
+          "Expected identifier after comma."
+        ).value
+
+        let type = undefined
+        if (this.at().type == TokenType.Colon) {
+          this.eat() // eat colon
+          type = this.parse_type_anotation()
+        }
+
         shorthands.push({
           kind: "VarDeclaration",
-          identifier: this.expect(TokenType.Identifier, "Expected identifier after comma.").value,
-          type: this.parse_type_anotation(),
+          identifier,
+          type,
           modifier,
         })
       }
@@ -324,10 +344,22 @@ export default class Parser {
     if (this.at().type == TokenType.Comma) {
       while (this.at().type == TokenType.Comma) {
         this.eat() // eat comma
+
+        const identifier = this.expect(
+          TokenType.Identifier,
+          "Expected identifier after comma."
+        ).value
+
+        let type = undefined
+        if (this.at().type == TokenType.Colon) {
+          this.eat() // eat colon
+          type = this.parse_type_anotation()
+        }
+
         const dec = {
           kind: "VarDeclaration",
-          identifier: this.expect(TokenType.Identifier, "Expected identifier after comma.").value,
-          type: this.parse_type_anotation(),
+          identifier,
+          type,
           modifier,
         } as VarDeclaration
 
@@ -557,7 +589,11 @@ export default class Parser {
   private parse_parameter(): Expr {
     const ident = this.expect(TokenType.Identifier, "Expected identifier in function parameter")
 
-    const type = this.parse_type_anotation()
+    let type = undefined
+    if (this.at().type == TokenType.Colon) {
+      this.eat() // eat colon
+      type = this.parse_type_anotation()
+    }
 
     // check for default values
     if (this.at().type == TokenType.Equals) {
