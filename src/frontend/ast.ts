@@ -7,6 +7,9 @@ export type NodeType =
   | "ReturnStatement"
   | "IfElseStatement"
   | "WhileStatement"
+  | "ForStatement"
+  | "ForInStatement"
+  | "ForRangeStatement"
   // Expressions
   | "AssignmentExpr"
   | "MemberExpr"
@@ -79,6 +82,36 @@ export interface WhileStatement extends Stmt {
   kind: "WhileStatement"
   check: Expr
   body: Stmt[]
+}
+
+export interface Loop extends Stmt {
+  loopId: string
+  label?: string
+  body: Stmt[]
+}
+
+export interface ForStatement extends Loop {
+  kind: "ForStatement"
+  initializer?: Stmt
+  condition?: Expr
+  update?: Stmt
+}
+
+export interface ForInStatement extends Loop {
+  kind: "ForInStatement"
+  valueIdentifier: string
+  indexIdentifier: string
+  iterable: Expr
+}
+
+export interface ForRangeStatement extends Loop {
+  kind: "ForRangeStatement"
+  valueIdentifier: string
+  indexIdentifier: string
+  start: Expr
+  end?: Expr
+  step?: Expr
+  inclusive: boolean // false for "to" and true for "through"
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

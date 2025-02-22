@@ -21,6 +21,9 @@ import {
   ReturnStatement,
   MultiVarDeclaration,
   VarModifier,
+  ForStatement,
+  ForInStatement,
+  ForRangeStatement,
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType, specs } from "./lexer/specs"
@@ -85,6 +88,8 @@ export default class Parser {
         return this.parse_return_statement()
       case TokenType.While:
         return this.parse_while_statement()
+      case TokenType.For:
+        return this.parse_for_statement()
       default:
         return this.parse_expr()
     }
@@ -172,13 +177,15 @@ export default class Parser {
   }
 
   private parse_condition(): Stmt {
-    this.expect(TokenType.OpenParen, "Expected open paren following if keyword")
+    // handle optional parenthesis
+    const isOpeningParen = this.at().type == TokenType.OpenParen
+    if (isOpeningParen) this.eat() // eat open paren
 
-    const check = this.parse_expr() // parse condition
+    const condition = this.parse_expr() // parse condition
 
-    this.expect(TokenType.CloseParen, "Expected closing paren in if statement after condition")
+    if (isOpeningParen) this.expect(TokenType.CloseParen, "Expected closing paren for condition")
 
-    return check
+    return condition
   }
 
   private parse_if_statement(): Stmt {
@@ -221,6 +228,206 @@ export default class Parser {
     } as IfElseStatement
 
     return ifStmt
+  }
+
+  private loopStack: string[] = [] // Stack of loop IDs
+  private labelMap: Map<string, string> = new Map() // Label to loop ID mapping
+
+  private parse_label(): { label?: string; loopId: string } {
+    const loopId = `loop_${this.loopStack.length + 1}`
+    this.loopStack.push(loopId)
+
+    if (this.at().type == TokenType.Label) {
+      this.eat() // eat label token
+
+      const label = this.expect(
+        TokenType.Identifier,
+        "Expected identifier after label keyword"
+      ).value
+
+      this.labelMap.set(label, loopId)
+      return { label, loopId }
+    }
+    return { loopId }
+  }
+
+  private decrement_loop_stack(label?: string) {
+    if (label) this.labelMap.delete(label)
+    this.loopStack.pop()
+  }
+
+  // 1 infinite loop
+  // 2 for in loop (for loop with range)
+  // 3 for loop with initializer, condition and update
+  // 4 for loop with condition (while loop)
+  /* Examples:
+      for {} -- for label outer {}
+      for i < 10 {} -- for i < 10 label outer {}
+      for var i = 0; i < 10; i = i + 1 {} -- for var i = 0; i < 10; i = i + 1 label outer {}
+      for i, v in range 10 {} -- for i, v in range 10 label outer {}
+    */
+
+  private parse_for_statement(): ForStatement | ForInStatement | ForRangeStatement {
+    this.eat() // eat for token
+
+    // 1. Infinite loop
+    if (this.at().type == TokenType.OpenBrace || this.at().type == TokenType.Label) {
+      const { label, loopId } = this.parse_label()
+      const body = this.parse_code_block()
+
+      this.decrement_loop_stack(label)
+
+      return {
+        kind: "ForStatement",
+        loopId,
+        label,
+        body,
+      }
+    }
+
+    // Eat optional open paren
+    const hasOpenParen = this.at().type == TokenType.OpenParen
+    if (hasOpenParen) this.eat()
+
+    // 2. For in loop
+    if (
+      this.at().type == TokenType.Let &&
+      this.at(1).type == TokenType.Identifier &&
+      this.at(2).type == TokenType.Comma
+    ) {
+      return this.parse_for_in_statement(hasOpenParen)
+    }
+
+    // 3. For loop with initializer, condition and update
+    if (this.at().type == TokenType.Let) {
+      const initializer = this.parse_var_declaration()
+
+      this.expect(TokenType.SemiColon, "Expected semicolon after for initializer")
+
+      const condition = this.parse_expr()
+
+      this.expect(TokenType.SemiColon, "Expected semicolon after for condition")
+
+      const update = this.parse_expr()
+
+      if (hasOpenParen) {
+        this.expect(TokenType.CloseParen, "Expected closing paren after opening paren")
+      }
+
+      const { label, loopId } = this.parse_label()
+
+      const body = this.parse_code_block()
+
+      this.decrement_loop_stack(label)
+
+      return {
+        kind: "ForStatement",
+        loopId,
+        label,
+        initializer,
+        condition,
+        update,
+        body,
+      }
+    }
+
+    // 4. For loop with condition (while loop)
+    const condition = this.parse_expr()
+
+    if (hasOpenParen) {
+      this.expect(TokenType.CloseParen, "Expected closing paren after opening paren")
+    }
+
+    const { label, loopId } = this.parse_label()
+
+    const body = this.parse_code_block()
+
+    this.decrement_loop_stack(label)
+
+    return {
+      kind: "ForStatement",
+      loopId,
+      label,
+      condition,
+      body,
+    }
+  }
+
+  private parse_for_in_statement(hasOpenParen: boolean): ForInStatement | ForRangeStatement {
+    this.eat() // eat let token
+
+    const indexIdent = this.expect(TokenType.Identifier, "Expected identifier in for loop").value
+
+    this.expect(TokenType.Comma, "Expected comma after first identifier in for loop")
+
+    const valIdent = this.expect(TokenType.Identifier, "Expected identifier in for loop").value
+
+    this.expect(TokenType.In, "Expected 'in' keyword in for loop")
+
+    if (this.at().type == TokenType.Range) {
+      return this.parse_for_range_statement(valIdent, indexIdent)
+    }
+
+    const iterable = this.parse_expr()
+
+    // Eat optional close paren
+    if (hasOpenParen) {
+      this.expect(TokenType.CloseParen, "Expected closing paren after opening paren")
+    }
+
+    const { label, loopId } = this.parse_label()
+
+    const body = this.parse_code_block()
+
+    this.decrement_loop_stack(label)
+    return {
+      kind: "ForInStatement",
+      loopId,
+      label,
+      valueIdentifier: valIdent,
+      indexIdentifier: indexIdent,
+      iterable,
+      body: body,
+    }
+  }
+
+  private parse_for_range_statement(valIdent: string, indexIdent: string): ForRangeStatement {
+    this.eat() // eat range token
+
+    const start = this.parse_expr()
+    let end: Expr | undefined
+    let step: Expr | undefined
+
+    const inclusive = this.at().type == TokenType.Through
+    if (this.at().type == TokenType.To || inclusive) {
+      this.eat() // eat to or through token
+
+      end = this.parse_expr()
+
+      if (this.at().type == TokenType.Step) {
+        this.eat() // eat step token
+        step = this.parse_expr()
+      }
+    }
+
+    const { label, loopId } = this.parse_label()
+
+    const body = this.parse_code_block()
+
+    this.decrement_loop_stack(label)
+
+    return {
+      kind: "ForRangeStatement",
+      loopId,
+      label,
+      valueIdentifier: valIdent,
+      indexIdentifier: indexIdent,
+      inclusive,
+      start,
+      end,
+      step,
+      body,
+    }
   }
 
   private parse_while_statement(): Stmt {

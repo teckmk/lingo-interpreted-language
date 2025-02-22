@@ -2,7 +2,7 @@ import { specs } from "../../frontend/lexer/specs"
 import { tokenize } from "../../frontend/lexer/tokenizer"
 import Parser from "../../frontend/parser"
 
-describe("FunctionDeclaration", () => {
+describe("Parser - FunctionDeclaration", () => {
   it("should parse function declarations without parameters", () => {
     const code = "fn a() {}"
     const tokens = tokenize(specs, "test", code)

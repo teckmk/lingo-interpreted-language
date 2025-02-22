@@ -16,6 +16,7 @@ export enum TokenType {
   Equals = "ASSIGNMENT_OPERATOR", // =
   Comma = "COMMA", // ,
   Dot = "DOT", // .
+  SemiColon = "SEMI_COLON", // ;
   Exclamation = "EXLAMATION", // "!"
   Colon = "COLON", //":"
   OpenParen = "OPEN_PAREN", //  (
@@ -42,6 +43,13 @@ export enum TokenType {
   If = "IF",
   Else = "ELSE",
   While = "WHILE",
+  For = "FOR",
+  In = "IN",
+  To = "TO",
+  Through = "THROUGH",
+  Label = "LABEL",
+  Range = "RANGE",
+  Step = "STEP",
 
   // Primitive Types
   NumberType = "NUMBER_TYPE",
@@ -67,6 +75,13 @@ export const specs: Spec[] = [
   { regex: /^\bif\b/, tokenType: TokenType.If },
   { regex: /^\belse\b/, tokenType: TokenType.Else },
   { regex: /^\bwhile\b/, tokenType: TokenType.While },
+  { regex: /^\bfor\b/, tokenType: TokenType.For },
+  { regex: /^\bin\b/, tokenType: TokenType.In },
+  { regex: /^\blabel\b/, tokenType: TokenType.Label },
+  { regex: /^\brange\b/, tokenType: TokenType.Range },
+  { regex: /^\bto\b/, tokenType: TokenType.To },
+  { regex: /^\bthrough\b/, tokenType: TokenType.Through },
+  { regex: /^\bstep\b/, tokenType: TokenType.Step },
 
   { regex: /^\bnumber\b/, tokenType: TokenType.NumberType },
   { regex: /^\bstring\b/, tokenType: TokenType.StringType },
@@ -98,6 +113,7 @@ export const specs: Spec[] = [
   { regex: /^\|\|/, tokenType: TokenType.LogicGate },
 
   { regex: /^:/, tokenType: TokenType.Colon },
+  { regex: /^;/, tokenType: TokenType.SemiColon },
   { regex: /^,/, tokenType: TokenType.Comma },
   { regex: /^\./, tokenType: TokenType.Dot },
   { regex: /^=/, tokenType: TokenType.Equals },
