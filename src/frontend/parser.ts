@@ -24,6 +24,8 @@ import {
   ForStatement,
   ForInStatement,
   ForRangeStatement,
+  BreakStatement,
+  ContinueStatement,
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType, specs } from "./lexer/specs"
@@ -90,6 +92,10 @@ export default class Parser {
         return this.parse_while_statement()
       case TokenType.For:
         return this.parse_for_statement()
+      case TokenType.Break:
+        return this.parse_break_statement()
+      case TokenType.Continue:
+        return this.parse_continue_statement()
       default:
         return this.parse_expr()
     }
@@ -428,6 +434,50 @@ export default class Parser {
       step,
       body,
     }
+  }
+
+  private parse_break_statement(): BreakStatement {
+    this.eat() // eat break token
+
+    if (this.loopStack.length == 0) {
+      throw new Error("Unexpected break statement outside of loop.")
+    }
+
+    let loopId = this.loopStack[this.loopStack.length - 1]
+
+    if (this.at().type == TokenType.Identifier) {
+      const label = this.eat().value
+
+      if (!this.labelMap.has(label)) {
+        throw new Error(`Invalid label '${label}' for break statement.`)
+      }
+
+      loopId = this.labelMap.get(label) || loopId
+    }
+
+    return { kind: "BreakStatement", loopId }
+  }
+
+  private parse_continue_statement(): ContinueStatement {
+    this.eat() // eat continue token
+
+    if (this.loopStack.length == 0) {
+      throw new Error("Unexpected continue statement outside of loop.")
+    }
+
+    let loopId = this.loopStack[this.loopStack.length - 1]
+
+    if (this.at().type == TokenType.Identifier) {
+      const label = this.eat().value
+
+      if (!this.labelMap.has(label)) {
+        throw new Error(`Invalid label '${label}' for skip statement.`)
+      }
+
+      loopId = this.labelMap.get(label) || loopId
+    }
+
+    return { kind: "ContinueStatement", loopId }
   }
 
   private parse_while_statement(): Stmt {

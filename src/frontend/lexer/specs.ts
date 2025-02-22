@@ -50,6 +50,8 @@ export enum TokenType {
   Label = "LABEL",
   Range = "RANGE",
   Step = "STEP",
+  Break = "BREAK",
+  Continue = "CONTINUE",
 
   // Primitive Types
   NumberType = "NUMBER_TYPE",
@@ -82,6 +84,8 @@ export const specs: Spec[] = [
   { regex: /^\bto\b/, tokenType: TokenType.To },
   { regex: /^\bthrough\b/, tokenType: TokenType.Through },
   { regex: /^\bstep\b/, tokenType: TokenType.Step },
+  { regex: /^\bbreak\b/, tokenType: TokenType.Break },
+  { regex: /^\bskip\b/, tokenType: TokenType.Continue },
 
   { regex: /^\bnumber\b/, tokenType: TokenType.NumberType },
   { regex: /^\bstring\b/, tokenType: TokenType.StringType },

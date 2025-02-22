@@ -10,6 +10,8 @@ export type NodeType =
   | "ForStatement"
   | "ForInStatement"
   | "ForRangeStatement"
+  | "BreakStatement"
+  | "ContinueStatement"
   // Expressions
   | "AssignmentExpr"
   | "MemberExpr"
@@ -114,6 +116,16 @@ export interface ForRangeStatement extends Loop {
   inclusive: boolean // false for "to" and true for "through"
 }
 
+export interface BreakStatement extends Stmt {
+  kind: "BreakStatement"
+  loopId: string
+}
+
+export interface ContinueStatement extends Stmt {
+  kind: "ContinueStatement"
+  loopId: string
+}
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Expr extends Stmt {}
 
@@ -157,7 +169,7 @@ export interface StringLiteral extends Expr {
   kind: "StringLiteral"
   value: string
   identifiers: string[] // handle embeded variables
-  expressions: { [key: string]: Expr }
+  expressions: Record<string, Expr> // handle embeded expressions
 }
 
 export interface Property extends Expr {

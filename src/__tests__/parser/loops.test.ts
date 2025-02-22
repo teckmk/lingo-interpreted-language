@@ -341,4 +341,220 @@ describe("Parser - Loops", () => {
       ],
     })
   })
+
+  it("should parse for loop with break statement", () => {
+    const code = "for { break }"
+    const tokens = tokenize(specs, "test", code)
+
+    const ast = new Parser(tokens).produceAST()
+
+    expect(ast).toEqual({
+      kind: "Program",
+      body: [
+        {
+          kind: "ForStatement",
+          label: undefined,
+          loopId: "loop_1",
+          body: [
+            {
+              kind: "BreakStatement",
+              loopId: "loop_1",
+            },
+          ],
+        },
+      ],
+    })
+  })
+
+  it("should not parse break statement outside of loop", () => {
+    const code = "break"
+    const tokens = tokenize(specs, "test", code)
+
+    expect(() => new Parser(tokens).produceAST()).toThrow(
+      "Unexpected break statement outside of loop."
+    )
+  })
+
+  it("should parse nested for loop with break statment with correct loop id", () => {
+    const code = "for { for { break } }"
+    const tokens = tokenize(specs, "test", code)
+
+    const ast = new Parser(tokens).produceAST()
+
+    expect(ast).toEqual({
+      kind: "Program",
+      body: [
+        {
+          kind: "ForStatement",
+          label: undefined,
+          loopId: "loop_1",
+          body: [
+            {
+              kind: "ForStatement",
+              label: undefined,
+              loopId: "loop_2",
+              body: [
+                {
+                  kind: "BreakStatement",
+                  loopId: "loop_2",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    })
+  })
+
+  it("should parse nested for loop with label and break statement with correct loop id", () => {
+    const code = "for label outer { for label inner { break outer } break }"
+    const tokens = tokenize(specs, "test", code)
+
+    const ast = new Parser(tokens).produceAST()
+
+    expect(ast).toEqual({
+      kind: "Program",
+      body: [
+        {
+          kind: "ForStatement",
+          label: "outer",
+          loopId: "loop_1",
+          body: [
+            {
+              kind: "ForStatement",
+              label: "inner",
+              loopId: "loop_2",
+              body: [
+                {
+                  kind: "BreakStatement",
+                  loopId: "loop_1",
+                },
+              ],
+            },
+            {
+              kind: "BreakStatement",
+              loopId: "loop_1",
+            },
+          ],
+        },
+      ],
+    })
+  })
+
+  it("should parse for loop with continue statement", () => {
+    const code = "for { skip }"
+    const tokens = tokenize(specs, "test", code)
+
+    const ast = new Parser(tokens).produceAST()
+
+    expect(ast).toEqual({
+      kind: "Program",
+      body: [
+        {
+          kind: "ForStatement",
+          label: undefined,
+          loopId: "loop_1",
+          body: [
+            {
+              kind: "ContinueStatement",
+              loopId: "loop_1",
+            },
+          ],
+        },
+      ],
+    })
+  })
+
+  it("should not parse continue statement outside of loop", () => {
+    const code = "skip"
+    const tokens = tokenize(specs, "test", code)
+
+    expect(() => new Parser(tokens).produceAST()).toThrow(
+      "Unexpected continue statement outside of loop."
+    )
+  })
+
+  it("should parse nested for loop with continue statment with correct loop id", () => {
+    const code = "for { for { skip } }"
+    const tokens = tokenize(specs, "test", code)
+
+    const ast = new Parser(tokens).produceAST()
+
+    expect(ast).toEqual({
+      kind: "Program",
+      body: [
+        {
+          kind: "ForStatement",
+          label: undefined,
+          loopId: "loop_1",
+          body: [
+            {
+              kind: "ForStatement",
+              label: undefined,
+              loopId: "loop_2",
+              body: [
+                {
+                  kind: "ContinueStatement",
+                  loopId: "loop_2",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    })
+  })
+
+  it("should parse nested for loop with label and continue statement with correct loop id", () => {
+    const code = "for label outer { for label inner { skip outer } skip }"
+    const tokens = tokenize(specs, "test", code)
+
+    const ast = new Parser(tokens).produceAST()
+
+    expect(ast).toEqual({
+      kind: "Program",
+      body: [
+        {
+          kind: "ForStatement",
+          label: "outer",
+          loopId: "loop_1",
+          body: [
+            {
+              kind: "ForStatement",
+              label: "inner",
+              loopId: "loop_2",
+              body: [
+                {
+                  kind: "ContinueStatement",
+                  loopId: "loop_1",
+                },
+              ],
+            },
+            {
+              kind: "ContinueStatement",
+              loopId: "loop_1",
+            },
+          ],
+        },
+      ],
+    })
+  })
+
+  it("should not parse break statement with invalid label", () => {
+    const code = "for { break invalid }"
+    const tokens = tokenize(specs, "test", code)
+
+    expect(() => new Parser(tokens).produceAST()).toThrow(
+      "Invalid label 'invalid' for break statement."
+    )
+  })
+
+  it("should not parse continue statement with invalid label", () => {
+    const code = "for { skip invalid }"
+    const tokens = tokenize(specs, "test", code)
+
+    expect(() => new Parser(tokens).produceAST()).toThrow(
+      "Invalid label 'invalid' for skip statement."
+    )
+  })
 })
