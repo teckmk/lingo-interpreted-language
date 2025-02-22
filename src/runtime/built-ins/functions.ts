@@ -33,7 +33,11 @@ const functions: BuiltIn[] = [
             .map((p) => `${p.name}: ${p.valueType || "dynamic"}`)
             .join()})`
         } else if (argType == "return") {
-          return getValue((arg as ReturnVal).value)
+          const returnValue = (arg as ReturnVal).value
+          if (Array.isArray(returnValue)) {
+            return returnValue.map(getValue)
+          }
+          return getValue(returnValue)
         } else {
           return arg
         }

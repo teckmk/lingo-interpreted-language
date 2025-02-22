@@ -41,8 +41,9 @@ import {
   eval_object_expr,
   eval_string_literal,
 } from "./eval/expression"
+import { parse } from "../frontend/parser"
 
-export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
+export function evaluate(astNode: Stmt, env: Environment = new Environment()): RuntimeVal {
   switch (astNode.kind) {
     case "NumericLiteral":
       return {
@@ -85,4 +86,13 @@ export function evaluate(astNode: Stmt, env: Environment): RuntimeVal {
       console.error("This AST can't be interpreted! For now atleast!", astNode)
       process.exit(0)
   }
+}
+
+export function interpret(
+  filename: string,
+  code: string,
+  env: Environment = new Environment()
+): RuntimeVal {
+  const ast = parse(filename, code)
+  return evaluate(ast, env)
 }

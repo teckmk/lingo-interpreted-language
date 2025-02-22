@@ -73,7 +73,11 @@ export function eval_fn_declaration(
 }
 
 export function eval_return_statement(stmt: Stmt, env: Environment): RuntimeVal {
-  return { type: "return", value: evaluate((stmt as ReturnStatement).value, env) } as ReturnVal
+  const returnStmt = stmt as ReturnStatement;
+  const returnValue = Array.isArray(returnStmt.value)
+    ? returnStmt.value.map((expr) => evaluate(expr, env))
+    : evaluate(returnStmt.value, env);
+  return { type: "return", value: returnValue } as ReturnVal;
 }
 
 export function eval_code_block(block: Stmt[], parentEnv: Environment): RuntimeVal {

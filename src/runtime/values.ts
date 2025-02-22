@@ -70,7 +70,7 @@ export interface FunctionVal extends RuntimeVal {
 
 export interface ReturnVal extends RuntimeVal {
   type: "return"
-  value: RuntimeVal
+  value: RuntimeVal | RuntimeVal[]
 }
 
 export interface ConditionalVal extends RuntimeVal {
