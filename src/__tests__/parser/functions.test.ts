@@ -72,6 +72,26 @@ describe("FunctionDeclaration", () => {
     })
   })
 
+    it("should parse function declarations with mulitple return types", () => {
+      const code = "fn a() -> number, string {}"
+      const tokens = tokenize(specs, "test", code)
+
+      const ast = new Parser(tokens).produceAST()
+
+      expect(ast).toEqual({
+        kind: "Program",
+        body: [
+          {
+            kind: "FunctionDeclaration",
+            name: "a",
+            parameters: [],
+            returnType: ["number", "string"],
+            body: [],
+          },
+        ],
+      })
+    })
+
   it("should parse function declarations with parameters and return type", () => {
     const code = "fn a(b: number, c: string) -> number {}"
     const tokens = tokenize(specs, "test", code)

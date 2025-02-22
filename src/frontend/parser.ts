@@ -115,6 +115,24 @@ export default class Parser {
     return block
   }
 
+  private parse_return_type(): Type | Type[] | undefined {
+    let returnType = undefined
+    if (this.at().type == TokenType.Arrow) {
+      this.eat() // eat arrow
+      returnType = this.parse_type_anotation()
+    }
+
+    while (this.at().type == TokenType.Comma) {
+      this.eat() // eat comma
+      if (!returnType) returnType = []
+      else if (!Array.isArray(returnType)) returnType = [returnType]
+
+      returnType.push(this.parse_type_anotation())
+    }
+
+    return returnType
+  }
+
   private parse_fn_declaration(): Stmt {
     this.eat() // eat fn token
     const name = this.expect(
@@ -124,11 +142,7 @@ export default class Parser {
 
     const params = this.parse_params()
 
-    let returnType = undefined
-    if (this.at().type == TokenType.Arrow) {
-      this.eat() // eat arrow
-      returnType = this.parse_type_anotation()
-    }
+    const returnType = this.parse_return_type()
 
     const body = this.parse_code_block()
 

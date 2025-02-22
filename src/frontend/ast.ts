@@ -58,7 +58,7 @@ export interface FunctionDeclaration extends Stmt {
   kind: "FunctionDeclaration"
   name: string
   parameters: FunctionParam[]
-  returnType: Type
+  returnType: Type | Type[]
   body: Stmt[]
 }
 
