@@ -568,4 +568,65 @@ describe("Parser - Expressions", () => {
       })
     })
   })
+
+  describe("Boolean expressions", () => {
+    it("should parse boolean expressions 1", () => {
+      const code = "10 > 5 && 10 < 11"
+      const tokens = tokenize("test", code)
+
+      const ast = new Parser(tokens).produceAST()
+      console.log(ast)
+
+      expect(ast).toEqual({
+        kind: "Program",
+        body: [
+          {
+            kind: "BinaryExpr",
+            left: {
+              kind: "BinaryExpr",
+              left: { kind: "NumericLiteral", value: 10 },
+              right: { kind: "NumericLiteral", value: 5 },
+              operator: ">",
+            },
+            right: {
+              kind: "BinaryExpr",
+              left: { kind: "NumericLiteral", value: 10 },
+              right: { kind: "NumericLiteral", value: 11 },
+              operator: "<",
+            },
+            operator: "&&",
+          },
+        ],
+      })
+    })
+
+    it("should parse boolean expressions 2", () => {
+      const code = "10 > 5 || 10 < 11"
+      const tokens = tokenize("test", code)
+
+      const ast = new Parser(tokens).produceAST()
+
+      expect(ast).toEqual({
+        kind: "Program",
+        body: [
+          {
+            kind: "BinaryExpr",
+            left: {
+              kind: "BinaryExpr",
+              left: { kind: "NumericLiteral", value: 10 },
+              right: { kind: "NumericLiteral", value: 5 },
+              operator: ">",
+            },
+            right: {
+              kind: "BinaryExpr",
+              left: { kind: "NumericLiteral", value: 10 },
+              right: { kind: "NumericLiteral", value: 11 },
+              operator: "<",
+            },
+            operator: "||",
+          },
+        ],
+      })
+    })
+  })
 })

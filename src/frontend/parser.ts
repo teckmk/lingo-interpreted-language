@@ -745,7 +745,24 @@ export default class Parser {
       return this.parse_object_expr()
     }
 
-    return this.parse_comparitive_expr()
+    return this.parse_gate_expr()
+  }
+
+  private parse_gate_expr(): Expr {
+    let left = this.parse_comparitive_expr()
+
+    while (this.at().type == TokenType.LogicGate) {
+      const operator = this.eat().value
+      const right = this.parse_comparitive_expr()
+      left = {
+        kind: "BinaryExpr",
+        left,
+        right,
+        operator,
+      } as BinaryExpr
+    }
+
+    return left
   }
 
   private parse_comparitive_expr(): Expr {
@@ -753,8 +770,7 @@ export default class Parser {
 
     while (
       this.at().type == TokenType.RelationalOperator ||
-      this.at().type == TokenType.EqualityOperator ||
-      this.at().type == TokenType.LogicGate
+      this.at().type == TokenType.EqualityOperator
     ) {
       const operator = this.eat().value
       const right = this.parse_additive_expr()
