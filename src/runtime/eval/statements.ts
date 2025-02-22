@@ -99,7 +99,7 @@ export function eval_condition(check: Expr, env: Environment): BooleanVal {
 }
 
 export function eval_if_else_statement(ifstmt: IfElseStatement, env: Environment): RuntimeVal {
-  const { check, body, childChecks } = ifstmt
+  const { condition: check, body, branches: childChecks } = ifstmt
 
   let result: RuntimeVal = MK_NULL()
 
@@ -107,7 +107,7 @@ export function eval_if_else_statement(ifstmt: IfElseStatement, env: Environment
     result = eval_code_block(body, env)
   } else if (childChecks && childChecks.length > 0) {
     for (const acheck of childChecks) {
-      if (eval_condition(acheck.check, env).value) {
+      if (eval_condition(acheck.condition, env).value) {
         result = eval_code_block(acheck.body, env)
         break
       }

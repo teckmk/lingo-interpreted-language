@@ -37,6 +37,8 @@ enum TypesGroup {
   BlockClosing,
 }
 export default class Parser {
+  private loopStack: string[] = [] // Stack of loop IDs
+  private labelMap: Map<string, string> = new Map() // Label to loop ID mapping
   constructor(tokens?: Token[]) {
     if (tokens) {
       this.tokens = tokens
@@ -210,7 +212,7 @@ export default class Parser {
 
       const childCheck = {
         kind: "IfElseStatement",
-        check: this.parse_condition(),
+        condition: this.parse_condition(),
         body: this.parse_code_block(),
       } as IfElseStatement
 
@@ -227,17 +229,14 @@ export default class Parser {
 
     const ifStmt = {
       kind: "IfElseStatement",
-      check,
+      condition: check,
       body,
-      childChecks,
+      branches: childChecks,
       else: elseBlock,
     } as IfElseStatement
 
     return ifStmt
   }
-
-  private loopStack: string[] = [] // Stack of loop IDs
-  private labelMap: Map<string, string> = new Map() // Label to loop ID mapping
 
   private parse_label(): { label?: string; loopId: string } {
     const loopId = `loop_${this.loopStack.length + 1}`

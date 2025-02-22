@@ -74,9 +74,9 @@ export interface ReturnStatement extends Stmt {
 
 export interface IfElseStatement extends Stmt {
   kind: "IfElseStatement"
-  check: Expr
+  condition: Expr
   body: Stmt[]
-  childChecks?: IfElseStatement[] // "else if" checks
+  branches?: IfElseStatement[] // "else if" checks
   else?: Stmt[]
 }
 
