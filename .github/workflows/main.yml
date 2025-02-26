@@ -33,6 +33,7 @@ jobs:
 
   test:
     name: Testing
+    needs: lint_format
     runs-on: ubuntu-latest
 
     steps:
