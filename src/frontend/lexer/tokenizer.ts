@@ -132,6 +132,11 @@ export class IndentMaker {
         continue
       }
 
+      // If there was not EOL immediately after a colon (and afterEOL is not already true), reset the flag.
+      if (afterColon && !afterEOL && token.type !== TokenType.EOL) {
+        afterColon = false
+      }
+
       // If the token is an end-of-line, push it and note that the next token starts a new line.
       if (token.type === TokenType.EOL) {
         this._tokens.push(token)

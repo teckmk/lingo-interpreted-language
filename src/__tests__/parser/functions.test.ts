@@ -331,7 +331,7 @@ describe("Parser - FunctionDeclaration", () => {
   })
 
   it("should parse function declarations with indented code block", () => {
-    const code = `fn a(): 
+    const code = `fn a():
       var b = 1
       return b`
     const tokens = tokenize("test", code)
@@ -370,7 +370,7 @@ describe("Parser - FunctionDeclaration", () => {
   })
 
   it("should parse function declarations with indented code block and return type", () => {
-    const code = `fn a() -> number: 
+    const code = `fn a() -> number:
       var b = 1
       return b`
     const tokens = tokenize("test", code)

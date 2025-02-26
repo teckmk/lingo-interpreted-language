@@ -104,10 +104,9 @@ export default class Parser {
   }
 
   private parse_code_block(): Stmt[] {
-    const indented = this.at().type === TokenType.Colon
+    const indented = this.at().type === TokenType.Indent
 
     if (indented) {
-      this.eat() // eat colon
       this.expect(TokenType.Indent, "Expected indented code block")
     } else {
       this.expect(TokenType.OpenBrace, "Expected opening brace for code block")

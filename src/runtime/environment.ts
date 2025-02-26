@@ -30,7 +30,7 @@ export default class Environment {
 
     if (value.type == "dynamic") {
       valueWithType = { ...value, type: "dynamic" }
-    } else if (value.type != varType) {
+    } else if (value.type != varType && varType != "dynamic") {
       throw new Error(`Can't assign a value of type ${value.type} to a variable of type ${varType}`)
     }
 

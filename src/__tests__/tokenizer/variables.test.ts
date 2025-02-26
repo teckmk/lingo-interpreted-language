@@ -1,4 +1,4 @@
-import { Tokenizer } from "../../frontend/lexer/tokenizer"
+import { tokenize, Tokenizer } from "../../frontend/lexer/tokenizer"
 import { TokenType, specs } from "../../frontend/lexer/specs"
 
 describe("Tokenizer - Variable Declarations", () => {
@@ -79,6 +79,29 @@ describe("Tokenizer - Variable Declarations", () => {
       { type: TokenType.WhiteSpace, value: " ", column: 20, line: 1 },
       { type: TokenType.NumberLiteral, value: "3", column: 21, line: 1 },
       { type: TokenType.EOF, value: "EOF", column: -1, line: 1 },
+    ])
+  })
+})
+
+describe("Tokenizer - Variable Assignments", () => {
+  it("should tokenize var assignment", () => {
+    const code = `var a: dynamic = 10
+    a = 20`
+
+    const tokens = tokenize("test", code)
+
+    expect(tokens).toEqual([
+      { type: TokenType.Let, value: "var", column: 1, line: 1 },
+      { type: TokenType.Identifier, value: "a", column: 2, line: 1 },
+      { type: TokenType.Colon, value: ":", column: 3, line: 1 },
+      { type: TokenType.DynamicType, value: "dynamic", column: 4, line: 1 },
+      { type: TokenType.Equals, value: "=", column: 5, line: 1 },
+      { type: TokenType.NumberLiteral, value: "10", column: 6, line: 1 },
+
+      { type: TokenType.Identifier, value: "a", column: 1, line: 2 },
+      { type: TokenType.Equals, value: "=", column: 2, line: 2 },
+      { type: TokenType.NumberLiteral, value: "20", column: 3, line: 2 },
+      { type: TokenType.EOF, value: "EOF", column: -1, line: 2 },
     ])
   })
 })

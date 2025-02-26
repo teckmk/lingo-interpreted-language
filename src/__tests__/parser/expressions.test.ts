@@ -575,7 +575,6 @@ describe("Parser - Expressions", () => {
       const tokens = tokenize("test", code)
 
       const ast = new Parser(tokens).produceAST()
-      console.log(ast)
 
       expect(ast).toEqual({
         kind: "Program",
@@ -616,6 +615,74 @@ describe("Parser - Expressions", () => {
               left: { kind: "NumericLiteral", value: 10 },
               right: { kind: "NumericLiteral", value: 5 },
               operator: ">",
+            },
+            right: {
+              kind: "BinaryExpr",
+              left: { kind: "NumericLiteral", value: 10 },
+              right: { kind: "NumericLiteral", value: 11 },
+              operator: "<",
+            },
+            operator: "||",
+          },
+        ],
+      })
+    })
+
+    it("should parse paranthisized boolean expressions", () => {
+      const code = "(10 > 5) && (10 < 11)"
+      const tokens = tokenize("test", code)
+
+      const ast = new Parser(tokens).produceAST()
+
+      expect(ast).toEqual({
+        kind: "Program",
+        body: [
+          {
+            kind: "BinaryExpr",
+            left: {
+              kind: "BinaryExpr",
+              left: { kind: "NumericLiteral", value: 10 },
+              right: { kind: "NumericLiteral", value: 5 },
+              operator: ">",
+            },
+            right: {
+              kind: "BinaryExpr",
+              left: { kind: "NumericLiteral", value: 10 },
+              right: { kind: "NumericLiteral", value: 11 },
+              operator: "<",
+            },
+            operator: "&&",
+          },
+        ],
+      })
+    })
+
+    it("should parse nested and parenthesized boolean expressions", () => {
+      const code = "((10 > 5) && (10 < 11)) || (10 < 11)"
+      const tokens = tokenize("test", code)
+
+      const ast = new Parser(tokens).produceAST()
+
+      expect(ast).toEqual({
+        kind: "Program",
+        body: [
+          {
+            kind: "BinaryExpr",
+            left: {
+              kind: "BinaryExpr",
+              left: {
+                kind: "BinaryExpr",
+                left: { kind: "NumericLiteral", value: 10 },
+                right: { kind: "NumericLiteral", value: 5 },
+                operator: ">",
+              },
+              right: {
+                kind: "BinaryExpr",
+                left: { kind: "NumericLiteral", value: 10 },
+                right: { kind: "NumericLiteral", value: 11 },
+                operator: "<",
+              },
+              operator: "&&",
             },
             right: {
               kind: "BinaryExpr",

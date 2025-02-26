@@ -218,4 +218,12 @@ describe("Interpreter - Boolean - Binary Expressions", () => {
 
     expect(runtimeVal).toEqual({ type: "boolean", value: false, returned: false })
   })
+
+  it("should interpret parenthesized expressions 11", () => {
+    const code = "10 > 5 || 10 > 11 && 11 > 10"
+
+    const runtimeVal = interpret("test", code)
+
+    expect(runtimeVal).toEqual({ type: "boolean", value: true, returned: false })
+  })
 })
