@@ -370,7 +370,7 @@ describe("Parser - Loops", () => {
     const tokens = tokenize("test", code)
 
     expect(() => new Parser(tokens).produceAST()).toThrow(
-      "Unexpected break statement outside of loop."
+      "Unexpected break statement outside of loop.",
     )
   })
 
@@ -469,7 +469,7 @@ describe("Parser - Loops", () => {
     const tokens = tokenize("test", code)
 
     expect(() => new Parser(tokens).produceAST()).toThrow(
-      "Unexpected continue statement outside of loop."
+      "Unexpected continue statement outside of loop.",
     )
   })
 
@@ -544,7 +544,7 @@ describe("Parser - Loops", () => {
     const tokens = tokenize("test", code)
 
     expect(() => new Parser(tokens).produceAST()).toThrow(
-      "Invalid label 'invalid' for break statement."
+      "Invalid label 'invalid' for break statement.",
     )
   })
 
@@ -553,7 +553,7 @@ describe("Parser - Loops", () => {
     const tokens = tokenize("test", code)
 
     expect(() => new Parser(tokens).produceAST()).toThrow(
-      "Invalid label 'invalid' for skip statement."
+      "Invalid label 'invalid' for skip statement.",
     )
   })
 })

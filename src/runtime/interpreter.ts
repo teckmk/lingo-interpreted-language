@@ -91,7 +91,7 @@ export function evaluate(astNode: Stmt, env: Environment = new Environment()): R
 export function interpret(
   filename: string,
   code: string,
-  env: Environment = new Environment()
+  env: Environment = new Environment(),
 ): RuntimeVal {
   const ast = parse(filename, code)
   return evaluate(ast, env)

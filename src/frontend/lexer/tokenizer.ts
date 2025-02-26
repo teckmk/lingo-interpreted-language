@@ -92,7 +92,7 @@ export class Tokenizer {
     }
 
     throw new Error(
-      `Unexpected token '${code[0]}' at ${this._line}:${this._tokenNumber} in ${this._filename}`
+      `Unexpected token '${code[0]}' at ${this._line}:${this._tokenNumber} in ${this._filename}`,
     )
   }
 
@@ -164,7 +164,7 @@ export class IndentMaker {
           }
           if (indentStack.peek() !== newIndent) {
             throw new Error(
-              `IndentationError: Invalid indentation at ${token.line}:${token.column}`
+              `IndentationError: Invalid indentation at ${token.line}:${token.column}`,
             )
           }
         }
@@ -204,7 +204,7 @@ export class IndentMaker {
       insertAtIndex(
         this._tokens,
         this._tokens.length - 1,
-        this._createDedentToken(this._tokens[this._tokens.length - 1])
+        this._createDedentToken(this._tokens[this._tokens.length - 1]),
       )
     }
 

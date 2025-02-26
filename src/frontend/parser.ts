@@ -149,7 +149,7 @@ export default class Parser {
     this.eat() // eat fn token
     const name = this.expect(
       TokenType.Identifier,
-      "Expected function name following fn keyword"
+      "Expected function name following fn keyword",
     ).value
 
     const params = this.parse_params()
@@ -246,7 +246,7 @@ export default class Parser {
 
       const label = this.expect(
         TokenType.Identifier,
-        "Expected identifier after label keyword"
+        "Expected identifier after label keyword",
       ).value
 
       this.labelMap.set(label, loopId)
@@ -493,7 +493,7 @@ export default class Parser {
     const type = this.expectOneOf(
       TypesGroup.TypeAnnotation,
       [TokenType.NumberType, TokenType.StringType, TokenType.BooleanType, TokenType.DynamicType],
-      "Expected valid type annotation following ':'"
+      "Expected valid type annotation following ':'",
     ).value as Type
 
     return type
@@ -528,7 +528,7 @@ export default class Parser {
 
     const identifier = this.expect(
       TokenType.Identifier,
-      "Expected identifier name following variable declarator."
+      "Expected identifier name following variable declarator.",
     ).value
 
     let type = undefined
@@ -559,7 +559,7 @@ export default class Parser {
 
         const identifier = this.expect(
           TokenType.Identifier,
-          "Expected identifier after comma."
+          "Expected identifier after comma.",
         ).value
 
         let type = undefined
@@ -622,7 +622,7 @@ export default class Parser {
 
         const identifier = this.expect(
           TokenType.Identifier,
-          "Expected identifier after comma."
+          "Expected identifier after comma.",
         ).value
 
         let type = undefined
@@ -640,7 +640,7 @@ export default class Parser {
 
         this.expect(
           TokenType.Equals,
-          "Expected equals token following identifier in var declaration."
+          "Expected equals token following identifier in var declaration.",
         )
 
         dec.value = this.parse_expr()
@@ -979,7 +979,7 @@ export default class Parser {
     const value = this.parse_expr()
     this.expect(
       TokenType.CloseParen,
-      "Unexpected token found in parenthesized expression. Expected closing paren"
+      "Unexpected token found in parenthesized expression. Expected closing paren",
     ) // eat closing paren
     return value
   }

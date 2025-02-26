@@ -20,7 +20,7 @@ import { eval_code_block } from "./statements"
 function eval_numeric_binary_expr(
   lhs: NumberVal,
   rhs: NumberVal,
-  operator: string
+  operator: string,
 ): NumberVal | BooleanVal {
   if ([">", "<", "==", "!=", "==", ">=", "<="].includes(operator)) {
     let result = false
@@ -48,7 +48,7 @@ function eval_numeric_binary_expr(
 export function eval_boolean_binary_expr(
   lhs: BooleanVal,
   rhs: BooleanVal,
-  operator: string
+  operator: string,
 ): BooleanVal {
   let result = false
 
@@ -117,7 +117,7 @@ export function eval_call_expr(expr: CallExpr, env: Environment): RuntimeVal {
     // TODO Better error handling here
     if (args.length != numParams)
       throw new Error(
-        `Num of params passed to the function are greater or less than defined args in function declaration`
+        `Num of params passed to the function are greater or less than defined args in function declaration`,
       )
 
     // create variables for params
@@ -128,7 +128,7 @@ export function eval_call_expr(expr: CallExpr, env: Environment): RuntimeVal {
         param.name,
         arg.type != "null" ? arg : param.default,
         "variable",
-        param.valueType
+        param.valueType,
       )
     }
 

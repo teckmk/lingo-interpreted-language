@@ -84,7 +84,7 @@ describe("Parser - Statements", () => {
       const codeWithoutType = "const a"
 
       expect(() => parse("test", codeWithoutType)).toThrow(
-        "Must assign a value to constant expression."
+        "Must assign a value to constant expression.",
       )
     })
 
@@ -96,7 +96,7 @@ describe("Parser - Statements", () => {
       const codeWithoutType = "final a"
 
       expect(() => parse("test", codeWithoutType)).toThrow(
-        "Must assign a value to final expression."
+        "Must assign a value to final expression.",
       )
     })
   })

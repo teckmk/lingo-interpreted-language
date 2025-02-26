@@ -41,7 +41,7 @@ export default class Environment {
     varname: string,
     value: RuntimeVal,
     modifier: VarModifier,
-    type?: ValueType
+    type?: ValueType,
   ): RuntimeVal {
     if (this.variables.has(varname))
       throw new Error(`Cannot declare variable ${varname}. As it already is defined.`)

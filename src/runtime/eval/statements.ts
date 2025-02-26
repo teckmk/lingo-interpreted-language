@@ -28,7 +28,7 @@ export function eval_var_declaration(declaration: VarDeclaration, env: Environme
   if (declaration.type) {
     if (declaration.type !== "dynamic" && declaration.type !== value.type) {
       throw new Error(
-        `Can't initialize variable of type ${declaration.type} with value of type ${value.type}`
+        `Can't initialize variable of type ${declaration.type} with value of type ${value.type}`,
       )
     } else if (declaration.type === "dynamic") {
       value = { ...value, type: "dynamic" }
@@ -40,7 +40,7 @@ export function eval_var_declaration(declaration: VarDeclaration, env: Environme
 
 export function eval_multi_var_declaration(
   declaration: MultiVarDeclaration,
-  env: Environment
+  env: Environment,
 ): ArrayVal {
   const values = []
   for (const dec of declaration.variables) values.push(eval_var_declaration(dec, env))
@@ -50,7 +50,7 @@ export function eval_multi_var_declaration(
 
 export function eval_fn_declaration(
   declaration: FunctionDeclaration,
-  env: Environment
+  env: Environment,
 ): RuntimeVal {
   const parameters = declaration.parameters.map(
     (param) =>
@@ -59,7 +59,7 @@ export function eval_fn_declaration(
         name: param.name,
         valueType: param.type,
         default: param.default ? evaluate(param.default, env) : MK_NULL(),
-      } as ParamVal)
+      }) as ParamVal,
   )
   const fn = {
     type: "function",
@@ -73,11 +73,11 @@ export function eval_fn_declaration(
 }
 
 export function eval_return_statement(stmt: Stmt, env: Environment): RuntimeVal {
-  const returnStmt = stmt as ReturnStatement;
+  const returnStmt = stmt as ReturnStatement
   const returnValue = Array.isArray(returnStmt.value)
     ? returnStmt.value.map((expr) => evaluate(expr, env))
-    : evaluate(returnStmt.value, env);
-  return { type: "return", value: returnValue } as ReturnVal;
+    : evaluate(returnStmt.value, env)
+  return { type: "return", value: returnValue } as ReturnVal
 }
 
 export function eval_code_block(block: Stmt[], parentEnv: Environment): RuntimeVal {
