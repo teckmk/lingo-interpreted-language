@@ -1,0 +1,744 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parser - Statements should parse various variable declarations 1`] = `
+{
+  "body": [
+    {
+      "identifier": {
+        "position": {
+          "end": {
+            "column": 6,
+            "line": 1,
+          },
+          "start": {
+            "column": 5,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "kind": "VarDeclaration",
+      "modifier": "variable",
+      "type": undefined,
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Statements should parse various variable declarations 2`] = `
+{
+  "body": [
+    {
+      "identifier": {
+        "position": {
+          "end": {
+            "column": 6,
+            "line": 1,
+          },
+          "start": {
+            "column": 5,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "kind": "VarDeclaration",
+      "modifier": "variable",
+      "type": {
+        "position": {
+          "end": {
+            "column": 14,
+            "line": 1,
+          },
+          "start": {
+            "column": 8,
+            "line": 1,
+          },
+        },
+        "value": "number",
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Statements should parse various variable declarations 3`] = `
+{
+  "body": [
+    {
+      "identifier": {
+        "position": {
+          "end": {
+            "column": 8,
+            "line": 1,
+          },
+          "start": {
+            "column": 7,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "kind": "VarDeclaration",
+      "modifier": "constant",
+      "type": undefined,
+      "value": {
+        "kind": "NumericLiteral",
+        "value": {
+          "position": {
+            "end": {
+              "column": 13,
+              "line": 1,
+            },
+            "start": {
+              "column": 11,
+              "line": 1,
+            },
+          },
+          "value": 10,
+        },
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Statements should parse various variable declarations 4`] = `
+{
+  "body": [
+    {
+      "identifier": {
+        "position": {
+          "end": {
+            "column": 8,
+            "line": 1,
+          },
+          "start": {
+            "column": 7,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "kind": "VarDeclaration",
+      "modifier": "constant",
+      "type": {
+        "position": {
+          "end": {
+            "column": 16,
+            "line": 1,
+          },
+          "start": {
+            "column": 10,
+            "line": 1,
+          },
+        },
+        "value": "number",
+      },
+      "value": {
+        "kind": "NumericLiteral",
+        "value": {
+          "position": {
+            "end": {
+              "column": 21,
+              "line": 1,
+            },
+            "start": {
+              "column": 19,
+              "line": 1,
+            },
+          },
+          "value": 10,
+        },
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Statements should parse various variable declarations 5`] = `
+{
+  "body": [
+    {
+      "kind": "MultiVarDeclaration",
+      "variables": [
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 6,
+                "line": 1,
+              },
+              "start": {
+                "column": 5,
+                "line": 1,
+              },
+            },
+            "value": "a",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": undefined,
+        },
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 9,
+                "line": 1,
+              },
+              "start": {
+                "column": 8,
+                "line": 1,
+              },
+            },
+            "value": "b",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": undefined,
+        },
+      ],
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Statements should parse various variable declarations 6`] = `
+{
+  "body": [
+    {
+      "kind": "MultiVarDeclaration",
+      "variables": [
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 6,
+                "line": 1,
+              },
+              "start": {
+                "column": 5,
+                "line": 1,
+              },
+            },
+            "value": "a",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": {
+            "position": {
+              "end": {
+                "column": 14,
+                "line": 1,
+              },
+              "start": {
+                "column": 8,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+        },
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 17,
+                "line": 1,
+              },
+              "start": {
+                "column": 16,
+                "line": 1,
+              },
+            },
+            "value": "b",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": {
+            "position": {
+              "end": {
+                "column": 25,
+                "line": 1,
+              },
+              "start": {
+                "column": 19,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+        },
+      ],
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Statements should parse various variable declarations 7`] = `
+{
+  "body": [
+    {
+      "kind": "MultiVarDeclaration",
+      "variables": [
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 6,
+                "line": 1,
+              },
+              "start": {
+                "column": 5,
+                "line": 1,
+              },
+            },
+            "value": "a",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": undefined,
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 11,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 9,
+                  "line": 1,
+                },
+              },
+              "value": 10,
+            },
+          },
+        },
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 14,
+                "line": 1,
+              },
+              "start": {
+                "column": 13,
+                "line": 1,
+              },
+            },
+            "value": "b",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": undefined,
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 19,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 1,
+                },
+              },
+              "value": 20,
+            },
+          },
+        },
+      ],
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Statements should parse various variable declarations 8`] = `
+{
+  "body": [
+    {
+      "kind": "MultiVarDeclaration",
+      "variables": [
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 6,
+                "line": 1,
+              },
+              "start": {
+                "column": 5,
+                "line": 1,
+              },
+            },
+            "value": "a",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": {
+            "position": {
+              "end": {
+                "column": 14,
+                "line": 1,
+              },
+              "start": {
+                "column": 8,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 19,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 1,
+                },
+              },
+              "value": 10,
+            },
+          },
+        },
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 22,
+                "line": 1,
+              },
+              "start": {
+                "column": 21,
+                "line": 1,
+              },
+            },
+            "value": "b",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": {
+            "position": {
+              "end": {
+                "column": 30,
+                "line": 1,
+              },
+              "start": {
+                "column": 24,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 35,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 33,
+                  "line": 1,
+                },
+              },
+              "value": 20,
+            },
+          },
+        },
+      ],
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Statements should parse various variable declarations 9`] = `
+{
+  "body": [
+    {
+      "kind": "MultiVarDeclaration",
+      "variables": [
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 6,
+                "line": 1,
+              },
+              "start": {
+                "column": 5,
+                "line": 1,
+              },
+            },
+            "value": "a",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": undefined,
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 14,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 12,
+                  "line": 1,
+                },
+              },
+              "value": 20,
+            },
+          },
+        },
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 9,
+                "line": 1,
+              },
+              "start": {
+                "column": 8,
+                "line": 1,
+              },
+            },
+            "value": "b",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": undefined,
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 14,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 12,
+                  "line": 1,
+                },
+              },
+              "value": 20,
+            },
+          },
+        },
+      ],
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Statements should parse various variable declarations 10`] = `
+{
+  "body": [
+    {
+      "kind": "MultiVarDeclaration",
+      "variables": [
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 6,
+                "line": 1,
+              },
+              "start": {
+                "column": 5,
+                "line": 1,
+              },
+            },
+            "value": "a",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": {
+            "position": {
+              "end": {
+                "column": 14,
+                "line": 1,
+              },
+              "start": {
+                "column": 8,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 30,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 28,
+                  "line": 1,
+                },
+              },
+              "value": 20,
+            },
+          },
+        },
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 17,
+                "line": 1,
+              },
+              "start": {
+                "column": 16,
+                "line": 1,
+              },
+            },
+            "value": "b",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": {
+            "position": {
+              "end": {
+                "column": 25,
+                "line": 1,
+              },
+              "start": {
+                "column": 19,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 30,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 28,
+                  "line": 1,
+                },
+              },
+              "value": 20,
+            },
+          },
+        },
+      ],
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Statements should parse various variable declarations 11`] = `
+{
+  "body": [
+    {
+      "identifier": {
+        "position": {
+          "end": {
+            "column": 6,
+            "line": 1,
+          },
+          "start": {
+            "column": 5,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "kind": "VarDeclaration",
+      "modifier": "variable",
+      "type": {
+        "position": {
+          "end": {
+            "column": 15,
+            "line": 1,
+          },
+          "start": {
+            "column": 8,
+            "line": 1,
+          },
+        },
+        "value": "dynamic",
+      },
+      "value": {
+        "kind": "NumericLiteral",
+        "value": {
+          "position": {
+            "end": {
+              "column": 20,
+              "line": 1,
+            },
+            "start": {
+              "column": 18,
+              "line": 1,
+            },
+          },
+          "value": 10,
+        },
+      },
+    },
+    {
+      "assigne": {
+        "kind": "Identifier",
+        "symbol": {
+          "position": {
+            "end": {
+              "column": 2,
+              "line": 2,
+            },
+            "start": {
+              "column": 1,
+              "line": 2,
+            },
+          },
+          "value": "a",
+        },
+      },
+      "kind": "AssignmentExpr",
+      "value": {
+        "kind": "NumericLiteral",
+        "value": {
+          "position": {
+            "end": {
+              "column": 7,
+              "line": 2,
+            },
+            "start": {
+              "column": 5,
+              "line": 2,
+            },
+          },
+          "value": 20,
+        },
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;

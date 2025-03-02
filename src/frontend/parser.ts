@@ -26,6 +26,7 @@ import {
   ForRangeStatement,
   BreakStatement,
   ContinueStatement,
+  LeafNode,
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType } from "./lexer/specs"
@@ -36,6 +37,14 @@ enum TypesGroup {
   BlockOpening,
   BlockClosing,
 }
+
+export function get_leaf(token: Token) {
+  return {
+    value: token.value,
+    position: token.position,
+  }
+}
+
 export default class Parser {
   private loopStack: string[] = [] // Stack of loop IDs
   private labelMap: Map<string, string> = new Map() // Label to loop ID mapping
@@ -127,7 +136,7 @@ export default class Parser {
     return block
   }
 
-  private parse_return_type(): Type | Type[] | undefined {
+  private parse_return_type(): LeafNode<Type> | LeafNode<Type>[] | undefined {
     let returnType = undefined
     if (this.at().type == TokenType.Arrow) {
       this.eat() // eat arrow
@@ -147,10 +156,7 @@ export default class Parser {
 
   private parse_fn_declaration(): Stmt {
     this.eat() // eat fn token
-    const name = this.expect(
-      TokenType.Identifier,
-      "Expected function name following fn keyword",
-    ).value
+    const name = this.expect(TokenType.Identifier, "Expected function name following fn keyword")
 
     const params = this.parse_params()
 
@@ -160,7 +166,7 @@ export default class Parser {
 
     const fn = {
       kind: "FunctionDeclaration",
-      name,
+      name: get_leaf(name),
       parameters: params,
       body,
       returnType,
@@ -237,20 +243,17 @@ export default class Parser {
     return ifStmt
   }
 
-  private parse_label(): { label?: string; loopId: string } {
+  private parse_label(): { label?: LeafNode<string>; loopId: string } {
     const loopId = `loop_${this.loopStack.length + 1}`
     this.loopStack.push(loopId)
 
     if (this.at().type == TokenType.Label) {
       this.eat() // eat label token
 
-      const label = this.expect(
-        TokenType.Identifier,
-        "Expected identifier after label keyword",
-      ).value
+      const label = this.expect(TokenType.Identifier, "Expected identifier after label keyword")
 
-      this.labelMap.set(label, loopId)
-      return { label, loopId }
+      this.labelMap.set(label.value, loopId)
+      return { label: get_leaf(label), loopId }
     }
     return { loopId }
   }
@@ -279,7 +282,7 @@ export default class Parser {
       const { label, loopId } = this.parse_label()
       const body = this.parse_code_block()
 
-      this.decrement_loop_stack(label)
+      this.decrement_loop_stack(label?.value)
 
       return {
         kind: "ForStatement",
@@ -322,7 +325,7 @@ export default class Parser {
 
       const body = this.parse_code_block()
 
-      this.decrement_loop_stack(label)
+      this.decrement_loop_stack(label?.value)
 
       return {
         kind: "ForStatement",
@@ -346,7 +349,7 @@ export default class Parser {
 
     const body = this.parse_code_block()
 
-    this.decrement_loop_stack(label)
+    this.decrement_loop_stack(label?.value)
 
     return {
       kind: "ForStatement",
@@ -360,11 +363,11 @@ export default class Parser {
   private parse_for_in_statement(hasOpenParen: boolean): ForInStatement | ForRangeStatement {
     this.eat() // eat let token
 
-    const indexIdent = this.expect(TokenType.Identifier, "Expected identifier in for loop").value
+    const indexIdent = this.expect(TokenType.Identifier, "Expected identifier in for loop")
 
     this.expect(TokenType.Comma, "Expected comma after first identifier in for loop")
 
-    const valIdent = this.expect(TokenType.Identifier, "Expected identifier in for loop").value
+    const valIdent = this.expect(TokenType.Identifier, "Expected identifier in for loop")
 
     this.expect(TokenType.In, "Expected 'in' keyword in for loop")
 
@@ -383,7 +386,7 @@ export default class Parser {
 
     const body = this.parse_code_block()
 
-    this.decrement_loop_stack(label)
+    this.decrement_loop_stack(label?.value)
     return {
       kind: "ForInStatement",
       loopId,
@@ -395,7 +398,10 @@ export default class Parser {
     }
   }
 
-  private parse_for_range_statement(valIdent: string, indexIdent: string): ForRangeStatement {
+  private parse_for_range_statement(
+    valIdent: LeafNode<string>,
+    indexIdent: LeafNode<string>,
+  ): ForRangeStatement {
     this.eat() // eat range token
 
     const start = this.parse_expr()
@@ -418,7 +424,7 @@ export default class Parser {
 
     const body = this.parse_code_block()
 
-    this.decrement_loop_stack(label)
+    this.decrement_loop_stack(label?.value)
 
     return {
       kind: "ForRangeStatement",
@@ -444,13 +450,14 @@ export default class Parser {
     let loopId = this.loopStack[this.loopStack.length - 1]
 
     if (this.at().type == TokenType.Identifier) {
-      const label = this.eat().value
+      const labelToken = this.eat()
 
-      if (!this.labelMap.has(label)) {
-        throw new Error(`Invalid label '${label}' for break statement.`)
+      if (!this.labelMap.has(labelToken.value)) {
+        throw new Error(`Invalid label '${labelToken.value}' for break statement.`)
       }
 
-      loopId = this.labelMap.get(label) || loopId
+      loopId = this.labelMap.get(labelToken.value) || loopId
+      return { kind: "BreakStatement", loopId, label: get_leaf(labelToken) }
     }
 
     return { kind: "BreakStatement", loopId }
@@ -466,13 +473,15 @@ export default class Parser {
     let loopId = this.loopStack[this.loopStack.length - 1]
 
     if (this.at().type == TokenType.Identifier) {
-      const label = this.eat().value
+      const labelToken = this.eat()
 
-      if (!this.labelMap.has(label)) {
-        throw new Error(`Invalid label '${label}' for skip statement.`)
+      if (!this.labelMap.has(labelToken.value)) {
+        throw new Error(`Invalid label '${labelToken.value}' for skip statement.`)
       }
 
-      loopId = this.labelMap.get(label) || loopId
+      loopId = this.labelMap.get(labelToken.value) || loopId
+
+      return { kind: "ContinueStatement", loopId, label: get_leaf(labelToken) }
     }
 
     return { kind: "ContinueStatement", loopId }
@@ -488,15 +497,15 @@ export default class Parser {
     } as WhileStatement
   }
 
-  private parse_type_anotation(): Type | undefined {
+  private parse_type_anotation(): LeafNode<Type> | undefined {
     // Check for types
     const type = this.expectOneOf(
       TypesGroup.TypeAnnotation,
       [TokenType.NumberType, TokenType.StringType, TokenType.BooleanType, TokenType.DynamicType],
       "Expected valid type annotation following ':'",
-    ).value as Type
+    )
 
-    return type
+    return get_leaf(type)
   }
 
   private verify_must_assign(modifier: VarModifier) {
@@ -529,7 +538,7 @@ export default class Parser {
     const identifier = this.expect(
       TokenType.Identifier,
       "Expected identifier name following variable declarator.",
-    ).value
+    )
 
     let type = undefined
     if (this.at().type == TokenType.Colon) {
@@ -548,7 +557,7 @@ export default class Parser {
       // Get one before the comma
       shorthands.push({
         kind: "VarDeclaration",
-        identifier,
+        identifier: get_leaf(identifier),
         type,
         modifier,
       })
@@ -557,10 +566,7 @@ export default class Parser {
       while (this.at().type == TokenType.Comma) {
         this.eat() // eat comma
 
-        const identifier = this.expect(
-          TokenType.Identifier,
-          "Expected identifier after comma.",
-        ).value
+        const identifier = this.expect(TokenType.Identifier, "Expected identifier after comma.")
 
         let type = undefined
         if (this.at().type == TokenType.Colon) {
@@ -570,7 +576,7 @@ export default class Parser {
 
         shorthands.push({
           kind: "VarDeclaration",
-          identifier,
+          identifier: get_leaf(identifier),
           type,
           modifier,
         })
@@ -608,7 +614,7 @@ export default class Parser {
       this.eat() // eat equals
       shorthands.push({
         kind: "VarDeclaration",
-        identifier,
+        identifier: get_leaf(identifier),
         modifier,
         type,
         value: this.parse_expr(),
@@ -620,10 +626,7 @@ export default class Parser {
       while (this.at().type == TokenType.Comma) {
         this.eat() // eat comma
 
-        const identifier = this.expect(
-          TokenType.Identifier,
-          "Expected identifier after comma.",
-        ).value
+        const identifier = this.expect(TokenType.Identifier, "Expected identifier after comma.")
 
         let type = undefined
         if (this.at().type == TokenType.Colon) {
@@ -633,7 +636,7 @@ export default class Parser {
 
         const dec = {
           kind: "VarDeclaration",
-          identifier,
+          identifier: get_leaf(identifier),
           type,
           modifier,
         } as VarDeclaration
@@ -664,7 +667,7 @@ export default class Parser {
     // if there's only one declaration, without a value
     return {
       kind: "VarDeclaration",
-      identifier,
+      identifier: get_leaf(identifier),
       modifier,
       type,
     } as VarDeclaration
@@ -708,17 +711,17 @@ export default class Parser {
     const props = new Array<Property>()
 
     while (this.not_eof() && this.at().type != TokenType.CloseBrace) {
-      const key = this.expect(TokenType.Identifier, "Object literal key expected").value
+      const key = this.expect(TokenType.Identifier, "Object literal key expected")
 
       // handling shorthands {key,}
       if (this.at().type == TokenType.Comma) {
         this.eat() // eat comma
-        props.push({ kind: "Property", key })
+        props.push({ kind: "Property", key: get_leaf(key) })
         continue
       }
       // handling shorthands {key}
       else if (this.at().type == TokenType.CloseBrace) {
-        props.push({ kind: "Property", key })
+        props.push({ kind: "Property", key: get_leaf(key) })
         continue
       }
 
@@ -726,7 +729,7 @@ export default class Parser {
       this.expect(TokenType.Colon, "Missing colon following identifier in object")
       const value = this.parse_expr()
 
-      props.push({ kind: "Property", key, value })
+      props.push({ kind: "Property", key: get_leaf(key), value })
 
       if (this.at().type != TokenType.CloseBrace) {
         this.expect(TokenType.Comma, "Expected comma or closing bracket")
@@ -751,13 +754,13 @@ export default class Parser {
     let left = this.parse_comparitive_expr()
 
     while (this.at().type == TokenType.LogicGate) {
-      const operator = this.eat().value
+      const operator = this.eat()
       const right = this.parse_comparitive_expr()
       left = {
         kind: "BinaryExpr",
         left,
         right,
-        operator,
+        operator: get_leaf(operator),
       } as BinaryExpr
     }
 
@@ -771,13 +774,13 @@ export default class Parser {
       this.at().type == TokenType.RelationalOperator ||
       this.at().type == TokenType.EqualityOperator
     ) {
-      const operator = this.eat().value
+      const operator = this.eat()
       const right = this.parse_additive_expr()
       left = {
         kind: "BinaryExpr",
         left,
         right,
-        operator,
+        operator: get_leaf(operator),
       } as BinaryExpr
     }
 
@@ -789,13 +792,13 @@ export default class Parser {
     let left = this.parse_multipicative_expr()
 
     while (this.at().type == TokenType.AdditiveOperator) {
-      const operator = this.eat().value
+      const operator = this.eat()
       const right = this.parse_multipicative_expr()
       left = {
         kind: "BinaryExpr",
         left,
         right,
-        operator,
+        operator: get_leaf(operator),
       } as BinaryExpr
     }
 
@@ -807,13 +810,13 @@ export default class Parser {
     let left = this.parse_call_member_expr()
 
     while (this.at().type == TokenType.MulitipicativeOperator) {
-      const operator = this.eat().value
+      const operator = this.eat()
       const right = this.parse_call_member_expr()
       left = {
         kind: "BinaryExpr",
         left,
         right,
-        operator,
+        operator: get_leaf(operator),
       } as BinaryExpr
     }
 
@@ -860,7 +863,7 @@ export default class Parser {
     return args
   }
 
-  private parse_params(): Expr[] {
+  private parse_params(): FunctionParam[] {
     this.expect(TokenType.OpenParen, "Expected open paren")
     const params = this.at().type == TokenType.CloseParen ? [] : this.parse_params_list()
 
@@ -869,7 +872,7 @@ export default class Parser {
     return params
   }
 
-  private parse_params_list(): Expr[] {
+  private parse_params_list(): FunctionParam[] {
     const params = [this.parse_parameter()]
 
     while (this.at().type == TokenType.Comma && this.eat()) params.push(this.parse_parameter())
@@ -877,7 +880,7 @@ export default class Parser {
     return params
   }
 
-  private parse_parameter(): Expr {
+  private parse_parameter(): FunctionParam {
     const ident = this.expect(TokenType.Identifier, "Expected identifier in function parameter")
 
     let type = undefined
@@ -894,13 +897,13 @@ export default class Parser {
 
       return {
         kind: "FunctionParam",
-        name: ident.value,
+        name: get_leaf(ident),
         type,
         default: defaultVal,
       } as FunctionParam
     }
 
-    return { kind: "FunctionParam", name: ident.value, type } as FunctionParam
+    return { kind: "FunctionParam", name: get_leaf(ident), type } as FunctionParam
   }
 
   private parse_member_expr(): Expr {
@@ -937,7 +940,8 @@ export default class Parser {
   }
 
   private parse_string_literal() {
-    const inputString = this.eat().value
+    const stringToken = this.eat()
+    const inputString = stringToken.value
     const expressions: { [key: string]: Expr } = {}
 
     let outputString = inputString
@@ -966,9 +970,11 @@ export default class Parser {
     const identRegex = /\$([a-zA-Z_]\w*)/g
     const identifiers = outputString.match(identRegex) || []
 
+    stringToken.value = outputString
+
     return {
       kind: "StringLiteral",
-      value: outputString,
+      value: get_leaf(stringToken),
       identifiers,
       expressions,
     } as StringLiteral
@@ -984,15 +990,18 @@ export default class Parser {
     return value
   }
 
-  // 5.
+  // ? if/else expressions will be parsed here
   private parse_primary_expr(): Expr {
     const tk = this.at().type
 
     switch (tk) {
       case TokenType.Identifier:
-        return { kind: "Identifier", symbol: this.eat().value } as Identifier
-      case TokenType.NumberLiteral:
-        return { kind: "NumericLiteral", value: parseFloat(this.eat().value) } as NumericLiteral
+        return { kind: "Identifier", symbol: get_leaf(this.eat()) } as Identifier
+      case TokenType.NumberLiteral: {
+        const numberToken = this.eat()
+        numberToken.value = parseFloat(numberToken.value)
+        return { kind: "NumericLiteral", value: get_leaf(numberToken) } as NumericLiteral
+      }
       case TokenType.StringLiteral:
         return this.parse_string_literal() as StringLiteral
       case TokenType.OpenParen:

@@ -1,0 +1,397 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tokenizer - Reserved Words should tokenize boolean type 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 5,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "BOOL_TYPE",
+    "value": "bool",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Reserved Words should tokenize const 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 6,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "CONST",
+    "value": "const",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Reserved Words should tokenize dynamic type 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 8,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "DYNAMIC_TYPE",
+    "value": "dynamic",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Reserved Words should tokenize else 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 5,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "ELSE",
+    "value": "else",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Reserved Words should tokenize final 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 6,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "FINAL",
+    "value": "final",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Reserved Words should tokenize fn 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "FN",
+    "value": "fn",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Reserved Words should tokenize if 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "IF",
+    "value": "if",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Reserved Words should tokenize let 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "LET",
+    "value": "var",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Reserved Words should tokenize number type 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 7,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "NUMBER_TYPE",
+    "value": "number",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Reserved Words should tokenize return 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 7,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "RETURN",
+    "value": "return",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Reserved Words should tokenize string type 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 7,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "STRING_TYPE",
+    "value": "string",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Reserved Words should tokenize while 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 6,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "WHILE",
+    "value": "while",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;

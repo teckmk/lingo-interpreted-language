@@ -1,0 +1,760 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tokenizer - Operators should tokenize ! 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "EXLAMATION",
+    "value": "!",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize != 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "EQUALITY_OPERATOR",
+    "value": "!=",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize % 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "MULTIPICATIVE_OPERATOR",
+    "value": "%",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize && 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "LOGIC_GATE",
+    "value": "&&",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize 'and' 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "LOGIC_GATE",
+    "value": "and",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize 'or' 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "LOGIC_GATE",
+    "value": "or",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize * 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "MULTIPICATIVE_OPERATOR",
+    "value": "*",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize ** 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "EXPONENT_OPERATOR",
+    "value": "**",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize + 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "ADDITIVE_OPERATOR",
+    "value": "+",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize ++ 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "UPDATE_OPERATOR",
+    "value": "++",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize , 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "COMMA",
+    "value": ",",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize . 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "DOT",
+    "value": ".",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize / 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "MULTIPICATIVE_OPERATOR",
+    "value": "/",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize : 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "COLON",
+    "value": ":",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize < 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "RELATIONAL_OPERATOR",
+    "value": "<",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize <= 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "RELATIONAL_OPERATOR",
+    "value": "<=",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize = 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "ASSIGNMENT_OPERATOR",
+    "value": "=",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize == 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "EQUALITY_OPERATOR",
+    "value": "==",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize > 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "RELATIONAL_OPERATOR",
+    "value": ">",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize >= 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "RELATIONAL_OPERATOR",
+    "value": ">=",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize || 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "LOGIC_GATE",
+    "value": "||",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize - 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "ADDITIVE_OPERATOR",
+    "value": "-",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Operators should tokenize -- 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "UPDATE_OPERATOR",
+    "value": "--",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;

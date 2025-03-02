@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Spec, specs, TokenType } from "./specs"
 
+type Position = {
+  line: number
+  column: number
+}
+
 export type Token = {
   type: TokenType
   value: any
-  column: number
-  line: number
-  code?: string
+  position: { start: Position; end: Position } // end.column is exclusive
 }
 
 export class Tokenizer {
@@ -15,7 +18,7 @@ export class Tokenizer {
 
   private _cursor = 0
   private _line = 1 // current line
-  private _tokenNumber = 0 // current column
+  private _tokenNumber = 0 // current token
 
   private _code = ""
   private _filename = ""
@@ -37,8 +40,7 @@ export class Tokenizer {
     this._pushToken({
       type: TokenType.EOF,
       value: "EOF",
-      column: -1,
-      line: this._line,
+      position: { start: { line: this._line, column: -1 }, end: { line: this._line, column: -1 } },
     })
 
     return this._tokens
@@ -58,6 +60,7 @@ export class Tokenizer {
 
   private _readToken() {
     const code = this._code.slice(this._cursor)
+    const startCursor = this._cursor
 
     for (const { regex, tokenType } of this._spec) {
       let tokenValue = this._matched(regex, code)
@@ -65,11 +68,31 @@ export class Tokenizer {
       // skip iteration if there's no match
       if (tokenValue == null) continue
 
-      if (tokenType == TokenType.EOL) {
-        this._line++
-        this._tokenNumber = 1
+      // Get the position of the current cursor within the current line
+      // We need to calculate the actual column by finding the start position of the current line
+      const lineStartIndex = this._code.lastIndexOf("\n", startCursor - 1) + 1
+      // Column is 1-indexed
+      const startColumn = startCursor - lineStartIndex + 1
+
+      // Calculate the start position
+      const startPos = {
+        line: this._line,
+        column: startColumn,
       }
 
+      // Calculate the end position
+      const endPos = {
+        line: this._line,
+        column: startColumn + tokenValue.length,
+      }
+
+      // Handle newlines separately
+      if (tokenType == TokenType.EOL) {
+        this._line++
+        tokenValue = "\n"
+      }
+
+      // Process string literals
       if (tokenType == TokenType.StringLiteral) {
         // Unescape escaped quotes and backslashes.
         // TODO: expand this to support other escape sequences.
@@ -78,21 +101,18 @@ export class Tokenizer {
         tokenValue = tokenValue.slice(1, -1)
       }
 
-      if (tokenType == TokenType.EOL) {
-        tokenValue = "\n"
-      }
-
       return this._pushToken({
         type: tokenType,
         value: tokenValue,
-        column: this._tokenNumber,
-        line: this._line,
-        // code,
+        position: {
+          start: startPos,
+          end: endPos,
+        },
       })
     }
 
     throw new Error(
-      `Unexpected token '${code[0]}' at ${this._line}:${this._tokenNumber} in ${this._filename}`,
+      `Unexpected token '${code[0]}' at ${this._line}:${this._cursor - this._code.lastIndexOf("\n", this._cursor - 1)} in ${this._filename}`,
     )
   }
 
@@ -102,7 +122,7 @@ export class Tokenizer {
     if (matched == null) return null
 
     this._cursor += matched[0].length
-    this._tokenNumber++
+    // Don't increment _tokenNumber here anymore as we're calculating column differently
 
     return matched[0]
   }
@@ -164,7 +184,7 @@ export class IndentMaker {
           }
           if (indentStack.peek() !== newIndent) {
             throw new Error(
-              `IndentationError: Invalid indentation at ${token.line}:${token.column}`,
+              `IndentationError: Invalid indentation at ${token.position.start.line}:${token.position.start.column}`,
             )
           }
         }
@@ -185,7 +205,9 @@ export class IndentMaker {
             indentStack.pop()
           }
           if (indentStack.peek() !== newIndent) {
-            throw new Error(`Invalid indentation at ${token.line}:${token.column}`)
+            throw new Error(
+              `Invalid indentation at ${token.position.start.line}:${token.position.start.column}`,
+            )
           }
         }
         afterEOL = false
@@ -213,7 +235,11 @@ export class IndentMaker {
 
   removeUnwantedTokens() {
     this._tokens = this._tokens.filter(({ type }, index) => {
-      const skippable = type === TokenType.WhiteSpace || type === TokenType.SingleLineComment
+      const skippable =
+        type === TokenType.WhiteSpace ||
+        type === TokenType.SingleLineComment ||
+        type === TokenType.EOL
+
       const next = this._tokens[index + 1]
       const nextOfNext = this._tokens[index + 2]
       const indentColon =
@@ -226,36 +252,36 @@ export class IndentMaker {
   }
 
   fixColumnNumbers() {
-    let currentColumn = 1
-    let currentLine = 1
-    const tokens = []
+    // let currentColumn = 1
+    // let currentLine = 1
+    // const tokens = []
 
-    for (const token of this._tokens) {
-      if (token.type === TokenType.EOL) {
-        currentLine++
-        currentColumn = 1
-        continue
-      }
+    // for (const token of this._tokens) {
+    //   if (token.type === TokenType.EOL) {
+    //     currentLine++
+    //     currentColumn = 1
+    //     continue
+    //   }
 
-      if (token.type === TokenType.Indent || token.type === TokenType.Dedent) {
-        currentColumn = 1
-      }
+    //   if (token.type === TokenType.Indent || token.type === TokenType.Dedent) {
+    //     currentColumn = 1
+    //   }
 
-      const newToken = {
-        ...token,
-        column: currentColumn++,
-        line: currentLine,
-      }
+    //   const newToken = {
+    //     ...token,
+    //     column: currentColumn++,
+    //     line: currentLine,
+    //   }
 
-      // the EOF token should have the column number of -1
-      if (newToken.type === TokenType.EOF) {
-        newToken.column = -1
-      }
+    //   // the EOF token should have the column number of -1
+    //   if (newToken.type === TokenType.EOF) {
+    //     newToken.column = -1
+    //   }
 
-      tokens.push(newToken)
-    }
+    //   tokens.push(newToken)
+    // }
 
-    this._tokens = tokens
+    // this._tokens = tokens
     return this
   }
 
@@ -263,8 +289,10 @@ export class IndentMaker {
     return {
       type: TokenType.Indent,
       value: "indent",
-      column: 1,
-      line: baseToken.line + 1,
+      position: {
+        start: { line: baseToken.position.end.line, column: 1 },
+        end: { line: baseToken.position.end.line, column: baseToken.value.length },
+      },
     }
   }
 
@@ -272,8 +300,10 @@ export class IndentMaker {
     return {
       type: TokenType.Dedent,
       value: "dedent",
-      column: 1,
-      line: baseToken.line + 1,
+      position: {
+        start: { line: baseToken.position.end.line, column: 1 },
+        end: { line: baseToken.position.end.line, column: baseToken.value.length },
+      },
     }
   }
 }

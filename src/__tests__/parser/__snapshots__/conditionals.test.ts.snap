@@ -1,0 +1,384 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parser - If Else Statements should parse if else if statements 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "assigne": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 14,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 13,
+                  "line": 1,
+                },
+              },
+              "value": "a",
+            },
+          },
+          "kind": "AssignmentExpr",
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 19,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 1,
+                },
+              },
+              "value": 10,
+            },
+          },
+        },
+      ],
+      "branches": [
+        {
+          "body": [
+            {
+              "assigne": {
+                "kind": "Identifier",
+                "symbol": {
+                  "position": {
+                    "end": {
+                      "column": 40,
+                      "line": 1,
+                    },
+                    "start": {
+                      "column": 39,
+                      "line": 1,
+                    },
+                  },
+                  "value": "a",
+                },
+              },
+              "kind": "AssignmentExpr",
+              "value": {
+                "kind": "NumericLiteral",
+                "value": {
+                  "position": {
+                    "end": {
+                      "column": 45,
+                      "line": 1,
+                    },
+                    "start": {
+                      "column": 43,
+                      "line": 1,
+                    },
+                  },
+                  "value": 20,
+                },
+              },
+            },
+          ],
+          "condition": {
+            "kind": "BinaryExpr",
+            "left": {
+              "kind": "Identifier",
+              "symbol": {
+                "position": {
+                  "end": {
+                    "column": 31,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 30,
+                    "line": 1,
+                  },
+                },
+                "value": "a",
+              },
+            },
+            "operator": {
+              "position": {
+                "end": {
+                  "column": 33,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 32,
+                  "line": 1,
+                },
+              },
+              "value": "<",
+            },
+            "right": {
+              "kind": "NumericLiteral",
+              "value": {
+                "position": {
+                  "end": {
+                    "column": 36,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 34,
+                    "line": 1,
+                  },
+                },
+                "value": 20,
+              },
+            },
+          },
+          "kind": "IfElseStatement",
+        },
+      ],
+      "condition": {
+        "kind": "BinaryExpr",
+        "left": {
+          "kind": "Identifier",
+          "symbol": {
+            "position": {
+              "end": {
+                "column": 5,
+                "line": 1,
+              },
+              "start": {
+                "column": 4,
+                "line": 1,
+              },
+            },
+            "value": "a",
+          },
+        },
+        "operator": {
+          "position": {
+            "end": {
+              "column": 7,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "<",
+        },
+        "right": {
+          "kind": "NumericLiteral",
+          "value": {
+            "position": {
+              "end": {
+                "column": 10,
+                "line": 1,
+              },
+              "start": {
+                "column": 8,
+                "line": 1,
+              },
+            },
+            "value": 10,
+          },
+        },
+      },
+      "else": [],
+      "kind": "IfElseStatement",
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - If Else Statements should parse if else statements 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "assigne": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 14,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 13,
+                  "line": 1,
+                },
+              },
+              "value": "a",
+            },
+          },
+          "kind": "AssignmentExpr",
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 19,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 1,
+                },
+              },
+              "value": 10,
+            },
+          },
+        },
+      ],
+      "branches": [],
+      "condition": {
+        "kind": "BinaryExpr",
+        "left": {
+          "kind": "Identifier",
+          "symbol": {
+            "position": {
+              "end": {
+                "column": 5,
+                "line": 1,
+              },
+              "start": {
+                "column": 4,
+                "line": 1,
+              },
+            },
+            "value": "a",
+          },
+        },
+        "operator": {
+          "position": {
+            "end": {
+              "column": 7,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "<",
+        },
+        "right": {
+          "kind": "NumericLiteral",
+          "value": {
+            "position": {
+              "end": {
+                "column": 10,
+                "line": 1,
+              },
+              "start": {
+                "column": 8,
+                "line": 1,
+              },
+            },
+            "value": 10,
+          },
+        },
+      },
+      "else": [
+        {
+          "assigne": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 30,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 29,
+                  "line": 1,
+                },
+              },
+              "value": "a",
+            },
+          },
+          "kind": "AssignmentExpr",
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 35,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 33,
+                  "line": 1,
+                },
+              },
+              "value": 20,
+            },
+          },
+        },
+      ],
+      "kind": "IfElseStatement",
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - If Else Statements should parse if statements 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "branches": [],
+      "condition": {
+        "kind": "BinaryExpr",
+        "left": {
+          "kind": "Identifier",
+          "symbol": {
+            "position": {
+              "end": {
+                "column": 5,
+                "line": 1,
+              },
+              "start": {
+                "column": 4,
+                "line": 1,
+              },
+            },
+            "value": "a",
+          },
+        },
+        "operator": {
+          "position": {
+            "end": {
+              "column": 7,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "<",
+        },
+        "right": {
+          "kind": "NumericLiteral",
+          "value": {
+            "position": {
+              "end": {
+                "column": 10,
+                "line": 1,
+              },
+              "start": {
+                "column": 8,
+                "line": 1,
+              },
+            },
+            "value": 10,
+          },
+        },
+      },
+      "else": [],
+      "kind": "IfElseStatement",
+    },
+  ],
+  "kind": "Program",
+}
+`;

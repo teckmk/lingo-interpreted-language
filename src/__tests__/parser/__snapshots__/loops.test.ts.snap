@@ -1,0 +1,940 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parser - Loops should parse for in loop 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "indexIdentifier": {
+        "position": {
+          "end": {
+            "column": 10,
+            "line": 1,
+          },
+          "start": {
+            "column": 9,
+            "line": 1,
+          },
+        },
+        "type": "IDENTIFIER",
+        "value": "i",
+      },
+      "iterable": {
+        "kind": "Identifier",
+        "symbol": {
+          "position": {
+            "end": {
+              "column": 19,
+              "line": 1,
+            },
+            "start": {
+              "column": 16,
+              "line": 1,
+            },
+          },
+          "value": "arr",
+        },
+      },
+      "kind": "ForInStatement",
+      "label": undefined,
+      "loopId": "loop_1",
+      "valueIdentifier": {
+        "position": {
+          "end": {
+            "column": 12,
+            "line": 1,
+          },
+          "start": {
+            "column": 11,
+            "line": 1,
+          },
+        },
+        "type": "IDENTIFIER",
+        "value": "v",
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Loops should parse for in range loop with label 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "end": {
+        "kind": "NumericLiteral",
+        "value": {
+          "position": {
+            "end": {
+              "column": 29,
+              "line": 1,
+            },
+            "start": {
+              "column": 27,
+              "line": 1,
+            },
+          },
+          "value": 10,
+        },
+      },
+      "inclusive": false,
+      "indexIdentifier": {
+        "position": {
+          "end": {
+            "column": 10,
+            "line": 1,
+          },
+          "start": {
+            "column": 9,
+            "line": 1,
+          },
+        },
+        "type": "IDENTIFIER",
+        "value": "i",
+      },
+      "kind": "ForRangeStatement",
+      "label": {
+        "position": {
+          "end": {
+            "column": 40,
+            "line": 1,
+          },
+          "start": {
+            "column": 36,
+            "line": 1,
+          },
+        },
+        "value": "loop",
+      },
+      "loopId": "loop_1",
+      "start": {
+        "kind": "NumericLiteral",
+        "value": {
+          "position": {
+            "end": {
+              "column": 23,
+              "line": 1,
+            },
+            "start": {
+              "column": 22,
+              "line": 1,
+            },
+          },
+          "value": 0,
+        },
+      },
+      "step": undefined,
+      "valueIdentifier": {
+        "position": {
+          "end": {
+            "column": 12,
+            "line": 1,
+          },
+          "start": {
+            "column": 11,
+            "line": 1,
+          },
+        },
+        "type": "IDENTIFIER",
+        "value": "v",
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Loops should parse for loop with break statement 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "kind": "BreakStatement",
+          "loopId": "loop_1",
+        },
+      ],
+      "kind": "ForStatement",
+      "label": undefined,
+      "loopId": "loop_1",
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Loops should parse for loop with condition 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "condition": {
+        "kind": "BinaryExpr",
+        "left": {
+          "kind": "Identifier",
+          "symbol": {
+            "position": {
+              "end": {
+                "column": 6,
+                "line": 1,
+              },
+              "start": {
+                "column": 5,
+                "line": 1,
+              },
+            },
+            "value": "i",
+          },
+        },
+        "operator": {
+          "position": {
+            "end": {
+              "column": 8,
+              "line": 1,
+            },
+            "start": {
+              "column": 7,
+              "line": 1,
+            },
+          },
+          "value": "<",
+        },
+        "right": {
+          "kind": "NumericLiteral",
+          "value": {
+            "position": {
+              "end": {
+                "column": 11,
+                "line": 1,
+              },
+              "start": {
+                "column": 9,
+                "line": 1,
+              },
+            },
+            "value": 10,
+          },
+        },
+      },
+      "kind": "ForStatement",
+      "label": undefined,
+      "loopId": "loop_1",
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Loops should parse for loop with initializer, condition and update 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "condition": {
+        "kind": "BinaryExpr",
+        "left": {
+          "kind": "Identifier",
+          "symbol": {
+            "position": {
+              "end": {
+                "column": 17,
+                "line": 1,
+              },
+              "start": {
+                "column": 16,
+                "line": 1,
+              },
+            },
+            "value": "i",
+          },
+        },
+        "operator": {
+          "position": {
+            "end": {
+              "column": 19,
+              "line": 1,
+            },
+            "start": {
+              "column": 18,
+              "line": 1,
+            },
+          },
+          "value": "<",
+        },
+        "right": {
+          "kind": "NumericLiteral",
+          "value": {
+            "position": {
+              "end": {
+                "column": 22,
+                "line": 1,
+              },
+              "start": {
+                "column": 20,
+                "line": 1,
+              },
+            },
+            "value": 10,
+          },
+        },
+      },
+      "initializer": {
+        "identifier": {
+          "position": {
+            "end": {
+              "column": 10,
+              "line": 1,
+            },
+            "start": {
+              "column": 9,
+              "line": 1,
+            },
+          },
+          "value": "i",
+        },
+        "kind": "VarDeclaration",
+        "modifier": "variable",
+        "type": undefined,
+        "value": {
+          "kind": "NumericLiteral",
+          "value": {
+            "position": {
+              "end": {
+                "column": 14,
+                "line": 1,
+              },
+              "start": {
+                "column": 13,
+                "line": 1,
+              },
+            },
+            "value": 0,
+          },
+        },
+      },
+      "kind": "ForStatement",
+      "label": undefined,
+      "loopId": "loop_1",
+      "update": {
+        "assigne": {
+          "kind": "Identifier",
+          "symbol": {
+            "position": {
+              "end": {
+                "column": 25,
+                "line": 1,
+              },
+              "start": {
+                "column": 24,
+                "line": 1,
+              },
+            },
+            "value": "i",
+          },
+        },
+        "kind": "AssignmentExpr",
+        "value": {
+          "kind": "BinaryExpr",
+          "left": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 29,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 28,
+                  "line": 1,
+                },
+              },
+              "value": "i",
+            },
+          },
+          "operator": {
+            "position": {
+              "end": {
+                "column": 31,
+                "line": 1,
+              },
+              "start": {
+                "column": 30,
+                "line": 1,
+              },
+            },
+            "value": "+",
+          },
+          "right": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 33,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 32,
+                  "line": 1,
+                },
+              },
+              "value": 1,
+            },
+          },
+        },
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Loops should parse for loop with label 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "kind": "ForStatement",
+      "label": {
+        "position": {
+          "end": {
+            "column": 15,
+            "line": 1,
+          },
+          "start": {
+            "column": 11,
+            "line": 1,
+          },
+        },
+        "value": "loop",
+      },
+      "loopId": "loop_1",
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Loops should parse for loop with label and condition 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "condition": {
+        "kind": "BinaryExpr",
+        "left": {
+          "kind": "Identifier",
+          "symbol": {
+            "position": {
+              "end": {
+                "column": 6,
+                "line": 1,
+              },
+              "start": {
+                "column": 5,
+                "line": 1,
+              },
+            },
+            "value": "i",
+          },
+        },
+        "operator": {
+          "position": {
+            "end": {
+              "column": 8,
+              "line": 1,
+            },
+            "start": {
+              "column": 7,
+              "line": 1,
+            },
+          },
+          "value": "<",
+        },
+        "right": {
+          "kind": "NumericLiteral",
+          "value": {
+            "position": {
+              "end": {
+                "column": 11,
+                "line": 1,
+              },
+              "start": {
+                "column": 9,
+                "line": 1,
+              },
+            },
+            "value": 10,
+          },
+        },
+      },
+      "kind": "ForStatement",
+      "label": {
+        "position": {
+          "end": {
+            "column": 22,
+            "line": 1,
+          },
+          "start": {
+            "column": 18,
+            "line": 1,
+          },
+        },
+        "value": "loop",
+      },
+      "loopId": "loop_1",
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Loops should parse for loop with label, initializer, condition and update 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "condition": {
+        "kind": "BinaryExpr",
+        "left": {
+          "kind": "Identifier",
+          "symbol": {
+            "position": {
+              "end": {
+                "column": 17,
+                "line": 1,
+              },
+              "start": {
+                "column": 16,
+                "line": 1,
+              },
+            },
+            "value": "i",
+          },
+        },
+        "operator": {
+          "position": {
+            "end": {
+              "column": 19,
+              "line": 1,
+            },
+            "start": {
+              "column": 18,
+              "line": 1,
+            },
+          },
+          "value": "<",
+        },
+        "right": {
+          "kind": "NumericLiteral",
+          "value": {
+            "position": {
+              "end": {
+                "column": 22,
+                "line": 1,
+              },
+              "start": {
+                "column": 20,
+                "line": 1,
+              },
+            },
+            "value": 10,
+          },
+        },
+      },
+      "initializer": {
+        "identifier": {
+          "position": {
+            "end": {
+              "column": 10,
+              "line": 1,
+            },
+            "start": {
+              "column": 9,
+              "line": 1,
+            },
+          },
+          "value": "i",
+        },
+        "kind": "VarDeclaration",
+        "modifier": "variable",
+        "type": undefined,
+        "value": {
+          "kind": "NumericLiteral",
+          "value": {
+            "position": {
+              "end": {
+                "column": 14,
+                "line": 1,
+              },
+              "start": {
+                "column": 13,
+                "line": 1,
+              },
+            },
+            "value": 0,
+          },
+        },
+      },
+      "kind": "ForStatement",
+      "label": {
+        "position": {
+          "end": {
+            "column": 44,
+            "line": 1,
+          },
+          "start": {
+            "column": 40,
+            "line": 1,
+          },
+        },
+        "value": "loop",
+      },
+      "loopId": "loop_1",
+      "update": {
+        "assigne": {
+          "kind": "Identifier",
+          "symbol": {
+            "position": {
+              "end": {
+                "column": 25,
+                "line": 1,
+              },
+              "start": {
+                "column": 24,
+                "line": 1,
+              },
+            },
+            "value": "i",
+          },
+        },
+        "kind": "AssignmentExpr",
+        "value": {
+          "kind": "BinaryExpr",
+          "left": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 29,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 28,
+                  "line": 1,
+                },
+              },
+              "value": "i",
+            },
+          },
+          "operator": {
+            "position": {
+              "end": {
+                "column": 31,
+                "line": 1,
+              },
+              "start": {
+                "column": 30,
+                "line": 1,
+              },
+            },
+            "value": "+",
+          },
+          "right": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 33,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 32,
+                  "line": 1,
+                },
+              },
+              "value": 1,
+            },
+          },
+        },
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Loops should parse for range loop 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "end": {
+        "kind": "NumericLiteral",
+        "value": {
+          "position": {
+            "end": {
+              "column": 29,
+              "line": 1,
+            },
+            "start": {
+              "column": 27,
+              "line": 1,
+            },
+          },
+          "value": 10,
+        },
+      },
+      "inclusive": false,
+      "indexIdentifier": {
+        "position": {
+          "end": {
+            "column": 10,
+            "line": 1,
+          },
+          "start": {
+            "column": 9,
+            "line": 1,
+          },
+        },
+        "type": "IDENTIFIER",
+        "value": "i",
+      },
+      "kind": "ForRangeStatement",
+      "label": undefined,
+      "loopId": "loop_1",
+      "start": {
+        "kind": "NumericLiteral",
+        "value": {
+          "position": {
+            "end": {
+              "column": 23,
+              "line": 1,
+            },
+            "start": {
+              "column": 22,
+              "line": 1,
+            },
+          },
+          "value": 0,
+        },
+      },
+      "step": undefined,
+      "valueIdentifier": {
+        "position": {
+          "end": {
+            "column": 12,
+            "line": 1,
+          },
+          "start": {
+            "column": 11,
+            "line": 1,
+          },
+        },
+        "type": "IDENTIFIER",
+        "value": "v",
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Loops should parse for range loop with step 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "end": {
+        "kind": "NumericLiteral",
+        "value": {
+          "position": {
+            "end": {
+              "column": 34,
+              "line": 1,
+            },
+            "start": {
+              "column": 32,
+              "line": 1,
+            },
+          },
+          "value": 10,
+        },
+      },
+      "inclusive": true,
+      "indexIdentifier": {
+        "position": {
+          "end": {
+            "column": 10,
+            "line": 1,
+          },
+          "start": {
+            "column": 9,
+            "line": 1,
+          },
+        },
+        "type": "IDENTIFIER",
+        "value": "i",
+      },
+      "kind": "ForRangeStatement",
+      "label": undefined,
+      "loopId": "loop_1",
+      "start": {
+        "kind": "NumericLiteral",
+        "value": {
+          "position": {
+            "end": {
+              "column": 23,
+              "line": 1,
+            },
+            "start": {
+              "column": 22,
+              "line": 1,
+            },
+          },
+          "value": 0,
+        },
+      },
+      "step": {
+        "kind": "NumericLiteral",
+        "value": {
+          "position": {
+            "end": {
+              "column": 41,
+              "line": 1,
+            },
+            "start": {
+              "column": 40,
+              "line": 1,
+            },
+          },
+          "value": 2,
+        },
+      },
+      "valueIdentifier": {
+        "position": {
+          "end": {
+            "column": 12,
+            "line": 1,
+          },
+          "start": {
+            "column": 11,
+            "line": 1,
+          },
+        },
+        "type": "IDENTIFIER",
+        "value": "v",
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Loops should parse infinite for loop 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "kind": "ForStatement",
+      "label": undefined,
+      "loopId": "loop_1",
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Loops should parse nested for loop with break statement with correct loop id 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "body": [
+            {
+              "kind": "BreakStatement",
+              "loopId": "loop_2",
+            },
+          ],
+          "kind": "ForStatement",
+          "label": undefined,
+          "loopId": "loop_2",
+        },
+      ],
+      "kind": "ForStatement",
+      "label": undefined,
+      "loopId": "loop_1",
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Loops should parse nested for loop with label and break statement with correct loop id 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "body": [
+            {
+              "kind": "BreakStatement",
+              "label": {
+                "position": {
+                  "end": {
+                    "column": 48,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 43,
+                    "line": 1,
+                  },
+                },
+                "value": "outer",
+              },
+              "loopId": "loop_1",
+            },
+          ],
+          "kind": "ForStatement",
+          "label": {
+            "position": {
+              "end": {
+                "column": 34,
+                "line": 1,
+              },
+              "start": {
+                "column": 29,
+                "line": 1,
+              },
+            },
+            "value": "inner",
+          },
+          "loopId": "loop_2",
+        },
+        {
+          "kind": "BreakStatement",
+          "loopId": "loop_1",
+        },
+      ],
+      "kind": "ForStatement",
+      "label": {
+        "position": {
+          "end": {
+            "column": 16,
+            "line": 1,
+          },
+          "start": {
+            "column": 11,
+            "line": 1,
+          },
+        },
+        "value": "outer",
+      },
+      "loopId": "loop_1",
+    },
+  ],
+  "kind": "Program",
+}
+`;

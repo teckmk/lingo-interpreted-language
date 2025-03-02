@@ -1,0 +1,1001 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tokenizer - Indented Code Blocks should tokenize indented code block 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "FN",
+    "value": "fn",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 7,
+        "line": 1,
+      },
+      "start": {
+        "column": 4,
+        "line": 1,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "foo",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 8,
+        "line": 1,
+      },
+      "start": {
+        "column": 7,
+        "line": 1,
+      },
+    },
+    "type": "OPEN_PAREN",
+    "value": "(",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 9,
+        "line": 1,
+      },
+      "start": {
+        "column": 8,
+        "line": 1,
+      },
+    },
+    "type": "CLOSE_PAREN",
+    "value": ")",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 2,
+      },
+      "start": {
+        "column": 1,
+        "line": 2,
+      },
+    },
+    "type": "INDENT",
+    "value": "indent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 6,
+        "line": 2,
+      },
+      "start": {
+        "column": 5,
+        "line": 2,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "x",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 8,
+        "line": 2,
+      },
+      "start": {
+        "column": 7,
+        "line": 2,
+      },
+    },
+    "type": "ASSIGNMENT_OPERATOR",
+    "value": "=",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 11,
+        "line": 2,
+      },
+      "start": {
+        "column": 9,
+        "line": 2,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "10",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 6,
+        "line": 3,
+      },
+      "start": {
+        "column": 5,
+        "line": 3,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "y",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 8,
+        "line": 3,
+      },
+      "start": {
+        "column": 7,
+        "line": 3,
+      },
+    },
+    "type": "ASSIGNMENT_OPERATOR",
+    "value": "=",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 11,
+        "line": 3,
+      },
+      "start": {
+        "column": 9,
+        "line": 3,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "20",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 4,
+      },
+      "start": {
+        "column": 1,
+        "line": 4,
+      },
+    },
+    "type": "DEDENT",
+    "value": "dedent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 4,
+      },
+      "start": {
+        "column": -1,
+        "line": 4,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Indented Code Blocks should tokenize indented code block with variable indentation 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 2,
+      },
+      "start": {
+        "column": 1,
+        "line": 2,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "a",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 3,
+      },
+      "start": {
+        "column": 1,
+        "line": 3,
+      },
+    },
+    "type": "INDENT",
+    "value": "indent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 6,
+        "line": 3,
+      },
+      "start": {
+        "column": 5,
+        "line": 3,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "b",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 8,
+        "line": 4,
+      },
+      "start": {
+        "column": 1,
+        "line": 4,
+      },
+    },
+    "type": "INDENT",
+    "value": "indent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 10,
+        "line": 4,
+      },
+      "start": {
+        "column": 9,
+        "line": 4,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "c",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 5,
+      },
+      "start": {
+        "column": 1,
+        "line": 5,
+      },
+    },
+    "type": "DEDENT",
+    "value": "dedent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 6,
+        "line": 5,
+      },
+      "start": {
+        "column": 5,
+        "line": 5,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "d",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 8,
+        "line": 6,
+      },
+      "start": {
+        "column": 1,
+        "line": 6,
+      },
+    },
+    "type": "INDENT",
+    "value": "indent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 10,
+        "line": 6,
+      },
+      "start": {
+        "column": 9,
+        "line": 6,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "e",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 10,
+        "line": 7,
+      },
+      "start": {
+        "column": 9,
+        "line": 7,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "f",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 8,
+      },
+      "start": {
+        "column": 1,
+        "line": 8,
+      },
+    },
+    "type": "DEDENT",
+    "value": "dedent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 6,
+        "line": 8,
+      },
+      "start": {
+        "column": 5,
+        "line": 8,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "g",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 1,
+        "line": 9,
+      },
+      "start": {
+        "column": 1,
+        "line": 9,
+      },
+    },
+    "type": "DEDENT",
+    "value": "dedent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 9,
+      },
+      "start": {
+        "column": 1,
+        "line": 9,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "h",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 11,
+      },
+      "start": {
+        "column": 1,
+        "line": 11,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "k",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 11,
+      },
+      "start": {
+        "column": -1,
+        "line": 11,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Indented Code Blocks should tokenize nested and indented code block 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 2,
+      },
+      "start": {
+        "column": 1,
+        "line": 2,
+      },
+    },
+    "type": "FN",
+    "value": "fn",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 7,
+        "line": 2,
+      },
+      "start": {
+        "column": 4,
+        "line": 2,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "foo",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 8,
+        "line": 2,
+      },
+      "start": {
+        "column": 7,
+        "line": 2,
+      },
+    },
+    "type": "OPEN_PAREN",
+    "value": "(",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 9,
+        "line": 2,
+      },
+      "start": {
+        "column": 8,
+        "line": 2,
+      },
+    },
+    "type": "CLOSE_PAREN",
+    "value": ")",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 3,
+      },
+      "start": {
+        "column": 1,
+        "line": 3,
+      },
+    },
+    "type": "INDENT",
+    "value": "indent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 7,
+        "line": 3,
+      },
+      "start": {
+        "column": 5,
+        "line": 3,
+      },
+    },
+    "type": "IF",
+    "value": "if",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 9,
+        "line": 3,
+      },
+      "start": {
+        "column": 8,
+        "line": 3,
+      },
+    },
+    "type": "OPEN_PAREN",
+    "value": "(",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 10,
+        "line": 3,
+      },
+      "start": {
+        "column": 9,
+        "line": 3,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "x",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 12,
+        "line": 3,
+      },
+      "start": {
+        "column": 11,
+        "line": 3,
+      },
+    },
+    "type": "RELATIONAL_OPERATOR",
+    "value": ">",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 15,
+        "line": 3,
+      },
+      "start": {
+        "column": 13,
+        "line": 3,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "10",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 16,
+        "line": 3,
+      },
+      "start": {
+        "column": 15,
+        "line": 3,
+      },
+    },
+    "type": "CLOSE_PAREN",
+    "value": ")",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 8,
+        "line": 4,
+      },
+      "start": {
+        "column": 1,
+        "line": 4,
+      },
+    },
+    "type": "INDENT",
+    "value": "indent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 10,
+        "line": 4,
+      },
+      "start": {
+        "column": 9,
+        "line": 4,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "y",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 12,
+        "line": 4,
+      },
+      "start": {
+        "column": 11,
+        "line": 4,
+      },
+    },
+    "type": "ASSIGNMENT_OPERATOR",
+    "value": "=",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 15,
+        "line": 4,
+      },
+      "start": {
+        "column": 13,
+        "line": 4,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "20",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 4,
+      },
+      "start": {
+        "column": 1,
+        "line": 4,
+      },
+    },
+    "type": "DEDENT",
+    "value": "dedent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 4,
+      },
+      "start": {
+        "column": 1,
+        "line": 4,
+      },
+    },
+    "type": "DEDENT",
+    "value": "dedent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 4,
+      },
+      "start": {
+        "column": -1,
+        "line": 4,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Indented Code Blocks should tokenize nested indented code block with variable indentation 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 2,
+      },
+      "start": {
+        "column": 1,
+        "line": 2,
+      },
+    },
+    "type": "FN",
+    "value": "fn",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 7,
+        "line": 2,
+      },
+      "start": {
+        "column": 4,
+        "line": 2,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "foo",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 8,
+        "line": 2,
+      },
+      "start": {
+        "column": 7,
+        "line": 2,
+      },
+    },
+    "type": "OPEN_PAREN",
+    "value": "(",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 9,
+        "line": 2,
+      },
+      "start": {
+        "column": 8,
+        "line": 2,
+      },
+    },
+    "type": "CLOSE_PAREN",
+    "value": ")",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 3,
+      },
+      "start": {
+        "column": 1,
+        "line": 3,
+      },
+    },
+    "type": "INDENT",
+    "value": "indent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 7,
+        "line": 3,
+      },
+      "start": {
+        "column": 5,
+        "line": 3,
+      },
+    },
+    "type": "IF",
+    "value": "if",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 9,
+        "line": 3,
+      },
+      "start": {
+        "column": 8,
+        "line": 3,
+      },
+    },
+    "type": "OPEN_PAREN",
+    "value": "(",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 10,
+        "line": 3,
+      },
+      "start": {
+        "column": 9,
+        "line": 3,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "x",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 12,
+        "line": 3,
+      },
+      "start": {
+        "column": 11,
+        "line": 3,
+      },
+    },
+    "type": "RELATIONAL_OPERATOR",
+    "value": ">",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 15,
+        "line": 3,
+      },
+      "start": {
+        "column": 13,
+        "line": 3,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "10",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 16,
+        "line": 3,
+      },
+      "start": {
+        "column": 15,
+        "line": 3,
+      },
+    },
+    "type": "CLOSE_PAREN",
+    "value": ")",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 8,
+        "line": 4,
+      },
+      "start": {
+        "column": 1,
+        "line": 4,
+      },
+    },
+    "type": "INDENT",
+    "value": "indent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 10,
+        "line": 4,
+      },
+      "start": {
+        "column": 9,
+        "line": 4,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "y",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 12,
+        "line": 4,
+      },
+      "start": {
+        "column": 11,
+        "line": 4,
+      },
+    },
+    "type": "ASSIGNMENT_OPERATOR",
+    "value": "=",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 15,
+        "line": 4,
+      },
+      "start": {
+        "column": 13,
+        "line": 4,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "20",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 5,
+      },
+      "start": {
+        "column": 1,
+        "line": 5,
+      },
+    },
+    "type": "DEDENT",
+    "value": "dedent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 11,
+        "line": 5,
+      },
+      "start": {
+        "column": 5,
+        "line": 5,
+      },
+    },
+    "type": "RETURN",
+    "value": "return",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 13,
+        "line": 5,
+      },
+      "start": {
+        "column": 12,
+        "line": 5,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "y",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 6,
+      },
+      "start": {
+        "column": 1,
+        "line": 6,
+      },
+    },
+    "type": "DEDENT",
+    "value": "dedent",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 6,
+      },
+      "start": {
+        "column": 1,
+        "line": 6,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "foo",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 5,
+        "line": 6,
+      },
+      "start": {
+        "column": 4,
+        "line": 6,
+      },
+    },
+    "type": "OPEN_PAREN",
+    "value": "(",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 6,
+        "line": 6,
+      },
+      "start": {
+        "column": 5,
+        "line": 6,
+      },
+    },
+    "type": "CLOSE_PAREN",
+    "value": ")",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 6,
+      },
+      "start": {
+        "column": -1,
+        "line": 6,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;

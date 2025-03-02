@@ -1,0 +1,982 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parser - FunctionDeclaration should parse function declarations with body 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "kind": "ReturnStatement",
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 18,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 1,
+                },
+              },
+              "value": 1,
+            },
+          },
+        },
+      ],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [],
+      "returnType": undefined,
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations with indented code block 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 12,
+                "line": 2,
+              },
+              "start": {
+                "column": 11,
+                "line": 2,
+              },
+            },
+            "value": "b",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": undefined,
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 16,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 15,
+                  "line": 2,
+                },
+              },
+              "value": 1,
+            },
+          },
+        },
+        {
+          "kind": "ReturnStatement",
+          "value": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 15,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 14,
+                  "line": 3,
+                },
+              },
+              "value": "b",
+            },
+          },
+        },
+      ],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [],
+      "returnType": undefined,
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations with indented code block and return type 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 12,
+                "line": 2,
+              },
+              "start": {
+                "column": 11,
+                "line": 2,
+              },
+            },
+            "value": "b",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": undefined,
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 16,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 15,
+                  "line": 2,
+                },
+              },
+              "value": 1,
+            },
+          },
+        },
+        {
+          "kind": "ReturnStatement",
+          "value": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 15,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 14,
+                  "line": 3,
+                },
+              },
+              "value": "b",
+            },
+          },
+        },
+      ],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [],
+      "returnType": {
+        "position": {
+          "end": {
+            "column": 17,
+            "line": 1,
+          },
+          "start": {
+            "column": 11,
+            "line": 1,
+          },
+        },
+        "value": "number",
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations with multiple return types 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [],
+      "returnType": [
+        {
+          "position": {
+            "end": {
+              "column": 17,
+              "line": 1,
+            },
+            "start": {
+              "column": 11,
+              "line": 1,
+            },
+          },
+          "value": "number",
+        },
+        {
+          "position": {
+            "end": {
+              "column": 25,
+              "line": 1,
+            },
+            "start": {
+              "column": 19,
+              "line": 1,
+            },
+          },
+          "value": "string",
+        },
+      ],
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations with multiple return values 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "kind": "ReturnStatement",
+          "value": [
+            {
+              "kind": "NumericLiteral",
+              "value": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 2,
+                  },
+                },
+                "value": 1,
+              },
+            },
+            {
+              "kind": "NumericLiteral",
+              "value": {
+                "position": {
+                  "end": {
+                    "column": 18,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 17,
+                    "line": 2,
+                  },
+                },
+                "value": 2,
+              },
+            },
+          ],
+        },
+      ],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [],
+      "returnType": [
+        {
+          "position": {
+            "end": {
+              "column": 17,
+              "line": 1,
+            },
+            "start": {
+              "column": 11,
+              "line": 1,
+            },
+          },
+          "value": "number",
+        },
+        {
+          "position": {
+            "end": {
+              "column": 25,
+              "line": 1,
+            },
+            "start": {
+              "column": 19,
+              "line": 1,
+            },
+          },
+          "value": "number",
+        },
+      ],
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations with multiple statements in body 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 12,
+                "line": 2,
+              },
+              "start": {
+                "column": 11,
+                "line": 2,
+              },
+            },
+            "value": "b",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": undefined,
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 16,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 15,
+                  "line": 2,
+                },
+              },
+              "value": 1,
+            },
+          },
+        },
+        {
+          "kind": "ReturnStatement",
+          "value": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 15,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 14,
+                  "line": 3,
+                },
+              },
+              "value": "b",
+            },
+          },
+        },
+      ],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [],
+      "returnType": undefined,
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations with parameters 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [
+        {
+          "kind": "FunctionParam",
+          "name": {
+            "position": {
+              "end": {
+                "column": 7,
+                "line": 1,
+              },
+              "start": {
+                "column": 6,
+                "line": 1,
+              },
+            },
+            "value": "b",
+          },
+          "type": {
+            "position": {
+              "end": {
+                "column": 15,
+                "line": 1,
+              },
+              "start": {
+                "column": 9,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+        },
+        {
+          "kind": "FunctionParam",
+          "name": {
+            "position": {
+              "end": {
+                "column": 18,
+                "line": 1,
+              },
+              "start": {
+                "column": 17,
+                "line": 1,
+              },
+            },
+            "value": "c",
+          },
+          "type": {
+            "position": {
+              "end": {
+                "column": 26,
+                "line": 1,
+              },
+              "start": {
+                "column": 20,
+                "line": 1,
+              },
+            },
+            "value": "string",
+          },
+        },
+      ],
+      "returnType": undefined,
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations with parameters and body 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "kind": "ReturnStatement",
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 38,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 37,
+                  "line": 1,
+                },
+              },
+              "value": 1,
+            },
+          },
+        },
+      ],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [
+        {
+          "kind": "FunctionParam",
+          "name": {
+            "position": {
+              "end": {
+                "column": 7,
+                "line": 1,
+              },
+              "start": {
+                "column": 6,
+                "line": 1,
+              },
+            },
+            "value": "b",
+          },
+          "type": {
+            "position": {
+              "end": {
+                "column": 15,
+                "line": 1,
+              },
+              "start": {
+                "column": 9,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+        },
+        {
+          "kind": "FunctionParam",
+          "name": {
+            "position": {
+              "end": {
+                "column": 18,
+                "line": 1,
+              },
+              "start": {
+                "column": 17,
+                "line": 1,
+              },
+            },
+            "value": "c",
+          },
+          "type": {
+            "position": {
+              "end": {
+                "column": 26,
+                "line": 1,
+              },
+              "start": {
+                "column": 20,
+                "line": 1,
+              },
+            },
+            "value": "string",
+          },
+        },
+      ],
+      "returnType": undefined,
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations with parameters and return type 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [
+        {
+          "kind": "FunctionParam",
+          "name": {
+            "position": {
+              "end": {
+                "column": 7,
+                "line": 1,
+              },
+              "start": {
+                "column": 6,
+                "line": 1,
+              },
+            },
+            "value": "b",
+          },
+          "type": {
+            "position": {
+              "end": {
+                "column": 15,
+                "line": 1,
+              },
+              "start": {
+                "column": 9,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+        },
+        {
+          "kind": "FunctionParam",
+          "name": {
+            "position": {
+              "end": {
+                "column": 18,
+                "line": 1,
+              },
+              "start": {
+                "column": 17,
+                "line": 1,
+              },
+            },
+            "value": "c",
+          },
+          "type": {
+            "position": {
+              "end": {
+                "column": 26,
+                "line": 1,
+              },
+              "start": {
+                "column": 20,
+                "line": 1,
+              },
+            },
+            "value": "string",
+          },
+        },
+      ],
+      "returnType": {
+        "position": {
+          "end": {
+            "column": 37,
+            "line": 1,
+          },
+          "start": {
+            "column": 31,
+            "line": 1,
+          },
+        },
+        "value": "number",
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations with parameters, return type and body 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "kind": "ReturnStatement",
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 48,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 47,
+                  "line": 1,
+                },
+              },
+              "value": 1,
+            },
+          },
+        },
+      ],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [
+        {
+          "kind": "FunctionParam",
+          "name": {
+            "position": {
+              "end": {
+                "column": 7,
+                "line": 1,
+              },
+              "start": {
+                "column": 6,
+                "line": 1,
+              },
+            },
+            "value": "b",
+          },
+          "type": {
+            "position": {
+              "end": {
+                "column": 15,
+                "line": 1,
+              },
+              "start": {
+                "column": 9,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+        },
+        {
+          "kind": "FunctionParam",
+          "name": {
+            "position": {
+              "end": {
+                "column": 18,
+                "line": 1,
+              },
+              "start": {
+                "column": 17,
+                "line": 1,
+              },
+            },
+            "value": "c",
+          },
+          "type": {
+            "position": {
+              "end": {
+                "column": 26,
+                "line": 1,
+              },
+              "start": {
+                "column": 20,
+                "line": 1,
+              },
+            },
+            "value": "string",
+          },
+        },
+      ],
+      "returnType": {
+        "position": {
+          "end": {
+            "column": 37,
+            "line": 1,
+          },
+          "start": {
+            "column": 31,
+            "line": 1,
+          },
+        },
+        "value": "number",
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations with return type 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [],
+      "returnType": {
+        "position": {
+          "end": {
+            "column": 17,
+            "line": 1,
+          },
+          "start": {
+            "column": 11,
+            "line": 1,
+          },
+        },
+        "value": "number",
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations with return type and body 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "kind": "ReturnStatement",
+          "value": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 28,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 27,
+                  "line": 1,
+                },
+              },
+              "value": 1,
+            },
+          },
+        },
+      ],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [],
+      "returnType": {
+        "position": {
+          "end": {
+            "column": 17,
+            "line": 1,
+          },
+          "start": {
+            "column": 11,
+            "line": 1,
+          },
+        },
+        "value": "number",
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations without parameters 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 5,
+            "line": 1,
+          },
+          "start": {
+            "column": 4,
+            "line": 1,
+          },
+        },
+        "value": "a",
+      },
+      "parameters": [],
+      "returnType": undefined,
+    },
+  ],
+  "kind": "Program",
+}
+`;

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Interpreter - Stack Trace should print stack trace 1`] = `
+"Cannot assign to a constant variable "x"
+Stack Trace:
+  at baz (main:7:13)
+  at bar (main:3:13)
+  at foo (main:15:9)
+"
+`;

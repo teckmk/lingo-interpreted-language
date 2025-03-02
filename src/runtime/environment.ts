@@ -1,16 +1,21 @@
 import { VarModifier } from "../frontend/ast"
+import { ExecutionContext } from "./execution-context"
+import { RuntimeError } from "./error"
+import { RuntimeVal, ValueType } from "./values"
+
 import functions from "./built-ins/functions"
 import variables from "./built-ins/variables"
-import { RuntimeVal, ValueType } from "./values"
 
 export default class Environment {
   private parent?: Environment
   private variables: Map<string, RuntimeVal>
   private constants: Set<string>
   private finals: Set<string>
+  private executionContext: ExecutionContext
 
-  constructor(parentEnv?: Environment) {
+  constructor(executionContext: ExecutionContext, parentEnv?: Environment) {
     this.parent = parentEnv
+    this.executionContext = executionContext
     this.variables = new Map()
     this.constants = new Set()
     this.finals = new Set()
@@ -25,13 +30,20 @@ export default class Environment {
     }
   }
 
+  get context() {
+    return this.executionContext
+  }
+
   private assertType(varType: ValueType, value: RuntimeVal) {
     let valueWithType = value
 
     if (value.type == "dynamic") {
       valueWithType = { ...value, type: "dynamic" }
     } else if (value.type != varType && varType != "dynamic") {
-      throw new Error(`Can't assign a value of type ${value.type} to a variable of type ${varType}`)
+      throw new RuntimeError(
+        this.executionContext,
+        `Can't assign a value of type ${value.type} to a variable of type ${varType}`,
+      )
     }
 
     return valueWithType
@@ -44,7 +56,10 @@ export default class Environment {
     type?: ValueType,
   ): RuntimeVal {
     if (this.variables.has(varname))
-      throw new Error(`Cannot declare variable ${varname}. As it already is defined.`)
+      throw new RuntimeError(
+        this.executionContext,
+        `Cannot declare variable ${varname}. As it already is defined.`,
+      )
 
     switch (modifier) {
       case "final":
@@ -66,9 +81,16 @@ export default class Environment {
     const env = this.resolve(varname)
 
     // Can't assign to a constant or final variable
-    if (this.finals.has(varname)) throw new Error(`Cannot assign to a final variable "${varname}"`)
+    if (this.finals.has(varname))
+      throw new RuntimeError(
+        this.executionContext,
+        `Cannot assign to a final variable "${varname}"`,
+      )
     else if (this.constants.has(varname))
-      throw new Error(`Cannot assign to a constant variable "${varname}"`)
+      throw new RuntimeError(
+        this.executionContext,
+        `Cannot assign to a constant variable "${varname}"`,
+      )
 
     const prevVal = env.lookupVar(varname)
 
@@ -82,7 +104,11 @@ export default class Environment {
   public resolve(varname: string): Environment {
     if (this.variables.has(varname)) return this
 
-    if (this.parent == undefined) throw new Error(`Cannot resolve ${varname} as it does not exist.`)
+    if (this.parent == undefined)
+      throw new RuntimeError(
+        this.executionContext,
+        `Cannot resolve ${varname} as it does not exist.`,
+      )
 
     return this.parent.resolve(varname)
   }

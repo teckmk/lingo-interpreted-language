@@ -1,0 +1,245 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tokenizer - End of Line should tokenize eol 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "LET",
+    "value": "var",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 5,
+        "line": 1,
+      },
+      "start": {
+        "column": 4,
+        "line": 1,
+      },
+    },
+    "type": "WHITE_SPACE",
+    "value": " ",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 6,
+        "line": 1,
+      },
+      "start": {
+        "column": 5,
+        "line": 1,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "x",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 7,
+        "line": 1,
+      },
+      "start": {
+        "column": 6,
+        "line": 1,
+      },
+    },
+    "type": "WHITE_SPACE",
+    "value": " ",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 8,
+        "line": 1,
+      },
+      "start": {
+        "column": 7,
+        "line": 1,
+      },
+    },
+    "type": "ASSIGNMENT_OPERATOR",
+    "value": "=",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 9,
+        "line": 1,
+      },
+      "start": {
+        "column": 8,
+        "line": 1,
+      },
+    },
+    "type": "WHITE_SPACE",
+    "value": " ",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 11,
+        "line": 1,
+      },
+      "start": {
+        "column": 9,
+        "line": 1,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "10",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 12,
+        "line": 1,
+      },
+      "start": {
+        "column": 11,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_LINE",
+    "value": "
+",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 5,
+        "line": 2,
+      },
+      "start": {
+        "column": 1,
+        "line": 2,
+      },
+    },
+    "type": "WHITE_SPACE",
+    "value": "    ",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 8,
+        "line": 2,
+      },
+      "start": {
+        "column": 5,
+        "line": 2,
+      },
+    },
+    "type": "LET",
+    "value": "var",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 9,
+        "line": 2,
+      },
+      "start": {
+        "column": 8,
+        "line": 2,
+      },
+    },
+    "type": "WHITE_SPACE",
+    "value": " ",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 10,
+        "line": 2,
+      },
+      "start": {
+        "column": 9,
+        "line": 2,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "y",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 11,
+        "line": 2,
+      },
+      "start": {
+        "column": 10,
+        "line": 2,
+      },
+    },
+    "type": "WHITE_SPACE",
+    "value": " ",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 12,
+        "line": 2,
+      },
+      "start": {
+        "column": 11,
+        "line": 2,
+      },
+    },
+    "type": "ASSIGNMENT_OPERATOR",
+    "value": "=",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 13,
+        "line": 2,
+      },
+      "start": {
+        "column": 12,
+        "line": 2,
+      },
+    },
+    "type": "WHITE_SPACE",
+    "value": " ",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 15,
+        "line": 2,
+      },
+      "start": {
+        "column": 13,
+        "line": 2,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "20",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 2,
+      },
+      "start": {
+        "column": -1,
+        "line": 2,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;

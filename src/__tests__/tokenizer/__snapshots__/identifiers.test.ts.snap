@@ -1,0 +1,265 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tokenizer - Identifiers should tokenize identifiers 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "x",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Identifiers should tokenize identifiers with capital letters 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "X",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Identifiers should tokenize identifiers with leading underscores 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "_x",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Identifiers should tokenize identifiers with mixed case 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "xY",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Identifiers should tokenize identifiers with numbers 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "x1",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Identifiers should tokenize identifiers with numbers and trailing underscores 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "x1_",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Identifiers should tokenize identifiers with underscores 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "x_",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Identifiers should tokenize identifiers with underscores and numbers 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "x_1",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;

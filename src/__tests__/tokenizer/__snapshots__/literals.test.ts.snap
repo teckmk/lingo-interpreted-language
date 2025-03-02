@@ -1,0 +1,349 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tokenizer - Literals should tokenize floats 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 5,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "10.5",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Literals should tokenize integers 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 3,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "10",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Literals should tokenize negative floats 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "ADDITIVE_OPERATOR",
+    "value": "-",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 6,
+        "line": 1,
+      },
+      "start": {
+        "column": 2,
+        "line": 1,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "10.5",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Literals should tokenize negative integers 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "ADDITIVE_OPERATOR",
+    "value": "-",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 1,
+      },
+      "start": {
+        "column": 2,
+        "line": 1,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "10",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Literals should tokenize positive floats 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "ADDITIVE_OPERATOR",
+    "value": "+",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 6,
+        "line": 1,
+      },
+      "start": {
+        "column": 2,
+        "line": 1,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "10.5",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Literals should tokenize positive integers 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 2,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "ADDITIVE_OPERATOR",
+    "value": "+",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 4,
+        "line": 1,
+      },
+      "start": {
+        "column": 2,
+        "line": 1,
+      },
+    },
+    "type": "NUMBER_LITERAL",
+    "value": "10",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Literals should tokenize strings 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 14,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "STRING_LITERAL",
+    "value": "hello world",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;
+
+exports[`Tokenizer - Literals should tokenize strings with escaped characters 1`] = `
+[
+  {
+    "position": {
+      "end": {
+        "column": 9,
+        "line": 1,
+      },
+      "start": {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "type": "STRING_LITERAL",
+    "value": "hello ",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 14,
+        "line": 1,
+      },
+      "start": {
+        "column": 9,
+        "line": 1,
+      },
+    },
+    "type": "IDENTIFIER",
+    "value": "world",
+  },
+  {
+    "position": {
+      "end": {
+        "column": 16,
+        "line": 1,
+      },
+      "start": {
+        "column": 14,
+        "line": 1,
+      },
+    },
+    "type": "STRING_LITERAL",
+    "value": "",
+  },
+  {
+    "position": {
+      "end": {
+        "column": -1,
+        "line": 1,
+      },
+      "start": {
+        "column": -1,
+        "line": 1,
+      },
+    },
+    "type": "END_OF_FILE",
+    "value": "EOF",
+  },
+]
+`;

@@ -1,411 +1,81 @@
-import { tokenize } from "../../frontend/lexer/tokenizer"
-import Parser from "../../frontend/parser"
+import { parse } from "../../frontend/parser";
 
 describe("Parser - FunctionDeclaration", () => {
   it("should parse function declarations without parameters", () => {
-    const code = "fn a() {}"
-    const tokens = tokenize("test", code)
-
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [],
-          body: [],
-        },
-      ],
-    })
-  })
+    const code = "fn a() {}";
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 
   it("should parse function declarations with parameters", () => {
-    const code = "fn a(b: number, c: string) {}"
-    const tokens = tokenize("test", code)
-
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [
-            {
-              kind: "FunctionParam",
-              name: "b",
-              type: "number",
-            },
-            {
-              kind: "FunctionParam",
-              name: "c",
-              type: "string",
-            },
-          ],
-          body: [],
-        },
-      ],
-    })
-  })
+    const code = "fn a(b: number, c: string) {}";
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 
   it("should parse function declarations with return type", () => {
-    const code = "fn a() -> number {}"
-    const tokens = tokenize("test", code)
+    const code = "fn a() -> number {}";
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [],
-          returnType: "number",
-          body: [],
-        },
-      ],
-    })
-  })
-
-  it("should parse function declarations with mulitple return types", () => {
-    const code = "fn a() -> number, string {}"
-    const tokens = tokenize("test", code)
-
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [],
-          returnType: ["number", "string"],
-          body: [],
-        },
-      ],
-    })
-  })
+  it("should parse function declarations with multiple return types", () => {
+    const code = "fn a() -> number, string {}";
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 
   it("should parse function declarations with parameters and return type", () => {
-    const code = "fn a(b: number, c: string) -> number {}"
-    const tokens = tokenize("test", code)
-
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [
-            {
-              kind: "FunctionParam",
-              name: "b",
-              type: "number",
-            },
-            {
-              kind: "FunctionParam",
-              name: "c",
-              type: "string",
-            },
-          ],
-          returnType: "number",
-          body: [],
-        },
-      ],
-    })
-  })
+    const code = "fn a(b: number, c: string) -> number {}";
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 
   it("should parse function declarations with body", () => {
-    const code = "fn a() { return 1 }"
-    const tokens = tokenize("test", code)
-
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [],
-          body: [
-            {
-              kind: "ReturnStatement",
-              value: {
-                kind: "NumericLiteral",
-                value: 1,
-              },
-            },
-          ],
-        },
-      ],
-    })
-  })
+    const code = "fn a() { return 1 }";
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 
   it("should parse function declarations with parameters and body", () => {
-    const code = "fn a(b: number, c: string) { return 1 }"
-    const tokens = tokenize("test", code)
-
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [
-            {
-              kind: "FunctionParam",
-              name: "b",
-              type: "number",
-            },
-            {
-              kind: "FunctionParam",
-              name: "c",
-              type: "string",
-            },
-          ],
-          body: [
-            {
-              kind: "ReturnStatement",
-              value: {
-                kind: "NumericLiteral",
-                value: 1,
-              },
-            },
-          ],
-        },
-      ],
-    })
-  })
+    const code = "fn a(b: number, c: string) { return 1 }";
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 
   it("should parse function declarations with return type and body", () => {
-    const code = "fn a() -> number { return 1 }"
-    const tokens = tokenize("test", code)
-
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [],
-          returnType: "number",
-          body: [
-            {
-              kind: "ReturnStatement",
-              value: {
-                kind: "NumericLiteral",
-                value: 1,
-              },
-            },
-          ],
-        },
-      ],
-    })
-  })
+    const code = "fn a() -> number { return 1 }";
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 
   it("should parse function declarations with multiple return values", () => {
-    const code = `fn a() -> number, number { 
-      return 1, 2 
-      }`
-    const tokens = tokenize("test", code)
-
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [],
-          returnType: ["number", "number"],
-          body: [
-            {
-              kind: "ReturnStatement",
-              value: [
-                {
-                  kind: "NumericLiteral",
-                  value: 1,
-                },
-                {
-                  kind: "NumericLiteral",
-                  value: 2,
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    })
-  })
+    const code = `fn a() -> number, number { \n      return 1, 2 \n    }`;
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 
   it("should parse function declarations with parameters, return type and body", () => {
-    const code = "fn a(b: number, c: string) -> number { return 1 }"
-    const tokens = tokenize("test", code)
-
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [
-            {
-              kind: "FunctionParam",
-              name: "b",
-              type: "number",
-            },
-            {
-              kind: "FunctionParam",
-              name: "c",
-              type: "string",
-            },
-          ],
-          returnType: "number",
-          body: [
-            {
-              kind: "ReturnStatement",
-              value: {
-                kind: "NumericLiteral",
-                value: 1,
-              },
-            },
-          ],
-        },
-      ],
-    })
-  })
+    const code = "fn a(b: number, c: string) -> number { return 1 }";
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 
   it("should parse function declarations with multiple statements in body", () => {
-    const code = `fn a() { 
-      var b = 1
-      return b 
-    }`
-    const tokens = tokenize("test", code)
-
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [],
-          body: [
-            {
-              kind: "VarDeclaration",
-              identifier: "b",
-              modifier: "variable",
-              type: undefined, // type is not explicitly defined
-              value: {
-                kind: "NumericLiteral",
-                value: 1,
-              },
-            },
-            {
-              kind: "ReturnStatement",
-              value: {
-                kind: "Identifier",
-                symbol: "b",
-              },
-            },
-          ],
-        },
-      ],
-    })
-  })
+    const code = `fn a() { \n      var b = 1\n      return b \n    }`;
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 
   it("should parse function declarations with indented code block", () => {
-    const code = `fn a():
-      var b = 1
-      return b`
-    const tokens = tokenize("test", code)
-
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [],
-          body: [
-            {
-              kind: "VarDeclaration",
-              identifier: "b",
-              modifier: "variable",
-              type: undefined, // type is not explicitly defined
-              value: {
-                kind: "NumericLiteral",
-                value: 1,
-              },
-            },
-            {
-              kind: "ReturnStatement",
-              value: {
-                kind: "Identifier",
-                symbol: "b",
-              },
-            },
-          ],
-        },
-      ],
-    })
-  })
+    const code = `fn a():\n      var b = 1\n      return b`;
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 
   it("should parse function declarations with indented code block and return type", () => {
-    const code = `fn a() -> number:
-      var b = 1
-      return b`
-    const tokens = tokenize("test", code)
-
-    const ast = new Parser(tokens).produceAST()
-
-    expect(ast).toEqual({
-      kind: "Program",
-      body: [
-        {
-          kind: "FunctionDeclaration",
-          name: "a",
-          parameters: [],
-          returnType: "number",
-          body: [
-            {
-              kind: "VarDeclaration",
-              identifier: "b",
-              modifier: "variable",
-              type: undefined, // type is not explicitly defined
-              value: {
-                kind: "NumericLiteral",
-                value: 1,
-              },
-            },
-            {
-              kind: "ReturnStatement",
-              value: {
-                kind: "Identifier",
-                symbol: "b",
-              },
-            },
-          ],
-        },
-      ],
-    })
-  })
-})
+    const code = `fn a() -> number:\n      var b = 1\n      return b`;
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
+});

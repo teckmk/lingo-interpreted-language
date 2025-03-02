@@ -30,6 +30,14 @@ export type NodeType =
 export type Type = "string" | "number" | "bool" | "array" | "object" | "dynamic"
 export type VarModifier = "constant" | "final" | "variable"
 
+export interface LeafNode<T> {
+  value: T
+  position: {
+    start: { line: number; column: number }
+    end: { line: number; column: number }
+  }
+}
+
 export interface Stmt {
   kind: NodeType
 }
@@ -42,8 +50,8 @@ export interface Program extends Stmt {
 export interface VarDeclaration extends Stmt {
   kind: "VarDeclaration"
   modifier: VarModifier
-  identifier: string
-  type?: Type
+  identifier: LeafNode<string>
+  type?: LeafNode<Type>
   value?: Expr
 }
 
@@ -54,16 +62,16 @@ export interface MultiVarDeclaration extends Stmt {
 
 export interface FunctionParam extends Stmt {
   kind: "FunctionParam"
-  name: string
-  type?: Type
+  name: LeafNode<string>
+  type?: LeafNode<Type>
   default?: Expr // to assign a default value
 }
 
 export interface FunctionDeclaration extends Stmt {
   kind: "FunctionDeclaration"
-  name: string
+  name: LeafNode<string>
   parameters: FunctionParam[]
-  returnType: Type | Type[]
+  returnType: LeafNode<Type> | LeafNode<Type>[]
   body: Stmt[]
 }
 
@@ -88,7 +96,7 @@ export interface WhileStatement extends Stmt {
 
 export interface Loop extends Stmt {
   loopId: string
-  label?: string
+  label?: LeafNode<string>
   body: Stmt[]
 }
 
@@ -101,15 +109,15 @@ export interface ForStatement extends Loop {
 
 export interface ForInStatement extends Loop {
   kind: "ForInStatement"
-  valueIdentifier: string
-  indexIdentifier: string
+  valueIdentifier: LeafNode<string>
+  indexIdentifier: LeafNode<string>
   iterable: Expr
 }
 
 export interface ForRangeStatement extends Loop {
   kind: "ForRangeStatement"
-  valueIdentifier: string
-  indexIdentifier: string
+  valueIdentifier: LeafNode<string>
+  indexIdentifier: LeafNode<string>
   start: Expr
   end?: Expr
   step?: Expr
@@ -119,11 +127,13 @@ export interface ForRangeStatement extends Loop {
 export interface BreakStatement extends Stmt {
   kind: "BreakStatement"
   loopId: string
+  label?: LeafNode<string>
 }
 
 export interface ContinueStatement extends Stmt {
   kind: "ContinueStatement"
   loopId: string
+  label?: LeafNode<string>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -133,7 +143,7 @@ export interface BinaryExpr extends Expr {
   kind: "BinaryExpr"
   left: Expr
   right: Expr
-  operator: string
+  operator: LeafNode<string>
 }
 
 export interface AssignmentExpr extends Expr {
@@ -157,24 +167,24 @@ export interface CallExpr extends Expr {
 
 export interface Identifier extends Expr {
   kind: "Identifier"
-  symbol: string
+  symbol: LeafNode<string>
 }
 
 export interface NumericLiteral extends Expr {
   kind: "NumericLiteral"
-  value: number
+  value: LeafNode<number>
 }
 
 export interface StringLiteral extends Expr {
   kind: "StringLiteral"
-  value: string
+  value: LeafNode<string>
   identifiers: string[] // handle embeded variables
   expressions: Record<string, Expr> // handle embeded expressions
 }
 
 export interface Property extends Expr {
   kind: "Property"
-  key: string
+  key: LeafNode<string>
   value?: Expr // its optional to support shorthand i.e. {key}
 }
 
