@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parser - Structs should parse structs 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 11,
+            "line": 1,
+          },
+          "start": {
+            "column": 6,
+            "line": 1,
+          },
+        },
+        "value": "Point",
+      },
+      "type": {
+        "fields": [
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 8,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 2,
+                },
+              },
+              "value": "x",
+            },
+            "type": {
+              "position": {
+                "end": {
+                  "column": 16,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 10,
+                  "line": 2,
+                },
+              },
+              "value": "number",
+            },
+          },
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 8,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 3,
+                },
+              },
+              "value": "y",
+            },
+            "type": {
+              "position": {
+                "end": {
+                  "column": 16,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 10,
+                  "line": 3,
+                },
+              },
+              "value": "number",
+            },
+          },
+        ],
+        "kind": "StructLiteral",
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;

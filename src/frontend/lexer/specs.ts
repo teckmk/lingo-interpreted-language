@@ -52,12 +52,14 @@ export enum TokenType {
   Step = "STEP",
   Break = "BREAK",
   Continue = "CONTINUE",
+  Type = "TYPE",
 
   // Primitive Types
   NumberType = "NUMBER_TYPE",
   StringType = "STRING_TYPE",
   BooleanType = "BOOL_TYPE",
   DynamicType = "DYNAMIC_TYPE",
+  StructType = "STRUCT_TYPE",
 }
 
 export type Spec = {
@@ -86,11 +88,13 @@ export const specs: Spec[] = [
   { regex: /^\bstep\b/, tokenType: TokenType.Step },
   { regex: /^\bbreak\b/, tokenType: TokenType.Break },
   { regex: /^\bskip\b/, tokenType: TokenType.Continue },
+  { regex: /^\btype\b/, tokenType: TokenType.Type },
 
   { regex: /^\bnumber\b/, tokenType: TokenType.NumberType },
   { regex: /^\bstring\b/, tokenType: TokenType.StringType },
   { regex: /^\bbool\b/, tokenType: TokenType.BooleanType },
   { regex: /^\bdynamic\b/, tokenType: TokenType.DynamicType },
+  { regex: /^\bstruct\b/, tokenType: TokenType.StructType },
 
   { regex: /^\band\b/, tokenType: TokenType.LogicGate },
   { regex: /^\bor\b/, tokenType: TokenType.LogicGate },

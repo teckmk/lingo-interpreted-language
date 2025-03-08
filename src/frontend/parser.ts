@@ -27,6 +27,9 @@ import {
   BreakStatement,
   ContinueStatement,
   LeafNode,
+  TypeDeclaration,
+  StructMember,
+  StructLiteral,
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType } from "./lexer/specs"
@@ -107,9 +110,19 @@ export default class Parser {
         return this.parse_break_statement()
       case TokenType.Continue:
         return this.parse_continue_statement()
+      case TokenType.Type:
+        return this.parse_type_declaration()
       default:
         return this.parse_expr()
     }
+  }
+
+  private parse_type_declaration(): TypeDeclaration {
+    this.eat() // eat type token
+    const name = this.expect(TokenType.Identifier, "Expected type name following type keyword")
+    this.expect(TokenType.Equals, "Expected '=' following type name")
+    const type = this.parse_expr()
+    return { kind: "TypeDeclaration", name: get_leaf(name), type }
   }
 
   private parse_code_block(): Stmt[] {
@@ -740,9 +753,34 @@ export default class Parser {
     return { kind: "ObjectLiteral", properties: props } as ObjectLiteral
   }
 
+  private parse_struct_expr(): StructLiteral {
+    this.eat() // eat struct token
+    const members = new Array<StructMember>()
+
+    this.expect(TokenType.OpenBrace, "Struct literal missing opening brace.")
+
+    while (this.not_eof() && this.at().type != TokenType.CloseBrace) {
+      const name = this.expect(TokenType.Identifier, "Struct literal key expected")
+      this.expect(TokenType.Colon, "Missing colon following identifier in struct")
+      const type = this.parse_type_anotation()
+
+      if (!type) {
+        throw new Error("Struct member must have a type")
+      }
+
+      members.push({ kind: "StructMember", name: get_leaf(name), type })
+    }
+
+    this.expect(TokenType.CloseBrace, "Struct literal missing closing brace.")
+
+    return { kind: "StructLiteral", fields: members }
+  }
+
   private parse_assigne(): Expr {
     if (this.at().type == TokenType.OpenBracket) {
       return this.parse_array_expr()
+    } else if (this.at().type == TokenType.StructType) {
+      return this.parse_struct_expr()
     } else if (this.at().type == TokenType.OpenBrace) {
       return this.parse_object_expr()
     }

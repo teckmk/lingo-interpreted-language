@@ -12,12 +12,15 @@ export type NodeType =
   | "ForRangeStatement"
   | "BreakStatement"
   | "ContinueStatement"
+  | "TypeDeclaration"
   // Expressions
   | "AssignmentExpr"
   | "MemberExpr"
   | "CallExpr"
   | "BinaryExpr"
   | "FunctionParam"
+  | "StructMember"
+  | "StructExpr"
   // Literals
   | "Property"
   | "ObjectLiteral"
@@ -26,6 +29,7 @@ export type NodeType =
   | "Identifier"
   | "ArrayLiteral"
   | "DocComment"
+  | "StructLiteral"
 
 export type Type = "string" | "number" | "bool" | "array" | "object" | "dynamic"
 export type VarModifier = "constant" | "final" | "variable"
@@ -45,6 +49,12 @@ export interface Stmt {
 export interface Program extends Stmt {
   kind: "Program"
   body: Stmt[]
+}
+
+export interface TypeDeclaration extends Stmt {
+  kind: "TypeDeclaration"
+  name: LeafNode<string>
+  type: Expr
 }
 
 export interface VarDeclaration extends Stmt {
@@ -188,6 +198,18 @@ export interface Property extends Expr {
   value?: Expr // its optional to support shorthand i.e. {key}
 }
 
+export interface StructMember extends Expr {
+  kind: "StructMember"
+  name: LeafNode<string>
+  type: LeafNode<Type>
+}
+
+export interface StructLiteral extends Expr {
+  kind: "StructLiteral"
+  fields: StructMember[]
+}
+
+// instance of struct
 export interface ObjectLiteral extends Expr {
   kind: "ObjectLiteral"
   properties: Property[]
