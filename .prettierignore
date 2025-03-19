@@ -1,1 +1,4 @@
 README.md
+*.ts.snap
+node_modules
+coverage
