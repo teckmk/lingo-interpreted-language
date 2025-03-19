@@ -53,22 +53,39 @@ exports[`Parser - FunctionDeclaration should parse function declarations with in
     {
       "body": [
         {
-          "identifier": {
+          "kind": "Identifier",
+          "symbol": {
             "position": {
               "end": {
-                "column": 12,
+                "column": 10,
                 "line": 2,
               },
               "start": {
-                "column": 11,
+                "column": 7,
                 "line": 2,
               },
             },
-            "value": "b",
+            "value": "var",
           },
-          "kind": "VarDeclaration",
-          "modifier": "variable",
-          "type": undefined,
+        },
+        {
+          "assigne": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 2,
+                },
+              },
+              "value": "b",
+            },
+          },
+          "kind": "AssignmentExpr",
           "value": {
             "kind": "NumericLiteral",
             "value": {
@@ -134,22 +151,39 @@ exports[`Parser - FunctionDeclaration should parse function declarations with in
     {
       "body": [
         {
-          "identifier": {
+          "kind": "Identifier",
+          "symbol": {
             "position": {
               "end": {
-                "column": 12,
+                "column": 10,
                 "line": 2,
               },
               "start": {
-                "column": 11,
+                "column": 7,
                 "line": 2,
               },
             },
-            "value": "b",
+            "value": "var",
           },
-          "kind": "VarDeclaration",
-          "modifier": "variable",
-          "type": undefined,
+        },
+        {
+          "assigne": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 2,
+                },
+              },
+              "value": "b",
+            },
+          },
+          "kind": "AssignmentExpr",
           "value": {
             "kind": "NumericLiteral",
             "value": {
@@ -203,17 +237,36 @@ exports[`Parser - FunctionDeclaration should parse function declarations with in
       },
       "parameters": [],
       "returnType": {
-        "position": {
-          "end": {
-            "column": 17,
-            "line": 1,
-          },
-          "start": {
-            "column": 11,
-            "line": 1,
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 17,
+                "line": 1,
+              },
+              "start": {
+                "column": 11,
+                "line": 1,
+              },
+            },
+            "value": "number",
           },
         },
-        "value": "number",
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 17,
+              "line": 1,
+            },
+            "start": {
+              "column": 11,
+              "line": 1,
+            },
+          },
+          "value": "number",
+        },
       },
     },
   ],
@@ -243,30 +296,68 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
       "parameters": [],
       "returnType": [
         {
-          "position": {
-            "end": {
-              "column": 17,
-              "line": 1,
-            },
-            "start": {
-              "column": 11,
-              "line": 1,
+          "actualType": {
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 17,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 1,
+                },
+              },
+              "value": "number",
             },
           },
-          "value": "number",
+          "kind": "AliasType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 17,
+                "line": 1,
+              },
+              "start": {
+                "column": 11,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
         },
         {
-          "position": {
-            "end": {
-              "column": 25,
-              "line": 1,
-            },
-            "start": {
-              "column": 19,
-              "line": 1,
+          "actualType": {
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 25,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 19,
+                  "line": 1,
+                },
+              },
+              "value": "string",
             },
           },
-          "value": "string",
+          "kind": "AliasType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 25,
+                "line": 1,
+              },
+              "start": {
+                "column": 19,
+                "line": 1,
+              },
+            },
+            "value": "string",
+          },
         },
       ],
     },
@@ -335,30 +426,68 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
       "parameters": [],
       "returnType": [
         {
-          "position": {
-            "end": {
-              "column": 17,
-              "line": 1,
-            },
-            "start": {
-              "column": 11,
-              "line": 1,
+          "actualType": {
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 17,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 1,
+                },
+              },
+              "value": "number",
             },
           },
-          "value": "number",
+          "kind": "AliasType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 17,
+                "line": 1,
+              },
+              "start": {
+                "column": 11,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
         },
         {
-          "position": {
-            "end": {
-              "column": 25,
-              "line": 1,
-            },
-            "start": {
-              "column": 19,
-              "line": 1,
+          "actualType": {
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 25,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 19,
+                  "line": 1,
+                },
+              },
+              "value": "number",
             },
           },
-          "value": "number",
+          "kind": "AliasType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 25,
+                "line": 1,
+              },
+              "start": {
+                "column": 19,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
         },
       ],
     },
@@ -373,22 +502,39 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
     {
       "body": [
         {
-          "identifier": {
+          "kind": "Identifier",
+          "symbol": {
             "position": {
               "end": {
-                "column": 12,
+                "column": 10,
                 "line": 2,
               },
               "start": {
-                "column": 11,
+                "column": 7,
                 "line": 2,
               },
             },
-            "value": "b",
+            "value": "var",
           },
-          "kind": "VarDeclaration",
-          "modifier": "variable",
-          "type": undefined,
+        },
+        {
+          "assigne": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 2,
+                },
+              },
+              "value": "b",
+            },
+          },
+          "kind": "AssignmentExpr",
           "value": {
             "kind": "NumericLiteral",
             "value": {
@@ -484,17 +630,36 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "b",
           },
           "type": {
-            "position": {
-              "end": {
-                "column": 15,
-                "line": 1,
-              },
-              "start": {
-                "column": 9,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 9,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
               },
             },
-            "value": "number",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 15,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 9,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
           },
         },
         {
@@ -513,17 +678,36 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "c",
           },
           "type": {
-            "position": {
-              "end": {
-                "column": 26,
-                "line": 1,
-              },
-              "start": {
-                "column": 20,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 26,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 20,
+                    "line": 1,
+                  },
+                },
+                "value": "string",
               },
             },
-            "value": "string",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 26,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 20,
+                  "line": 1,
+                },
+              },
+              "value": "string",
+            },
           },
         },
       ],
@@ -590,17 +774,36 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "b",
           },
           "type": {
-            "position": {
-              "end": {
-                "column": 15,
-                "line": 1,
-              },
-              "start": {
-                "column": 9,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 9,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
               },
             },
-            "value": "number",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 15,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 9,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
           },
         },
         {
@@ -619,17 +822,36 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "c",
           },
           "type": {
-            "position": {
-              "end": {
-                "column": 26,
-                "line": 1,
-              },
-              "start": {
-                "column": 20,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 26,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 20,
+                    "line": 1,
+                  },
+                },
+                "value": "string",
               },
             },
-            "value": "string",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 26,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 20,
+                  "line": 1,
+                },
+              },
+              "value": "string",
+            },
           },
         },
       ],
@@ -676,17 +898,36 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "b",
           },
           "type": {
-            "position": {
-              "end": {
-                "column": 15,
-                "line": 1,
-              },
-              "start": {
-                "column": 9,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 9,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
               },
             },
-            "value": "number",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 15,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 9,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
           },
         },
         {
@@ -705,32 +946,70 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "c",
           },
           "type": {
-            "position": {
-              "end": {
-                "column": 26,
-                "line": 1,
-              },
-              "start": {
-                "column": 20,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 26,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 20,
+                    "line": 1,
+                  },
+                },
+                "value": "string",
               },
             },
-            "value": "string",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 26,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 20,
+                  "line": 1,
+                },
+              },
+              "value": "string",
+            },
           },
         },
       ],
       "returnType": {
-        "position": {
-          "end": {
-            "column": 37,
-            "line": 1,
-          },
-          "start": {
-            "column": 31,
-            "line": 1,
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 37,
+                "line": 1,
+              },
+              "start": {
+                "column": 31,
+                "line": 1,
+              },
+            },
+            "value": "number",
           },
         },
-        "value": "number",
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 37,
+              "line": 1,
+            },
+            "start": {
+              "column": 31,
+              "line": 1,
+            },
+          },
+          "value": "number",
+        },
       },
     },
   ],
@@ -794,17 +1073,36 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "b",
           },
           "type": {
-            "position": {
-              "end": {
-                "column": 15,
-                "line": 1,
-              },
-              "start": {
-                "column": 9,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 9,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
               },
             },
-            "value": "number",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 15,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 9,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
           },
         },
         {
@@ -823,32 +1121,70 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "c",
           },
           "type": {
-            "position": {
-              "end": {
-                "column": 26,
-                "line": 1,
-              },
-              "start": {
-                "column": 20,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 26,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 20,
+                    "line": 1,
+                  },
+                },
+                "value": "string",
               },
             },
-            "value": "string",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 26,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 20,
+                  "line": 1,
+                },
+              },
+              "value": "string",
+            },
           },
         },
       ],
       "returnType": {
-        "position": {
-          "end": {
-            "column": 37,
-            "line": 1,
-          },
-          "start": {
-            "column": 31,
-            "line": 1,
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 37,
+                "line": 1,
+              },
+              "start": {
+                "column": 31,
+                "line": 1,
+              },
+            },
+            "value": "number",
           },
         },
-        "value": "number",
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 37,
+              "line": 1,
+            },
+            "start": {
+              "column": 31,
+              "line": 1,
+            },
+          },
+          "value": "number",
+        },
       },
     },
   ],
@@ -877,17 +1213,36 @@ exports[`Parser - FunctionDeclaration should parse function declarations with re
       },
       "parameters": [],
       "returnType": {
-        "position": {
-          "end": {
-            "column": 17,
-            "line": 1,
-          },
-          "start": {
-            "column": 11,
-            "line": 1,
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 17,
+                "line": 1,
+              },
+              "start": {
+                "column": 11,
+                "line": 1,
+              },
+            },
+            "value": "number",
           },
         },
-        "value": "number",
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 17,
+              "line": 1,
+            },
+            "start": {
+              "column": 11,
+              "line": 1,
+            },
+          },
+          "value": "number",
+        },
       },
     },
   ],
@@ -936,17 +1291,36 @@ exports[`Parser - FunctionDeclaration should parse function declarations with re
       },
       "parameters": [],
       "returnType": {
-        "position": {
-          "end": {
-            "column": 17,
-            "line": 1,
-          },
-          "start": {
-            "column": 11,
-            "line": 1,
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 17,
+                "line": 1,
+              },
+              "start": {
+                "column": 11,
+                "line": 1,
+              },
+            },
+            "value": "number",
           },
         },
-        "value": "number",
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 17,
+              "line": 1,
+            },
+            "start": {
+              "column": 11,
+              "line": 1,
+            },
+          },
+          "value": "number",
+        },
       },
     },
   ],

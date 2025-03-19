@@ -6,6 +6,12 @@ describe("Parser - Structs", () => {
     const ast = parse("test", code);
     expect(ast).toMatchSnapshot();
   });
+
+  it("should parse struct intialization", () => {
+    const code = `let p = Point { x: 1, y: 2 }`;
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 });
 
 /*

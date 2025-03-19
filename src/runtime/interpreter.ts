@@ -1,22 +1,29 @@
 import Environment from "./environment"
 import { NumberVal, RuntimeVal, StringVal } from "./values"
 import {
+  AliasType,
   ArrayLiteral,
+  ArrayType,
   AssignmentExpr,
   BinaryExpr,
   CallExpr,
   DocComment,
   FunctionDeclaration,
+  GenericType,
   Identifier,
   IfElseStatement,
   MemberExpr,
   MultiVarDeclaration,
   NumericLiteral,
   ObjectLiteral,
+  PrimitiveType,
   Program,
   ReturnStatement,
   Stmt,
   StringLiteral,
+  StructType,
+  TypeDeclaration,
+  UnionType,
   VarDeclaration,
   WhileStatement,
 } from "../frontend/ast"
@@ -27,6 +34,7 @@ import {
   eval_multi_var_declaration,
   eval_program,
   eval_return_statement,
+  eval_type_declaration,
   eval_var_declaration,
   eval_while_statement,
 } from "./eval/statements"
@@ -40,10 +48,18 @@ import {
   eval_member_expr,
   eval_object_expr,
   eval_string_literal,
+  eval_struct_type,
 } from "./eval/expression"
 import { parse } from "../frontend/parser"
 import { RuntimeError } from "./error"
 import { ExecutionContext } from "./execution-context"
+import {
+  eval_alias_type,
+  eval_array_type,
+  eval_generic_type,
+  eval_primitive_type,
+  eval_union_type,
+} from "./eval/types"
 
 export function evaluate(astNode: Stmt, context: ExecutionContext, env: Environment): RuntimeVal {
   switch (astNode.kind) {
@@ -62,6 +78,20 @@ export function evaluate(astNode: Stmt, context: ExecutionContext, env: Environm
       return eval_identifier(astNode as Identifier, env, context)
     case "ObjectLiteral":
       return eval_object_expr(astNode as ObjectLiteral, env, context)
+    case "TypeDeclaration":
+      return eval_type_declaration(astNode as TypeDeclaration, env, context)
+    case "StructType":
+      return eval_struct_type(astNode as StructType, env, context)
+    case "AliasType":
+      return eval_alias_type(astNode as AliasType, env, context)
+    case "PrimitiveType":
+      return eval_primitive_type(astNode as PrimitiveType, env, context)
+    case "GenericType":
+      return eval_generic_type(astNode as GenericType, env, context)
+    case "UnionType":
+      return eval_union_type(astNode as UnionType, env, context)
+    case "ArrayType":
+      return eval_array_type(astNode as ArrayType, env, context)
     case "ArrayLiteral":
       return eval_array_expr(astNode as ArrayLiteral, env, context)
     case "CallExpr":

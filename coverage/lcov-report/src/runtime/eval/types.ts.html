@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/runtime/interpreter.ts</title>
+    <title>Code coverage report for src/runtime/eval/types.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/runtime</a> interpreter.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/runtime/eval</a> types.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.59% </span>
+                <span class="strong">27.9% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/47</span>
+                <span class='fraction'>12/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.51% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>20/31</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.59% </span>
+                <span class="strong">27.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/47</span>
+                <span class='fraction'>12/43</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -205,18 +205,18 @@
 <a name='L140'></a><a href='#L140'>140</a>
 <a name='L141'></a><a href='#L141'>141</a>
 <a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,255 +239,279 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">330x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">97x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">57x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Environment from "./environment"
-import { NumberVal, RuntimeVal, StringVal } from "./values"
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Environment from "../environment"
+import { RuntimeError } from "../error"
+import { ExecutionContext } from "../execution-context"
+import { evaluate } from "../interpreter"
 import {
   AliasType,
-  ArrayLiteral,
   ArrayType,
-  AssignmentExpr,
-  BinaryExpr,
-  CallExpr,
-  DocComment,
-  FunctionDeclaration,
   GenericType,
-  Identifier,
-  IfElseStatement,
-  MemberExpr,
-  MultiVarDeclaration,
-  NumericLiteral,
-  ObjectLiteral,
   PrimitiveType,
-  Program,
-  ReturnStatement,
-  Stmt,
-  StringLiteral,
   StructType,
-  TypeDeclaration,
   UnionType,
-  VarDeclaration,
-  WhileStatement,
-} from "../frontend/ast"
+} from "../../frontend/ast"
+import {
+  AliasTypeVal,
+  ArrayTypeVal,
+  GenericTypeVal,
+  PrimitiveTypeVal,
+  StructTypeVal,
+  TypeVal,
+  UnionTypeVal,
+} from "../values.types"
 &nbsp;
-import {
-  eval_fn_declaration,
-  eval_if_else_statement,
-  eval_multi_var_declaration,
-  eval_program,
-  eval_return_statement,
-  eval_type_declaration,
-  eval_var_declaration,
-  eval_while_statement,
-} from "./eval/statements"
-import {
-  eval_array_expr,
-  eval_assignment,
-  eval_binary_expr,
-  eval_call_expr,
-  eval_comment_expr,
-  eval_identifier,
-  eval_member_expr,
-  eval_object_expr,
-  eval_string_literal,
-  eval_struct_type,
-} from "./eval/expression"
-import { parse } from "../frontend/parser"
-import { RuntimeError } from "./error"
-import { ExecutionContext } from "./execution-context"
-import {
-  eval_alias_type,
-  eval_array_type,
-  eval_generic_type,
-  eval_primitive_type,
-  eval_union_type,
-} from "./eval/types"
-&nbsp;
-export function evaluate(astNode: Stmt, context: ExecutionContext, env: Environment): RuntimeVal {
-  switch (astNode.kind) {
-    case "NumericLiteral":
-      return {
-        value: (astNode as NumericLiteral).value.value,
-        type: "number",
-      } as NumberVal
-    case "StringLiteral":
-      return eval_string_literal(astNode as StringLiteral, env, context) as StringVal
-    case "BinaryExpr":
-      return eval_binary_expr(astNode as BinaryExpr, env, context)
-    case "AssignmentExpr":
-      return eval_assignment(astNode as AssignmentExpr, env, context)
-    case "Identifier":
-      return eval_identifier(astNode as Identifier, env, context)
-    case "ObjectLiteral":
-      return eval_object_expr(astNode as ObjectLiteral, env, context)
-    case "TypeDeclaration":
-      return eval_type_declaration(astNode as TypeDeclaration, env, context)
-    case "StructType":
-      return eval_struct_type(astNode as StructType, env, context)
-    case "AliasType":
-      return eval_alias_type(astNode as AliasType, env, context)
-    case "PrimitiveType":
-      return eval_primitive_type(astNode as PrimitiveType, env, context)
-<span class="branch-10 cbranch-no" title="branch not covered" >    case "GenericType":</span>
-<span class="cstat-no" title="statement not covered" >      return eval_generic_type(astNode as GenericType, env, context)</span>
-<span class="branch-11 cbranch-no" title="branch not covered" >    case "UnionType":</span>
-<span class="cstat-no" title="statement not covered" >      return eval_union_type(astNode as UnionType, env, context)</span>
-<span class="branch-12 cbranch-no" title="branch not covered" >    case "ArrayType":</span>
-<span class="cstat-no" title="statement not covered" >      return eval_array_type(astNode as ArrayType, env, context)</span>
-<span class="branch-13 cbranch-no" title="branch not covered" >    case "ArrayLiteral":</span>
-<span class="cstat-no" title="statement not covered" >      return eval_array_expr(astNode as ArrayLiteral, env, context)</span>
-    case "CallExpr":
-      return eval_call_expr(astNode as CallExpr, env, context)
-    case "Program":
-      return eval_program(astNode as Program, env, context)
-    case "VarDeclaration":
-      return eval_var_declaration(astNode as VarDeclaration, env, context)
-    case "MultiVarDeclaration":
-      return eval_multi_var_declaration(astNode as MultiVarDeclaration, env, context)
-    case "FunctionDeclaration":
-      return eval_fn_declaration(astNode as FunctionDeclaration, env, context)
-<span class="branch-19 cbranch-no" title="branch not covered" >    case "ReturnStatement":</span>
-<span class="cstat-no" title="statement not covered" >      return eval_return_statement(astNode as ReturnStatement, env, context)</span>
-<span class="branch-20 cbranch-no" title="branch not covered" >    case "IfElseStatement":</span>
-<span class="cstat-no" title="statement not covered" >      return eval_if_else_statement(astNode as IfElseStatement, env, context)</span>
-<span class="branch-21 cbranch-no" title="branch not covered" >    case "WhileStatement":</span>
-<span class="cstat-no" title="statement not covered" >      return eval_while_statement(astNode as WhileStatement, env, context)</span>
-<span class="branch-22 cbranch-no" title="branch not covered" >    case "MemberExpr":</span>
-<span class="cstat-no" title="statement not covered" >      return eval_member_expr(astNode as MemberExpr, env, context)</span>
-<span class="branch-23 cbranch-no" title="branch not covered" >    case "DocComment":</span>
-<span class="cstat-no" title="statement not covered" >      return eval_comment_expr(astNode as DocComment, env)</span>
-<span class="branch-24 cbranch-no" title="branch not covered" >    default:</span>
-<span class="cstat-no" title="statement not covered" >      console.error("This AST can't be interpreted! For now atleast!", astNode)</span>
-<span class="cstat-no" title="statement not covered" >      process.exit(0)</span>
-  }
+export function eval_primitive_type(
+  node: PrimitiveType,
+  _env: Environment,
+  _context: ExecutionContext,
+): PrimitiveTypeVal {
+  return {
+    type: "type",
+    typeKind: "primitive",
+    primitiveType: node.name.value,
+  } as PrimitiveTypeVal
 }
 &nbsp;
-export function interpret(filename: string, code: string, env?: Environment): RuntimeVal | string {
-  const executionContext = new ExecutionContext()
-  env = env || new Environment(executionContext)
-  try {
-    const ast = parse(filename, code)
-    return evaluate(ast, executionContext, env)
-  } catch (e) {
-    let error = (e as { message: string }).message + "\n"
+export function <span class="fstat-no" title="function not covered" >eval_struct_type(</span>
+  node: StructType,
+  env: Environment,
+  context: ExecutionContext,
+): StructTypeVal {
+  const members: Record&lt;string, TypeVal&gt; = <span class="cstat-no" title="statement not covered" >{}</span>
+  const optional: Record&lt;string, boolean&gt; = <span class="cstat-no" title="statement not covered" >{}</span>
 &nbsp;
-    if (e instanceof RuntimeError) {
-      const stack = executionContext.getCallStack() || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
-&nbsp;
-      if (stack.length) {
-        error += ExecutionContext.formatStackTrace(stack)
-      }
+<span class="cstat-no" title="statement not covered" >  for (const member of node.members) {</span>
+    const memberType = <span class="cstat-no" title="statement not covered" >evaluate(member.type, context, env) as TypeVal</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (memberType.type !== "type") {</span>
+<span class="cstat-no" title="statement not covered" >      throw new RuntimeError(context, `Expected type for struct member but got ${memberType.type}`)</span>
     }
 &nbsp;
-    return error
+<span class="cstat-no" title="statement not covered" >    members[member.name.value] = memberType</span>
+<span class="cstat-no" title="statement not covered" >    optional[member.name.value] = member.optional</span>
   }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return {</span>
+    type: "type",
+    typeKind: "struct",
+    typeName: node.name?.value,
+    members,
+    optional,
+  } as StructTypeVal
+}
+&nbsp;
+export function eval_alias_type(
+  node: AliasType,
+  env: Environment,
+  context: ExecutionContext,
+): AliasTypeVal {
+  const actualType = evaluate(node.actualType, context, env) as TypeVal
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (actualType.type !== "type") {
+<span class="cstat-no" title="statement not covered" >    throw new RuntimeError(context, `Expected type for alias but got ${actualType.type}`)</span>
+  }
+&nbsp;
+  return {
+    type: "type",
+    typeKind: "alias",
+    typeName: node.name?.value,
+    aliasTo: actualType,
+  } as AliasTypeVal
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >eval_generic_type(</span>
+  node: GenericType,
+  env: Environment,
+  context: ExecutionContext,
+): GenericTypeVal {
+  // Retrieve the base type (this would be a named type that accepts parameters)
+  const baseType = <span class="cstat-no" title="statement not covered" >env.lookupType(node.name?.value ?? "")</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (!baseType || baseType.type !== "type") {</span>
+<span class="cstat-no" title="statement not covered" >    throw new RuntimeError(context, `Unknown generic type: ${node.name?.value}`)</span>
+  }
+&nbsp;
+  // Evaluate the type parameters
+  const parameters: TypeVal[] = <span class="cstat-no" title="statement not covered" >[]</span>
+<span class="cstat-no" title="statement not covered" >  for (const param of node.parameters) {</span>
+    const paramType = <span class="cstat-no" title="statement not covered" >evaluate(param, context, env) as TypeVal</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (paramType.type !== "type") {</span>
+<span class="cstat-no" title="statement not covered" >      throw new RuntimeError(</span>
+        context,
+        `Expected type for generic parameter but got ${paramType.type}`,
+      )
+    }
+<span class="cstat-no" title="statement not covered" >    parameters.push(paramType)</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return {</span>
+    type: "type",
+    typeKind: "generic",
+    typeName: node.name?.value,
+    baseType,
+    parameters,
+  } as GenericTypeVal
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >eval_union_type(</span>
+  node: UnionType,
+  env: Environment,
+  context: ExecutionContext,
+): UnionTypeVal {
+  const unionTypes: TypeVal[] = <span class="cstat-no" title="statement not covered" >[]</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  for (const typeNode of node.types) {</span>
+    const typeVal = <span class="cstat-no" title="statement not covered" >evaluate(typeNode, context, env) as TypeVal</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (typeVal.type !== "type") {</span>
+<span class="cstat-no" title="statement not covered" >      throw new RuntimeError(context, `Expected type for union member but got ${typeVal.type}`)</span>
+    }
+<span class="cstat-no" title="statement not covered" >    unionTypes.push(typeVal)</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return {</span>
+    type: "type",
+    typeKind: "union",
+    unionTypes,
+  } as UnionTypeVal
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >eval_array_type(</span>
+  node: ArrayType,
+  env: Environment,
+  context: ExecutionContext,
+): ArrayTypeVal {
+  const elementType = <span class="cstat-no" title="statement not covered" >evaluate(node.elementType, context, env) as TypeVal</span>
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (elementType.type !== "type") {</span>
+<span class="cstat-no" title="statement not covered" >    throw new RuntimeError(context, `Expected type for array element but got ${elementType.type}`)</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return {</span>
+    type: "type",
+    typeKind: "array",
+    elementType,
+  } as ArrayTypeVal
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -498,14 +522,14 @@ export function interpret(filename: string, code: string, env?: Environment): Ru
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at 2025-03-19T06:16:28.188Z
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
     </body>
 </html>
     

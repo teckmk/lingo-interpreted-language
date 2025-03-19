@@ -6,6 +6,7 @@ import {
   Program,
   ReturnStatement,
   Stmt,
+  TypeDeclaration,
   VarDeclaration,
   WhileStatement,
 } from "../../frontend/ast"
@@ -14,7 +15,9 @@ import { RuntimeError } from "../error"
 import { ExecutionContext } from "../execution-context"
 import { evaluate } from "../interpreter"
 import { MK_NULL } from "../macros"
+import { areTypesCompatible, getRuntimeType } from "../type-checker"
 import { ArrayVal, BooleanVal, FunctionVal, ParamVal, ReturnVal, RuntimeVal } from "../values"
+import { PrimitiveTypeVal, TypeVal } from "../values.types"
 
 export function eval_program(
   program: Program,
@@ -28,25 +31,80 @@ export function eval_program(
   return evaluated
 }
 
-export function eval_var_declaration(
-  declaration: VarDeclaration,
+// Update in eval/statements.ts
+export function eval_type_declaration(
+  node: TypeDeclaration,
   env: Environment,
   context: ExecutionContext,
 ): RuntimeVal {
-  let value = declaration.value ? evaluate(declaration.value, context, env) : MK_NULL()
+  // Evaluate the type definition
+  const typeVal = evaluate(node.type, context, env) as TypeVal
 
-  if (declaration.type) {
-    if (declaration.type.value !== "dynamic" && declaration.type.value !== value.type) {
+  if (typeVal.type !== "type") {
+    throw new RuntimeError(context, `Expected a type, got ${typeVal.type}`)
+  }
+
+  // If this is a generic type declaration, handle parameters
+  if (node.parameters && node.parameters.length > 0) {
+    // Store a template for the generic type
+    // The actual instantiation happens in eval_generic_type
+    const genericBase = {
+      type: "type",
+      typeKind: "generic",
+      typeName: node.name.name?.value,
+      parameters: node.parameters.map((p) => (p as any).name?.value || "unknown"),
+      baseType: typeVal,
+      returned: false, // to satisfy TS
+    }
+
+    env.declareType(node.name.name?.value || "unnamed", genericBase as TypeVal)
+    return genericBase as RuntimeVal
+  }
+
+  // For non-generic types, just store the type
+  env.declareType(node.name.name?.value || "unnamed", typeVal)
+  return typeVal
+}
+
+export function eval_var_declaration(
+  node: VarDeclaration,
+  env: Environment,
+  context: ExecutionContext,
+): RuntimeVal {
+  let value: RuntimeVal = { type: "null", returned: false }
+
+  if (node.value) {
+    value = evaluate(node.value, context, env)
+  }
+
+  // If a type is specified, check compatibility
+  if (node.type) {
+    const declaredType = evaluate(node.type, context, env) as TypeVal
+
+    if (declaredType.type !== "type") {
+      throw new RuntimeError(context, `Expected a type, got ${declaredType.type}`)
+    }
+
+    // Check if the value's type matches the declared type
+    // This requires tracking runtime type information
+    const [isCompatible, , targetType] = areTypesCompatible(getRuntimeType(value), declaredType)
+    if (value.type !== "null" && !isCompatible) {
       throw new RuntimeError(
         context,
-        `Can't initialize variable of type ${declaration.type} with value of type ${value.type}`,
+        `Type mismatch: Cannot assign value of type ${value.type} to variable of type ${declaredType.typeKind}`,
       )
-    } else if (declaration.type.value === "dynamic") {
+    }
+
+    // If the target type is dynamic, set the value type to dynamic, so it can be re-assigned with any type
+    if (
+      targetType.typeKind == "primitive" &&
+      (targetType as PrimitiveTypeVal).primitiveType == "dynamic"
+    ) {
       value = { ...value, type: "dynamic" }
     }
   }
 
-  return env.declareVar(declaration.identifier.value, value, declaration.modifier)
+  return env.declareVar(node.identifier.value, value, node.modifier)
 }
 
 export function eval_multi_var_declaration(

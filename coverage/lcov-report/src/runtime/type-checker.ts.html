@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/runtime/eval/statements.ts</title>
+    <title>Code coverage report for src/runtime/type-checker.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/runtime/eval</a> statements.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/runtime</a> type-checker.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.75% </span>
+                <span class="strong">22.38% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>47/80</span>
+                <span class='fraction'>15/67</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.42% </span>
+                <span class="strong">35.29% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/35</span>
+                <span class='fraction'>12/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.15% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/13</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.21% </span>
+                <span class="strong">22.72% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/76</span>
+                <span class='fraction'>15/66</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -284,8 +284,8 @@
 <a name='L219'></a><a href='#L219'>219</a>
 <a name='L220'></a><a href='#L220'>220</a>
 <a name='L221'></a><a href='#L221'>221</a>
-<a name='L222'></a><a href='#L222'>222</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -297,49 +297,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -347,42 +331,172 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">26x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">26x</span>
-<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -390,341 +504,230 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
-  Expr,
-  FunctionDeclaration,
-  IfElseStatement,
-  MultiVarDeclaration,
-  Program,
-  ReturnStatement,
-  Stmt,
-  TypeDeclaration,
-  VarDeclaration,
-  WhileStatement,
-} from "../../frontend/ast"
-import Environment from "../environment"
-import { RuntimeError } from "../error"
-import { ExecutionContext } from "../execution-context"
-import { evaluate } from "../interpreter"
-import { MK_NULL } from "../macros"
-import { areTypesCompatible, getRuntimeType } from "../type-checker"
-import { ArrayVal, BooleanVal, FunctionVal, ParamVal, ReturnVal, RuntimeVal } from "../values"
-import { PrimitiveTypeVal, TypeVal } from "../values.types"
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { RuntimeVal } from "./values"
+import {
+  AliasTypeVal,
+  ArrayTypeVal,
+  GenericTypeVal,
+  PrimitiveTypeVal,
+  StructTypeVal,
+  TypeVal,
+  UnionTypeVal,
+} from "./values.types"
 &nbsp;
-export function eval_program(
-  program: Program,
-  env: Environment,
-  context: ExecutionContext,
-): RuntimeVal {
-  let evaluated: RuntimeVal = MK_NULL()
-&nbsp;
-  for (const stmt of program.body) evaluated = evaluate(stmt, context, env)
-&nbsp;
-  return evaluated
-}
-&nbsp;
-// Update in eval/statements.ts
-export function eval_type_declaration(
-  node: TypeDeclaration,
-  env: Environment,
-  context: ExecutionContext,
-): RuntimeVal {
-  // Evaluate the type definition
-  const typeVal = evaluate(node.type, context, env) as TypeVal
-&nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (typeVal.type !== "type") {
-<span class="cstat-no" title="statement not covered" >    throw new RuntimeError(context, `Expected a type, got ${typeVal.type}`)</span>
+export function areTypesCompatible(
+  sourceType: TypeVal,
+  targetType: TypeVal,
+): [boolean, TypeVal, TypeVal] {
+  // Dynamic type is compatible with anything
+  if (
+    (sourceType.typeKind === "primitive" &amp;&amp;
+      (sourceType as PrimitiveTypeVal).primitiveType === "dynamic") ||
+    (targetType.typeKind === "primitive" &amp;&amp;
+      (targetType as PrimitiveTypeVal).primitiveType === "dynamic")
+  ) {
+    return [true, sourceType, targetType]
   }
 &nbsp;
-  // If this is a generic type declaration, handle parameters
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (node.parameters &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >node.parameters.length &gt; 0)</span> {
-    // Store a template for the generic type
-    // The actual instantiation happens in eval_generic_type
-    const genericBase = <span class="cstat-no" title="statement not covered" >{</span>
-      type: "type",
-      typeKind: "generic",
-      typeName: node.name.name?.value,
-      parameters: node.parameters.map(<span class="fstat-no" title="function not covered" >(p</span>) =&gt; (<span class="cstat-no" title="statement not covered" >p as any).name?.value || "unknown")</span>,
-      baseType: typeVal,
-      returned: false, // to satisfy TS
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    env.declareType(node.name.name?.value || "unnamed", genericBase as TypeVal)</span>
-<span class="cstat-no" title="statement not covered" >    return genericBase as RuntimeVal</span>
+  // Same kind of primitives
+  if (sourceType.typeKind === "primitive" &amp;&amp; targetType.typeKind === "primitive") {
+    return [
+      (sourceType as PrimitiveTypeVal).primitiveType ===
+        (targetType as PrimitiveTypeVal).primitiveType,
+      sourceType,
+      targetType,
+    ]
   }
 &nbsp;
-  // For non-generic types, just store the type
-  env.declareType(node.name.name?.value || <span class="branch-1 cbranch-no" title="branch not covered" >"unnamed",</span> typeVal)
-  return typeVal
-}
-&nbsp;
-export function eval_var_declaration(
-  node: VarDeclaration,
-  env: Environment,
-  context: ExecutionContext,
-): RuntimeVal {
-  let value: RuntimeVal = { type: "null", returned: false }
-&nbsp;
-  if (node.value) {
-    value = evaluate(node.value, context, env)
-  }
-&nbsp;
-  // If a type is specified, check compatibility
-  if (node.type) {
-    const declaredType = evaluate(node.type, context, env) as TypeVal
-&nbsp;
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (declaredType.type !== "type") {
-<span class="cstat-no" title="statement not covered" >      throw new RuntimeError(context, `Expected a type, got ${declaredType.type}`)</span>
-    }
-&nbsp;
-    // Check if the value's type matches the declared type
-    // This requires tracking runtime type information
-    const [isCompatible, , targetType] = areTypesCompatible(getRuntimeType(value), declaredType)
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (value.type !== "null" &amp;&amp; !isCompatible) {
-<span class="cstat-no" title="statement not covered" >      throw new RuntimeError(</span>
-        context,
-        `Type mismatch: Cannot assign value of type ${value.type} to variable of type ${declaredType.typeKind}`,
+  // Check if source is compatible with any type in a union
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (targetType.typeKind === "union") {
+<span class="cstat-no" title="statement not covered" >    for (const unionType of (targetType as UnionTypeVal).unionTypes) {</span>
+      const [isCompatible, resolvedSourceType, resolvedUnionType] = <span class="cstat-no" title="statement not covered" >areTypesCompatible(</span>
+        sourceType,
+        unionType,
       )
-    }
-&nbsp;
-    // If the target type is dynamic, set the value type to dynamic, so it can be re-assigned with any type
-    if (
-      targetType.typeKind == "primitive" &amp;&amp;
-      (targetType as PrimitiveTypeVal).primitiveType == "dynamic"
-    ) {
-      value = { ...value, type: "dynamic" }
-    }
-  }
-&nbsp;
-  return env.declareVar(node.identifier.value, value, node.modifier)
-}
-&nbsp;
-export function eval_multi_var_declaration(
-  declaration: MultiVarDeclaration,
-  env: Environment,
-  context: ExecutionContext,
-): ArrayVal {
-  const values = []
-  for (const dec of declaration.variables) values.push(eval_var_declaration(dec, env, context))
-&nbsp;
-  return { type: "array", elements: values, returned: false }
-}
-&nbsp;
-export function eval_fn_declaration(
-  declaration: FunctionDeclaration,
-  env: Environment,
-  context: ExecutionContext,
-): RuntimeVal {
-  const parameters = declaration.parameters.map(
-<span class="fstat-no" title="function not covered" >    (p</span>aram) =&gt;
-      (<span class="cstat-no" title="statement not covered" >{</span>
-        type: "paramter",
-        name: param.name.value,
-        valueType: param.type,
-        default: param.default ? evaluate(param.default, context, env) : MK_NULL(),
-      }) as ParamVal,
-  )
-  const fn = {
-    type: "function",
-    name: declaration.name.value,
-    parameters,
-    declarationEnv: env,
-    body: declaration.body,
-  } as FunctionVal
-&nbsp;
-  return env.declareVar(declaration.name.value, fn, "final")
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >eval_return_statement(</span>
-  stmt: Stmt,
-  env: Environment,
-  context: ExecutionContext,
-): RuntimeVal {
-  const returnStmt = <span class="cstat-no" title="statement not covered" >stmt as ReturnStatement</span>
-  const returnValue = <span class="cstat-no" title="statement not covered" >Array.isArray(returnStmt.value)</span>
-    ? returnStmt.value.map(<span class="fstat-no" title="function not covered" >(e</span>xpr) =&gt; <span class="cstat-no" title="statement not covered" >evaluate(expr, context, env))</span>
-    : evaluate(returnStmt.value, context, env)
-<span class="cstat-no" title="statement not covered" >  return { type: "return", value: returnValue } as ReturnVal</span>
-}
-&nbsp;
-export function eval_code_block(
-  block: Stmt[],
-  parentEnv: Environment,
-  context: ExecutionContext,
-): RuntimeVal {
-  const scope = new Environment(context, parentEnv)
-&nbsp;
-  let result: RuntimeVal = MK_NULL()
-&nbsp;
-  for (const stmt of block) {
-    result = evaluate(stmt, context, scope)
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (result.type == "return" || result.returned) <span class="cstat-no" title="statement not covered" >return { ...result, returned: true }</span>
-  }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return MK_NULL()</span>
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >eval_condition(</span>
-  check: Expr,
-  env: Environment,
-  context: ExecutionContext,
-): BooleanVal {
-  const eval_check = <span class="cstat-no" title="statement not covered" >evaluate(check, context, env) as BooleanVal</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (eval_check.type != "boolean")</span>
-<span class="cstat-no" title="statement not covered" >    throw new RuntimeError(context, "Restult of check in 'if' statment must be a boolean")</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return eval_check</span>
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >eval_if_else_statement(</span>
-  ifstmt: IfElseStatement,
-  env: Environment,
-  context: ExecutionContext,
-): RuntimeVal {
-  const { condition: check, body, branches: childChecks } = <span class="cstat-no" title="statement not covered" >ifstmt</span>
-&nbsp;
-  let result: RuntimeVal = <span class="cstat-no" title="statement not covered" >MK_NULL()</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  if (eval_condition(check, env, context).value) {</span>
-<span class="cstat-no" title="statement not covered" >    result = eval_code_block(body, env, context)</span>
-  } else <span class="cstat-no" title="statement not covered" >if (childChecks &amp;&amp; childChecks.length &gt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >    for (const acheck of childChecks) {</span>
-<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (eval_condition(acheck.condition, env, context).value) {</span>
-<span class="cstat-no" title="statement not covered" >        result = eval_code_block(acheck.body, env, context)</span>
-<span class="cstat-no" title="statement not covered" >        break</span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (isCompatible) {</span>
+<span class="cstat-no" title="statement not covered" >        return [true, resolvedSourceType, resolvedUnionType]</span>
       }
     }
-  } else <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span>if (ifstmt.else) <span class="cstat-no" title="statement not covered" >result = eval_code_block(ifstmt.else, env, context)</span></span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return result</span>
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >eval_while_statement(</span>
-  loop: WhileStatement,
-  env: Environment,
-  context: ExecutionContext,
-): RuntimeVal {
-<span class="cstat-no" title="statement not covered" >  while (eval_condition(loop.check, env, context).value) {</span>
-<span class="cstat-no" title="statement not covered" >    eval_code_block(loop.body, env, context)</span>
+<span class="cstat-no" title="statement not covered" >    return [false, sourceType, targetType]</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return MK_NULL()</span>
+  // Alias types - check the underlying type
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (sourceType.typeKind === "alias") {
+    const [isCompatible, resolvedSourceType, resolvedTargetType] = <span class="cstat-no" title="statement not covered" >areTypesCompatible(</span>
+      (sourceType as AliasTypeVal).aliasTo,
+      targetType,
+    )
+<span class="cstat-no" title="statement not covered" >    return [isCompatible, resolvedSourceType, resolvedTargetType]</span>
+  }
+  if (targetType.typeKind === "alias") {
+    const [isCompatible, resolvedSourceType, resolvedTargetType] = areTypesCompatible(
+      sourceType,
+      (targetType as AliasTypeVal).aliasTo,
+    )
+    return [isCompatible, resolvedSourceType, resolvedTargetType]
+  }
+&nbsp;
+  // Arrays - check element type compatibility
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (sourceType.typeKind === "array" &amp;&amp; targetType.typeKind === "array") {</span>
+    const [isCompatible, resolvedElementSourceType, resolvedElementTargetType] = <span class="cstat-no" title="statement not covered" >areTypesCompatible(</span>
+      (sourceType as ArrayTypeVal).elementType,
+      (targetType as ArrayTypeVal).elementType,
+    )
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!isCompatible) {</span>
+<span class="cstat-no" title="statement not covered" >      return [false, sourceType, targetType]</span>
+    }
+&nbsp;
+    // Create new array types with the resolved element types
+    const resolvedSourceType: ArrayTypeVal = <span class="cstat-no" title="statement not covered" >{</span>
+      ...(sourceType as ArrayTypeVal),
+      elementType: resolvedElementSourceType,
+    }
+&nbsp;
+    const resolvedTargetType: ArrayTypeVal = <span class="cstat-no" title="statement not covered" >{</span>
+      ...(targetType as ArrayTypeVal),
+      elementType: resolvedElementTargetType,
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return [true, resolvedSourceType, resolvedTargetType]</span>
+  }
+&nbsp;
+  // Structs - check all required fields are compatible
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (sourceType.typeKind === "struct" &amp;&amp; targetType.typeKind === "struct") {</span>
+    const resolvedSourceMembers: Record&lt;string, TypeVal&gt; = <span class="cstat-no" title="statement not covered" >{</span>
+      ...(sourceType as StructTypeVal).members,
+    }
+    const resolvedTargetMembers: Record&lt;string, TypeVal&gt; = <span class="cstat-no" title="statement not covered" >{</span>
+      ...(targetType as StructTypeVal).members,
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    for (const [key, targetMemberType] of Object.entries((targetType as StructTypeVal).members)) {</span>
+      // Skip optional fields that don't exist in source
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (</span>
+        (targetType as StructTypeVal).optional[key] &amp;&amp;
+        !(sourceType as StructTypeVal).members[key]
+      ) {
+<span class="cstat-no" title="statement not covered" >        continue</span>
+      }
+&nbsp;
+      // Required field must exist and be compatible
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (!(sourceType as StructTypeVal).members[key]) {</span>
+<span class="cstat-no" title="statement not covered" >        return [false, sourceType, targetType]</span>
+      }
+&nbsp;
+      const sourceMemberType = (<span class="cstat-no" title="statement not covered" >sourceType as StructTypeVal).members[key]</span>
+      const [isCompatible, resolvedSourceMemberType, resolvedTargetMemberType] = <span class="cstat-no" title="statement not covered" >areTypesCompatible(</span>
+        sourceMemberType,
+        targetMemberType,
+      )
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (!isCompatible) {</span>
+<span class="cstat-no" title="statement not covered" >        return [false, sourceType, targetType]</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      resolvedSourceMembers[key] = resolvedSourceMemberType</span>
+<span class="cstat-no" title="statement not covered" >      resolvedTargetMembers[key] = resolvedTargetMemberType</span>
+    }
+&nbsp;
+    const resolvedSourceType: StructTypeVal = <span class="cstat-no" title="statement not covered" >{</span>
+      ...(sourceType as StructTypeVal),
+      members: resolvedSourceMembers,
+    }
+&nbsp;
+    const resolvedTargetType: StructTypeVal = <span class="cstat-no" title="statement not covered" >{</span>
+      ...(targetType as StructTypeVal),
+      members: resolvedTargetMembers,
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return [true, resolvedSourceType, resolvedTargetType]</span>
+  }
+&nbsp;
+  // Generic types - compare base types and parameters
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (sourceType.typeKind === "generic" &amp;&amp; targetType.typeKind === "generic") {</span>
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (sourceType.typeName !== targetType.typeName) {</span>
+<span class="cstat-no" title="statement not covered" >      return [false, sourceType, targetType]</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (</span>
+      (sourceType as GenericTypeVal).parameters.length !==
+      (targetType as GenericTypeVal).parameters.length
+    ) {
+<span class="cstat-no" title="statement not covered" >      return [false, sourceType, targetType]</span>
+    }
+&nbsp;
+    const resolvedSourceParams: TypeVal[] = <span class="cstat-no" title="statement not covered" >[]</span>
+    const resolvedTargetParams: TypeVal[] = <span class="cstat-no" title="statement not covered" >[]</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; (sourceType as GenericTypeVal).parameters.length; i++) {</span>
+      const sourceParam = (<span class="cstat-no" title="statement not covered" >sourceType as GenericTypeVal).parameters[i]</span>
+      const targetParam = (<span class="cstat-no" title="statement not covered" >targetType as GenericTypeVal).parameters[i]</span>
+&nbsp;
+      const [isCompatible, resolvedSourceParam, resolvedTargetParam] = <span class="cstat-no" title="statement not covered" >areTypesCompatible(</span>
+        sourceParam,
+        targetParam,
+      )
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (!isCompatible) {</span>
+<span class="cstat-no" title="statement not covered" >        return [false, sourceType, targetType]</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      resolvedSourceParams.push(resolvedSourceParam)</span>
+<span class="cstat-no" title="statement not covered" >      resolvedTargetParams.push(resolvedTargetParam)</span>
+    }
+&nbsp;
+    const resolvedSourceType: GenericTypeVal = <span class="cstat-no" title="statement not covered" >{</span>
+      ...(sourceType as GenericTypeVal),
+      parameters: resolvedSourceParams,
+    }
+&nbsp;
+    const resolvedTargetType: GenericTypeVal = <span class="cstat-no" title="statement not covered" >{</span>
+      ...(targetType as GenericTypeVal),
+      parameters: resolvedTargetParams,
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return [true, resolvedSourceType, resolvedTargetType]</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return [false, sourceType, targetType]</span>
+}
+&nbsp;
+export function getRuntimeType(value: RuntimeVal): TypeVal {
+  switch (value.type) {
+    case "number":
+      return {
+        type: "type",
+        typeKind: "primitive",
+        primitiveType: "number",
+      } as PrimitiveTypeVal
+&nbsp;
+    case "string":
+      return {
+        type: "type",
+        typeKind: "primitive",
+        primitiveType: "string",
+      } as PrimitiveTypeVal
+&nbsp;
+<span class="branch-2 cbranch-no" title="branch not covered" >    case "boolean":</span>
+<span class="cstat-no" title="statement not covered" >      return {</span>
+        type: "type",
+        typeKind: "primitive",
+        primitiveType: "bool",
+      } as PrimitiveTypeVal
+&nbsp;
+    // Handle other types as needed
+&nbsp;
+    default:
+      return {
+        type: "type",
+        typeKind: "primitive",
+        primitiveType: "dynamic",
+      } as PrimitiveTypeVal
+  }
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -735,14 +738,14 @@ export function <span class="fstat-no" title="function not covered" >eval_while_
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at 2025-03-19T06:16:28.188Z
             </div>
-        <script src="../../../prettify.js"></script>
+        <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../sorter.js"></script>
-        <script src="../../../block-navigation.js"></script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
     </body>
 </html>
     

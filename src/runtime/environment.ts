@@ -8,6 +8,7 @@ import variables from "./built-ins/variables"
 
 export default class Environment {
   private parent?: Environment
+  private typeDefinitions: Map<string, RuntimeVal>
   private variables: Map<string, RuntimeVal>
   private constants: Set<string>
   private finals: Set<string>
@@ -19,6 +20,7 @@ export default class Environment {
     this.variables = new Map()
     this.constants = new Set()
     this.finals = new Set()
+    this.typeDefinitions = new Map()
 
     const global = Boolean(parentEnv) == false
     if (global) {
@@ -32,6 +34,31 @@ export default class Environment {
 
   get context() {
     return this.executionContext
+  }
+
+  public declareType(name: string, value: RuntimeVal): RuntimeVal {
+    if (this.typeDefinitions.has(name))
+      throw new RuntimeError(
+        this.executionContext,
+        `Cannot declare type ${name}. As it already is defined.`,
+      )
+    this.typeDefinitions.set(name, value)
+
+    return value
+  }
+
+  public resolveType(name: string): Environment {
+    if (this.typeDefinitions.has(name)) return this
+
+    if (this.parent == undefined)
+      throw new RuntimeError(this.executionContext, `Unable to resolve type ${name}`)
+
+    return this.parent.resolveType(name)
+  }
+
+  public lookupType(name: string): RuntimeVal {
+    const env = this.resolveType(name)
+    return env.typeDefinitions.get(name) as RuntimeVal
   }
 
   private assertType(varType: ValueType, value: RuntimeVal) {

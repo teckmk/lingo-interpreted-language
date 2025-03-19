@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Interpreter - Structs should interpret structs 1`] = `
+{
+  "members": {
+    "x": {
+      "aliasTo": {
+        "primitiveType": "number",
+        "type": "type",
+        "typeKind": "primitive",
+      },
+      "type": "type",
+      "typeKind": "alias",
+      "typeName": "number",
+    },
+    "y": {
+      "aliasTo": {
+        "primitiveType": "number",
+        "type": "type",
+        "typeKind": "primitive",
+      },
+      "type": "type",
+      "typeKind": "alias",
+      "typeName": "number",
+    },
+  },
+  "optional": {
+    "x": false,
+    "y": false,
+  },
+  "type": "type",
+  "typeKind": "struct",
+  "typeName": undefined,
+}
+`;
+
+exports[`Interpreter - Structs should interpret structs with optional fields 1`] = `
+{
+  "members": {
+    "x": {
+      "aliasTo": {
+        "primitiveType": "number",
+        "type": "type",
+        "typeKind": "primitive",
+      },
+      "type": "type",
+      "typeKind": "alias",
+      "typeName": "number",
+    },
+    "y": {
+      "aliasTo": {
+        "primitiveType": "number",
+        "type": "type",
+        "typeKind": "primitive",
+      },
+      "type": "type",
+      "typeKind": "alias",
+      "typeName": "number",
+    },
+  },
+  "optional": {
+    "x": false,
+    "y": true,
+  },
+  "type": "type",
+  "typeKind": "struct",
+  "typeName": undefined,
+}
+`;

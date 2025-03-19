@@ -8,11 +8,11 @@ exports[`Parser - Loops should parse for in loop 1`] = `
       "indexIdentifier": {
         "position": {
           "end": {
-            "column": 10,
+            "column": 14,
             "line": 1,
           },
           "start": {
-            "column": 9,
+            "column": 13,
             "line": 1,
           },
         },
@@ -24,11 +24,11 @@ exports[`Parser - Loops should parse for in loop 1`] = `
         "symbol": {
           "position": {
             "end": {
-              "column": 19,
+              "column": 23,
               "line": 1,
             },
             "start": {
-              "column": 16,
+              "column": 20,
               "line": 1,
             },
           },
@@ -41,11 +41,11 @@ exports[`Parser - Loops should parse for in loop 1`] = `
       "valueIdentifier": {
         "position": {
           "end": {
-            "column": 12,
+            "column": 16,
             "line": 1,
           },
           "start": {
-            "column": 11,
+            "column": 15,
             "line": 1,
           },
         },
@@ -68,11 +68,11 @@ exports[`Parser - Loops should parse for in range loop with label 1`] = `
         "value": {
           "position": {
             "end": {
-              "column": 29,
+              "column": 33,
               "line": 1,
             },
             "start": {
-              "column": 27,
+              "column": 31,
               "line": 1,
             },
           },
@@ -83,11 +83,11 @@ exports[`Parser - Loops should parse for in range loop with label 1`] = `
       "indexIdentifier": {
         "position": {
           "end": {
-            "column": 10,
+            "column": 14,
             "line": 1,
           },
           "start": {
-            "column": 9,
+            "column": 13,
             "line": 1,
           },
         },
@@ -98,11 +98,11 @@ exports[`Parser - Loops should parse for in range loop with label 1`] = `
       "label": {
         "position": {
           "end": {
-            "column": 40,
+            "column": 44,
             "line": 1,
           },
           "start": {
-            "column": 36,
+            "column": 40,
             "line": 1,
           },
         },
@@ -114,11 +114,11 @@ exports[`Parser - Loops should parse for in range loop with label 1`] = `
         "value": {
           "position": {
             "end": {
-              "column": 23,
+              "column": 27,
               "line": 1,
             },
             "start": {
-              "column": 22,
+              "column": 26,
               "line": 1,
             },
           },
@@ -129,11 +129,11 @@ exports[`Parser - Loops should parse for in range loop with label 1`] = `
       "valueIdentifier": {
         "position": {
           "end": {
-            "column": 12,
+            "column": 16,
             "line": 1,
           },
           "start": {
-            "column": 11,
+            "column": 15,
             "line": 1,
           },
         },
@@ -239,11 +239,11 @@ exports[`Parser - Loops should parse for loop with initializer, condition and up
           "symbol": {
             "position": {
               "end": {
-                "column": 17,
+                "column": 21,
                 "line": 1,
               },
               "start": {
-                "column": 16,
+                "column": 20,
                 "line": 1,
               },
             },
@@ -253,11 +253,11 @@ exports[`Parser - Loops should parse for loop with initializer, condition and up
         "operator": {
           "position": {
             "end": {
-              "column": 19,
+              "column": 23,
               "line": 1,
             },
             "start": {
-              "column": 18,
+              "column": 22,
               "line": 1,
             },
           },
@@ -268,11 +268,11 @@ exports[`Parser - Loops should parse for loop with initializer, condition and up
           "value": {
             "position": {
               "end": {
-                "column": 22,
+                "column": 26,
                 "line": 1,
               },
               "start": {
-                "column": 20,
+                "column": 24,
                 "line": 1,
               },
             },
@@ -284,11 +284,11 @@ exports[`Parser - Loops should parse for loop with initializer, condition and up
         "identifier": {
           "position": {
             "end": {
-              "column": 10,
+              "column": 14,
               "line": 1,
             },
             "start": {
-              "column": 9,
+              "column": 13,
               "line": 1,
             },
           },
@@ -302,11 +302,11 @@ exports[`Parser - Loops should parse for loop with initializer, condition and up
           "value": {
             "position": {
               "end": {
-                "column": 14,
+                "column": 18,
                 "line": 1,
               },
               "start": {
-                "column": 13,
+                "column": 17,
                 "line": 1,
               },
             },
@@ -323,11 +323,11 @@ exports[`Parser - Loops should parse for loop with initializer, condition and up
           "symbol": {
             "position": {
               "end": {
-                "column": 25,
+                "column": 29,
                 "line": 1,
               },
               "start": {
-                "column": 24,
+                "column": 28,
                 "line": 1,
               },
             },
@@ -342,11 +342,11 @@ exports[`Parser - Loops should parse for loop with initializer, condition and up
             "symbol": {
               "position": {
                 "end": {
-                  "column": 29,
+                  "column": 33,
                   "line": 1,
                 },
                 "start": {
-                  "column": 28,
+                  "column": 32,
                   "line": 1,
                 },
               },
@@ -356,11 +356,11 @@ exports[`Parser - Loops should parse for loop with initializer, condition and up
           "operator": {
             "position": {
               "end": {
-                "column": 31,
+                "column": 35,
                 "line": 1,
               },
               "start": {
-                "column": 30,
+                "column": 34,
                 "line": 1,
               },
             },
@@ -371,11 +371,11 @@ exports[`Parser - Loops should parse for loop with initializer, condition and up
             "value": {
               "position": {
                 "end": {
-                  "column": 33,
+                  "column": 37,
                   "line": 1,
                 },
                 "start": {
-                  "column": 32,
+                  "column": 36,
                   "line": 1,
                 },
               },
@@ -502,11 +502,11 @@ exports[`Parser - Loops should parse for loop with label, initializer, condition
           "symbol": {
             "position": {
               "end": {
-                "column": 17,
+                "column": 21,
                 "line": 1,
               },
               "start": {
-                "column": 16,
+                "column": 20,
                 "line": 1,
               },
             },
@@ -516,11 +516,11 @@ exports[`Parser - Loops should parse for loop with label, initializer, condition
         "operator": {
           "position": {
             "end": {
-              "column": 19,
+              "column": 23,
               "line": 1,
             },
             "start": {
-              "column": 18,
+              "column": 22,
               "line": 1,
             },
           },
@@ -531,11 +531,11 @@ exports[`Parser - Loops should parse for loop with label, initializer, condition
           "value": {
             "position": {
               "end": {
-                "column": 22,
+                "column": 26,
                 "line": 1,
               },
               "start": {
-                "column": 20,
+                "column": 24,
                 "line": 1,
               },
             },
@@ -547,11 +547,11 @@ exports[`Parser - Loops should parse for loop with label, initializer, condition
         "identifier": {
           "position": {
             "end": {
-              "column": 10,
+              "column": 14,
               "line": 1,
             },
             "start": {
-              "column": 9,
+              "column": 13,
               "line": 1,
             },
           },
@@ -565,11 +565,11 @@ exports[`Parser - Loops should parse for loop with label, initializer, condition
           "value": {
             "position": {
               "end": {
-                "column": 14,
+                "column": 18,
                 "line": 1,
               },
               "start": {
-                "column": 13,
+                "column": 17,
                 "line": 1,
               },
             },
@@ -581,11 +581,11 @@ exports[`Parser - Loops should parse for loop with label, initializer, condition
       "label": {
         "position": {
           "end": {
-            "column": 44,
+            "column": 48,
             "line": 1,
           },
           "start": {
-            "column": 40,
+            "column": 44,
             "line": 1,
           },
         },
@@ -598,11 +598,11 @@ exports[`Parser - Loops should parse for loop with label, initializer, condition
           "symbol": {
             "position": {
               "end": {
-                "column": 25,
+                "column": 29,
                 "line": 1,
               },
               "start": {
-                "column": 24,
+                "column": 28,
                 "line": 1,
               },
             },
@@ -617,11 +617,11 @@ exports[`Parser - Loops should parse for loop with label, initializer, condition
             "symbol": {
               "position": {
                 "end": {
-                  "column": 29,
+                  "column": 33,
                   "line": 1,
                 },
                 "start": {
-                  "column": 28,
+                  "column": 32,
                   "line": 1,
                 },
               },
@@ -631,11 +631,11 @@ exports[`Parser - Loops should parse for loop with label, initializer, condition
           "operator": {
             "position": {
               "end": {
-                "column": 31,
+                "column": 35,
                 "line": 1,
               },
               "start": {
-                "column": 30,
+                "column": 34,
                 "line": 1,
               },
             },
@@ -646,11 +646,11 @@ exports[`Parser - Loops should parse for loop with label, initializer, condition
             "value": {
               "position": {
                 "end": {
-                  "column": 33,
+                  "column": 37,
                   "line": 1,
                 },
                 "start": {
-                  "column": 32,
+                  "column": 36,
                   "line": 1,
                 },
               },
@@ -675,11 +675,11 @@ exports[`Parser - Loops should parse for range loop 1`] = `
         "value": {
           "position": {
             "end": {
-              "column": 29,
+              "column": 33,
               "line": 1,
             },
             "start": {
-              "column": 27,
+              "column": 31,
               "line": 1,
             },
           },
@@ -690,11 +690,11 @@ exports[`Parser - Loops should parse for range loop 1`] = `
       "indexIdentifier": {
         "position": {
           "end": {
-            "column": 10,
+            "column": 14,
             "line": 1,
           },
           "start": {
-            "column": 9,
+            "column": 13,
             "line": 1,
           },
         },
@@ -709,11 +709,11 @@ exports[`Parser - Loops should parse for range loop 1`] = `
         "value": {
           "position": {
             "end": {
-              "column": 23,
+              "column": 27,
               "line": 1,
             },
             "start": {
-              "column": 22,
+              "column": 26,
               "line": 1,
             },
           },
@@ -724,11 +724,11 @@ exports[`Parser - Loops should parse for range loop 1`] = `
       "valueIdentifier": {
         "position": {
           "end": {
-            "column": 12,
+            "column": 16,
             "line": 1,
           },
           "start": {
-            "column": 11,
+            "column": 15,
             "line": 1,
           },
         },
@@ -751,11 +751,11 @@ exports[`Parser - Loops should parse for range loop with step 1`] = `
         "value": {
           "position": {
             "end": {
-              "column": 34,
+              "column": 38,
               "line": 1,
             },
             "start": {
-              "column": 32,
+              "column": 36,
               "line": 1,
             },
           },
@@ -766,11 +766,11 @@ exports[`Parser - Loops should parse for range loop with step 1`] = `
       "indexIdentifier": {
         "position": {
           "end": {
-            "column": 10,
+            "column": 14,
             "line": 1,
           },
           "start": {
-            "column": 9,
+            "column": 13,
             "line": 1,
           },
         },
@@ -785,11 +785,11 @@ exports[`Parser - Loops should parse for range loop with step 1`] = `
         "value": {
           "position": {
             "end": {
-              "column": 23,
+              "column": 27,
               "line": 1,
             },
             "start": {
-              "column": 22,
+              "column": 26,
               "line": 1,
             },
           },
@@ -801,11 +801,11 @@ exports[`Parser - Loops should parse for range loop with step 1`] = `
         "value": {
           "position": {
             "end": {
-              "column": 41,
+              "column": 45,
               "line": 1,
             },
             "start": {
-              "column": 40,
+              "column": 44,
               "line": 1,
             },
           },
@@ -815,11 +815,11 @@ exports[`Parser - Loops should parse for range loop with step 1`] = `
       "valueIdentifier": {
         "position": {
           "end": {
-            "column": 12,
+            "column": 16,
             "line": 1,
           },
           "start": {
-            "column": 11,
+            "column": 15,
             "line": 1,
           },
         },

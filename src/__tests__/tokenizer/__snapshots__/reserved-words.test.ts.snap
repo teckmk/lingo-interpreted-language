@@ -145,7 +145,7 @@ exports[`Tokenizer - Reserved Words should tokenize final 1`] = `
         "line": 1,
       },
     },
-    "type": "FINAL",
+    "type": "IDENTIFIER",
     "value": "final",
   },
   {
@@ -244,7 +244,7 @@ exports[`Tokenizer - Reserved Words should tokenize let 1`] = `
         "line": 1,
       },
     },
-    "type": "LET",
+    "type": "IDENTIFIER",
     "value": "var",
   },
   {

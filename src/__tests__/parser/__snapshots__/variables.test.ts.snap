@@ -7,11 +7,11 @@ exports[`Parser - Statements should parse various variable declarations 1`] = `
       "identifier": {
         "position": {
           "end": {
-            "column": 6,
+            "column": 10,
             "line": 1,
           },
           "start": {
-            "column": 5,
+            "column": 9,
             "line": 1,
           },
         },
@@ -33,11 +33,11 @@ exports[`Parser - Statements should parse various variable declarations 2`] = `
       "identifier": {
         "position": {
           "end": {
-            "column": 6,
+            "column": 10,
             "line": 1,
           },
           "start": {
-            "column": 5,
+            "column": 9,
             "line": 1,
           },
         },
@@ -46,17 +46,36 @@ exports[`Parser - Statements should parse various variable declarations 2`] = `
       "kind": "VarDeclaration",
       "modifier": "variable",
       "type": {
-        "position": {
-          "end": {
-            "column": 14,
-            "line": 1,
-          },
-          "start": {
-            "column": 8,
-            "line": 1,
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 18,
+                "line": 1,
+              },
+              "start": {
+                "column": 12,
+                "line": 1,
+              },
+            },
+            "value": "number",
           },
         },
-        "value": "number",
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 18,
+              "line": 1,
+            },
+            "start": {
+              "column": 12,
+              "line": 1,
+            },
+          },
+          "value": "number",
+        },
       },
     },
   ],
@@ -126,17 +145,36 @@ exports[`Parser - Statements should parse various variable declarations 4`] = `
       "kind": "VarDeclaration",
       "modifier": "constant",
       "type": {
-        "position": {
-          "end": {
-            "column": 16,
-            "line": 1,
-          },
-          "start": {
-            "column": 10,
-            "line": 1,
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 16,
+                "line": 1,
+              },
+              "start": {
+                "column": 10,
+                "line": 1,
+              },
+            },
+            "value": "number",
           },
         },
-        "value": "number",
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 16,
+              "line": 1,
+            },
+            "start": {
+              "column": 10,
+              "line": 1,
+            },
+          },
+          "value": "number",
+        },
       },
       "value": {
         "kind": "NumericLiteral",
@@ -170,11 +208,11 @@ exports[`Parser - Statements should parse various variable declarations 5`] = `
           "identifier": {
             "position": {
               "end": {
-                "column": 6,
+                "column": 10,
                 "line": 1,
               },
               "start": {
-                "column": 5,
+                "column": 9,
                 "line": 1,
               },
             },
@@ -188,11 +226,11 @@ exports[`Parser - Statements should parse various variable declarations 5`] = `
           "identifier": {
             "position": {
               "end": {
-                "column": 9,
+                "column": 13,
                 "line": 1,
               },
               "start": {
-                "column": 8,
+                "column": 12,
                 "line": 1,
               },
             },
@@ -219,11 +257,11 @@ exports[`Parser - Statements should parse various variable declarations 6`] = `
           "identifier": {
             "position": {
               "end": {
-                "column": 6,
+                "column": 10,
                 "line": 1,
               },
               "start": {
-                "column": 5,
+                "column": 9,
                 "line": 1,
               },
             },
@@ -232,28 +270,47 @@ exports[`Parser - Statements should parse various variable declarations 6`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
-            "position": {
-              "end": {
-                "column": 14,
-                "line": 1,
-              },
-              "start": {
-                "column": 8,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 18,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 12,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
               },
             },
-            "value": "number",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 18,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 12,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
           },
         },
         {
           "identifier": {
             "position": {
               "end": {
-                "column": 17,
+                "column": 21,
                 "line": 1,
               },
               "start": {
-                "column": 16,
+                "column": 20,
                 "line": 1,
               },
             },
@@ -262,17 +319,36 @@ exports[`Parser - Statements should parse various variable declarations 6`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
-            "position": {
-              "end": {
-                "column": 25,
-                "line": 1,
-              },
-              "start": {
-                "column": 19,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 29,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 23,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
               },
             },
-            "value": "number",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 29,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 23,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
           },
         },
       ],
@@ -292,11 +368,11 @@ exports[`Parser - Statements should parse various variable declarations 7`] = `
           "identifier": {
             "position": {
               "end": {
-                "column": 6,
+                "column": 10,
                 "line": 1,
               },
               "start": {
-                "column": 5,
+                "column": 9,
                 "line": 1,
               },
             },
@@ -310,11 +386,11 @@ exports[`Parser - Statements should parse various variable declarations 7`] = `
             "value": {
               "position": {
                 "end": {
-                  "column": 11,
+                  "column": 15,
                   "line": 1,
                 },
                 "start": {
-                  "column": 9,
+                  "column": 13,
                   "line": 1,
                 },
               },
@@ -326,11 +402,11 @@ exports[`Parser - Statements should parse various variable declarations 7`] = `
           "identifier": {
             "position": {
               "end": {
-                "column": 14,
+                "column": 18,
                 "line": 1,
               },
               "start": {
-                "column": 13,
+                "column": 17,
                 "line": 1,
               },
             },
@@ -344,11 +420,11 @@ exports[`Parser - Statements should parse various variable declarations 7`] = `
             "value": {
               "position": {
                 "end": {
-                  "column": 19,
+                  "column": 23,
                   "line": 1,
                 },
                 "start": {
-                  "column": 17,
+                  "column": 21,
                   "line": 1,
                 },
               },
@@ -373,11 +449,11 @@ exports[`Parser - Statements should parse various variable declarations 8`] = `
           "identifier": {
             "position": {
               "end": {
-                "column": 6,
+                "column": 10,
                 "line": 1,
               },
               "start": {
-                "column": 5,
+                "column": 9,
                 "line": 1,
               },
             },
@@ -386,28 +462,47 @@ exports[`Parser - Statements should parse various variable declarations 8`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
-            "position": {
-              "end": {
-                "column": 14,
-                "line": 1,
-              },
-              "start": {
-                "column": 8,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 18,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 12,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
               },
             },
-            "value": "number",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 18,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 12,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
           },
           "value": {
             "kind": "NumericLiteral",
             "value": {
               "position": {
                 "end": {
-                  "column": 19,
+                  "column": 23,
                   "line": 1,
                 },
                 "start": {
-                  "column": 17,
+                  "column": 21,
                   "line": 1,
                 },
               },
@@ -419,11 +514,11 @@ exports[`Parser - Statements should parse various variable declarations 8`] = `
           "identifier": {
             "position": {
               "end": {
-                "column": 22,
+                "column": 26,
                 "line": 1,
               },
               "start": {
-                "column": 21,
+                "column": 25,
                 "line": 1,
               },
             },
@@ -432,28 +527,47 @@ exports[`Parser - Statements should parse various variable declarations 8`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
-            "position": {
-              "end": {
-                "column": 30,
-                "line": 1,
-              },
-              "start": {
-                "column": 24,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 34,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 28,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
               },
             },
-            "value": "number",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 34,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 28,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
           },
           "value": {
             "kind": "NumericLiteral",
             "value": {
               "position": {
                 "end": {
-                  "column": 35,
+                  "column": 39,
                   "line": 1,
                 },
                 "start": {
-                  "column": 33,
+                  "column": 37,
                   "line": 1,
                 },
               },
@@ -478,11 +592,11 @@ exports[`Parser - Statements should parse various variable declarations 9`] = `
           "identifier": {
             "position": {
               "end": {
-                "column": 6,
+                "column": 10,
                 "line": 1,
               },
               "start": {
-                "column": 5,
+                "column": 9,
                 "line": 1,
               },
             },
@@ -496,11 +610,11 @@ exports[`Parser - Statements should parse various variable declarations 9`] = `
             "value": {
               "position": {
                 "end": {
-                  "column": 14,
+                  "column": 18,
                   "line": 1,
                 },
                 "start": {
-                  "column": 12,
+                  "column": 16,
                   "line": 1,
                 },
               },
@@ -512,11 +626,11 @@ exports[`Parser - Statements should parse various variable declarations 9`] = `
           "identifier": {
             "position": {
               "end": {
-                "column": 9,
+                "column": 13,
                 "line": 1,
               },
               "start": {
-                "column": 8,
+                "column": 12,
                 "line": 1,
               },
             },
@@ -530,11 +644,11 @@ exports[`Parser - Statements should parse various variable declarations 9`] = `
             "value": {
               "position": {
                 "end": {
-                  "column": 14,
+                  "column": 18,
                   "line": 1,
                 },
                 "start": {
-                  "column": 12,
+                  "column": 16,
                   "line": 1,
                 },
               },
@@ -559,11 +673,11 @@ exports[`Parser - Statements should parse various variable declarations 10`] = `
           "identifier": {
             "position": {
               "end": {
-                "column": 6,
+                "column": 10,
                 "line": 1,
               },
               "start": {
-                "column": 5,
+                "column": 9,
                 "line": 1,
               },
             },
@@ -572,28 +686,47 @@ exports[`Parser - Statements should parse various variable declarations 10`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
-            "position": {
-              "end": {
-                "column": 14,
-                "line": 1,
-              },
-              "start": {
-                "column": 8,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 18,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 12,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
               },
             },
-            "value": "number",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 18,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 12,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
           },
           "value": {
             "kind": "NumericLiteral",
             "value": {
               "position": {
                 "end": {
-                  "column": 30,
+                  "column": 34,
                   "line": 1,
                 },
                 "start": {
-                  "column": 28,
+                  "column": 32,
                   "line": 1,
                 },
               },
@@ -605,11 +738,11 @@ exports[`Parser - Statements should parse various variable declarations 10`] = `
           "identifier": {
             "position": {
               "end": {
-                "column": 17,
+                "column": 21,
                 "line": 1,
               },
               "start": {
-                "column": 16,
+                "column": 20,
                 "line": 1,
               },
             },
@@ -618,28 +751,47 @@ exports[`Parser - Statements should parse various variable declarations 10`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
-            "position": {
-              "end": {
-                "column": 25,
-                "line": 1,
-              },
-              "start": {
-                "column": 19,
-                "line": 1,
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 29,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 23,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
               },
             },
-            "value": "number",
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 29,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 23,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
           },
           "value": {
             "kind": "NumericLiteral",
             "value": {
               "position": {
                 "end": {
-                  "column": 30,
+                  "column": 34,
                   "line": 1,
                 },
                 "start": {
-                  "column": 28,
+                  "column": 32,
                   "line": 1,
                 },
               },
@@ -661,11 +813,11 @@ exports[`Parser - Statements should parse various variable declarations 11`] = `
       "identifier": {
         "position": {
           "end": {
-            "column": 6,
+            "column": 10,
             "line": 1,
           },
           "start": {
-            "column": 5,
+            "column": 9,
             "line": 1,
           },
         },
@@ -674,28 +826,47 @@ exports[`Parser - Statements should parse various variable declarations 11`] = `
       "kind": "VarDeclaration",
       "modifier": "variable",
       "type": {
-        "position": {
-          "end": {
-            "column": 15,
-            "line": 1,
-          },
-          "start": {
-            "column": 8,
-            "line": 1,
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 19,
+                "line": 1,
+              },
+              "start": {
+                "column": 12,
+                "line": 1,
+              },
+            },
+            "value": "dynamic",
           },
         },
-        "value": "dynamic",
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 19,
+              "line": 1,
+            },
+            "start": {
+              "column": 12,
+              "line": 1,
+            },
+          },
+          "value": "dynamic",
+        },
       },
       "value": {
         "kind": "NumericLiteral",
         "value": {
           "position": {
             "end": {
-              "column": 20,
+              "column": 24,
               "line": 1,
             },
             "start": {
-              "column": 18,
+              "column": 22,
               "line": 1,
             },
           },

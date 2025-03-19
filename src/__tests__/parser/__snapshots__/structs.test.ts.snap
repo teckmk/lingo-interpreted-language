@@ -1,25 +1,153 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Parser - Structs should parse struct intialization 1`] = `
+{
+  "body": [
+    {
+      "identifier": {
+        "position": {
+          "end": {
+            "column": 6,
+            "line": 1,
+          },
+          "start": {
+            "column": 5,
+            "line": 1,
+          },
+        },
+        "value": "p",
+      },
+      "kind": "VarDeclaration",
+      "modifier": "final",
+      "type": undefined,
+      "value": {
+        "instanceOf": {
+          "position": {
+            "end": {
+              "column": 14,
+              "line": 1,
+            },
+            "start": {
+              "column": 9,
+              "line": 1,
+            },
+          },
+          "value": "Point",
+        },
+        "kind": "ObjectLiteral",
+        "properties": [
+          {
+            "key": {
+              "position": {
+                "end": {
+                  "column": 18,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 1,
+                },
+              },
+              "value": "x",
+            },
+            "kind": "Property",
+            "value": {
+              "kind": "NumericLiteral",
+              "value": {
+                "position": {
+                  "end": {
+                    "column": 21,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 20,
+                    "line": 1,
+                  },
+                },
+                "value": 1,
+              },
+            },
+          },
+          {
+            "key": {
+              "position": {
+                "end": {
+                  "column": 24,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 23,
+                  "line": 1,
+                },
+              },
+              "value": "y",
+            },
+            "kind": "Property",
+            "value": {
+              "kind": "NumericLiteral",
+              "value": {
+                "position": {
+                  "end": {
+                    "column": 27,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 26,
+                    "line": 1,
+                  },
+                },
+                "value": 2,
+              },
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
 exports[`Parser - Structs should parse structs 1`] = `
 {
   "body": [
     {
       "kind": "TypeDeclaration",
       "name": {
-        "position": {
-          "end": {
-            "column": 11,
-            "line": 1,
-          },
-          "start": {
-            "column": 6,
-            "line": 1,
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 11,
+                "line": 1,
+              },
+              "start": {
+                "column": 6,
+                "line": 1,
+              },
+            },
+            "value": "Point",
           },
         },
-        "value": "Point",
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 11,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Point",
+        },
       },
       "type": {
-        "fields": [
+        "kind": "StructType",
+        "members": [
           {
             "kind": "StructMember",
             "name": {
@@ -35,18 +163,38 @@ exports[`Parser - Structs should parse structs 1`] = `
               },
               "value": "x",
             },
+            "optional": false,
             "type": {
-              "position": {
-                "end": {
-                  "column": 16,
-                  "line": 2,
-                },
-                "start": {
-                  "column": 10,
-                  "line": 2,
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 16,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 10,
+                      "line": 2,
+                    },
+                  },
+                  "value": "number",
                 },
               },
-              "value": "number",
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 16,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 10,
+                    "line": 2,
+                  },
+                },
+                "value": "number",
+              },
             },
           },
           {
@@ -64,22 +212,41 @@ exports[`Parser - Structs should parse structs 1`] = `
               },
               "value": "y",
             },
+            "optional": false,
             "type": {
-              "position": {
-                "end": {
-                  "column": 16,
-                  "line": 3,
-                },
-                "start": {
-                  "column": 10,
-                  "line": 3,
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 16,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 10,
+                      "line": 3,
+                    },
+                  },
+                  "value": "number",
                 },
               },
-              "value": "number",
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 16,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 10,
+                    "line": 3,
+                  },
+                },
+                "value": "number",
+              },
             },
           },
         ],
-        "kind": "StructLiteral",
       },
     },
   ],

@@ -16,7 +16,6 @@ import {
   WhileStatement,
   StringLiteral,
   ArrayLiteral,
-  Type,
   FunctionParam,
   ReturnStatement,
   MultiVarDeclaration,
@@ -29,7 +28,9 @@ import {
   LeafNode,
   TypeDeclaration,
   StructMember,
-  StructLiteral,
+  TypeNode,
+  GenericType,
+  StructType,
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType } from "./lexer/specs"
@@ -46,6 +47,14 @@ export function get_leaf(token: Token) {
     value: token.value,
     position: token.position,
   }
+}
+
+function isLessThan(token: Token) {
+  return token.type == TokenType.RelationalOperator && token.value == "<"
+}
+
+function isGreaterThan(token: Token) {
+  return token.type == TokenType.RelationalOperator && token.value == ">"
 }
 
 export default class Parser {
@@ -74,8 +83,7 @@ export default class Parser {
   private expect(type: TokenType, err: any) {
     const prev = this.eat() as Token
     if (!prev || prev.type !== type) {
-      console.log("Parser Error:\n", err, prev, "Expecting: ", type)
-      process.exit(1)
+      throw new Error(`Parser Error:", ${err}, got: ${prev.type}, "Expecting: ", ${type}`)
     }
     return prev
   }
@@ -83,8 +91,7 @@ export default class Parser {
   private expectOneOf(label: TypesGroup, types: TokenType[], err: any) {
     const token = this.eat() as Token
     if (!token || !types.includes(token.type)) {
-      console.log("Parser Error:\n", err, token, "Expecting: ", label)
-      process.exit(1)
+      throw new Error(`Parser Error:", ${err},got: ${token.type}, "Expecting: ", ${label}`)
     }
     return token
   }
@@ -118,11 +125,189 @@ export default class Parser {
   }
 
   private parse_type_declaration(): TypeDeclaration {
-    this.eat() // eat type token
-    const name = this.expect(TokenType.Identifier, "Expected type name following type keyword")
+    const otken = this.eat() // eat type token
+    if (this.at().type != TokenType.TypeIdentifier) {
+      throw new Error(`Type name '${this.at().value}' must start with a capital letter.`)
+    }
+    const name = this.parse_type_name()
     this.expect(TokenType.Equals, "Expected '=' following type name")
-    const type = this.parse_expr()
-    return { kind: "TypeDeclaration", name: get_leaf(name), type }
+    const type = this.parse_type()
+    return { kind: "TypeDeclaration", name, type }
+  }
+
+  private parse_type_name(): TypeNode {
+    // Check if it's a named type (could be a struct, alias, or generic)
+    const typeName = this.expect(TokenType.TypeIdentifier, "Expected type name")
+
+    // Check if it's a generic type with parameters
+    if (isLessThan(this.at())) {
+      return this.parse_generic_type(typeName)
+    }
+
+    // Regular named type
+    return {
+      kind: "AliasType",
+      name: get_leaf(typeName),
+      actualType: {
+        kind: "PrimitiveType",
+        name: get_leaf(typeName),
+      },
+    }
+  }
+
+  private parse_type_anotation(typeSeparator: TokenType = TokenType.Colon): TypeNode | undefined {
+    // Skip the colon/arrow that typically precedes a type annotation
+    if (this.at().type === typeSeparator) {
+      this.eat()
+      return this.parse_type()
+    }
+
+    return undefined // No type annotation present
+  }
+
+  private parse_type(): TypeNode {
+    if (this.at().type == TokenType.StructType) {
+      return this.parse_struct_type()
+    }
+
+    // Start by parsing the first type in a potential union
+    let type = this.parse_single_type()
+
+    // Check if it's a union type
+    while (this.at().type === TokenType.PipeOperator) {
+      this.eat() // consume '|'
+      const right = this.parse_single_type()
+
+      // If we already have a union, add to it
+      if (type.kind === "UnionType") {
+        type.types.push(right)
+      } else {
+        // Create a new union type
+        type = {
+          kind: "UnionType",
+          types: [type, right],
+        }
+      }
+    }
+
+    return type
+  }
+
+  private parse_struct_type(): StructType {
+    this.eat() // eat struct token
+    const members = new Array<StructMember>()
+
+    this.expect(TokenType.OpenBrace, "Struct literal missing opening brace.")
+
+    while (this.not_eof() && this.at().type != TokenType.CloseBrace) {
+      const name = this.expect(TokenType.Identifier, "Struct literal key expected")
+      this.expect(TokenType.Colon, `Missing colon following '${name.value}' in struct`)
+      const type = this.parse_type()
+
+      if (!type) {
+        throw new Error("Struct member must have a type")
+      }
+
+      let optional = false
+      if (this.at().type == TokenType.QuestionMark) {
+        this.eat()
+        optional = true
+      }
+
+      members.push({ kind: "StructMember", name: get_leaf(name), type, optional })
+    }
+
+    this.expect(TokenType.CloseBrace, "Struct literal missing closing brace.")
+
+    return { kind: "StructType", members }
+  }
+
+  private parse_single_type(): TypeNode {
+    // Parse the base type (primitive or named)
+    let type = this.parse_base_type()
+
+    // Check for array notation that follows the type
+    while (this.at().type === TokenType.OpenBracket) {
+      this.eat() // consume '['
+      this.expect(TokenType.CloseBracket, "Expected ']' after '['")
+
+      // Wrap the current type in an array type
+      type = {
+        kind: "ArrayType",
+        elementType: type,
+      }
+    }
+
+    return type
+  }
+
+  private parse_base_type(): TypeNode {
+    // Check if it's a named type (could be a struct, alias, or generic)
+    if (
+      this.at().type === TokenType.TypeIdentifier ||
+      this.at().type === TokenType.NumberType ||
+      this.at().type === TokenType.StringType ||
+      this.at().type === TokenType.BooleanType ||
+      this.at().type === TokenType.DynamicType
+    ) {
+      const typeName = this.eat()
+
+      // Check if it's a generic type with parameters
+      if (isLessThan(this.at())) {
+        return this.parse_generic_type(typeName)
+      }
+
+      // Regular named type
+      return {
+        kind: "AliasType",
+        name: get_leaf(typeName),
+        actualType: {
+          kind: "PrimitiveType",
+          name: get_leaf(typeName),
+        },
+      }
+    }
+
+    // Primitive types
+    const typeToken = this.expectOneOf(
+      TypesGroup.TypeAnnotation,
+      [TokenType.NumberType, TokenType.StringType, TokenType.BooleanType, TokenType.DynamicType],
+      "Expected valid type annotation",
+    )
+
+    return {
+      kind: "PrimitiveType",
+      name: get_leaf(typeToken),
+    }
+  }
+
+  private parse_generic_type(nameToken: Token): GenericType {
+    this.eat() // consume '<'
+
+    const parameters: TypeNode[] = []
+
+    // Parse type parameters
+    while (this.not_eof() && !isGreaterThan(this.at())) {
+      parameters.push(this.parse_type())
+
+      if (this.at().type === TokenType.Comma) {
+        this.eat() // consume comma
+      } else {
+        break
+      }
+    }
+
+    const token = this.expect(TokenType.RelationalOperator, "Expected '>' after type parameters")
+
+    if (!isGreaterThan(token)) {
+      throw new Error("Expected '>' after type parameters")
+    }
+
+    return {
+      kind: "GenericType",
+      name: get_leaf(nameToken),
+      parameters,
+    }
   }
 
   private parse_code_block(): Stmt[] {
@@ -149,11 +334,10 @@ export default class Parser {
     return block
   }
 
-  private parse_return_type(): LeafNode<Type> | LeafNode<Type>[] | undefined {
+  private parse_return_type(): TypeNode | TypeNode[] | undefined {
     let returnType = undefined
     if (this.at().type == TokenType.Arrow) {
-      this.eat() // eat arrow
-      returnType = this.parse_type_anotation()
+      returnType = this.parse_type_anotation(TokenType.Arrow)
     }
 
     while (this.at().type == TokenType.Comma) {
@@ -161,7 +345,7 @@ export default class Parser {
       if (!returnType) returnType = []
       else if (!Array.isArray(returnType)) returnType = [returnType]
 
-      returnType.push(this.parse_type_anotation())
+      returnType.push(this.parse_type())
     }
 
     return returnType
@@ -510,17 +694,6 @@ export default class Parser {
     } as WhileStatement
   }
 
-  private parse_type_anotation(): LeafNode<Type> | undefined {
-    // Check for types
-    const type = this.expectOneOf(
-      TypesGroup.TypeAnnotation,
-      [TokenType.NumberType, TokenType.StringType, TokenType.BooleanType, TokenType.DynamicType],
-      "Expected valid type annotation following ':'",
-    )
-
-    return get_leaf(type)
-  }
-
   private verify_must_assign(modifier: VarModifier) {
     if (modifier == "final") {
       throw new Error("Must assign a value to final expression.")
@@ -553,11 +726,7 @@ export default class Parser {
       "Expected identifier name following variable declarator.",
     )
 
-    let type = undefined
-    if (this.at().type == TokenType.Colon) {
-      this.eat() // eat colon
-      type = this.parse_type_anotation()
-    }
+    const type = this.parse_type_anotation()
 
     // parse shorthands like:
     // var a, b
@@ -581,11 +750,7 @@ export default class Parser {
 
         const identifier = this.expect(TokenType.Identifier, "Expected identifier after comma.")
 
-        let type = undefined
-        if (this.at().type == TokenType.Colon) {
-          this.eat() // eat colon
-          type = this.parse_type_anotation()
-        }
+        const type = this.parse_type_anotation()
 
         shorthands.push({
           kind: "VarDeclaration",
@@ -641,11 +806,7 @@ export default class Parser {
 
         const identifier = this.expect(TokenType.Identifier, "Expected identifier after comma.")
 
-        let type = undefined
-        if (this.at().type == TokenType.Colon) {
-          this.eat() // eat colon
-          type = this.parse_type_anotation()
-        }
+        const type = this.parse_type_anotation()
 
         const dec = {
           kind: "VarDeclaration",
@@ -719,8 +880,9 @@ export default class Parser {
     return { kind: "ArrayLiteral", elements } as ArrayLiteral
   }
 
-  private parse_object_expr(): Expr {
-    this.eat() // eat opening brace
+  private parse_object_expr(): ObjectLiteral {
+    const structName = this.expect(TokenType.TypeIdentifier, "Expected struct name.")
+    this.eat() // eat open brace
     const props = new Array<Property>()
 
     while (this.not_eof() && this.at().type != TokenType.CloseBrace) {
@@ -750,38 +912,16 @@ export default class Parser {
     }
 
     this.expect(TokenType.CloseBrace, "Object literal missing closing brace.")
-    return { kind: "ObjectLiteral", properties: props } as ObjectLiteral
-  }
-
-  private parse_struct_expr(): StructLiteral {
-    this.eat() // eat struct token
-    const members = new Array<StructMember>()
-
-    this.expect(TokenType.OpenBrace, "Struct literal missing opening brace.")
-
-    while (this.not_eof() && this.at().type != TokenType.CloseBrace) {
-      const name = this.expect(TokenType.Identifier, "Struct literal key expected")
-      this.expect(TokenType.Colon, "Missing colon following identifier in struct")
-      const type = this.parse_type_anotation()
-
-      if (!type) {
-        throw new Error("Struct member must have a type")
-      }
-
-      members.push({ kind: "StructMember", name: get_leaf(name), type })
-    }
-
-    this.expect(TokenType.CloseBrace, "Struct literal missing closing brace.")
-
-    return { kind: "StructLiteral", fields: members }
+    return { kind: "ObjectLiteral", properties: props, instanceOf: get_leaf(structName) }
   }
 
   private parse_assigne(): Expr {
     if (this.at().type == TokenType.OpenBracket) {
       return this.parse_array_expr()
-    } else if (this.at().type == TokenType.StructType) {
-      return this.parse_struct_expr()
-    } else if (this.at().type == TokenType.OpenBrace) {
+    } else if (
+      this.at().type == TokenType.TypeIdentifier &&
+      this.at(1).type == TokenType.OpenBrace
+    ) {
       return this.parse_object_expr()
     }
 
@@ -921,11 +1061,7 @@ export default class Parser {
   private parse_parameter(): FunctionParam {
     const ident = this.expect(TokenType.Identifier, "Expected identifier in function parameter")
 
-    let type = undefined
-    if (this.at().type == TokenType.Colon) {
-      this.eat() // eat colon
-      type = this.parse_type_anotation()
-    }
+    const type = this.parse_type_anotation()
 
     // check for default values
     if (this.at().type == TokenType.Equals) {
@@ -1045,8 +1181,7 @@ export default class Parser {
       case TokenType.OpenParen:
         return this.parse_paren_expression()
       default:
-        console.error("Unexpected token found in parser:", this.at())
-        process.exit(1)
+        throw new Error(`Unexpected token found in parser:, ${this.at().type}: ${this.at().value}`)
     }
   }
 

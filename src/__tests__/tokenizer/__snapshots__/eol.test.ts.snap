@@ -13,7 +13,7 @@ exports[`Tokenizer - End of Line should tokenize eol 1`] = `
         "line": 1,
       },
     },
-    "type": "LET",
+    "type": "IDENTIFIER",
     "value": "var",
   },
   {
@@ -140,7 +140,7 @@ exports[`Tokenizer - End of Line should tokenize eol 1`] = `
         "line": 2,
       },
     },
-    "type": "LET",
+    "type": "IDENTIFIER",
     "value": "var",
   },
   {

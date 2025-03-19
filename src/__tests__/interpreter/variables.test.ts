@@ -2,7 +2,7 @@ import { interpret } from "../../runtime/interpreter";
 
 describe("Interpreter - Variables", () => {
   it("should interpret var declaration", () => {
-    const code = `var x = 5`;
+    const code = `let mut x = 5`;
 
     const runtimeVal = interpret("test", code);
 
@@ -10,7 +10,7 @@ describe("Interpreter - Variables", () => {
   });
 
   it("should interpret shorthand var declaration", () => {
-    const code = `var a = 5, b = 6, c = 7`;
+    const code = `let mut a = 5, b = 6, c = 7`;
 
     const runtimeVal = interpret("test", code);
 
@@ -50,7 +50,7 @@ describe("Interpreter - Variables", () => {
   });
 
   it("should interpret final declaration", () => {
-    const code = `final x = 5`;
+    const code = `let x = 5`;
 
     const runtimeVal = interpret("test", code);
 
@@ -58,7 +58,7 @@ describe("Interpreter - Variables", () => {
   });
 
   it("should interpret final shorthand declaration", () => {
-    const code = `final a = 5, b = 6, c = 7`;
+    const code = `let a = 5, b = 6, c = 7`;
 
     const runtimeVal = interpret("test", code);
 
@@ -74,7 +74,7 @@ describe("Interpreter - Variables", () => {
   });
 
   it("should update variable value after assignment", () => {
-    const code = `var x = 5
+    const code = `let mut x = 5
      x = 10`;
 
     const runtimeVal = interpret("test", code);
@@ -92,7 +92,7 @@ describe("Interpreter - Variables", () => {
   });
 
   it("should not allow final reassignment", () => {
-    const code = `final x = 5
+    const code = `let x = 5
      x = 10`;
 
     const runtimeVal = interpret("test", code);
@@ -101,7 +101,7 @@ describe("Interpreter - Variables", () => {
   });
 
   it("should type infer types in variable assignment", () => {
-    const code = `var x = 5
+    const code = `let mut x = 5
      x = "string"`;
 
     const runtimeVal = interpret("test", code);
@@ -110,7 +110,7 @@ describe("Interpreter - Variables", () => {
   });
 
   it("should allow variable reassignment with different type of dynamic type", () => {
-    const code = `var x: dynamic = 5
+    const code = `let mut x: dynamic = 5
      x = "string"`;
 
     const runtimeVal = interpret("test", code);

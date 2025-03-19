@@ -1,5 +1,5 @@
-import { DocComment, LeafNode } from "../../frontend/ast"
-import { ArrayVal, BooleanVal, FunctionVal, StringVal } from "./../values"
+import { DocComment, LeafNode, StructType } from "../../frontend/ast"
+import { ArrayVal, BooleanVal, FunctionVal, NullVal, StringVal } from "./../values"
 import {
   ArrayLiteral,
   AssignmentExpr,
@@ -18,6 +18,8 @@ import { NativeFnVal, NumberVal, ObjectVal, RuntimeVal } from "../values"
 import { eval_code_block } from "./statements"
 import { RuntimeError } from "../error"
 import { ExecutionContext } from "../execution-context"
+import { PrimitiveTypeVal, StructTypeVal, TypeVal } from "../values.types"
+import { areTypesCompatible, getRuntimeType } from "../type-checker"
 
 function eval_numeric_binary_expr(
   lhs: NumberVal,
@@ -87,17 +89,88 @@ export function eval_identifier(ident: Identifier, env: Environment, _context: E
   return val
 }
 
+// struct fields must have type
+// struct field can be optional
+// optional fiedls can have default value
+
+export function eval_struct_type(
+  node: StructType,
+  env: Environment,
+  context: ExecutionContext,
+): StructTypeVal {
+  const members: Record<string, TypeVal> = {}
+  const optional: Record<string, boolean> = {}
+
+  for (const member of node.members) {
+    const memberType = evaluate(member.type, context, env) as TypeVal
+    if (memberType.type !== "type") {
+      throw new RuntimeError(context, `Expected type for struct member but got ${memberType.type}`)
+    }
+
+    members[member.name.value] = memberType
+    optional[member.name.value] = member.optional
+  }
+
+  return {
+    type: "type",
+    typeKind: "struct",
+    typeName: node.name?.value,
+    members,
+    optional,
+  } as StructTypeVal
+}
+
 export function eval_object_expr(
   obj: ObjectLiteral,
   env: Environment,
   context: ExecutionContext,
 ): RuntimeVal {
-  const object = { type: "object", properties: new Map() } as ObjectVal
+  const object = { type: "object", properties: new Map(), returned: false } as ObjectVal
 
-  for (const { key, value } of obj.properties) {
-    const runtimeVal = value == undefined ? env.lookupVar(key.value) : evaluate(value, context, env)
+  const typeName = obj.instanceOf.value
+  const type = env.lookupType(typeName) as StructTypeVal
 
-    object.properties.set(key.value, runtimeVal)
+  if (type.typeKind !== "struct") {
+    throw new RuntimeError(context, `Type '${typeName}' is not a struct`)
+  }
+
+  // Ensure all required fields are initialized
+  for (const [fieldName, fieldType] of Object.entries(type.members)) {
+    const providedProperty = obj.properties.find(({ key }) => key.value === fieldName)
+    const isOptional = type.optional[fieldName]
+
+    if (!providedProperty && !isOptional) {
+      throw new RuntimeError(
+        context,
+        `Missing required field '${fieldName}' in struct '${typeName}'`,
+      )
+    }
+
+    let runtimeVal: RuntimeVal = { type: "null", value: null } as NullVal
+
+    if (providedProperty) {
+      runtimeVal = providedProperty.value
+        ? evaluate(providedProperty.value, context, env)
+        : env.lookupVar(fieldName)
+
+      const [isCompatible, , targetType] = areTypesCompatible(getRuntimeType(runtimeVal), fieldType)
+
+      if (!isCompatible) {
+        throw new RuntimeError(
+          context,
+          `Field '${fieldName}' in struct '${typeName}' must be of type '${(targetType as PrimitiveTypeVal).primitiveType}', but got '${runtimeVal.type}'`,
+        )
+      }
+    }
+
+    object.properties.set(fieldName, runtimeVal)
+  }
+
+  // Ensure there are no extra fields in the object
+  for (const { key } of obj.properties) {
+    if (!type.members[key.value]) {
+      throw new RuntimeError(context, `Unknown field '${key.value}' in struct '${typeName}'`)
+    }
   }
 
   return object

@@ -20,7 +20,6 @@ export type NodeType =
   | "BinaryExpr"
   | "FunctionParam"
   | "StructMember"
-  | "StructExpr"
   // Literals
   | "Property"
   | "ObjectLiteral"
@@ -29,7 +28,14 @@ export type NodeType =
   | "Identifier"
   | "ArrayLiteral"
   | "DocComment"
-  | "StructLiteral"
+  // Types
+  | "TypeDeclaration"
+  | "PrimitiveType"
+  | "StructType"
+  | "AliasType"
+  | "GenericType"
+  | "UnionType"
+  | "ArrayType"
 
 export type Type = "string" | "number" | "bool" | "array" | "object" | "dynamic"
 export type VarModifier = "constant" | "final" | "variable"
@@ -51,17 +57,11 @@ export interface Program extends Stmt {
   body: Stmt[]
 }
 
-export interface TypeDeclaration extends Stmt {
-  kind: "TypeDeclaration"
-  name: LeafNode<string>
-  type: Expr
-}
-
 export interface VarDeclaration extends Stmt {
   kind: "VarDeclaration"
   modifier: VarModifier
   identifier: LeafNode<string>
-  type?: LeafNode<Type>
+  type?: TypeNode
   value?: Expr
 }
 
@@ -73,7 +73,7 @@ export interface MultiVarDeclaration extends Stmt {
 export interface FunctionParam extends Stmt {
   kind: "FunctionParam"
   name: LeafNode<string>
-  type?: LeafNode<Type>
+  type?: TypeNode
   default?: Expr // to assign a default value
 }
 
@@ -81,7 +81,7 @@ export interface FunctionDeclaration extends Stmt {
   kind: "FunctionDeclaration"
   name: LeafNode<string>
   parameters: FunctionParam[]
-  returnType: LeafNode<Type> | LeafNode<Type>[]
+  returnType: NodeType | NodeType[] | undefined
   body: Stmt[]
 }
 
@@ -201,17 +201,14 @@ export interface Property extends Expr {
 export interface StructMember extends Expr {
   kind: "StructMember"
   name: LeafNode<string>
-  type: LeafNode<Type>
-}
-
-export interface StructLiteral extends Expr {
-  kind: "StructLiteral"
-  fields: StructMember[]
+  type: TypeNode // Supports structs, generics, etc.
+  optional: boolean
 }
 
 // instance of struct
 export interface ObjectLiteral extends Expr {
   kind: "ObjectLiteral"
+  instanceOf: LeafNode<string>
   properties: Property[]
 }
 
@@ -222,4 +219,53 @@ export interface ArrayLiteral extends Expr {
 
 export interface DocComment extends Expr {
   kind: "DocComment"
+}
+
+export interface TypeDeclaration extends Stmt {
+  kind: "TypeDeclaration"
+  name: TypeNode
+  type: TypeNode
+
+  // we need this to differentiate b/w generic type:
+  // type User<T> = Response<T>
+  // and
+  // type User = Response<User> // note: User is not generic, on left
+  parameters?: TypeNode[]
+}
+
+export type TypeNode = PrimitiveType | StructType | AliasType | GenericType | UnionType | ArrayType
+
+export interface PrimitiveType extends Expr {
+  kind: "PrimitiveType"
+  name: LeafNode<"string" | "number" | "bool" | "dynamic">
+}
+
+export interface StructType extends Expr {
+  kind: "StructType"
+  name?: LeafNode<string>
+  members: StructMember[]
+}
+
+export interface AliasType extends Expr {
+  kind: "AliasType"
+  name?: LeafNode<string>
+  actualType: TypeNode
+}
+
+export interface GenericType extends Expr {
+  kind: "GenericType"
+  name?: LeafNode<string>
+  parameters: TypeNode[]
+}
+
+export interface UnionType extends Expr {
+  kind: "UnionType"
+  name?: LeafNode<string>
+  types: TypeNode[]
+}
+
+export interface ArrayType extends Expr {
+  kind: "ArrayType"
+  name?: LeafNode<string>
+  elementType: TypeNode
 }

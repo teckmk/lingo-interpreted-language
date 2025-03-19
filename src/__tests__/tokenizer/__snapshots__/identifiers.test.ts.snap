@@ -46,7 +46,7 @@ exports[`Tokenizer - Identifiers should tokenize identifiers with capital letter
         "line": 1,
       },
     },
-    "type": "IDENTIFIER",
+    "type": "TYPE_IDENTIFIER",
     "value": "X",
   },
   {

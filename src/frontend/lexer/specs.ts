@@ -2,6 +2,7 @@ export enum TokenType {
   NumberLiteral = "NUMBER_LITERAL",
   StringLiteral = "STRING_LITERAL",
   Identifier = "IDENTIFIER",
+  TypeIdentifier = "TYPE_IDENTIFIER",
   SingleLineComment = "SINLE_LINE_COMMENT",
   DocComment = "DOC_COMMENT",
   MultiLineComment = "MULTI_LINE_COMMENT",
@@ -12,6 +13,7 @@ export enum TokenType {
   EOF = "END_OF_FILE",
   EOL = "END_OF_LINE",
 
+  QuestionMark = "QUESTION_MARK", // ?
   Arrow = "ARROW", // ->
   Equals = "ASSIGNMENT_OPERATOR", // =
   Comma = "COMMA", // ,
@@ -32,6 +34,7 @@ export enum TokenType {
   RelationalOperator = "RELATIONAL_OPERATOR", // > < >= <=
   UpdateOperator = "UPDATE_OPERATOR", // ++ --
   ExponentOperator = "EXPONENT_OPERATOR", // **
+  PipeOperator = "PIPE_OPERATOR", // |
 
   // Reserved
   // KeyWords
@@ -71,9 +74,9 @@ export const specs: Spec[] = [
   { regex: /^([\d]*[.])?[\d]+/, tokenType: TokenType.NumberLiteral },
   { regex: /^"((?:\\.|[^"\\])*)"/, tokenType: TokenType.StringLiteral },
 
-  { regex: /^\bvar\b/, tokenType: TokenType.Let },
+  { regex: /^let mut\b/, tokenType: TokenType.Let },
   { regex: /^\bconst\b/, tokenType: TokenType.Const },
-  { regex: /^\bfinal\b/, tokenType: TokenType.Final },
+  { regex: /^\blet\b/, tokenType: TokenType.Final },
   { regex: /^\bfn\b/, tokenType: TokenType.Fn },
   { regex: /^\breturn\b/, tokenType: TokenType.Return },
   { regex: /^\bif\b/, tokenType: TokenType.If },
@@ -99,6 +102,7 @@ export const specs: Spec[] = [
   { regex: /^\band\b/, tokenType: TokenType.LogicGate },
   { regex: /^\bor\b/, tokenType: TokenType.LogicGate },
 
+  { regex: /^[A-Z][a-zA-Z0-9_]*/, tokenType: TokenType.TypeIdentifier },
   { regex: /^[a-zA-Z_][a-zA-Z0-9_]*/, tokenType: TokenType.Identifier },
 
   { regex: /^\/\/.*/, tokenType: TokenType.SingleLineComment },
@@ -120,6 +124,8 @@ export const specs: Spec[] = [
   { regex: /^&&/, tokenType: TokenType.LogicGate },
   { regex: /^\|\|/, tokenType: TokenType.LogicGate },
 
+  { regex: /^\|/, tokenType: TokenType.PipeOperator },
+
   { regex: /^:/, tokenType: TokenType.Colon },
   { regex: /^;/, tokenType: TokenType.SemiColon },
   { regex: /^,/, tokenType: TokenType.Comma },
@@ -132,6 +138,7 @@ export const specs: Spec[] = [
   { regex: /^}/, tokenType: TokenType.CloseBrace },
   { regex: /^\[/, tokenType: TokenType.OpenBracket },
   { regex: /^\]/, tokenType: TokenType.CloseBracket },
+  { regex: /^\?/, tokenType: TokenType.QuestionMark },
 
   { regex: /^\r\n/, tokenType: TokenType.EOL },
   { regex: /^\n/, tokenType: TokenType.EOL },
