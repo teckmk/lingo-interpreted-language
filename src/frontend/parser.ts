@@ -125,7 +125,7 @@ export default class Parser {
   }
 
   private parse_type_declaration(): TypeDeclaration {
-    const otken = this.eat() // eat type token
+    this.eat() // eat type token
     if (this.at().type != TokenType.TypeIdentifier) {
       throw new Error(`Type name '${this.at().value}' must start with a capital letter.`)
     }
