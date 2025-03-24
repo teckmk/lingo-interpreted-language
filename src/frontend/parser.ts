@@ -31,6 +31,7 @@ import {
   TypeNode,
   GenericType,
   StructType,
+  TypeParameter,
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType } from "./lexer/specs"
@@ -94,6 +95,20 @@ export default class Parser {
       throw new Error(`Parser Error:", ${err},got: ${token.type}, "Expecting: ", ${label}`)
     }
     return token
+  }
+
+  private expect_less_than() {
+    const token = this.eat()
+    if (!isLessThan(token)) {
+      throw new Error("Expected '<' for generic type arguments")
+    }
+  }
+
+  private expect_greater_than() {
+    const token = this.eat()
+    if (!isGreaterThan(token)) {
+      throw new Error("Expected '>' to close generic type arguments")
+    }
   }
 
   // 1.
@@ -284,11 +299,27 @@ export default class Parser {
   private parse_generic_type(nameToken: Token): GenericType {
     this.eat() // consume '<'
 
-    const parameters: TypeNode[] = []
+    const parameters: TypeParameter[] = []
 
     // Parse type parameters
     while (this.not_eof() && !isGreaterThan(this.at())) {
-      parameters.push(this.parse_type())
+      // Parse parameter name
+      const paramNameToken = this.expect(TokenType.TypeIdentifier, "Expected type parameter name")
+
+      let constraint: TypeNode | undefined = undefined
+
+      // Check for constraint (T: number)
+      if (this.at().type === TokenType.Colon) {
+        this.eat() // consume ':'
+        constraint = this.parse_type()
+      }
+
+      // Create TypeParameter
+      parameters.push({
+        kind: "TypeParameter",
+        name: get_leaf(paramNameToken),
+        constraint,
+      })
 
       if (this.at().type === TokenType.Comma) {
         this.eat() // consume comma
@@ -297,7 +328,7 @@ export default class Parser {
       }
     }
 
-    const token = this.expect(TokenType.RelationalOperator, "Expected '>' after type parameters")
+    const token = this.eat() // consume '>'
 
     if (!isGreaterThan(token)) {
       throw new Error("Expected '>' after type parameters")
@@ -351,9 +382,14 @@ export default class Parser {
     return returnType
   }
 
-  private parse_fn_declaration(): Stmt {
+  private parse_fn_declaration(): FunctionDeclaration {
     this.eat() // eat fn token
     const name = this.expect(TokenType.Identifier, "Expected function name following fn keyword")
+
+    let typeParameters: TypeParameter[] | undefined = undefined
+    if (isLessThan(this.at())) {
+      typeParameters = this.parse_generic_type(name).parameters
+    }
 
     const params = this.parse_params()
 
@@ -361,15 +397,14 @@ export default class Parser {
 
     const body = this.parse_code_block()
 
-    const fn = {
+    return {
       kind: "FunctionDeclaration",
       name: get_leaf(name),
       parameters: params,
+      typeParameters,
       body,
       returnType,
-    } as FunctionDeclaration
-
-    return fn
+    }
   }
 
   private parse_return_statement() {
@@ -880,8 +915,34 @@ export default class Parser {
     return { kind: "ArrayLiteral", elements } as ArrayLiteral
   }
 
+  private parse_generic_type_args(): TypeNode[] {
+    this.expect_less_than()
+
+    const typeArgs: TypeNode[] = []
+
+    // Parse first type argument
+    typeArgs.push(this.parse_type())
+
+    // Parse remaining type arguments separated by commas
+    while (this.at().type === TokenType.Comma) {
+      this.eat() // eat comma
+      typeArgs.push(this.parse_type())
+    }
+
+    this.expect_greater_than()
+
+    return typeArgs
+  }
+
   private parse_object_expr(): ObjectLiteral {
     const structName = this.expect(TokenType.TypeIdentifier, "Expected struct name.")
+
+    let typeArgs = undefined
+
+    if (isLessThan(this.at())) {
+      typeArgs = this.parse_generic_type_args()
+    }
+
     this.eat() // eat open brace
     const props = new Array<Property>()
 
@@ -912,7 +973,7 @@ export default class Parser {
     }
 
     this.expect(TokenType.CloseBrace, "Object literal missing closing brace.")
-    return { kind: "ObjectLiteral", properties: props, instanceOf: get_leaf(structName) }
+    return { kind: "ObjectLiteral", properties: props, instanceOf: get_leaf(structName), typeArgs }
   }
 
   private parse_assigne(): Expr {
@@ -920,7 +981,7 @@ export default class Parser {
       return this.parse_array_expr()
     } else if (
       this.at().type == TokenType.TypeIdentifier &&
-      this.at(1).type == TokenType.OpenBrace
+      (this.at(1).type == TokenType.OpenBrace || isLessThan(this.at(1)))
     ) {
       return this.parse_object_expr()
     }

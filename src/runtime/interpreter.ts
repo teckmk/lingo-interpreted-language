@@ -23,6 +23,7 @@ import {
   StringLiteral,
   StructType,
   TypeDeclaration,
+  TypeParameter,
   UnionType,
   VarDeclaration,
   WhileStatement,
@@ -58,6 +59,7 @@ import {
   eval_array_type,
   eval_generic_type,
   eval_primitive_type,
+  eval_type_parameter,
   eval_union_type,
 } from "./eval/types"
 
@@ -86,6 +88,8 @@ export function evaluate(astNode: Stmt, context: ExecutionContext, env: Environm
       return eval_alias_type(astNode as AliasType, env, context)
     case "PrimitiveType":
       return eval_primitive_type(astNode as PrimitiveType, env, context)
+    case "TypeParameter":
+      return eval_type_parameter(astNode as TypeParameter, env, context)
     case "GenericType":
       return eval_generic_type(astNode as GenericType, env, context)
     case "UnionType":

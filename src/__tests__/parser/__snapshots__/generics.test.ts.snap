@@ -1,0 +1,2301 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parser - Generics - Instantiation should interpret generic type instantiation 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "kind": "GenericType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 9,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Box",
+        },
+        "parameters": [
+          {
+            "constraint": undefined,
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 11,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 10,
+                  "line": 1,
+                },
+              },
+              "value": "T",
+            },
+          },
+        ],
+      },
+      "type": {
+        "kind": "StructType",
+        "members": [
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 2,
+                },
+              },
+              "value": "value",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 2,
+                    },
+                  },
+                  "value": "T",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 2,
+                  },
+                },
+                "value": "T",
+              },
+            },
+          },
+        ],
+      },
+    },
+    {
+      "identifier": {
+        "position": {
+          "end": {
+            "column": 14,
+            "line": 4,
+          },
+          "start": {
+            "column": 11,
+            "line": 4,
+          },
+        },
+        "value": "box",
+      },
+      "kind": "VarDeclaration",
+      "modifier": "final",
+      "type": undefined,
+      "value": {
+        "instanceOf": {
+          "position": {
+            "end": {
+              "column": 20,
+              "line": 4,
+            },
+            "start": {
+              "column": 17,
+              "line": 4,
+            },
+          },
+          "value": "Box",
+        },
+        "kind": "ObjectLiteral",
+        "properties": [
+          {
+            "key": {
+              "position": {
+                "end": {
+                  "column": 36,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 31,
+                  "line": 4,
+                },
+              },
+              "value": "value",
+            },
+            "kind": "Property",
+            "value": {
+              "kind": "NumericLiteral",
+              "value": {
+                "position": {
+                  "end": {
+                    "column": 40,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 38,
+                    "line": 4,
+                  },
+                },
+                "value": 10,
+              },
+            },
+          },
+        ],
+        "typeArgs": [
+          {
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 27,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 21,
+                    "line": 4,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 27,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 21,
+                  "line": 4,
+                },
+              },
+              "value": "number",
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Generics - Instantiation should parse generic type instantiation with multiple type parameters 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "kind": "GenericType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 10,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Pair",
+        },
+        "parameters": [
+          {
+            "constraint": undefined,
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 1,
+                },
+              },
+              "value": "T",
+            },
+          },
+          {
+            "constraint": undefined,
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 15,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 14,
+                  "line": 1,
+                },
+              },
+              "value": "U",
+            },
+          },
+        ],
+      },
+      "type": {
+        "kind": "StructType",
+        "members": [
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 2,
+                },
+              },
+              "value": "first",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 2,
+                    },
+                  },
+                  "value": "T",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 2,
+                  },
+                },
+                "value": "T",
+              },
+            },
+          },
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 13,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 3,
+                },
+              },
+              "value": "second",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 16,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 15,
+                      "line": 3,
+                    },
+                  },
+                  "value": "U",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 16,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 15,
+                    "line": 3,
+                  },
+                },
+                "value": "U",
+              },
+            },
+          },
+        ],
+      },
+    },
+    {
+      "identifier": {
+        "position": {
+          "end": {
+            "column": 15,
+            "line": 5,
+          },
+          "start": {
+            "column": 11,
+            "line": 5,
+          },
+        },
+        "value": "pair",
+      },
+      "kind": "VarDeclaration",
+      "modifier": "final",
+      "type": undefined,
+      "value": {
+        "instanceOf": {
+          "position": {
+            "end": {
+              "column": 22,
+              "line": 5,
+            },
+            "start": {
+              "column": 18,
+              "line": 5,
+            },
+          },
+          "value": "Pair",
+        },
+        "kind": "ObjectLiteral",
+        "properties": [
+          {
+            "key": {
+              "position": {
+                "end": {
+                  "column": 46,
+                  "line": 5,
+                },
+                "start": {
+                  "column": 41,
+                  "line": 5,
+                },
+              },
+              "value": "first",
+            },
+            "kind": "Property",
+            "value": {
+              "kind": "NumericLiteral",
+              "value": {
+                "position": {
+                  "end": {
+                    "column": 50,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 48,
+                    "line": 5,
+                  },
+                },
+                "value": 10,
+              },
+            },
+          },
+          {
+            "key": {
+              "position": {
+                "end": {
+                  "column": 58,
+                  "line": 5,
+                },
+                "start": {
+                  "column": 52,
+                  "line": 5,
+                },
+              },
+              "value": "second",
+            },
+            "kind": "Property",
+            "value": {
+              "expressions": {},
+              "identifiers": [],
+              "kind": "StringLiteral",
+              "value": {
+                "position": {
+                  "end": {
+                    "column": 67,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 60,
+                    "line": 5,
+                  },
+                },
+                "value": "hello",
+              },
+            },
+          },
+        ],
+        "typeArgs": [
+          {
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 29,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 23,
+                    "line": 5,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 29,
+                  "line": 5,
+                },
+                "start": {
+                  "column": 23,
+                  "line": 5,
+                },
+              },
+              "value": "number",
+            },
+          },
+          {
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 37,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 31,
+                    "line": 5,
+                  },
+                },
+                "value": "string",
+              },
+            },
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 37,
+                  "line": 5,
+                },
+                "start": {
+                  "column": 31,
+                  "line": 5,
+                },
+              },
+              "value": "string",
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Generics - Instantiation should parse generic type instantiation with type parameters with constraints 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "kind": "GenericType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 9,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Box",
+        },
+        "parameters": [
+          {
+            "constraint": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 19,
+                      "line": 1,
+                    },
+                    "start": {
+                      "column": 13,
+                      "line": 1,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 19,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 13,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 11,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 10,
+                  "line": 1,
+                },
+              },
+              "value": "T",
+            },
+          },
+        ],
+      },
+      "type": {
+        "kind": "StructType",
+        "members": [
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 2,
+                },
+              },
+              "value": "value",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 2,
+                    },
+                  },
+                  "value": "T",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 2,
+                  },
+                },
+                "value": "T",
+              },
+            },
+          },
+        ],
+      },
+    },
+    {
+      "identifier": {
+        "position": {
+          "end": {
+            "column": 14,
+            "line": 4,
+          },
+          "start": {
+            "column": 11,
+            "line": 4,
+          },
+        },
+        "value": "box",
+      },
+      "kind": "VarDeclaration",
+      "modifier": "final",
+      "type": undefined,
+      "value": {
+        "instanceOf": {
+          "position": {
+            "end": {
+              "column": 20,
+              "line": 4,
+            },
+            "start": {
+              "column": 17,
+              "line": 4,
+            },
+          },
+          "value": "Box",
+        },
+        "kind": "ObjectLiteral",
+        "properties": [
+          {
+            "key": {
+              "position": {
+                "end": {
+                  "column": 36,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 31,
+                  "line": 4,
+                },
+              },
+              "value": "value",
+            },
+            "kind": "Property",
+            "value": {
+              "kind": "NumericLiteral",
+              "value": {
+                "position": {
+                  "end": {
+                    "column": 40,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 38,
+                    "line": 4,
+                  },
+                },
+                "value": 10,
+              },
+            },
+          },
+        ],
+        "typeArgs": [
+          {
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 27,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 21,
+                    "line": 4,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 27,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 21,
+                  "line": 4,
+                },
+              },
+              "value": "number",
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Generics - Instantiation should parse generic type instantiation with type parameters with constraints and multiple constraints 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "kind": "GenericType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 9,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Box",
+        },
+        "parameters": [
+          {
+            "constraint": {
+              "kind": "UnionType",
+              "types": [
+                {
+                  "actualType": {
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 19,
+                          "line": 1,
+                        },
+                        "start": {
+                          "column": 13,
+                          "line": 1,
+                        },
+                      },
+                      "value": "number",
+                    },
+                  },
+                  "kind": "AliasType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 19,
+                        "line": 1,
+                      },
+                      "start": {
+                        "column": 13,
+                        "line": 1,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+                {
+                  "actualType": {
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 28,
+                          "line": 1,
+                        },
+                        "start": {
+                          "column": 22,
+                          "line": 1,
+                        },
+                      },
+                      "value": "string",
+                    },
+                  },
+                  "kind": "AliasType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 28,
+                        "line": 1,
+                      },
+                      "start": {
+                        "column": 22,
+                        "line": 1,
+                      },
+                    },
+                    "value": "string",
+                  },
+                },
+              ],
+            },
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 11,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 10,
+                  "line": 1,
+                },
+              },
+              "value": "T",
+            },
+          },
+        ],
+      },
+      "type": {
+        "kind": "StructType",
+        "members": [
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 2,
+                },
+              },
+              "value": "value",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 2,
+                    },
+                  },
+                  "value": "T",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 2,
+                  },
+                },
+                "value": "T",
+              },
+            },
+          },
+        ],
+      },
+    },
+    {
+      "identifier": {
+        "position": {
+          "end": {
+            "column": 14,
+            "line": 4,
+          },
+          "start": {
+            "column": 11,
+            "line": 4,
+          },
+        },
+        "value": "box",
+      },
+      "kind": "VarDeclaration",
+      "modifier": "final",
+      "type": undefined,
+      "value": {
+        "instanceOf": {
+          "position": {
+            "end": {
+              "column": 20,
+              "line": 4,
+            },
+            "start": {
+              "column": 17,
+              "line": 4,
+            },
+          },
+          "value": "Box",
+        },
+        "kind": "ObjectLiteral",
+        "properties": [
+          {
+            "key": {
+              "position": {
+                "end": {
+                  "column": 36,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 31,
+                  "line": 4,
+                },
+              },
+              "value": "value",
+            },
+            "kind": "Property",
+            "value": {
+              "kind": "NumericLiteral",
+              "value": {
+                "position": {
+                  "end": {
+                    "column": 40,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 38,
+                    "line": 4,
+                  },
+                },
+                "value": 10,
+              },
+            },
+          },
+        ],
+        "typeArgs": [
+          {
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 27,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 21,
+                    "line": 4,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 27,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 21,
+                  "line": 4,
+                },
+              },
+              "value": "number",
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Generics - Instantiation should parse generic type instantiation with type parameters with constraints and multiple constraints and multiple type parameters 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "kind": "GenericType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 10,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Pair",
+        },
+        "parameters": [
+          {
+            "constraint": {
+              "kind": "UnionType",
+              "types": [
+                {
+                  "actualType": {
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 20,
+                          "line": 1,
+                        },
+                        "start": {
+                          "column": 14,
+                          "line": 1,
+                        },
+                      },
+                      "value": "number",
+                    },
+                  },
+                  "kind": "AliasType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 20,
+                        "line": 1,
+                      },
+                      "start": {
+                        "column": 14,
+                        "line": 1,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+                {
+                  "actualType": {
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 29,
+                          "line": 1,
+                        },
+                        "start": {
+                          "column": 23,
+                          "line": 1,
+                        },
+                      },
+                      "value": "string",
+                    },
+                  },
+                  "kind": "AliasType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 29,
+                        "line": 1,
+                      },
+                      "start": {
+                        "column": 23,
+                        "line": 1,
+                      },
+                    },
+                    "value": "string",
+                  },
+                },
+              ],
+            },
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 1,
+                },
+              },
+              "value": "T",
+            },
+          },
+          {
+            "constraint": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 40,
+                      "line": 1,
+                    },
+                    "start": {
+                      "column": 34,
+                      "line": 1,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 40,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 34,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 32,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 31,
+                  "line": 1,
+                },
+              },
+              "value": "U",
+            },
+          },
+        ],
+      },
+      "type": {
+        "kind": "StructType",
+        "members": [
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 2,
+                },
+              },
+              "value": "first",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 2,
+                    },
+                  },
+                  "value": "T",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 2,
+                  },
+                },
+                "value": "T",
+              },
+            },
+          },
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 13,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 3,
+                },
+              },
+              "value": "second",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 16,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 15,
+                      "line": 3,
+                    },
+                  },
+                  "value": "U",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 16,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 15,
+                    "line": 3,
+                  },
+                },
+                "value": "U",
+              },
+            },
+          },
+        ],
+      },
+    },
+    {
+      "identifier": {
+        "position": {
+          "end": {
+            "column": 15,
+            "line": 5,
+          },
+          "start": {
+            "column": 11,
+            "line": 5,
+          },
+        },
+        "value": "pair",
+      },
+      "kind": "VarDeclaration",
+      "modifier": "final",
+      "type": undefined,
+      "value": {
+        "instanceOf": {
+          "position": {
+            "end": {
+              "column": 22,
+              "line": 5,
+            },
+            "start": {
+              "column": 18,
+              "line": 5,
+            },
+          },
+          "value": "Pair",
+        },
+        "kind": "ObjectLiteral",
+        "properties": [
+          {
+            "key": {
+              "position": {
+                "end": {
+                  "column": 46,
+                  "line": 5,
+                },
+                "start": {
+                  "column": 41,
+                  "line": 5,
+                },
+              },
+              "value": "first",
+            },
+            "kind": "Property",
+            "value": {
+              "kind": "NumericLiteral",
+              "value": {
+                "position": {
+                  "end": {
+                    "column": 50,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 48,
+                    "line": 5,
+                  },
+                },
+                "value": 10,
+              },
+            },
+          },
+          {
+            "key": {
+              "position": {
+                "end": {
+                  "column": 58,
+                  "line": 5,
+                },
+                "start": {
+                  "column": 52,
+                  "line": 5,
+                },
+              },
+              "value": "second",
+            },
+            "kind": "Property",
+            "value": {
+              "kind": "NumericLiteral",
+              "value": {
+                "position": {
+                  "end": {
+                    "column": 62,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 60,
+                    "line": 5,
+                  },
+                },
+                "value": 20,
+              },
+            },
+          },
+        ],
+        "typeArgs": [
+          {
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 29,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 23,
+                    "line": 5,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 29,
+                  "line": 5,
+                },
+                "start": {
+                  "column": 23,
+                  "line": 5,
+                },
+              },
+              "value": "number",
+            },
+          },
+          {
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 37,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 31,
+                    "line": 5,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "kind": "AliasType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 37,
+                  "line": 5,
+                },
+                "start": {
+                  "column": 31,
+                  "line": 5,
+                },
+              },
+              "value": "number",
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Generics should parse generics 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "kind": "GenericType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 9,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Box",
+        },
+        "parameters": [
+          {
+            "constraint": undefined,
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 11,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 10,
+                  "line": 1,
+                },
+              },
+              "value": "T",
+            },
+          },
+        ],
+      },
+      "type": {
+        "kind": "StructType",
+        "members": [
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 2,
+                },
+              },
+              "value": "value",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 2,
+                    },
+                  },
+                  "value": "T",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 2,
+                  },
+                },
+                "value": "T",
+              },
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Generics should parse generics with multiple type parameters 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "kind": "GenericType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 10,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Pair",
+        },
+        "parameters": [
+          {
+            "constraint": undefined,
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 1,
+                },
+              },
+              "value": "T",
+            },
+          },
+          {
+            "constraint": undefined,
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 15,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 14,
+                  "line": 1,
+                },
+              },
+              "value": "U",
+            },
+          },
+        ],
+      },
+      "type": {
+        "kind": "StructType",
+        "members": [
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 2,
+                },
+              },
+              "value": "first",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 2,
+                    },
+                  },
+                  "value": "T",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 2,
+                  },
+                },
+                "value": "T",
+              },
+            },
+          },
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 13,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 3,
+                },
+              },
+              "value": "second",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 16,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 15,
+                      "line": 3,
+                    },
+                  },
+                  "value": "U",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 16,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 15,
+                    "line": 3,
+                  },
+                },
+                "value": "U",
+              },
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Generics should parse generics with type parameters with constraints 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "kind": "GenericType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 9,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Box",
+        },
+        "parameters": [
+          {
+            "constraint": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 19,
+                      "line": 1,
+                    },
+                    "start": {
+                      "column": 13,
+                      "line": 1,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 19,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 13,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 11,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 10,
+                  "line": 1,
+                },
+              },
+              "value": "T",
+            },
+          },
+        ],
+      },
+      "type": {
+        "kind": "StructType",
+        "members": [
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 2,
+                },
+              },
+              "value": "value",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 2,
+                    },
+                  },
+                  "value": "T",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 2,
+                  },
+                },
+                "value": "T",
+              },
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Generics should parse generics with type parameters with constraints and multiple constraints 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "kind": "GenericType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 9,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Box",
+        },
+        "parameters": [
+          {
+            "constraint": {
+              "kind": "UnionType",
+              "types": [
+                {
+                  "actualType": {
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 19,
+                          "line": 1,
+                        },
+                        "start": {
+                          "column": 13,
+                          "line": 1,
+                        },
+                      },
+                      "value": "number",
+                    },
+                  },
+                  "kind": "AliasType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 19,
+                        "line": 1,
+                      },
+                      "start": {
+                        "column": 13,
+                        "line": 1,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+                {
+                  "actualType": {
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 28,
+                          "line": 1,
+                        },
+                        "start": {
+                          "column": 22,
+                          "line": 1,
+                        },
+                      },
+                      "value": "string",
+                    },
+                  },
+                  "kind": "AliasType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 28,
+                        "line": 1,
+                      },
+                      "start": {
+                        "column": 22,
+                        "line": 1,
+                      },
+                    },
+                    "value": "string",
+                  },
+                },
+              ],
+            },
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 11,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 10,
+                  "line": 1,
+                },
+              },
+              "value": "T",
+            },
+          },
+        ],
+      },
+      "type": {
+        "kind": "StructType",
+        "members": [
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 2,
+                },
+              },
+              "value": "value",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 2,
+                    },
+                  },
+                  "value": "T",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 2,
+                  },
+                },
+                "value": "T",
+              },
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Generics should parse generics with type parameters with constraints and multiple constraints and multiple type parameters 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "kind": "GenericType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 10,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Pair",
+        },
+        "parameters": [
+          {
+            "constraint": {
+              "kind": "UnionType",
+              "types": [
+                {
+                  "actualType": {
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 20,
+                          "line": 1,
+                        },
+                        "start": {
+                          "column": 14,
+                          "line": 1,
+                        },
+                      },
+                      "value": "number",
+                    },
+                  },
+                  "kind": "AliasType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 20,
+                        "line": 1,
+                      },
+                      "start": {
+                        "column": 14,
+                        "line": 1,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+                {
+                  "actualType": {
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 29,
+                          "line": 1,
+                        },
+                        "start": {
+                          "column": 23,
+                          "line": 1,
+                        },
+                      },
+                      "value": "string",
+                    },
+                  },
+                  "kind": "AliasType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 29,
+                        "line": 1,
+                      },
+                      "start": {
+                        "column": 23,
+                        "line": 1,
+                      },
+                    },
+                    "value": "string",
+                  },
+                },
+              ],
+            },
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 1,
+                },
+              },
+              "value": "T",
+            },
+          },
+          {
+            "constraint": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 40,
+                      "line": 1,
+                    },
+                    "start": {
+                      "column": 34,
+                      "line": 1,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 40,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 34,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 32,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 31,
+                  "line": 1,
+                },
+              },
+              "value": "U",
+            },
+          },
+        ],
+      },
+      "type": {
+        "kind": "StructType",
+        "members": [
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 12,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 2,
+                },
+              },
+              "value": "first",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 2,
+                    },
+                  },
+                  "value": "T",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 2,
+                  },
+                },
+                "value": "T",
+              },
+            },
+          },
+          {
+            "kind": "StructMember",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 13,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 7,
+                  "line": 3,
+                },
+              },
+              "value": "second",
+            },
+            "optional": false,
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 16,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 15,
+                      "line": 3,
+                    },
+                  },
+                  "value": "U",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 16,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 15,
+                    "line": 3,
+                  },
+                },
+                "value": "U",
+              },
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;

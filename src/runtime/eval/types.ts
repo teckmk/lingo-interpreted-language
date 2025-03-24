@@ -8,6 +8,7 @@ import {
   GenericType,
   PrimitiveType,
   StructType,
+  TypeParameter,
   UnionType,
 } from "../../frontend/ast"
 import {
@@ -16,6 +17,7 @@ import {
   GenericTypeVal,
   PrimitiveTypeVal,
   StructTypeVal,
+  TypeParameterVal,
   TypeVal,
   UnionTypeVal,
 } from "../values.types"
@@ -77,6 +79,33 @@ export function eval_alias_type(
   } as AliasTypeVal
 }
 
+export function eval_type_parameter(
+  node: TypeParameter,
+  env: Environment,
+  context: ExecutionContext,
+): TypeParameterVal {
+  let constraint: TypeVal | undefined = undefined
+
+  if (node.constraint) {
+    const constraintVal = evaluate(node.constraint, context, env) as TypeVal
+    if (constraintVal.type !== "type") {
+      throw new RuntimeError(
+        context,
+        `Expected type for parameter constraint but got ${constraintVal.type}`,
+      )
+    }
+    constraint = constraintVal
+  }
+
+  return {
+    type: "type",
+    typeKind: "typeParameter",
+    name: node.name.value,
+    constraint,
+    returned: false, // to satisfy the interface
+  }
+}
+
 export function eval_generic_type(
   node: GenericType,
   env: Environment,
@@ -89,16 +118,14 @@ export function eval_generic_type(
   }
 
   // Evaluate the type parameters
-  const parameters: TypeVal[] = []
+  const parameters: TypeParameterVal[] = []
   for (const param of node.parameters) {
-    const paramType = evaluate(param, context, env) as TypeVal
-    if (paramType.type !== "type") {
-      throw new RuntimeError(
-        context,
-        `Expected type for generic parameter but got ${paramType.type}`,
-      )
+    // Now we expect TypeParameter nodes instead of TypeNode
+    const paramVal = evaluate(param, context, env) as TypeParameterVal
+    if (paramVal.typeKind !== "typeParameter") {
+      throw new RuntimeError(context, `Expected type parameter but got ${paramVal.type}`)
     }
-    parameters.push(paramType)
+    parameters.push(paramVal)
   }
 
   return {

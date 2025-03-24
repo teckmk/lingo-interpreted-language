@@ -36,6 +36,7 @@ export type NodeType =
   | "GenericType"
   | "UnionType"
   | "ArrayType"
+  | "TypeParameter"
 
 export type Type = "string" | "number" | "bool" | "array" | "object" | "dynamic"
 export type VarModifier = "constant" | "final" | "variable"
@@ -81,8 +82,16 @@ export interface FunctionDeclaration extends Stmt {
   kind: "FunctionDeclaration"
   name: LeafNode<string>
   parameters: FunctionParam[]
-  returnType: NodeType | NodeType[] | undefined
+  returnType: TypeNode | TypeNode[] | undefined
   body: Stmt[]
+  typeParameters?: TypeParameter[] // to support generic type parameters
+}
+
+export interface CallExpr extends Expr {
+  kind: "CallExpr"
+  args: Expr[]
+  caller: Expr
+  typeArgs?: TypeNode[] // Add support for type arguments in function calls
 }
 
 export interface ReturnStatement extends Stmt {
@@ -169,10 +178,12 @@ export interface MemberExpr extends Expr {
   computed: boolean
 }
 
-export interface CallExpr extends Expr {
-  kind: "CallExpr"
-  args: Expr[]
-  caller: Expr
+// instance of struct
+export interface ObjectLiteral extends Expr {
+  kind: "ObjectLiteral"
+  instanceOf: LeafNode<string>
+  properties: Property[]
+  typeArgs?: TypeNode[] // Add support for type arguments in object instantiation
 }
 
 export interface Identifier extends Expr {
@@ -203,13 +214,6 @@ export interface StructMember extends Expr {
   name: LeafNode<string>
   type: TypeNode // Supports structs, generics, etc.
   optional: boolean
-}
-
-// instance of struct
-export interface ObjectLiteral extends Expr {
-  kind: "ObjectLiteral"
-  instanceOf: LeafNode<string>
-  properties: Property[]
 }
 
 export interface ArrayLiteral extends Expr {
@@ -255,7 +259,14 @@ export interface AliasType extends Expr {
 export interface GenericType extends Expr {
   kind: "GenericType"
   name?: LeafNode<string>
-  parameters: TypeNode[]
+  parameters: TypeParameter[] // Changed from TypeNode[] to TypeParameter[]
+}
+
+// New interface to represent type parameters with constraints
+export interface TypeParameter extends Expr {
+  kind: "TypeParameter"
+  name: LeafNode<string>
+  constraint?: TypeNode // Optional constraint (e.g., "number" in T: number)
 }
 
 export interface UnionType extends Expr {

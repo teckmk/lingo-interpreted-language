@@ -17,7 +17,7 @@ import { evaluate } from "../interpreter"
 import { MK_NULL } from "../macros"
 import { areTypesCompatible, getRuntimeType } from "../type-checker"
 import { ArrayVal, BooleanVal, FunctionVal, ParamVal, ReturnVal, RuntimeVal } from "../values"
-import { PrimitiveTypeVal, TypeVal } from "../values.types"
+import { GenericTypeVal, PrimitiveTypeVal, TypeParameterVal, TypeVal } from "../values.types"
 
 export function eval_program(
   program: Program,
@@ -44,25 +44,29 @@ export function eval_type_declaration(
     throw new RuntimeError(context, `Expected a type, got ${typeVal.type}`)
   }
 
-  // If this is a generic type declaration, handle parameters
-  if (node.parameters && node.parameters.length > 0) {
-    // Store a template for the generic type
-    // The actual instantiation happens in eval_generic_type
-    const genericBase = {
-      type: "type",
-      typeKind: "generic",
-      typeName: node.name.name?.value,
-      parameters: node.parameters.map((p) => (p as any).name?.value || "unknown"),
-      baseType: typeVal,
-      returned: false, // to satisfy TS
-    }
+  const typeName = node.name.name?.value || "unnamed"
 
-    env.declareType(node.name.name?.value || "unnamed", genericBase as TypeVal)
-    return genericBase as RuntimeVal
+  // If this is a generic type declaration, handle parameters
+  if (node.name.kind === "GenericType") {
+    if (node.name.parameters && node.name.parameters.length > 0) {
+      // Store a template for the generic type
+      // The actual instantiation happens in eval_generic_type
+      const genericBase: GenericTypeVal = {
+        type: "type",
+        typeKind: "generic",
+        typeName,
+        parameters: node.name.parameters.map((p) => evaluate(p, context, env) as TypeParameterVal),
+        baseType: typeVal,
+        returned: false, // to satisfy TS
+      }
+
+      env.declareType(typeName, genericBase as TypeVal)
+      return genericBase as RuntimeVal
+    }
   }
 
   // For non-generic types, just store the type
-  env.declareType(node.name.name?.value || "unnamed", typeVal)
+  env.declareType(typeName, typeVal)
   return typeVal
 }
 

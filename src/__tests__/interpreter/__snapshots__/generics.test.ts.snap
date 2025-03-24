@@ -1,0 +1,295 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Interpreter - Generics should interpret generics 1`] = `
+{
+  "baseType": {
+    "members": {
+      "value": {
+        "aliasTo": {
+          "primitiveType": "T",
+          "type": "type",
+          "typeKind": "primitive",
+        },
+        "type": "type",
+        "typeKind": "alias",
+        "typeName": "T",
+      },
+    },
+    "optional": {
+      "value": false,
+    },
+    "type": "type",
+    "typeKind": "struct",
+    "typeName": undefined,
+  },
+  "parameters": [
+    {
+      "constraint": undefined,
+      "name": "T",
+      "returned": false,
+      "type": "type",
+      "typeKind": "typeParameter",
+    },
+  ],
+  "returned": false,
+  "type": "type",
+  "typeKind": "generic",
+  "typeName": "Box",
+}
+`;
+
+exports[`Interpreter - Generics should interpret generics with multiple type parameters 1`] = `
+{
+  "baseType": {
+    "members": {
+      "first": {
+        "aliasTo": {
+          "primitiveType": "T",
+          "type": "type",
+          "typeKind": "primitive",
+        },
+        "type": "type",
+        "typeKind": "alias",
+        "typeName": "T",
+      },
+      "second": {
+        "aliasTo": {
+          "primitiveType": "U",
+          "type": "type",
+          "typeKind": "primitive",
+        },
+        "type": "type",
+        "typeKind": "alias",
+        "typeName": "U",
+      },
+    },
+    "optional": {
+      "first": false,
+      "second": false,
+    },
+    "type": "type",
+    "typeKind": "struct",
+    "typeName": undefined,
+  },
+  "parameters": [
+    {
+      "constraint": undefined,
+      "name": "T",
+      "returned": false,
+      "type": "type",
+      "typeKind": "typeParameter",
+    },
+    {
+      "constraint": undefined,
+      "name": "U",
+      "returned": false,
+      "type": "type",
+      "typeKind": "typeParameter",
+    },
+  ],
+  "returned": false,
+  "type": "type",
+  "typeKind": "generic",
+  "typeName": "Pair",
+}
+`;
+
+exports[`Interpreter - Generics should interpret generics with type parameters with constraints 1`] = `
+{
+  "baseType": {
+    "members": {
+      "value": {
+        "aliasTo": {
+          "primitiveType": "T",
+          "type": "type",
+          "typeKind": "primitive",
+        },
+        "type": "type",
+        "typeKind": "alias",
+        "typeName": "T",
+      },
+    },
+    "optional": {
+      "value": false,
+    },
+    "type": "type",
+    "typeKind": "struct",
+    "typeName": undefined,
+  },
+  "parameters": [
+    {
+      "constraint": {
+        "aliasTo": {
+          "primitiveType": "number",
+          "type": "type",
+          "typeKind": "primitive",
+        },
+        "type": "type",
+        "typeKind": "alias",
+        "typeName": "number",
+      },
+      "name": "T",
+      "returned": false,
+      "type": "type",
+      "typeKind": "typeParameter",
+    },
+  ],
+  "returned": false,
+  "type": "type",
+  "typeKind": "generic",
+  "typeName": "Box",
+}
+`;
+
+exports[`Interpreter - Generics should interpret generics with type parameters with constraints and multiple constraints 1`] = `
+{
+  "baseType": {
+    "members": {
+      "value": {
+        "aliasTo": {
+          "primitiveType": "T",
+          "type": "type",
+          "typeKind": "primitive",
+        },
+        "type": "type",
+        "typeKind": "alias",
+        "typeName": "T",
+      },
+    },
+    "optional": {
+      "value": false,
+    },
+    "type": "type",
+    "typeKind": "struct",
+    "typeName": undefined,
+  },
+  "parameters": [
+    {
+      "constraint": {
+        "type": "type",
+        "typeKind": "union",
+        "unionTypes": [
+          {
+            "aliasTo": {
+              "primitiveType": "number",
+              "type": "type",
+              "typeKind": "primitive",
+            },
+            "type": "type",
+            "typeKind": "alias",
+            "typeName": "number",
+          },
+          {
+            "aliasTo": {
+              "primitiveType": "string",
+              "type": "type",
+              "typeKind": "primitive",
+            },
+            "type": "type",
+            "typeKind": "alias",
+            "typeName": "string",
+          },
+        ],
+      },
+      "name": "T",
+      "returned": false,
+      "type": "type",
+      "typeKind": "typeParameter",
+    },
+  ],
+  "returned": false,
+  "type": "type",
+  "typeKind": "generic",
+  "typeName": "Box",
+}
+`;
+
+exports[`Interpreter - Generics should interpret generics with type parameters with constraints and multiple constraints and multiple type parameters 1`] = `
+{
+  "baseType": {
+    "members": {
+      "first": {
+        "aliasTo": {
+          "primitiveType": "T",
+          "type": "type",
+          "typeKind": "primitive",
+        },
+        "type": "type",
+        "typeKind": "alias",
+        "typeName": "T",
+      },
+      "second": {
+        "aliasTo": {
+          "primitiveType": "U",
+          "type": "type",
+          "typeKind": "primitive",
+        },
+        "type": "type",
+        "typeKind": "alias",
+        "typeName": "U",
+      },
+    },
+    "optional": {
+      "first": false,
+      "second": false,
+    },
+    "type": "type",
+    "typeKind": "struct",
+    "typeName": undefined,
+  },
+  "parameters": [
+    {
+      "constraint": {
+        "type": "type",
+        "typeKind": "union",
+        "unionTypes": [
+          {
+            "aliasTo": {
+              "primitiveType": "number",
+              "type": "type",
+              "typeKind": "primitive",
+            },
+            "type": "type",
+            "typeKind": "alias",
+            "typeName": "number",
+          },
+          {
+            "aliasTo": {
+              "primitiveType": "string",
+              "type": "type",
+              "typeKind": "primitive",
+            },
+            "type": "type",
+            "typeKind": "alias",
+            "typeName": "string",
+          },
+        ],
+      },
+      "name": "T",
+      "returned": false,
+      "type": "type",
+      "typeKind": "typeParameter",
+    },
+    {
+      "constraint": {
+        "aliasTo": {
+          "primitiveType": "number",
+          "type": "type",
+          "typeKind": "primitive",
+        },
+        "type": "type",
+        "typeKind": "alias",
+        "typeName": "number",
+      },
+      "name": "U",
+      "returned": false,
+      "type": "type",
+      "typeKind": "typeParameter",
+    },
+  ],
+  "returned": false,
+  "type": "type",
+  "typeKind": "generic",
+  "typeName": "Pair",
+}
+`;

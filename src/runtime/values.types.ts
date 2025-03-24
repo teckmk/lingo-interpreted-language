@@ -22,10 +22,17 @@ export interface AliasTypeVal extends TypeVal {
   aliasTo: TypeVal
 }
 
+export interface TypeParameterVal extends TypeVal {
+  type: "type"
+  typeKind: "typeParameter"
+  name: string
+  constraint?: TypeVal // i.e. T: number
+}
+
 export interface GenericTypeVal extends TypeVal {
   typeKind: "generic"
   baseType: TypeVal
-  parameters: TypeVal[]
+  parameters: TypeParameterVal[]
 }
 
 export interface UnionTypeVal extends TypeVal {

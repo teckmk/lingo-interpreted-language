@@ -1,6 +1,5 @@
 import { Stmt } from "../frontend/ast"
 import Environment from "./environment"
-import { TypeVal } from "./values.types"
 
 export type ValueType =
   | "null"
@@ -47,11 +46,6 @@ export interface StringVal extends RuntimeVal {
 export interface ObjectVal extends RuntimeVal {
   type: "object"
   properties: Map<string, RuntimeVal>
-}
-
-export interface StructVal extends RuntimeVal {
-  type: "struct"
-  fields: Map<string, { type: TypeVal; optional: boolean }>
 }
 
 export type FunctionCall = (args: RuntimeVal[], env: Environment) => RuntimeVal

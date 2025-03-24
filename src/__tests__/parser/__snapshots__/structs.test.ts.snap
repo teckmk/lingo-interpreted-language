@@ -101,6 +101,7 @@ exports[`Parser - Structs should parse struct intialization 1`] = `
             },
           },
         ],
+        "typeArgs": undefined,
       },
     },
   ],
