@@ -4,24 +4,14 @@ exports[`Interpreter - Structs should interpret structs 1`] = `
 {
   "members": {
     "x": {
-      "aliasTo": {
-        "primitiveType": "number",
-        "type": "type",
-        "typeKind": "primitive",
-      },
+      "primitiveType": "number",
       "type": "type",
-      "typeKind": "alias",
-      "typeName": "number",
+      "typeKind": "primitive",
     },
     "y": {
-      "aliasTo": {
-        "primitiveType": "number",
-        "type": "type",
-        "typeKind": "primitive",
-      },
+      "primitiveType": "number",
       "type": "type",
-      "typeKind": "alias",
-      "typeName": "number",
+      "typeKind": "primitive",
     },
   },
   "optional": {
@@ -38,24 +28,14 @@ exports[`Interpreter - Structs should interpret structs with optional fields 1`]
 {
   "members": {
     "x": {
-      "aliasTo": {
-        "primitiveType": "number",
-        "type": "type",
-        "typeKind": "primitive",
-      },
+      "primitiveType": "number",
       "type": "type",
-      "typeKind": "alias",
-      "typeName": "number",
+      "typeKind": "primitive",
     },
     "y": {
-      "aliasTo": {
-        "primitiveType": "number",
-        "type": "type",
-        "typeKind": "primitive",
-      },
+      "primitiveType": "number",
       "type": "type",
-      "typeKind": "alias",
-      "typeName": "number",
+      "typeKind": "primitive",
     },
   },
   "optional": {

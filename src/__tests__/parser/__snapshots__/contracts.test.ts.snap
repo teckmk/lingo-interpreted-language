@@ -1,0 +1,212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parser - Contracts should parse contracts 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 11,
+                "line": 1,
+              },
+              "start": {
+                "column": 6,
+                "line": 1,
+              },
+            },
+            "value": "Point",
+          },
+        },
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 11,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Point",
+        },
+      },
+      "type": {
+        "kind": "ContractType",
+        "members": [
+          {
+            "kind": "FunctionType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 24,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 16,
+                  "line": 2,
+                },
+              },
+              "value": "setPoint",
+            },
+            "parameters": [
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 26,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 25,
+                      "line": 2,
+                    },
+                  },
+                  "value": "x",
+                },
+                "type": {
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 33,
+                        "line": 2,
+                      },
+                      "start": {
+                        "column": 27,
+                        "line": 2,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+              },
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 36,
+                      "line": 2,
+                    },
+                    "start": {
+                      "column": 35,
+                      "line": 2,
+                    },
+                  },
+                  "value": "y",
+                },
+                "type": {
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 43,
+                        "line": 2,
+                      },
+                      "start": {
+                        "column": 37,
+                        "line": 2,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+              },
+            ],
+            "returnType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 52,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 48,
+                    "line": 2,
+                  },
+                },
+                "value": "void",
+              },
+            },
+            "typeParameters": undefined,
+          },
+          {
+            "kind": "GetterType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 18,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 3,
+                },
+              },
+              "value": "x",
+            },
+            "returnType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 28,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 22,
+                    "line": 3,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+          {
+            "kind": "GetterType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 18,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 4,
+                },
+              },
+              "value": "y",
+            },
+            "returnType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 28,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 22,
+                    "line": 4,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;

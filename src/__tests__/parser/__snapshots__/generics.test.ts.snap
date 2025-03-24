@@ -163,23 +163,7 @@ exports[`Parser - Generics - Instantiation should interpret generic type instant
         ],
         "typeArgs": [
           {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 27,
-                    "line": 4,
-                  },
-                  "start": {
-                    "column": 21,
-                    "line": 4,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -465,23 +449,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         ],
         "typeArgs": [
           {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 29,
-                    "line": 5,
-                  },
-                  "start": {
-                    "column": 23,
-                    "line": 5,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -497,23 +465,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
             },
           },
           {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 37,
-                    "line": 5,
-                  },
-                  "start": {
-                    "column": 31,
-                    "line": 5,
-                  },
-                },
-                "value": "string",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -559,23 +511,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         "parameters": [
           {
             "constraint": {
-              "actualType": {
-                "kind": "PrimitiveType",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 19,
-                      "line": 1,
-                    },
-                    "start": {
-                      "column": 13,
-                      "line": 1,
-                    },
-                  },
-                  "value": "number",
-                },
-              },
-              "kind": "AliasType",
+              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
@@ -730,23 +666,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         ],
         "typeArgs": [
           {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 27,
-                    "line": 4,
-                  },
-                  "start": {
-                    "column": 21,
-                    "line": 4,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -795,23 +715,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
               "kind": "UnionType",
               "types": [
                 {
-                  "actualType": {
-                    "kind": "PrimitiveType",
-                    "name": {
-                      "position": {
-                        "end": {
-                          "column": 19,
-                          "line": 1,
-                        },
-                        "start": {
-                          "column": 13,
-                          "line": 1,
-                        },
-                      },
-                      "value": "number",
-                    },
-                  },
-                  "kind": "AliasType",
+                  "kind": "PrimitiveType",
                   "name": {
                     "position": {
                       "end": {
@@ -827,23 +731,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
                   },
                 },
                 {
-                  "actualType": {
-                    "kind": "PrimitiveType",
-                    "name": {
-                      "position": {
-                        "end": {
-                          "column": 28,
-                          "line": 1,
-                        },
-                        "start": {
-                          "column": 22,
-                          "line": 1,
-                        },
-                      },
-                      "value": "string",
-                    },
-                  },
-                  "kind": "AliasType",
+                  "kind": "PrimitiveType",
                   "name": {
                     "position": {
                       "end": {
@@ -1000,23 +888,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         ],
         "typeArgs": [
           {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 27,
-                    "line": 4,
-                  },
-                  "start": {
-                    "column": 21,
-                    "line": 4,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -1065,23 +937,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
               "kind": "UnionType",
               "types": [
                 {
-                  "actualType": {
-                    "kind": "PrimitiveType",
-                    "name": {
-                      "position": {
-                        "end": {
-                          "column": 20,
-                          "line": 1,
-                        },
-                        "start": {
-                          "column": 14,
-                          "line": 1,
-                        },
-                      },
-                      "value": "number",
-                    },
-                  },
-                  "kind": "AliasType",
+                  "kind": "PrimitiveType",
                   "name": {
                     "position": {
                       "end": {
@@ -1097,23 +953,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
                   },
                 },
                 {
-                  "actualType": {
-                    "kind": "PrimitiveType",
-                    "name": {
-                      "position": {
-                        "end": {
-                          "column": 29,
-                          "line": 1,
-                        },
-                        "start": {
-                          "column": 23,
-                          "line": 1,
-                        },
-                      },
-                      "value": "string",
-                    },
-                  },
-                  "kind": "AliasType",
+                  "kind": "PrimitiveType",
                   "name": {
                     "position": {
                       "end": {
@@ -1147,23 +987,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
           },
           {
             "constraint": {
-              "actualType": {
-                "kind": "PrimitiveType",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 40,
-                      "line": 1,
-                    },
-                    "start": {
-                      "column": 34,
-                      "line": 1,
-                    },
-                  },
-                  "value": "number",
-                },
-              },
-              "kind": "AliasType",
+              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
@@ -1399,23 +1223,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         ],
         "typeArgs": [
           {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 29,
-                    "line": 5,
-                  },
-                  "start": {
-                    "column": 23,
-                    "line": 5,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -1431,23 +1239,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
             },
           },
           {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 37,
-                    "line": 5,
-                  },
-                  "start": {
-                    "column": 31,
-                    "line": 5,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -1759,23 +1551,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
         "parameters": [
           {
             "constraint": {
-              "actualType": {
-                "kind": "PrimitiveType",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 19,
-                      "line": 1,
-                    },
-                    "start": {
-                      "column": 13,
-                      "line": 1,
-                    },
-                  },
-                  "value": "number",
-                },
-              },
-              "kind": "AliasType",
+              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
@@ -1893,23 +1669,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
               "kind": "UnionType",
               "types": [
                 {
-                  "actualType": {
-                    "kind": "PrimitiveType",
-                    "name": {
-                      "position": {
-                        "end": {
-                          "column": 19,
-                          "line": 1,
-                        },
-                        "start": {
-                          "column": 13,
-                          "line": 1,
-                        },
-                      },
-                      "value": "number",
-                    },
-                  },
-                  "kind": "AliasType",
+                  "kind": "PrimitiveType",
                   "name": {
                     "position": {
                       "end": {
@@ -1925,23 +1685,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
                   },
                 },
                 {
-                  "actualType": {
-                    "kind": "PrimitiveType",
-                    "name": {
-                      "position": {
-                        "end": {
-                          "column": 28,
-                          "line": 1,
-                        },
-                        "start": {
-                          "column": 22,
-                          "line": 1,
-                        },
-                      },
-                      "value": "string",
-                    },
-                  },
-                  "kind": "AliasType",
+                  "kind": "PrimitiveType",
                   "name": {
                     "position": {
                       "end": {
@@ -2061,23 +1805,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
               "kind": "UnionType",
               "types": [
                 {
-                  "actualType": {
-                    "kind": "PrimitiveType",
-                    "name": {
-                      "position": {
-                        "end": {
-                          "column": 20,
-                          "line": 1,
-                        },
-                        "start": {
-                          "column": 14,
-                          "line": 1,
-                        },
-                      },
-                      "value": "number",
-                    },
-                  },
-                  "kind": "AliasType",
+                  "kind": "PrimitiveType",
                   "name": {
                     "position": {
                       "end": {
@@ -2093,23 +1821,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
                   },
                 },
                 {
-                  "actualType": {
-                    "kind": "PrimitiveType",
-                    "name": {
-                      "position": {
-                        "end": {
-                          "column": 29,
-                          "line": 1,
-                        },
-                        "start": {
-                          "column": 23,
-                          "line": 1,
-                        },
-                      },
-                      "value": "string",
-                    },
-                  },
-                  "kind": "AliasType",
+                  "kind": "PrimitiveType",
                   "name": {
                     "position": {
                       "end": {
@@ -2143,23 +1855,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
           },
           {
             "constraint": {
-              "actualType": {
-                "kind": "PrimitiveType",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 40,
-                      "line": 1,
-                    },
-                    "start": {
-                      "column": 34,
-                      "line": 1,
-                    },
-                  },
-                  "value": "number",
-                },
-              },
-              "kind": "AliasType",
+              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {

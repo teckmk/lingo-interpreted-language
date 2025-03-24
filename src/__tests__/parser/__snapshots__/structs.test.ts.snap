@@ -166,23 +166,7 @@ exports[`Parser - Structs should parse structs 1`] = `
             },
             "optional": false,
             "type": {
-              "actualType": {
-                "kind": "PrimitiveType",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 16,
-                      "line": 2,
-                    },
-                    "start": {
-                      "column": 10,
-                      "line": 2,
-                    },
-                  },
-                  "value": "number",
-                },
-              },
-              "kind": "AliasType",
+              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
@@ -215,23 +199,7 @@ exports[`Parser - Structs should parse structs 1`] = `
             },
             "optional": false,
             "type": {
-              "actualType": {
-                "kind": "PrimitiveType",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 16,
-                      "line": 3,
-                    },
-                    "start": {
-                      "column": 10,
-                      "line": 3,
-                    },
-                  },
-                  "value": "number",
-                },
-              },
-              "kind": "AliasType",
+              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {

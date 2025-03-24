@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.38% </span>
+                <span class="strong">61.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>135/213</span>
+                <span class='fraction'>131/213</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.45% </span>
+                <span class="strong">48.51% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>55/101</span>
+                <span class='fraction'>49/101</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.88% </span>
+                <span class="strong">60.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>122/194</span>
+                <span class='fraction'>118/194</span>
             </div>
         
             
@@ -608,8 +608,7 @@
 <a name='L543'></a><a href='#L543'>543</a>
 <a name='L544'></a><a href='#L544'>544</a>
 <a name='L545'></a><a href='#L545'>545</a>
-<a name='L546'></a><a href='#L546'>546</a>
-<a name='L547'></a><a href='#L547'>547</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L546'></a><a href='#L546'>546</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -628,7 +627,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -853,29 +851,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1176,7 +1174,6 @@ import { eval_code_block } from "./statements"
 import { RuntimeError } from "../error"
 import { ExecutionContext } from "../execution-context"
 import {
-  AliasTypeVal,
   ArrayTypeVal,
   GenericTypeVal,
   PrimitiveTypeVal,
@@ -1368,7 +1365,7 @@ export function eval_object_expr(
       const runtimeType = getRuntimeType(runtimeVal)
 &nbsp;
       // Type check with type arguments if available
-      const [isCompatible, , targetType] = areTypesCompatible(runtimeType, fieldType, typeArgMap)
+      const [isCompatible] = areTypesCompatible(runtimeType, fieldType, typeArgMap)
 &nbsp;
       if (!isCompatible) {
         // Improved error message that handles complex types
@@ -1407,13 +1404,13 @@ function convertTypeNodeToTypeVal(
         primitiveType: typeNode.name.value,
       } as PrimitiveTypeVal
 &nbsp;
-    case "AliasType": {
+<span class="branch-1 cbranch-no" title="branch not covered" >    case "AliasType": {</span>
       // Look up the actual type in the environment
-      const typeName = typeNode.name?.value
+      const typeName = <span class="cstat-no" title="statement not covered" >typeNode.name?.value</span>
       const isPredefinedPrimitive =
-        typeName === "string" || typeName === "number" || typeName === "bool"
+<span class="cstat-no" title="statement not covered" >        typeName === "string" || typeName === "number" || typeName === "bool"</span>
 &nbsp;
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (typeName &amp;&amp; !isPredefinedPrimitive) {
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (typeName &amp;&amp; !isPredefinedPrimitive) {</span>
         const type = <span class="cstat-no" title="statement not covered" >env.lookupType(typeName)</span>
 <span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (!type) {</span>
 <span class="cstat-no" title="statement not covered" >          throw new RuntimeError(context, `Unknown type '${typeName}'`)</span>
@@ -1421,7 +1418,7 @@ function convertTypeNodeToTypeVal(
 <span class="cstat-no" title="statement not covered" >        return type as TypeVal</span>
       }
       // If it's an inline alias type or predefined primitive, convert its actual type
-      return convertTypeNodeToTypeVal(typeNode.actualType, env, context)
+<span class="cstat-no" title="statement not covered" >      return convertTypeNodeToTypeVal(typeNode.actualType, env, context)</span>
     }
 &nbsp;
 <span class="branch-2 cbranch-no" title="branch not covered" >    case "StructType":</span>
@@ -1708,7 +1705,7 @@ export function <span class="fstat-no" title="function not covered" >eval_commen
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-24T09:56:13.294Z
+                at 2025-03-24T14:59:56.447Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

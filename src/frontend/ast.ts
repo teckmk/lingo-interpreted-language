@@ -37,6 +37,9 @@ export type NodeType =
   | "UnionType"
   | "ArrayType"
   | "TypeParameter"
+  | "FunctionType"
+  | "GetterType"
+  | "ContractType"
 
 export type Type = "string" | "number" | "bool" | "array" | "object" | "dynamic"
 export type VarModifier = "constant" | "final" | "variable"
@@ -216,6 +219,12 @@ export interface StructMember extends Expr {
   optional: boolean
 }
 
+export interface ContractType extends Expr {
+  kind: "ContractType"
+  name?: LeafNode<string>
+  members: (GetterType | FunctionType)[]
+}
+
 export interface ArrayLiteral extends Expr {
   kind: "ArrayLiteral"
   elements: []
@@ -237,11 +246,20 @@ export interface TypeDeclaration extends Stmt {
   parameters?: TypeNode[]
 }
 
-export type TypeNode = PrimitiveType | StructType | AliasType | GenericType | UnionType | ArrayType
+export type TypeNode =
+  | PrimitiveType
+  | StructType
+  | AliasType
+  | GenericType
+  | UnionType
+  | ArrayType
+  | ContractType
+  | FunctionType
+  | GetterType
 
 export interface PrimitiveType extends Expr {
   kind: "PrimitiveType"
-  name: LeafNode<"string" | "number" | "bool" | "dynamic">
+  name: LeafNode<"string" | "number" | "bool" | "dynamic" | "void">
 }
 
 export interface StructType extends Expr {
@@ -279,4 +297,19 @@ export interface ArrayType extends Expr {
   kind: "ArrayType"
   name?: LeafNode<string>
   elementType: TypeNode
+}
+
+export interface FunctionType extends Expr {
+  kind: "FunctionType"
+  name?: LeafNode<string>
+  parameters: FunctionParam[]
+  returnType: TypeNode | TypeNode[]
+  typeParameters?: TypeParameter[]
+}
+
+// ie get name -> string
+export interface GetterType extends Expr {
+  kind: "GetterType"
+  name: LeafNode<string>
+  returnType: TypeNode | TypeNode[]
 }

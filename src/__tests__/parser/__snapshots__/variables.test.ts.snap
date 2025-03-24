@@ -46,23 +46,7 @@ exports[`Parser - Statements should parse various variable declarations 2`] = `
       "kind": "VarDeclaration",
       "modifier": "variable",
       "type": {
-        "actualType": {
-          "kind": "PrimitiveType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 18,
-                "line": 1,
-              },
-              "start": {
-                "column": 12,
-                "line": 1,
-              },
-            },
-            "value": "number",
-          },
-        },
-        "kind": "AliasType",
+        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
@@ -145,23 +129,7 @@ exports[`Parser - Statements should parse various variable declarations 4`] = `
       "kind": "VarDeclaration",
       "modifier": "constant",
       "type": {
-        "actualType": {
-          "kind": "PrimitiveType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 16,
-                "line": 1,
-              },
-              "start": {
-                "column": 10,
-                "line": 1,
-              },
-            },
-            "value": "number",
-          },
-        },
-        "kind": "AliasType",
+        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
@@ -270,23 +238,7 @@ exports[`Parser - Statements should parse various variable declarations 6`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 18,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 12,
-                    "line": 1,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -319,23 +271,7 @@ exports[`Parser - Statements should parse various variable declarations 6`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 29,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 23,
-                    "line": 1,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -462,23 +398,7 @@ exports[`Parser - Statements should parse various variable declarations 8`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 18,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 12,
-                    "line": 1,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -527,23 +447,7 @@ exports[`Parser - Statements should parse various variable declarations 8`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 34,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 28,
-                    "line": 1,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -686,23 +590,7 @@ exports[`Parser - Statements should parse various variable declarations 10`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 18,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 12,
-                    "line": 1,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -751,23 +639,7 @@ exports[`Parser - Statements should parse various variable declarations 10`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 29,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 23,
-                    "line": 1,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -826,23 +698,7 @@ exports[`Parser - Statements should parse various variable declarations 11`] = `
       "kind": "VarDeclaration",
       "modifier": "variable",
       "type": {
-        "actualType": {
-          "kind": "PrimitiveType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 19,
-                "line": 1,
-              },
-              "start": {
-                "column": 12,
-                "line": 1,
-              },
-            },
-            "value": "dynamic",
-          },
-        },
-        "kind": "AliasType",
+        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {

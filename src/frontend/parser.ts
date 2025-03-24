@@ -32,6 +32,9 @@ import {
   GenericType,
   StructType,
   TypeParameter,
+  ContractType,
+  FunctionType,
+  GetterType,
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType } from "./lexer/specs"
@@ -181,8 +184,13 @@ export default class Parser {
   }
 
   private parse_type(): TypeNode {
-    if (this.at().type == TokenType.StructType) {
+    const token = this.at()
+    if (token.type == TokenType.StructType) {
       return this.parse_struct_type()
+    }
+
+    if (token.type == TokenType.ContractType) {
+      return this.parse_contract_type()
     }
 
     // Start by parsing the first type in a potential union
@@ -237,6 +245,82 @@ export default class Parser {
     return { kind: "StructType", members }
   }
 
+  private parse_contract_type(): ContractType {
+    this.eat() // eat contract token
+    const members = new Array<FunctionType | GetterType>()
+
+    this.expect(TokenType.OpenBrace, "Contract literal missing opening brace.")
+
+    while (this.not_eof() && this.at().type != TokenType.CloseBrace) {
+      // Parse function declaration
+      switch (this.at().type) {
+        case TokenType.Fn:
+          members.push(this.parse_fn_definition())
+          break
+        case TokenType.Get:
+          members.push(this.parse_getter_definition())
+          break
+        default:
+          throw new Error("Contract member must be a function or getter")
+      }
+    }
+
+    this.expect(TokenType.CloseBrace, "Contract literal missing closing brace.")
+
+    return { kind: "ContractType", members }
+  }
+
+  private parse_fn_definition(): FunctionType {
+    this.eat() // eat fn token
+    const name = this.expect(TokenType.Identifier, "Expected function name following fn keyword")
+
+    let typeParameters: TypeParameter[] | undefined = undefined
+    if (isLessThan(this.at())) {
+      typeParameters = this.parse_generic_type(name).parameters
+    }
+
+    const params: FunctionParam[] = this.parse_params()
+
+    if (this.at().type != TokenType.Arrow) {
+      throw new Error("Expected '->' after function parameters")
+    }
+
+    const returnType = this.parse_return_type()
+
+    if (!returnType) {
+      throw new Error("Function definition must have a return type")
+    }
+
+    return {
+      kind: "FunctionType",
+      name: get_leaf(name),
+      parameters: params,
+      typeParameters,
+      returnType,
+    }
+  }
+
+  private parse_getter_definition(): GetterType {
+    this.eat() // eat get token
+    const name = this.expect(TokenType.Identifier, "Expected getter name following get keyword")
+
+    // ie
+    // get name -> string
+    // get kind -> T
+
+    const returnType = this.parse_return_type()
+
+    if (!returnType) {
+      throw new Error("Getter definition must have a return type")
+    }
+
+    return {
+      kind: "GetterType",
+      name: get_leaf(name),
+      returnType,
+    }
+  }
+
   private parse_single_type(): TypeNode {
     // Parse the base type (primitive or named)
     let type = this.parse_base_type()
@@ -258,18 +342,12 @@ export default class Parser {
 
   private parse_base_type(): TypeNode {
     // Check if it's a named type (could be a struct, alias, or generic)
-    if (
-      this.at().type === TokenType.TypeIdentifier ||
-      this.at().type === TokenType.NumberType ||
-      this.at().type === TokenType.StringType ||
-      this.at().type === TokenType.BooleanType ||
-      this.at().type === TokenType.DynamicType
-    ) {
+    if (this.at().type === TokenType.TypeIdentifier) {
       const typeName = this.eat()
 
       // Check if it's a generic type with parameters
       if (isLessThan(this.at())) {
-        return this.parse_generic_type(typeName)
+        if (typeName) return this.parse_generic_type(typeName)
       }
 
       // Regular named type
@@ -286,7 +364,13 @@ export default class Parser {
     // Primitive types
     const typeToken = this.expectOneOf(
       TypesGroup.TypeAnnotation,
-      [TokenType.NumberType, TokenType.StringType, TokenType.BooleanType, TokenType.DynamicType],
+      [
+        TokenType.NumberType,
+        TokenType.StringType,
+        TokenType.BooleanType,
+        TokenType.DynamicType,
+        TokenType.VoidType,
+      ],
       "Expected valid type annotation",
     )
 

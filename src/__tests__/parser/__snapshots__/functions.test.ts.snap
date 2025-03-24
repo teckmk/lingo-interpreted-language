@@ -239,23 +239,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with in
       },
       "parameters": [],
       "returnType": {
-        "actualType": {
-          "kind": "PrimitiveType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 17,
-                "line": 1,
-              },
-              "start": {
-                "column": 11,
-                "line": 1,
-              },
-            },
-            "value": "number",
-          },
-        },
-        "kind": "AliasType",
+        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
@@ -299,23 +283,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
       "parameters": [],
       "returnType": [
         {
-          "actualType": {
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 17,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 11,
-                  "line": 1,
-                },
-              },
-              "value": "number",
-            },
-          },
-          "kind": "AliasType",
+          "kind": "PrimitiveType",
           "name": {
             "position": {
               "end": {
@@ -331,23 +299,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
           },
         },
         {
-          "actualType": {
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 25,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 19,
-                  "line": 1,
-                },
-              },
-              "value": "string",
-            },
-          },
-          "kind": "AliasType",
+          "kind": "PrimitiveType",
           "name": {
             "position": {
               "end": {
@@ -430,23 +382,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
       "parameters": [],
       "returnType": [
         {
-          "actualType": {
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 17,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 11,
-                  "line": 1,
-                },
-              },
-              "value": "number",
-            },
-          },
-          "kind": "AliasType",
+          "kind": "PrimitiveType",
           "name": {
             "position": {
               "end": {
@@ -462,23 +398,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
           },
         },
         {
-          "actualType": {
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 25,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 19,
-                  "line": 1,
-                },
-              },
-              "value": "number",
-            },
-          },
-          "kind": "AliasType",
+          "kind": "PrimitiveType",
           "name": {
             "position": {
               "end": {
@@ -636,23 +556,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "b",
           },
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 15,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 9,
-                    "line": 1,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -684,23 +588,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "c",
           },
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 26,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 20,
-                    "line": 1,
-                  },
-                },
-                "value": "string",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -781,23 +669,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "b",
           },
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 15,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 9,
-                    "line": 1,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -829,23 +701,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "c",
           },
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 26,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 20,
-                    "line": 1,
-                  },
-                },
-                "value": "string",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -906,23 +762,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "b",
           },
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 15,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 9,
-                    "line": 1,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -954,23 +794,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "c",
           },
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 26,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 20,
-                    "line": 1,
-                  },
-                },
-                "value": "string",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -988,23 +812,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
         },
       ],
       "returnType": {
-        "actualType": {
-          "kind": "PrimitiveType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 37,
-                "line": 1,
-              },
-              "start": {
-                "column": 31,
-                "line": 1,
-              },
-            },
-            "value": "number",
-          },
-        },
-        "kind": "AliasType",
+        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
@@ -1082,23 +890,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "b",
           },
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 15,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 9,
-                    "line": 1,
-                  },
-                },
-                "value": "number",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -1130,23 +922,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "c",
           },
           "type": {
-            "actualType": {
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 26,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 20,
-                    "line": 1,
-                  },
-                },
-                "value": "string",
-              },
-            },
-            "kind": "AliasType",
+            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
@@ -1164,23 +940,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
         },
       ],
       "returnType": {
-        "actualType": {
-          "kind": "PrimitiveType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 37,
-                "line": 1,
-              },
-              "start": {
-                "column": 31,
-                "line": 1,
-              },
-            },
-            "value": "number",
-          },
-        },
-        "kind": "AliasType",
+        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
@@ -1223,23 +983,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with re
       },
       "parameters": [],
       "returnType": {
-        "actualType": {
-          "kind": "PrimitiveType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 17,
-                "line": 1,
-              },
-              "start": {
-                "column": 11,
-                "line": 1,
-              },
-            },
-            "value": "number",
-          },
-        },
-        "kind": "AliasType",
+        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
@@ -1302,23 +1046,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with re
       },
       "parameters": [],
       "returnType": {
-        "actualType": {
-          "kind": "PrimitiveType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 17,
-                "line": 1,
-              },
-              "start": {
-                "column": 11,
-                "line": 1,
-              },
-            },
-            "value": "number",
-          },
-        },
-        "kind": "AliasType",
+        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {

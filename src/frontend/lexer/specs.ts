@@ -35,6 +35,7 @@ export enum TokenType {
   UpdateOperator = "UPDATE_OPERATOR", // ++ --
   ExponentOperator = "EXPONENT_OPERATOR", // **
   PipeOperator = "PIPE_OPERATOR", // |
+  IntersectOperator = "INTERSECT_OPERATOR", // &
 
   // Reserved
   // KeyWords
@@ -56,13 +57,16 @@ export enum TokenType {
   Break = "BREAK",
   Continue = "CONTINUE",
   Type = "TYPE",
+  Get = "GET",
 
   // Primitive Types
   NumberType = "NUMBER_TYPE",
   StringType = "STRING_TYPE",
   BooleanType = "BOOL_TYPE",
   DynamicType = "DYNAMIC_TYPE",
+  VoidType = "VOID_TYPE",
   StructType = "STRUCT_TYPE",
+  ContractType = "CONTRACT_TYPE",
 }
 
 export type Spec = {
@@ -92,12 +96,16 @@ export const specs: Spec[] = [
   { regex: /^\bbreak\b/, tokenType: TokenType.Break },
   { regex: /^\bskip\b/, tokenType: TokenType.Continue },
   { regex: /^\btype\b/, tokenType: TokenType.Type },
+  { regex: /^\bget\b/, tokenType: TokenType.Get },
 
   { regex: /^\bnumber\b/, tokenType: TokenType.NumberType },
   { regex: /^\bstring\b/, tokenType: TokenType.StringType },
   { regex: /^\bbool\b/, tokenType: TokenType.BooleanType },
   { regex: /^\bdynamic\b/, tokenType: TokenType.DynamicType },
+  { regex: /^\bvoid\b/, tokenType: TokenType.VoidType },
   { regex: /^\bstruct\b/, tokenType: TokenType.StructType },
+  { regex: /^\bcontract\b/, tokenType: TokenType.ContractType },
+
 
   { regex: /^\band\b/, tokenType: TokenType.LogicGate },
   { regex: /^\bor\b/, tokenType: TokenType.LogicGate },
@@ -124,6 +132,7 @@ export const specs: Spec[] = [
   { regex: /^&&/, tokenType: TokenType.LogicGate },
   { regex: /^\|\|/, tokenType: TokenType.LogicGate },
 
+  { regex: /^&/, tokenType: TokenType.IntersectOperator },
   { regex: /^\|/, tokenType: TokenType.PipeOperator },
 
   { regex: /^:/, tokenType: TokenType.Colon },

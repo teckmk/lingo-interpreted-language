@@ -119,14 +119,9 @@ exports[`Interpreter - Generics should interpret generics with type parameters w
   "parameters": [
     {
       "constraint": {
-        "aliasTo": {
-          "primitiveType": "number",
-          "type": "type",
-          "typeKind": "primitive",
-        },
+        "primitiveType": "number",
         "type": "type",
-        "typeKind": "alias",
-        "typeName": "number",
+        "typeKind": "primitive",
       },
       "name": "T",
       "returned": false,
@@ -170,24 +165,14 @@ exports[`Interpreter - Generics should interpret generics with type parameters w
         "typeKind": "union",
         "unionTypes": [
           {
-            "aliasTo": {
-              "primitiveType": "number",
-              "type": "type",
-              "typeKind": "primitive",
-            },
+            "primitiveType": "number",
             "type": "type",
-            "typeKind": "alias",
-            "typeName": "number",
+            "typeKind": "primitive",
           },
           {
-            "aliasTo": {
-              "primitiveType": "string",
-              "type": "type",
-              "typeKind": "primitive",
-            },
+            "primitiveType": "string",
             "type": "type",
-            "typeKind": "alias",
-            "typeName": "string",
+            "typeKind": "primitive",
           },
         ],
       },
@@ -244,24 +229,14 @@ exports[`Interpreter - Generics should interpret generics with type parameters w
         "typeKind": "union",
         "unionTypes": [
           {
-            "aliasTo": {
-              "primitiveType": "number",
-              "type": "type",
-              "typeKind": "primitive",
-            },
+            "primitiveType": "number",
             "type": "type",
-            "typeKind": "alias",
-            "typeName": "number",
+            "typeKind": "primitive",
           },
           {
-            "aliasTo": {
-              "primitiveType": "string",
-              "type": "type",
-              "typeKind": "primitive",
-            },
+            "primitiveType": "string",
             "type": "type",
-            "typeKind": "alias",
-            "typeName": "string",
+            "typeKind": "primitive",
           },
         ],
       },
@@ -272,14 +247,9 @@ exports[`Interpreter - Generics should interpret generics with type parameters w
     },
     {
       "constraint": {
-        "aliasTo": {
-          "primitiveType": "number",
-          "type": "type",
-          "typeKind": "primitive",
-        },
+        "primitiveType": "number",
         "type": "type",
-        "typeKind": "alias",
-        "typeName": "number",
+        "typeKind": "primitive",
       },
       "name": "U",
       "returned": false,
