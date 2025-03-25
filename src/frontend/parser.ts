@@ -35,6 +35,8 @@ import {
   ContractType,
   FunctionType,
   GetterType,
+  ContractFulfillment,
+  SelfKeyword,
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType } from "./lexer/specs"
@@ -64,6 +66,7 @@ function isGreaterThan(token: Token) {
 export default class Parser {
   private loopStack: string[] = [] // Stack of loop IDs
   private labelMap: Map<string, string> = new Map() // Label to loop ID mapping
+  private insideContractFulfillment = false
   constructor(tokens?: Token[]) {
     if (tokens) {
       this.tokens = tokens
@@ -137,6 +140,8 @@ export default class Parser {
         return this.parse_continue_statement()
       case TokenType.Type:
         return this.parse_type_declaration()
+      case TokenType.FulFill:
+        return this.parse_contract_fulfillment()
       default:
         return this.parse_expr()
     }
@@ -245,8 +250,7 @@ export default class Parser {
     return { kind: "StructType", members }
   }
 
-  private parse_contract_type(): ContractType {
-    this.eat() // eat contract token
+  private parse_contract_body(): Array<FunctionType | GetterType> {
     const members = new Array<FunctionType | GetterType>()
 
     this.expect(TokenType.OpenBrace, "Contract literal missing opening brace.")
@@ -267,6 +271,12 @@ export default class Parser {
 
     this.expect(TokenType.CloseBrace, "Contract literal missing closing brace.")
 
+    return members
+  }
+
+  private parse_contract_type(): ContractType {
+    this.eat() // eat contract token
+    const members = this.parse_contract_body()
     return { kind: "ContractType", members }
   }
 
@@ -291,12 +301,18 @@ export default class Parser {
       throw new Error("Function definition must have a return type")
     }
 
+    let body: Stmt[] | undefined = undefined
+    if (this.insideContractFulfillment) {
+      body = this.parse_code_block()
+    }
+
     return {
       kind: "FunctionType",
       name: get_leaf(name),
       parameters: params,
       typeParameters,
       returnType,
+      body,
     }
   }
 
@@ -304,9 +320,14 @@ export default class Parser {
     this.eat() // eat get token
     const name = this.expect(TokenType.Identifier, "Expected getter name following get keyword")
 
-    // ie
-    // get name -> string
-    // get kind -> T
+    let params: FunctionParam[] | undefined = undefined
+    if (this.insideContractFulfillment) {
+      params = this.parse_params()
+    }
+
+    if (this.at().type != TokenType.Arrow) {
+      throw new Error("Expected '->' after function parameters")
+    }
 
     const returnType = this.parse_return_type()
 
@@ -314,10 +335,44 @@ export default class Parser {
       throw new Error("Getter definition must have a return type")
     }
 
+    let body: Stmt[] | undefined = undefined
+    if (this.insideContractFulfillment) {
+      body = this.parse_code_block()
+    }
+
     return {
       kind: "GetterType",
       name: get_leaf(name),
       returnType,
+      parameters: params,
+      body,
+    }
+  }
+
+  private parse_contract_fulfillment(): ContractFulfillment {
+    this.eat() // eat fulfill token
+
+    let contractName: LeafNode<string> | undefined = undefined
+    let structName: Token | undefined = undefined
+
+    if (this.at().type == TokenType.TypeIdentifier) {
+      contractName = get_leaf(this.eat())
+    }
+
+    this.eat() // eat for token
+    structName = this.expect(TokenType.TypeIdentifier, "Expected struct name following for keyword")
+
+    this.insideContractFulfillment = true
+
+    const members = this.parse_contract_body()
+
+    this.insideContractFulfillment = false
+
+    return {
+      kind: "ContractFulfillment",
+      contract: contractName,
+      members,
+      for: get_leaf(structName),
     }
   }
 
@@ -1196,20 +1251,29 @@ export default class Parser {
   }
 
   private parse_params_list(): FunctionParam[] {
-    const params = [this.parse_parameter()]
+    // inside contract fulfillment, first param is self
+    const params = [this.parse_parameter(this.insideContractFulfillment)]
 
     while (this.at().type == TokenType.Comma && this.eat()) params.push(this.parse_parameter())
 
     return params
   }
 
-  private parse_parameter(): FunctionParam {
-    const ident = this.expect(TokenType.Identifier, "Expected identifier in function parameter")
+  private parse_parameter(parse_self = false): FunctionParam {
+    let ident
+    if (parse_self) {
+      ident = this.expect(TokenType.Self, "Expected self keyword")
+    } else {
+      ident = this.expect(TokenType.Identifier, "Expected identifier in function parameter")
+    }
 
-    const type = this.parse_type_anotation()
+    // self keyword can't have type anotation
+    const type = parse_self ? undefined : this.parse_type_anotation()
 
     // check for default values
     if (this.at().type == TokenType.Equals) {
+      if (parse_self) throw new Error("Self keyword can't have default value")
+
       this.eat() // eat = token
 
       const defaultVal = this.parse_expr()
@@ -1316,6 +1380,8 @@ export default class Parser {
     switch (tk) {
       case TokenType.Identifier:
         return { kind: "Identifier", symbol: get_leaf(this.eat()) } as Identifier
+      case TokenType.Self:
+        return { kind: "SelfKeyword", symbol: get_leaf(this.eat()) } as SelfKeyword
       case TokenType.NumberLiteral: {
         const numberToken = this.eat()
         numberToken.value = parseFloat(numberToken.value)

@@ -13,6 +13,7 @@ export type NodeType =
   | "BreakStatement"
   | "ContinueStatement"
   | "TypeDeclaration"
+  | "ContractFulfillment"
   // Expressions
   | "AssignmentExpr"
   | "MemberExpr"
@@ -28,6 +29,7 @@ export type NodeType =
   | "Identifier"
   | "ArrayLiteral"
   | "DocComment"
+  | "SelfKeyword"
   // Types
   | "TypeDeclaration"
   | "PrimitiveType"
@@ -158,6 +160,14 @@ export interface ContinueStatement extends Stmt {
   label?: LeafNode<string>
 }
 
+export interface ContractFulfillment extends Stmt {
+  kind: "ContractFulfillment"
+  contract?: LeafNode<string> // undefined for default contract
+  typeArgs?: TypeNode[] // Add support for type arguments in contract fulfillment
+  for: LeafNode<string>
+  members: (GetterType | FunctionType)[]
+}
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Expr extends Stmt {}
 
@@ -194,6 +204,11 @@ export interface Identifier extends Expr {
   symbol: LeafNode<string>
 }
 
+export interface SelfKeyword extends Expr {
+  kind: "SelfKeyword"
+  symbol: LeafNode<string>
+}
+
 export interface NumericLiteral extends Expr {
   kind: "NumericLiteral"
   value: LeafNode<number>
@@ -222,6 +237,7 @@ export interface StructMember extends Expr {
 export interface ContractType extends Expr {
   kind: "ContractType"
   name?: LeafNode<string>
+
   members: (GetterType | FunctionType)[]
 }
 
@@ -305,11 +321,14 @@ export interface FunctionType extends Expr {
   parameters: FunctionParam[]
   returnType: TypeNode | TypeNode[]
   typeParameters?: TypeParameter[]
+  body?: Stmt[] // undefined in contracts, and defined in contract fulfillment
 }
 
 // ie get name -> string
 export interface GetterType extends Expr {
   kind: "GetterType"
   name: LeafNode<string>
+  parameters?: FunctionParam[]
   returnType: TypeNode | TypeNode[]
+  body?: Stmt[]
 }

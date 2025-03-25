@@ -58,6 +58,8 @@ export enum TokenType {
   Continue = "CONTINUE",
   Type = "TYPE",
   Get = "GET",
+  FulFill = "FULFILL",
+  Self = "SELF",
 
   // Primitive Types
   NumberType = "NUMBER_TYPE",
@@ -97,6 +99,8 @@ export const specs: Spec[] = [
   { regex: /^\bskip\b/, tokenType: TokenType.Continue },
   { regex: /^\btype\b/, tokenType: TokenType.Type },
   { regex: /^\bget\b/, tokenType: TokenType.Get },
+  { regex: /^\bfulfill\b/, tokenType: TokenType.FulFill },
+  { regex: /^\bself\b/, tokenType: TokenType.Self },
 
   { regex: /^\bnumber\b/, tokenType: TokenType.NumberType },
   { regex: /^\bstring\b/, tokenType: TokenType.StringType },
@@ -105,7 +109,6 @@ export const specs: Spec[] = [
   { regex: /^\bvoid\b/, tokenType: TokenType.VoidType },
   { regex: /^\bstruct\b/, tokenType: TokenType.StructType },
   { regex: /^\bcontract\b/, tokenType: TokenType.ContractType },
-
 
   { regex: /^\band\b/, tokenType: TokenType.LogicGate },
   { regex: /^\bor\b/, tokenType: TokenType.LogicGate },

@@ -10,4 +10,33 @@ describe("Parser - Contracts", () => {
     const ast = parse("test", code);
     expect(ast).toMatchSnapshot();
   });
+
+  it("should parse contract fullfillment", () => {
+    const code = `
+        type Point = contract {
+            fn setPoint(x:number, y:number) -> void
+            get x -> number
+            get y -> number
+        }
+        type Point3D = struct {
+            x: number
+            y: number
+            z: number
+        }
+        fulfill Point for Point3D {
+            fn setPoint(self, x:number, y:number) -> void {
+                self.x = x
+                self.y = y
+            }
+            get x(self) -> number {
+                self.x
+            }
+            get y(self) -> number {
+                self.y
+            }
+        }    
+        `;
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 });
