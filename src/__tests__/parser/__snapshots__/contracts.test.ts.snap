@@ -1670,6 +1670,876 @@ exports[`Parser - Contracts should parse contract fullfillment with generic para
 }
 `;
 
+exports[`Parser - Contracts should parse contract fullfillment with indented body 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 11,
+                "line": 2,
+              },
+              "start": {
+                "column": 6,
+                "line": 2,
+              },
+            },
+            "value": "Point",
+          },
+        },
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 11,
+              "line": 2,
+            },
+            "start": {
+              "column": 6,
+              "line": 2,
+            },
+          },
+          "value": "Point",
+        },
+      },
+      "type": {
+        "kind": "ContractType",
+        "members": [
+          {
+            "body": undefined,
+            "kind": "FunctionType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 16,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 8,
+                  "line": 3,
+                },
+              },
+              "value": "setPoint",
+            },
+            "parameters": [
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 18,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 17,
+                      "line": 3,
+                    },
+                  },
+                  "value": "x",
+                },
+                "type": {
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 25,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 19,
+                        "line": 3,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+              },
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 28,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 27,
+                      "line": 3,
+                    },
+                  },
+                  "value": "y",
+                },
+                "type": {
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 35,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 29,
+                        "line": 3,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+              },
+            ],
+            "returnType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 44,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 40,
+                    "line": 3,
+                  },
+                },
+                "value": "void",
+              },
+            },
+            "typeParameters": undefined,
+          },
+          {
+            "body": undefined,
+            "kind": "GetterType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 10,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 9,
+                  "line": 4,
+                },
+              },
+              "value": "x",
+            },
+            "parameters": undefined,
+            "returnType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 20,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 4,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+          {
+            "body": undefined,
+            "kind": "GetterType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 10,
+                  "line": 5,
+                },
+                "start": {
+                  "column": 9,
+                  "line": 5,
+                },
+              },
+              "value": "y",
+            },
+            "parameters": undefined,
+            "returnType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 20,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 5,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+        ],
+      },
+    },
+    {
+      "contract": {
+        "position": {
+          "end": {
+            "column": 14,
+            "line": 7,
+          },
+          "start": {
+            "column": 9,
+            "line": 7,
+          },
+        },
+        "value": "Point",
+      },
+      "for": {
+        "position": {
+          "end": {
+            "column": 26,
+            "line": 7,
+          },
+          "start": {
+            "column": 19,
+            "line": 7,
+          },
+        },
+        "value": "Point3D",
+      },
+      "kind": "ContractFulfillment",
+      "members": [
+        {
+          "body": [
+            {
+              "assigne": {
+                "computed": false,
+                "kind": "MemberExpr",
+                "object": {
+                  "kind": "SelfKeyword",
+                  "symbol": {
+                    "position": {
+                      "end": {
+                        "column": 13,
+                        "line": 9,
+                      },
+                      "start": {
+                        "column": 9,
+                        "line": 9,
+                      },
+                    },
+                    "value": "self",
+                  },
+                },
+                "property": {
+                  "kind": "Identifier",
+                  "symbol": {
+                    "position": {
+                      "end": {
+                        "column": 15,
+                        "line": 9,
+                      },
+                      "start": {
+                        "column": 14,
+                        "line": 9,
+                      },
+                    },
+                    "value": "x",
+                  },
+                },
+              },
+              "kind": "AssignmentExpr",
+              "value": {
+                "kind": "Identifier",
+                "symbol": {
+                  "position": {
+                    "end": {
+                      "column": 19,
+                      "line": 9,
+                    },
+                    "start": {
+                      "column": 18,
+                      "line": 9,
+                    },
+                  },
+                  "value": "x",
+                },
+              },
+            },
+            {
+              "assigne": {
+                "computed": false,
+                "kind": "MemberExpr",
+                "object": {
+                  "kind": "SelfKeyword",
+                  "symbol": {
+                    "position": {
+                      "end": {
+                        "column": 13,
+                        "line": 10,
+                      },
+                      "start": {
+                        "column": 9,
+                        "line": 10,
+                      },
+                    },
+                    "value": "self",
+                  },
+                },
+                "property": {
+                  "kind": "Identifier",
+                  "symbol": {
+                    "position": {
+                      "end": {
+                        "column": 15,
+                        "line": 10,
+                      },
+                      "start": {
+                        "column": 14,
+                        "line": 10,
+                      },
+                    },
+                    "value": "y",
+                  },
+                },
+              },
+              "kind": "AssignmentExpr",
+              "value": {
+                "kind": "Identifier",
+                "symbol": {
+                  "position": {
+                    "end": {
+                      "column": 19,
+                      "line": 10,
+                    },
+                    "start": {
+                      "column": 18,
+                      "line": 10,
+                    },
+                  },
+                  "value": "y",
+                },
+              },
+            },
+          ],
+          "kind": "FunctionType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 16,
+                "line": 8,
+              },
+              "start": {
+                "column": 8,
+                "line": 8,
+              },
+            },
+            "value": "setPoint",
+          },
+          "parameters": [
+            {
+              "kind": "FunctionParam",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 21,
+                    "line": 8,
+                  },
+                  "start": {
+                    "column": 17,
+                    "line": 8,
+                  },
+                },
+                "value": "self",
+              },
+              "type": undefined,
+            },
+            {
+              "kind": "FunctionParam",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 24,
+                    "line": 8,
+                  },
+                  "start": {
+                    "column": 23,
+                    "line": 8,
+                  },
+                },
+                "value": "x",
+              },
+              "type": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 31,
+                      "line": 8,
+                    },
+                    "start": {
+                      "column": 25,
+                      "line": 8,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+            },
+            {
+              "kind": "FunctionParam",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 34,
+                    "line": 8,
+                  },
+                  "start": {
+                    "column": 33,
+                    "line": 8,
+                  },
+                },
+                "value": "y",
+              },
+              "type": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 41,
+                      "line": 8,
+                    },
+                    "start": {
+                      "column": 35,
+                      "line": 8,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+            },
+          ],
+          "returnType": {
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 50,
+                  "line": 8,
+                },
+                "start": {
+                  "column": 46,
+                  "line": 8,
+                },
+              },
+              "value": "void",
+            },
+          },
+          "typeParameters": undefined,
+        },
+        {
+          "body": [
+            {
+              "computed": false,
+              "kind": "MemberExpr",
+              "object": {
+                "kind": "SelfKeyword",
+                "symbol": {
+                  "position": {
+                    "end": {
+                      "column": 13,
+                      "line": 12,
+                    },
+                    "start": {
+                      "column": 9,
+                      "line": 12,
+                    },
+                  },
+                  "value": "self",
+                },
+              },
+              "property": {
+                "kind": "Identifier",
+                "symbol": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 12,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 12,
+                    },
+                  },
+                  "value": "x",
+                },
+              },
+            },
+          ],
+          "kind": "GetterType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 10,
+                "line": 11,
+              },
+              "start": {
+                "column": 9,
+                "line": 11,
+              },
+            },
+            "value": "x",
+          },
+          "parameters": [
+            {
+              "kind": "FunctionParam",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 11,
+                  },
+                  "start": {
+                    "column": 11,
+                    "line": 11,
+                  },
+                },
+                "value": "self",
+              },
+              "type": undefined,
+            },
+          ],
+          "returnType": {
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 26,
+                  "line": 11,
+                },
+                "start": {
+                  "column": 20,
+                  "line": 11,
+                },
+              },
+              "value": "number",
+            },
+          },
+        },
+        {
+          "body": [
+            {
+              "computed": false,
+              "kind": "MemberExpr",
+              "object": {
+                "kind": "SelfKeyword",
+                "symbol": {
+                  "position": {
+                    "end": {
+                      "column": 13,
+                      "line": 14,
+                    },
+                    "start": {
+                      "column": 9,
+                      "line": 14,
+                    },
+                  },
+                  "value": "self",
+                },
+              },
+              "property": {
+                "kind": "Identifier",
+                "symbol": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 14,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 14,
+                    },
+                  },
+                  "value": "y",
+                },
+              },
+            },
+          ],
+          "kind": "GetterType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 10,
+                "line": 13,
+              },
+              "start": {
+                "column": 9,
+                "line": 13,
+              },
+            },
+            "value": "y",
+          },
+          "parameters": [
+            {
+              "kind": "FunctionParam",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 13,
+                  },
+                  "start": {
+                    "column": 11,
+                    "line": 13,
+                  },
+                },
+                "value": "self",
+              },
+              "type": undefined,
+            },
+          ],
+          "returnType": {
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 26,
+                  "line": 13,
+                },
+                "start": {
+                  "column": 20,
+                  "line": 13,
+                },
+              },
+              "value": "number",
+            },
+          },
+        },
+      ],
+      "typeArgs": undefined,
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Contracts should parse contract with indented body 1`] = `
+{
+  "body": [
+    {
+      "kind": "TypeDeclaration",
+      "name": {
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 11,
+                "line": 2,
+              },
+              "start": {
+                "column": 6,
+                "line": 2,
+              },
+            },
+            "value": "Point",
+          },
+        },
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 11,
+              "line": 2,
+            },
+            "start": {
+              "column": 6,
+              "line": 2,
+            },
+          },
+          "value": "Point",
+        },
+      },
+      "type": {
+        "kind": "ContractType",
+        "members": [
+          {
+            "body": undefined,
+            "kind": "FunctionType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 16,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 8,
+                  "line": 3,
+                },
+              },
+              "value": "setPoint",
+            },
+            "parameters": [
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 18,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 17,
+                      "line": 3,
+                    },
+                  },
+                  "value": "x",
+                },
+                "type": {
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 25,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 19,
+                        "line": 3,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+              },
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 28,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 27,
+                      "line": 3,
+                    },
+                  },
+                  "value": "y",
+                },
+                "type": {
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 35,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 29,
+                        "line": 3,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+              },
+            ],
+            "returnType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 44,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 40,
+                    "line": 3,
+                  },
+                },
+                "value": "void",
+              },
+            },
+            "typeParameters": undefined,
+          },
+          {
+            "body": undefined,
+            "kind": "GetterType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 10,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 9,
+                  "line": 4,
+                },
+              },
+              "value": "x",
+            },
+            "parameters": undefined,
+            "returnType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 20,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 4,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+          {
+            "body": undefined,
+            "kind": "GetterType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 10,
+                  "line": 5,
+                },
+                "start": {
+                  "column": 9,
+                  "line": 5,
+                },
+              },
+              "value": "y",
+            },
+            "parameters": undefined,
+            "returnType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 20,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 14,
+                    "line": 5,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
 exports[`Parser - Contracts should parse contracts 1`] = `
 {
   "body": [

@@ -253,10 +253,7 @@ export default class Parser {
   private parse_contract_body(): Array<FunctionType | GetterType> {
     const members = new Array<FunctionType | GetterType>()
 
-    this.expect(TokenType.OpenBrace, "Contract literal missing opening brace.")
-
-    while (this.not_eof() && this.at().type != TokenType.CloseBrace) {
-      // Parse function declaration
+    this.parse_block(() => {
       switch (this.at().type) {
         case TokenType.Fn:
           members.push(this.parse_fn_definition())
@@ -267,9 +264,7 @@ export default class Parser {
         default:
           throw new Error("Contract member must be a function or getter")
       }
-    }
-
-    this.expect(TokenType.CloseBrace, "Contract literal missing closing brace.")
+    })
 
     return members
   }
@@ -488,7 +483,7 @@ export default class Parser {
     }
   }
 
-  private parse_code_block(): Stmt[] {
+  private parse_block(parser: () => any) {
     const indented = this.at().type === TokenType.Indent
 
     if (indented) {
@@ -497,17 +492,23 @@ export default class Parser {
       this.expect(TokenType.OpenBrace, "Expected opening brace for code block")
     }
 
-    const block: Stmt[] = []
-
     const blockEndingTypes = [TokenType.CloseBrace, TokenType.Dedent, TokenType.EOF]
 
-    while (!blockEndingTypes.includes(this.at().type)) block.push(this.parse_stmt())
+    while (!blockEndingTypes.includes(this.at().type)) parser()
 
     if (indented) {
       this.expect(TokenType.Dedent, "Unexpected ending of indented code block")
     } else {
       this.expect(TokenType.CloseBrace, "Unexpected ending of code block, expected '}'")
     }
+  }
+
+  private parse_code_block(): Stmt[] {
+    const block: Stmt[] = []
+
+    this.parse_block(() => {
+      block.push(this.parse_stmt())
+    })
 
     return block
   }
