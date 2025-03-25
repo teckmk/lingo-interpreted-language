@@ -354,9 +354,16 @@ export default class Parser {
 
     let contractName: LeafNode<string> | undefined = undefined
     let structName: Token | undefined = undefined
+    let typeArgs = undefined
 
+    // contract name may not present for default contract fulfillment
     if (this.at().type == TokenType.TypeIdentifier) {
       contractName = get_leaf(this.eat())
+
+      // Check if it's a generic type with parameters
+      if (isLessThan(this.at())) {
+        typeArgs = this.parse_generic_type_args()
+      }
     }
 
     this.eat() // eat for token
@@ -372,6 +379,7 @@ export default class Parser {
       kind: "ContractFulfillment",
       contract: contractName,
       members,
+      typeArgs,
       for: get_leaf(structName),
     }
   }
