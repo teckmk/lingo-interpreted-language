@@ -126,11 +126,12 @@ printTable(5)
   });
 
   it("should interpret for range loop over string with direct assignment", () => {
-    // 1. Interpreter creates a new temporary variable for the loop (inside the loop scope)
+    // This is how variable mutability works when using for loop
+    // 1. Interpreter creates a temporary variable for the loop (inside the loop scope)
     // 2. Then evaluates the loop
     // 3. Interpreter creates a new variable in parent scope with the same name
     const code = `
-    let mut result = for let mut i,v in "hello" {
+    let result = for let mut i,v in "hello" {
         result = result + " " + v
     }
 
@@ -143,6 +144,50 @@ printTable(5)
       returned: false,
       type: "string",
       value: " h e l l o",
+    });
+  });
+
+  it("should skip iteration if skip keyword is used", () => {
+    const code = `
+    let result = for let mut i,v in "hello" {
+        if (v == "h") {
+            skip
+        }
+        result = result + " " + v
+    }
+
+    result
+    `;
+
+    const val = interpret("test", code);
+
+    expect(val).toEqual({
+      returned: false,
+      type: "string",
+      value: " e l l o",
+    });
+  });
+
+  it("should skip iteration if break keyword is used", () => {
+    const code = `
+    let result = ""
+    
+    for let mut i,v in "hello" {
+        if (v == "e") {
+            break
+        }
+        result = result + " " + v
+    }
+
+    result
+    `;
+
+    const val = interpret("test", code);
+
+    expect(val).toEqual({
+      returned: false,
+      type: "string",
+      value: " h",
     });
   });
 });

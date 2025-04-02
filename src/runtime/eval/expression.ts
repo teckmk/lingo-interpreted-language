@@ -84,6 +84,36 @@ export function eval_boolean_binary_expr(
   return { type: "boolean", value: result, returned: false }
 }
 
+export function eval_string_binary_expr(
+  lhs: StringVal | PlaceholderVal,
+  rhs: StringVal,
+  operator: string,
+): BooleanVal {
+  let result = false
+
+  const left = lhs.type == "placeholder" ? "" : lhs.value
+  if (operator == "==") result = left == rhs.value
+  else if (operator == "!=") result = left != rhs.value
+
+  return { type: "boolean", value: result, returned: false } as BooleanVal
+}
+
+export function eval_string_concatenation(
+  lhs: StringVal | PlaceholderVal,
+  rhs: StringVal,
+  operator: string,
+  context: ExecutionContext,
+): StringVal {
+  const left = lhs.type == "placeholder" ? "" : (lhs as StringVal).value
+  if (operator != "+")
+    throw new RuntimeError(context, `Invalid operator for string concatenation: ${operator}`)
+  return {
+    type: "string",
+    value: left + (rhs as StringVal).value,
+    returned: false,
+  } as StringVal
+}
+
 export function eval_binary_expr(
   binop: BinaryExpr,
   env: Environment,
@@ -102,16 +132,24 @@ export function eval_binary_expr(
 
   // string concatenation
   if (["string", "placeholder"].includes(lhs.type) && rhs.type == "string") {
-    const left = lhs.type == "placeholder" ? "" : (lhs as StringVal).value
-    return {
-      type: "string",
-      value: left + (rhs as StringVal).value,
-      returned: false,
-    } as StringVal
+    switch (binop.operator.value) {
+      case "+":
+        return eval_string_concatenation(
+          lhs as StringVal,
+          rhs as StringVal,
+          binop.operator.value,
+          context,
+        )
+      case "==":
+      case "!=":
+        return eval_string_binary_expr(lhs as StringVal, rhs as StringVal, binop.operator.value)
+    }
   }
 
-  // One or both are NULL
-  return MK_NULL()
+  throw new RuntimeError(
+    context,
+    `Invalid binary operation: ${lhs.type} ${binop.operator.value} ${rhs.type}`,
+  )
 }
 
 export function eval_identifier(ident: Identifier, env: Environment, _context: ExecutionContext) {

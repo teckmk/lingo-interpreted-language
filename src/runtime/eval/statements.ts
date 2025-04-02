@@ -20,7 +20,7 @@ import { RuntimeError } from "../error"
 import { ExecutionContext } from "../execution-context"
 import { evaluate } from "../interpreter"
 import { MK_NULL, MK_PLACEHOLDER } from "../macros"
-import { areTypesCompatible, getRuntimeType } from "../type-checker"
+import { areTypesCompatible, getRuntimeType, getTypeName } from "../type-checker"
 import {
   ArrayVal,
   BooleanVal,
@@ -128,7 +128,7 @@ export function eval_var_declaration(
     if (value.type !== "null" && !isCompatible) {
       throw new RuntimeError(
         context,
-        `Type mismatch: Cannot assign value of type ${value.type} to variable of type ${declaredType.typeKind}`,
+        `Type mismatch: Cannot assign value of type ${value.type} to variable of type ${getTypeName(declaredType)}`,
       )
     }
 
@@ -203,6 +203,10 @@ export function eval_code_block(
   for (const stmt of block) {
     result = evaluate(stmt, context, scope)
     if (result.type == "return" || result.returned) return { ...result, returned: true }
+    else if (result.type == "break" || result.type == "continue") {
+      // Handle break and continue statements
+      return result
+    }
   }
 
   return result
@@ -216,7 +220,7 @@ export function eval_condition(
   const eval_check = evaluate(check, context, env) as BooleanVal
 
   if (eval_check.type != "boolean")
-    throw new RuntimeError(context, "Restult of check in 'if' statment must be a boolean")
+    throw new RuntimeError(context, "Result of check in 'if' statment must be a boolean")
 
   return eval_check
 }
@@ -335,7 +339,7 @@ export function eval_while_statement(
   env: Environment,
   context: ExecutionContext,
 ): RuntimeVal {
-  const loopId = `while_${Math.random().toString(36).substring(2, 9)}`
+  const loopId = loop.loopId
   context.enterLoop(loopId, loop.label?.value)
 
   let result: RuntimeVal = MK_NULL()
@@ -381,7 +385,7 @@ export function eval_for_statement(
   env: Environment,
   context: ExecutionContext,
 ): RuntimeVal {
-  const loopId = `for_${Math.random().toString(36).substring(2, 9)}`
+  const loopId = loop.loopId
   context.enterLoop(loopId, loop.label?.value)
 
   // Initialize
@@ -439,7 +443,7 @@ export function eval_for_in_statement(
   env: Environment,
   context: ExecutionContext,
 ): RuntimeVal {
-  const loopId = `forin_${Math.random().toString(36).substring(2, 9)}`
+  const loopId = loop.loopId
   context.enterLoop(loopId, loop.label?.value)
 
   const iterable = evaluate(loop.iterable, context, env)
@@ -515,7 +519,7 @@ export function eval_for_range_statement(
   env: Environment,
   context: ExecutionContext,
 ): RuntimeVal {
-  const loopId = `forrange_${Math.random().toString(36).substring(2, 9)}`
+  const loopId = loop.loopId
   context.enterLoop(loopId, loop.label?.value)
 
   // Evaluate range parameters
