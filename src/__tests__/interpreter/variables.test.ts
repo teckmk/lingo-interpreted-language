@@ -106,7 +106,7 @@ describe("Interpreter - Variables", () => {
 
     const runtimeVal = interpret("test", code);
 
-    expect(runtimeVal).toEqual("Can't assign a value of type string to a variable of type number\n");
+    expect(runtimeVal).toEqual("Type error: Cannot assign a value of type string to a variable of type number\n");
   });
 
   it("should allow variable reassignment with different type of dynamic type", () => {
