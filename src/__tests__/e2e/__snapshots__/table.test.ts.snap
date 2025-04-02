@@ -119,7 +119,7 @@ exports[`Table - E2E should interpret table of 5 1`] = `
                         "line": 5,
                       },
                     },
-                    "value": "i",
+                    "value": "v",
                   },
                 },
               },
@@ -179,7 +179,7 @@ exports[`Table - E2E should interpret table of 5 1`] = `
                     "expressions": {},
                     "identifiers": [
                       "$n",
-                      "$i",
+                      "$v",
                       "$result",
                     ],
                     "kind": "StringLiteral",
@@ -194,7 +194,7 @@ exports[`Table - E2E should interpret table of 5 1`] = `
                           "line": 6,
                         },
                       },
-                      "value": "$n x $i = $result",
+                      "value": "$n x $v = $result",
                     },
                   },
                 },
@@ -250,6 +250,433 @@ exports[`Table - E2E should interpret table of 5 1`] = `
             },
           },
           "inclusive": false,
+          "indexIdentifier": {
+            "position": {
+              "end": {
+                "column": 18,
+                "line": 4,
+              },
+              "start": {
+                "column": 17,
+                "line": 4,
+              },
+            },
+            "type": "IDENTIFIER",
+            "value": "i",
+          },
+          "kind": "ForRangeStatement",
+          "label": undefined,
+          "loopId": "loop_1",
+          "start": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 31,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 30,
+                  "line": 4,
+                },
+              },
+              "value": 1,
+            },
+          },
+          "step": undefined,
+          "valueIdentifier": {
+            "position": {
+              "end": {
+                "column": 20,
+                "line": 4,
+              },
+              "start": {
+                "column": 19,
+                "line": 4,
+              },
+            },
+            "type": "IDENTIFIER",
+            "value": "v",
+          },
+        },
+        {
+          "kind": "ReturnStatement",
+          "value": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 17,
+                  "line": 9,
+                },
+                "start": {
+                  "column": 12,
+                  "line": 9,
+                },
+              },
+              "value": "table",
+            },
+          },
+        },
+      ],
+      "kind": "FunctionDeclaration",
+      "name": {
+        "position": {
+          "end": {
+            "column": 14,
+            "line": 2,
+          },
+          "start": {
+            "column": 4,
+            "line": 2,
+          },
+        },
+        "value": "printTable",
+      },
+      "parameters": [
+        {
+          "kind": "FunctionParam",
+          "name": {
+            "position": {
+              "end": {
+                "column": 16,
+                "line": 2,
+              },
+              "start": {
+                "column": 15,
+                "line": 2,
+              },
+            },
+            "value": "n",
+          },
+          "type": {
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 24,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 18,
+                  "line": 2,
+                },
+              },
+              "value": "number",
+            },
+          },
+        },
+      ],
+      "returnType": {
+        "kind": "PrimitiveType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 35,
+              "line": 2,
+            },
+            "start": {
+              "column": 29,
+              "line": 2,
+            },
+          },
+          "value": "string",
+        },
+      },
+      "typeParameters": undefined,
+    },
+    {
+      "args": [
+        {
+          "kind": "NumericLiteral",
+          "value": {
+            "position": {
+              "end": {
+                "column": 13,
+                "line": 12,
+              },
+              "start": {
+                "column": 12,
+                "line": 12,
+              },
+            },
+            "value": 5,
+          },
+        },
+      ],
+      "caller": {
+        "kind": "Identifier",
+        "symbol": {
+          "position": {
+            "end": {
+              "column": 11,
+              "line": 12,
+            },
+            "start": {
+              "column": 1,
+              "line": 12,
+            },
+          },
+          "value": "printTable",
+        },
+      },
+      "kind": "CallExpr",
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Table - E2E should interpret table of 5, with inclusive range 1`] = `
+{
+  "body": [
+    {
+      "body": [
+        {
+          "identifier": {
+            "position": {
+              "end": {
+                "column": 18,
+                "line": 3,
+              },
+              "start": {
+                "column": 13,
+                "line": 3,
+              },
+            },
+            "value": "table",
+          },
+          "kind": "VarDeclaration",
+          "modifier": "variable",
+          "type": {
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 26,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 20,
+                  "line": 3,
+                },
+              },
+              "value": "string",
+            },
+          },
+          "value": {
+            "expressions": {},
+            "identifiers": [],
+            "kind": "StringLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 31,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 29,
+                  "line": 3,
+                },
+              },
+              "value": "",
+            },
+          },
+        },
+        {
+          "body": [
+            {
+              "identifier": {
+                "position": {
+                  "end": {
+                    "column": 19,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 13,
+                    "line": 5,
+                  },
+                },
+                "value": "result",
+              },
+              "kind": "VarDeclaration",
+              "modifier": "final",
+              "type": undefined,
+              "value": {
+                "kind": "BinaryExpr",
+                "left": {
+                  "kind": "Identifier",
+                  "symbol": {
+                    "position": {
+                      "end": {
+                        "column": 23,
+                        "line": 5,
+                      },
+                      "start": {
+                        "column": 22,
+                        "line": 5,
+                      },
+                    },
+                    "value": "n",
+                  },
+                },
+                "operator": {
+                  "position": {
+                    "end": {
+                      "column": 25,
+                      "line": 5,
+                    },
+                    "start": {
+                      "column": 24,
+                      "line": 5,
+                    },
+                  },
+                  "value": "*",
+                },
+                "right": {
+                  "kind": "Identifier",
+                  "symbol": {
+                    "position": {
+                      "end": {
+                        "column": 27,
+                        "line": 5,
+                      },
+                      "start": {
+                        "column": 26,
+                        "line": 5,
+                      },
+                    },
+                    "value": "v",
+                  },
+                },
+              },
+            },
+            {
+              "assigne": {
+                "kind": "Identifier",
+                "symbol": {
+                  "position": {
+                    "end": {
+                      "column": 14,
+                      "line": 6,
+                    },
+                    "start": {
+                      "column": 9,
+                      "line": 6,
+                    },
+                  },
+                  "value": "table",
+                },
+              },
+              "kind": "AssignmentExpr",
+              "value": {
+                "kind": "BinaryExpr",
+                "left": {
+                  "kind": "BinaryExpr",
+                  "left": {
+                    "kind": "Identifier",
+                    "symbol": {
+                      "position": {
+                        "end": {
+                          "column": 22,
+                          "line": 6,
+                        },
+                        "start": {
+                          "column": 17,
+                          "line": 6,
+                        },
+                      },
+                      "value": "table",
+                    },
+                  },
+                  "operator": {
+                    "position": {
+                      "end": {
+                        "column": 24,
+                        "line": 6,
+                      },
+                      "start": {
+                        "column": 23,
+                        "line": 6,
+                      },
+                    },
+                    "value": "+",
+                  },
+                  "right": {
+                    "expressions": {},
+                    "identifiers": [
+                      "$n",
+                      "$v",
+                      "$result",
+                    ],
+                    "kind": "StringLiteral",
+                    "value": {
+                      "position": {
+                        "end": {
+                          "column": 44,
+                          "line": 6,
+                        },
+                        "start": {
+                          "column": 25,
+                          "line": 6,
+                        },
+                      },
+                      "value": "$n x $v = $result",
+                    },
+                  },
+                },
+                "operator": {
+                  "position": {
+                    "end": {
+                      "column": 46,
+                      "line": 6,
+                    },
+                    "start": {
+                      "column": 45,
+                      "line": 6,
+                    },
+                  },
+                  "value": "+",
+                },
+                "right": {
+                  "expressions": {},
+                  "identifiers": [],
+                  "kind": "StringLiteral",
+                  "value": {
+                    "position": {
+                      "end": {
+                        "column": 50,
+                        "line": 6,
+                      },
+                      "start": {
+                        "column": 47,
+                        "line": 6,
+                      },
+                    },
+                    "value": "
+",
+                  },
+                },
+              },
+            },
+          ],
+          "end": {
+            "kind": "NumericLiteral",
+            "value": {
+              "position": {
+                "end": {
+                  "column": 42,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 40,
+                  "line": 4,
+                },
+              },
+              "value": 10,
+            },
+          },
+          "inclusive": true,
           "indexIdentifier": {
             "position": {
               "end": {
