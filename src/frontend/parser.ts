@@ -1396,6 +1396,10 @@ export default class Parser {
         numberToken.value = parseFloat(numberToken.value)
         return { kind: "NumericLiteral", value: get_leaf(numberToken) } as NumericLiteral
       }
+      case TokenType.For:
+        return this.parse_for_statement() // To support 'for' expressions
+      case TokenType.If:
+        return this.parse_if_statement() // To support 'if/else' expressions
       case TokenType.StringLiteral:
         return this.parse_string_literal() as StringLiteral
       case TokenType.OpenParen:

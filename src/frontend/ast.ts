@@ -152,6 +152,7 @@ export interface BreakStatement extends Stmt {
   kind: "BreakStatement"
   loopId: string
   label?: LeafNode<string>
+  value?: Expr // to support breaking with a value
 }
 
 export interface ContinueStatement extends Stmt {

@@ -19,7 +19,7 @@ import Environment from "../environment"
 import { RuntimeError } from "../error"
 import { ExecutionContext } from "../execution-context"
 import { evaluate } from "../interpreter"
-import { MK_NULL } from "../macros"
+import { MK_NULL, MK_PLACEHOLDER } from "../macros"
 import { areTypesCompatible, getRuntimeType } from "../type-checker"
 import {
   ArrayVal,
@@ -93,8 +93,25 @@ export function eval_var_declaration(
 ): RuntimeVal {
   let value: RuntimeVal = { type: "null", returned: false }
 
+  // Detect loop declarations
+  const isLoopVariable =
+    node.value &&
+    ["WhileStatement", "ForStatement", "ForInStatement", "ForRangeStatement"].includes(
+      node.value.kind,
+    )
+
   if (node.value) {
-    value = evaluate(node.value, context, env)
+    if (isLoopVariable) {
+      // Create a temporary scope for the loop variable
+      const loopScope = new Environment(context, env)
+      // Declare the variable in the loop scope
+      // This allows the loop variable to be maninpulated in the loop body
+      loopScope.declareVar(node.identifier.value, MK_PLACEHOLDER(), "variable")
+      // Evaluate the value of the loop
+      value = evaluate(node.value, context, loopScope)
+    } else {
+      value = evaluate(node.value, context, env)
+    }
   }
 
   // If a type is specified, check compatibility
@@ -188,7 +205,7 @@ export function eval_code_block(
     if (result.type == "return" || result.returned) return { ...result, returned: true }
   }
 
-  return MK_NULL()
+  return result
 }
 
 export function eval_condition(
@@ -227,6 +244,92 @@ export function eval_if_else_statement(
   return result
 }
 
+function processLoopResult(
+  result: RuntimeVal,
+  loopId: string,
+  context: ExecutionContext,
+  updateFn?: () => void,
+): { shouldBreak: boolean; shouldContinue: boolean; result: RuntimeVal } {
+  if (result.type === "break") {
+    const breakVal = result as BreakVal
+    if (breakVal.loopId === loopId) {
+      // Break from current loop with potential value
+      return {
+        shouldBreak: true,
+        shouldContinue: false,
+        result: breakVal.value || MK_NULL(),
+      }
+    }
+    // Break is for an outer loop, propagate
+    throw result
+  }
+
+  if (result.type === "continue") {
+    const continueVal = result as ContinueVal
+    if (continueVal.loopId === loopId) {
+      // Run update function if provided (for FOR loops)
+      if (updateFn) updateFn()
+
+      return {
+        shouldBreak: false,
+        shouldContinue: true,
+        result: MK_NULL(),
+      }
+    }
+    // Continue is for an outer loop, propagate
+    throw result
+  }
+
+  if (result.type === "return" || result.returned) {
+    // Immediately return from function
+    return {
+      shouldBreak: false,
+      shouldContinue: false,
+      result: result,
+    }
+  }
+
+  // Normal execution, continue loop
+  return {
+    shouldBreak: false,
+    shouldContinue: false,
+    result: result,
+  }
+}
+
+// Helper to catch and process loop control flow from nested structures
+function handleLoopException(
+  e: any,
+  loopId: string,
+  updateFn?: () => void,
+): { shouldBreak: boolean; shouldContinue: boolean; result: RuntimeVal } {
+  if (e instanceof RuntimeError) throw e
+
+  if (e && typeof e === "object" && "type" in e) {
+    if (e.type === "break" && (e as BreakVal).loopId === loopId) {
+      return {
+        shouldBreak: true,
+        shouldContinue: false,
+        result: (e as BreakVal).value || MK_NULL(),
+      }
+    }
+
+    if (e.type === "continue" && (e as ContinueVal).loopId === loopId) {
+      if (updateFn) updateFn()
+
+      return {
+        shouldBreak: false,
+        shouldContinue: true,
+        result: MK_NULL(),
+      }
+    }
+
+    throw e
+  }
+
+  throw e
+}
+
 export function eval_while_statement(
   loop: WhileStatement,
   env: Environment,
@@ -240,38 +343,32 @@ export function eval_while_statement(
   while (eval_condition(loop.check, env, context).value) {
     try {
       result = eval_code_block(loop.body, env, context)
-      if (result.type === "break") {
-        if ((result as BreakVal).loopId === loopId) {
-          result = MK_NULL()
-          break
-        }
-        // If break is for a different loop, rethrow
-        throw result
+      const processed = processLoopResult(result, loopId, context)
+
+      if (processed.shouldBreak) {
+        result = processed.result
+        break
       }
-      if (result.type === "continue") {
-        if ((result as ContinueVal).loopId === loopId) {
-          result = MK_NULL()
-          continue
-        }
-        // If continue is for a different loop, rethrow
-        throw result
+
+      if (processed.shouldContinue) continue
+
+      if (processed.result.type === "return" || processed.result.returned) {
+        context.exitLoop()
+        return processed.result
       }
-      if (result.type === "return" || result.returned) {
-        return result
-      }
+
+      result = processed.result
     } catch (e) {
-      if (e instanceof RuntimeError) throw e
-      // Handle break/continue from nested loops
-      if (e && typeof e === "object" && "type" in e) {
-        if (e.type === "break" && (e as BreakVal).loopId === loopId) {
-          break
-        }
-        if (e.type === "continue" && (e as ContinueVal).loopId === loopId) {
-          continue
-        }
-        throw e
+      const handled = handleLoopException(e, loopId)
+
+      if (handled.shouldBreak) {
+        result = handled.result
+        break
       }
-      throw e
+
+      if (handled.shouldContinue) {
+        continue
+      }
     }
   }
 
@@ -294,49 +391,42 @@ export function eval_for_statement(
 
   let result: RuntimeVal = MK_NULL()
 
+  // Define update function
+  const updateFn = () => {
+    if (loop.update) {
+      evaluate(loop.update, context, env)
+    }
+  }
+
   // Check condition (default to true if not provided)
   while (loop.condition ? eval_condition(loop.condition, env, context).value : true) {
     try {
-      // Execute body
       result = eval_code_block(loop.body, env, context)
+      const processed = processLoopResult(result, loopId, context, updateFn)
 
-      if (result.type === "break") {
-        if ((result as BreakVal).loopId === loopId) {
-          result = MK_NULL()
-          break
-        }
-        throw result
-      }
-      if (result.type === "continue") {
-        if ((result as ContinueVal).loopId === loopId) {
-          result = MK_NULL()
-          // Still execute update before continuing
-          if (loop.update) evaluate(loop.update, context, env)
-          continue
-        }
-        throw result
-      }
-      if (result.type === "return" || result.returned) {
-        return result
+      if (processed.shouldBreak) {
+        result = processed.result
+        break
       }
 
-      // Execute update
-      if (loop.update) {
-        evaluate(loop.update, context, env)
+      if (processed.shouldContinue) continue
+
+      if (processed.result.type === "return" || processed.result.returned) {
+        context.exitLoop()
+        return processed.result
       }
+
+      result = processed.result
+      updateFn()
     } catch (e) {
-      if (e instanceof RuntimeError) throw e
-      if (e && typeof e === "object" && "type" in e) {
-        if (e.type === "break" && (e as BreakVal).loopId === loopId) {
-          break
-        }
-        if (e.type === "continue" && (e as ContinueVal).loopId === loopId) {
-          if (loop.update) evaluate(loop.update, context, env)
-          continue
-        }
-        throw e
+      const handled = handleLoopException(e, loopId, updateFn)
+
+      if (handled.shouldBreak) {
+        result = handled.result
+        break
       }
-      throw e
+
+      if (handled.shouldContinue) continue
     }
   }
 
@@ -389,36 +479,30 @@ export function eval_for_in_statement(
 
       // Execute body
       result = eval_code_block(loop.body, scope, context)
+      const processed = processLoopResult(result, loopId, context)
 
-      if (result.type === "break") {
-        if ((result as BreakVal).loopId === loopId) {
-          result = MK_NULL()
-          break
-        }
-        throw result
+      if (processed.shouldBreak) {
+        result = processed.result
+        break
       }
-      if (result.type === "continue") {
-        if ((result as ContinueVal).loopId === loopId) {
-          result = MK_NULL()
-          continue
-        }
-        throw result
+
+      if (processed.shouldContinue) continue
+
+      if (processed.result.type === "return" || processed.result.returned) {
+        context.exitLoop()
+        return processed.result
       }
-      if (result.type === "return" || result.returned) {
-        return result
-      }
+
+      result = processed.result
     } catch (e) {
-      if (e instanceof RuntimeError) throw e
-      if (e && typeof e === "object" && "type" in e) {
-        if (e.type === "break" && (e as BreakVal).loopId === loopId) {
-          break
-        }
-        if (e.type === "continue" && (e as ContinueVal).loopId === loopId) {
-          continue
-        }
-        throw e
+      const handled = handleLoopException(e, loopId)
+
+      if (handled.shouldBreak) {
+        result = handled.result
+        break
       }
-      throw e
+
+      if (handled.shouldContinue) continue
     }
   }
 
@@ -451,6 +535,7 @@ export function eval_for_range_statement(
   const stepVal = loop.step
     ? (evaluate(loop.step, context, env) as NumberVal)
     : ({ type: "number", value: 1 } as NumberVal)
+
   if (stepVal.type !== "number") {
     throw new RuntimeError(context, "Range step must be a number")
   }
@@ -493,36 +578,30 @@ export function eval_for_range_statement(
 
       // Execute body
       result = eval_code_block(loop.body, scope, context)
+      const processed = processLoopResult(result, loopId, context)
 
-      if (result.type === "break") {
-        if ((result as BreakVal).loopId === loopId) {
-          result = MK_NULL()
-          break
-        }
-        throw result
+      if (processed.shouldBreak) {
+        result = processed.result
+        break
       }
-      if (result.type === "continue") {
-        if ((result as ContinueVal).loopId === loopId) {
-          result = MK_NULL()
-          continue
-        }
-        throw result
+
+      if (processed.shouldContinue) continue
+
+      if (processed.result.type === "return" || processed.result.returned) {
+        context.exitLoop()
+        return processed.result
       }
-      if (result.type === "return" || result.returned) {
-        return result
-      }
+
+      result = processed.result
     } catch (e) {
-      if (e instanceof RuntimeError) throw e
-      if (e && typeof e === "object" && "type" in e) {
-        if (e.type === "break" && (e as BreakVal).loopId === loopId) {
-          break
-        }
-        if (e.type === "continue" && (e as ContinueVal).loopId === loopId) {
-          continue
-        }
-        throw e
+      const handled = handleLoopException(e, loopId)
+
+      if (handled.shouldBreak) {
+        result = handled.result
+        break
       }
-      throw e
+
+      if (handled.shouldContinue) continue
     }
   }
 
@@ -539,10 +618,14 @@ export function eval_break_statement(
     throw new RuntimeError(context, "Break statement can only be used inside a loop")
   }
 
+  // Check if break has a value expression
+  const value = stmt.value ? evaluate(stmt.value, context, env) : null
+
   return {
     type: "break",
     loopId: stmt.loopId,
     label: stmt.label?.value,
+    value: value || MK_NULL(), // Store break value if provided
   } as BreakVal
 }
 

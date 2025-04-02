@@ -1,5 +1,5 @@
 import { DocComment, LeafNode, StructType, TypeNode } from "../../frontend/ast"
-import { ArrayVal, BooleanVal, FunctionVal, NullVal, StringVal } from "./../values"
+import { ArrayVal, BooleanVal, FunctionVal, NullVal, PlaceholderVal, StringVal } from "./../values"
 import {
   ArrayLiteral,
   AssignmentExpr,
@@ -37,44 +37,49 @@ import {
 } from "../type-checker"
 
 function eval_numeric_binary_expr(
-  lhs: NumberVal,
+  lhs: NumberVal | PlaceholderVal,
   rhs: NumberVal,
   operator: string,
 ): NumberVal | BooleanVal {
   if ([">", "<", "==", "!=", "==", ">=", "<="].includes(operator)) {
     let result = false
-    if (operator == ">") result = lhs.value > rhs.value
-    else if (operator == "<") result = lhs.value < rhs.value
-    else if (operator == "==") result = lhs.value == rhs.value
-    else if (operator == "!=") result = lhs.value != rhs.value
-    else if (operator == ">=") result = lhs.value >= rhs.value
-    else if (operator == "<=") result = lhs.value <= rhs.value
+    const left = lhs.type == "placeholder" ? 0 : lhs.value
+    if (operator == ">") result = left > rhs.value
+    else if (operator == "<") result = left < rhs.value
+    else if (operator == "==") result = left == rhs.value
+    else if (operator == "!=") result = left != rhs.value
+    else if (operator == ">=") result = left >= rhs.value
+    else if (operator == "<=") result = left <= rhs.value
 
     return { type: "boolean", value: result, returned: false }
   }
 
   let result = 0
 
-  if (operator == "+") result = lhs.value + rhs.value
-  else if (operator == "-") result = lhs.value - rhs.value
-  else if (operator == "*") result = lhs.value * rhs.value
-  else if (operator == "/") result = lhs.value / rhs.value
-  else result = lhs.value % rhs.value
+  const left = lhs.type == "placeholder" ? 0 : lhs.value
+
+  if (operator == "+") result = left + rhs.value
+  else if (operator == "-") result = left - rhs.value
+  else if (operator == "*") result = left * rhs.value
+  else if (operator == "/") result = left / rhs.value
+  else result = left % rhs.value
 
   return { type: "number", value: result, returned: false }
 }
 
 export function eval_boolean_binary_expr(
-  lhs: BooleanVal,
+  lhs: BooleanVal | PlaceholderVal,
   rhs: BooleanVal,
   operator: string,
 ): BooleanVal {
   let result = false
 
-  if (operator == "==") result = lhs.value == rhs.value
-  else if (operator == "!=") result = lhs.value != rhs.value
-  else if (operator == "&&" || operator == "and") result = lhs.value && rhs.value
-  else if (operator == "||" || operator == "or") result = lhs.value || rhs.value
+  const left = lhs.type == "placeholder" ? false : lhs.value
+
+  if (operator == "==") result = left == rhs.value
+  else if (operator == "!=") result = left != rhs.value
+  else if (operator == "&&" || operator == "and") result = left && rhs.value
+  else if (operator == "||" || operator == "or") result = left || rhs.value
 
   return { type: "boolean", value: result, returned: false }
 }
@@ -87,19 +92,20 @@ export function eval_binary_expr(
   const lhs = evaluate(binop.left, context, env)
   const rhs = evaluate(binop.right, context, env)
 
-  if (lhs.type == "number" && rhs.type == "number") {
+  if (["number", "placeholder"].includes(lhs.type) && rhs.type == "number") {
     return eval_numeric_binary_expr(lhs as NumberVal, rhs as NumberVal, binop.operator.value)
   }
 
-  if (lhs.type == "boolean" && rhs.type == "boolean") {
+  if (["boolean", "placeholder"].includes(lhs.type) && rhs.type == "boolean") {
     return eval_boolean_binary_expr(lhs as BooleanVal, rhs as BooleanVal, binop.operator.value)
   }
 
   // string concatenation
-  if (lhs.type == "string" && rhs.type == "string") {
+  if (["string", "placeholder"].includes(lhs.type) && rhs.type == "string") {
+    const left = lhs.type == "placeholder" ? "" : (lhs as StringVal).value
     return {
       type: "string",
-      value: (lhs as StringVal).value + (rhs as StringVal).value,
+      value: left + (rhs as StringVal).value,
       returned: false,
     } as StringVal
   }

@@ -21,10 +21,17 @@ export type ValueType =
   | "type"
   | "break"
   | "continue"
+  | "placeholder"
 
 export interface RuntimeVal {
   type: ValueType
   returned: boolean
+}
+
+// Used for declaring a variable with loops as their value
+// See eval_var_declaration in interpreter.ts
+export interface PlaceholderVal extends RuntimeVal {
+  type: "placeholder"
 }
 
 export interface NullVal extends RuntimeVal {
@@ -96,6 +103,7 @@ export interface BreakVal extends RuntimeVal {
   type: "break"
   loopId: string
   label?: string
+  value?: RuntimeVal
 }
 
 export interface ContinueVal extends RuntimeVal {
