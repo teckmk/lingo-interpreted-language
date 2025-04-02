@@ -82,4 +82,46 @@ printTable(5)
       },
     });
   });
+
+  it("should interpret for range loop over array", () => {
+    const code = `
+    let mut arr = [1, 2, 3, 4, 5]
+    let mut sum = 0
+
+    for let mut i,v in arr {
+        sum = sum + v
+    }
+
+    sum
+    `;
+
+    const val = interpret("test", code);
+
+    expect(val).toEqual({
+      returned: false,
+      type: "number",
+      value: 15,
+    });
+  });
+
+  it("should interpret for range loop over string", () => {
+    const code = `
+    let mut str = "hello"
+    let mut result = ""
+
+    for let mut i,v in str {
+        result = result + " " + v
+    }
+
+    result
+    `;
+
+    const val = interpret("test", code);
+
+    expect(val).toEqual({
+      returned: false,
+      type: "string",
+      value: " h e l l o",
+    });
+  });
 });

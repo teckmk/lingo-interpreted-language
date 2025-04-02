@@ -5,3 +5,17 @@ ISSUES:
     > print("every thing is coool ${5-90} times")
     every thing is coool 5 times
 
+// Features
+LambdaExpr
+
+fn map<T, U>(mapper: fn(item:T) -> U)
+
+map { item ->
+  item
+}
+
+fn outer() {
+    fn inner() {
+        if(true) return@outer
+    }
+}
