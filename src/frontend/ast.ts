@@ -112,7 +112,7 @@ export interface IfElseStatement extends Stmt {
   else?: Stmt[]
 }
 
-export interface WhileStatement extends Stmt {
+export interface WhileStatement extends Loop {
   kind: "WhileStatement"
   check: Expr
   body: Stmt[]

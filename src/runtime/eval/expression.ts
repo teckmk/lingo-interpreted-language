@@ -95,6 +95,15 @@ export function eval_binary_expr(
     return eval_boolean_binary_expr(lhs as BooleanVal, rhs as BooleanVal, binop.operator.value)
   }
 
+  // string concatenation
+  if (lhs.type == "string" && rhs.type == "string") {
+    return {
+      type: "string",
+      value: (lhs as StringVal).value + (rhs as StringVal).value,
+      returned: false,
+    } as StringVal
+  }
+
   // One or both are NULL
   return MK_NULL()
 }

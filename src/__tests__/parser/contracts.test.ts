@@ -83,8 +83,8 @@ type Point = contract:
     expect(ast).toMatchSnapshot();
   });
 
-    it("should parse contract fullfillment with indented body", () => {
-        const code = `
+  it("should parse contract fullfillment with indented body", () => {
+    const code = `
 type Point = contract:
     fn setPoint(x:number, y:number) -> void
     get x -> number
@@ -99,7 +99,7 @@ fulfill Point for Point3D:
     get y(self) -> number:
         self.y
 `;
-        const ast = parse("test", code);
-        expect(ast).toMatchSnapshot();
-    });
+    const ast = parse("test", code);
+    expect(ast).toMatchSnapshot();
+  });
 });

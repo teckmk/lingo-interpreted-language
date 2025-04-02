@@ -2,6 +2,8 @@ import { VarModifier } from "../frontend/ast"
 import { ExecutionContext } from "./execution-context"
 import { RuntimeError } from "./error"
 import { RuntimeVal, ValueType } from "./values"
+import { TypeVal, PrimitiveTypeVal } from "./values.types"
+import { areTypesCompatible, getRuntimeType } from "./type-checker"
 
 import functions from "./built-ins/functions"
 import variables from "./built-ins/variables"
@@ -13,6 +15,7 @@ export default class Environment {
   private constants: Set<string>
   private finals: Set<string>
   private executionContext: ExecutionContext
+  private variableTypes: Map<string, TypeVal>
 
   constructor(executionContext: ExecutionContext, parentEnv?: Environment) {
     this.parent = parentEnv
@@ -21,6 +24,7 @@ export default class Environment {
     this.constants = new Set()
     this.finals = new Set()
     this.typeDefinitions = new Map()
+    this.variableTypes = new Map()
 
     const global = Boolean(parentEnv) == false
     if (global) {
@@ -61,26 +65,59 @@ export default class Environment {
     return env.typeDefinitions.get(name) as RuntimeVal
   }
 
-  private assertType(varType: ValueType, value: RuntimeVal) {
-    let valueWithType = value
+  private assertType(type: TypeVal | ValueType, value: RuntimeVal): RuntimeVal {
+    // Handle primitive type strings for backward compatibility
+    if (typeof type === "string") {
+      // Dynamic type accepts any value
+      if (type === "dynamic") {
+        return { ...value, type: value.type }
+      }
 
-    if (value.type == "dynamic") {
-      valueWithType = { ...value, type: "dynamic" }
-    } else if (value.type != varType && varType != "dynamic") {
+      // Convert string type to PrimitiveTypeVal
+      const primitiveType: PrimitiveTypeVal = {
+        type: "type",
+        typeKind: "primitive",
+        primitiveType: type as any,
+        returned: false,
+      }
+
+      return this.assertType(primitiveType, value)
+    }
+
+    // If the value is dynamic, it can be assigned to any type
+    if (value.type === "dynamic") {
+      return { ...value, type: value.type }
+    }
+
+    // Get the runtime type of the value
+    const valueType = getRuntimeType(value)
+
+    // Check if the types are compatible
+    const [isCompatible] = areTypesCompatible(valueType, type)
+
+    if (!isCompatible) {
+      const sourceTypeName =
+        valueType.typeKind === "primitive"
+          ? (valueType as PrimitiveTypeVal).primitiveType
+          : valueType.typeKind
+
+      const targetTypeName =
+        type.typeKind === "primitive" ? (type as PrimitiveTypeVal).primitiveType : type.typeKind
+
       throw new RuntimeError(
         this.executionContext,
-        `Can't assign a value of type ${value.type} to a variable of type ${varType}`,
+        `Type error: Cannot assign a value of type ${sourceTypeName} to a variable of type ${targetTypeName}`,
       )
     }
 
-    return valueWithType
+    return value
   }
 
   public declareVar(
     varname: string,
     value: RuntimeVal,
     modifier: VarModifier,
-    type?: ValueType,
+    type?: TypeVal | ValueType,
   ): RuntimeVal {
     if (this.variables.has(varname))
       throw new RuntimeError(
@@ -98,7 +135,29 @@ export default class Environment {
     }
 
     let valueWithType = value
-    if (type) valueWithType = this.assertType(type, value)
+
+    if (type) {
+      valueWithType = this.assertType(type, value)
+
+      // Store the variable's type for future assignments
+      if (typeof type !== "string") {
+        this.variableTypes.set(varname, type)
+      } else {
+        // Convert string type to TypeVal
+        const primitiveType: PrimitiveTypeVal = {
+          type: "type",
+          typeKind: "primitive",
+          primitiveType: type as any,
+          returned: false,
+        }
+        this.variableTypes.set(varname, primitiveType)
+      }
+    } else {
+      // Infer the type from the value
+      const inferredType = getRuntimeType(value)
+      this.variableTypes.set(varname, inferredType)
+    }
+
     this.variables.set(varname, valueWithType)
 
     return valueWithType
@@ -121,7 +180,18 @@ export default class Environment {
 
     const prevVal = env.lookupVar(varname)
 
-    const valueWithType = this.assertType(prevVal.type, value)
+    // Get the variable's declared type
+    const varType = env.variableTypes.get(varname)
+
+    let valueWithType = value
+
+    if (varType) {
+      valueWithType = env.assertType(varType, value)
+    } else {
+      // If no type was explicitly declared, ensure the new value matches the previous value's type
+      const prevType = getRuntimeType(prevVal)
+      valueWithType = env.assertType(prevType, value)
+    }
 
     env.variables.set(varname, valueWithType)
 

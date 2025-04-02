@@ -6,8 +6,13 @@ import {
   ArrayType,
   AssignmentExpr,
   BinaryExpr,
+  BreakStatement,
   CallExpr,
+  ContinueStatement,
   DocComment,
+  ForInStatement,
+  ForRangeStatement,
+  ForStatement,
   FunctionDeclaration,
   GenericType,
   Identifier,
@@ -30,7 +35,12 @@ import {
 } from "../frontend/ast"
 
 import {
+  eval_break_statement,
+  eval_continue_statement,
   eval_fn_declaration,
+  eval_for_in_statement,
+  eval_for_range_statement,
+  eval_for_statement,
   eval_if_else_statement,
   eval_multi_var_declaration,
   eval_program,
@@ -114,12 +124,22 @@ export function evaluate(astNode: Stmt, context: ExecutionContext, env: Environm
       return eval_if_else_statement(astNode as IfElseStatement, env, context)
     case "WhileStatement":
       return eval_while_statement(astNode as WhileStatement, env, context)
+    case "ForStatement":
+      return eval_for_statement(astNode as ForStatement, env, context)
+    case "ForInStatement":
+      return eval_for_in_statement(astNode as ForInStatement, env, context)
+    case "ForRangeStatement":
+      return eval_for_range_statement(astNode as ForRangeStatement, env, context)
+    case "BreakStatement":
+      return eval_break_statement(astNode as BreakStatement, env, context)
+    case "ContinueStatement":
+      return eval_continue_statement(astNode as ContinueStatement, env, context)
     case "MemberExpr":
       return eval_member_expr(astNode as MemberExpr, env, context)
     case "DocComment":
       return eval_comment_expr(astNode as DocComment, env)
     default:
-      console.error("This AST can't be interpreted! For now atleast!", astNode)
+      console.error("This AST can't be interpreted!", astNode)
       process.exit(0)
   }
 }

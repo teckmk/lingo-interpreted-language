@@ -1,5 +1,6 @@
 import { Stmt } from "../frontend/ast"
 import Environment from "./environment"
+import { TypeVal } from "./values.types"
 
 export type ValueType =
   | "null"
@@ -18,6 +19,8 @@ export type ValueType =
   | "docs"
   | "struct"
   | "type"
+  | "break"
+  | "continue"
 
 export interface RuntimeVal {
   type: ValueType
@@ -58,7 +61,7 @@ export interface NativeFnVal extends RuntimeVal {
 export interface ParamVal extends RuntimeVal {
   type: "paramter"
   name: string
-  valueType?: ValueType
+  valueType?: TypeVal
   default: RuntimeVal // to assign a default value
 }
 
@@ -87,6 +90,18 @@ export interface WhileLoopVal extends RuntimeVal {
   type: "whileloop"
   check: RuntimeVal
   body: Stmt[]
+}
+
+export interface BreakVal extends RuntimeVal {
+  type: "break"
+  loopId: string
+  label?: string
+}
+
+export interface ContinueVal extends RuntimeVal {
+  type: "continue"
+  loopId: string
+  label?: string
 }
 
 export interface ArrayVal extends RuntimeVal {

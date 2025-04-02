@@ -1,13 +1,10 @@
 /* eslint-disable no-constant-condition */
 import { readFileSync } from "fs"
 
-import Parser from "./frontend/parser"
+import { interpret } from "./runtime/interpreter"
+import { prompt, validateFilename } from "./helpers"
 import Environment from "./runtime/environment"
-
-import { evaluate } from "./runtime/interpreter"
-import { prompt, validateFilename, emitTempFile } from "./helpers"
-import { Tokenizer, IndentMaker } from "./frontend/lexer/tokenizer"
-import { specs } from "./frontend/lexer/specs"
+import { ExecutionContext } from "./runtime/execution-context"
 
 main()
 
@@ -26,51 +23,63 @@ async function main() {
 }
 
 async function repl() {
-  const env = new Environment()
-
   console.clear()
   console.log("\ncowlang REPL v0.1")
 
+  let inputBuffer = ""
+  let braceBalance = 0
+  let inMultiline = false
+
+  const context = new ExecutionContext()
+  const scope = new Environment(context)
+
   while (true) {
     try {
-      const input = await prompt("> ")
+      const promptText = inMultiline ? "... " : "> "
+      const line = await prompt(promptText)
 
-      if (input.includes(".exit")) process.exit(1)
-      const tokenizer = new Tokenizer(specs, "REPL")
+      if (line.trim() === ".exit") process.exit(1)
 
-      let tokens = tokenizer.tokenize(input)
-      tokens = new IndentMaker()
-        .markIndents(tokens)
-        .removeUnwantedTokens()
-        .fixColumnNumbers().tokens
-      emitTempFile("tokens.json", JSON.stringify(tokens))
-      const program = new Parser(tokens).produceAST()
+      // Check for opening/closing braces to track block balance
+      braceBalance += line.match(/{/g)?.length || 0
+      braceBalance -= line.match(/}/g)?.length || 0
 
-      evaluate(program, env)
+      inputBuffer += line + "\n"
+
+      // If we're not in a multiline context and brace balance is 0, execute immediately
+      if (!inMultiline && braceBalance === 0) {
+        const result = interpret("REPL", inputBuffer.trim(), scope)
+        console.log(result)
+        inputBuffer = ""
+      } else {
+        // We're in a multiline context
+        inMultiline = true
+
+        // If we've balanced all braces, execute the accumulated input
+        if (braceBalance === 0) {
+          const result = interpret("REPL", inputBuffer.trim(), scope)
+          console.log(result)
+          inputBuffer = ""
+          inMultiline = false
+        }
+      }
     } catch (err) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      console.log(err.message)
+      // Reset state on error
+      inputBuffer = ""
+      braceBalance = 0
+      inMultiline = false
+
+      if (err instanceof Error) {
+        console.log(err.message)
+      } else {
+        console.log("An unknown error occurred")
+      }
     }
   }
 }
 
 function run(filename: string) {
-  const parser = new Parser()
-  const env = new Environment()
-
   const input = readFileSync(validateFilename(filename), { encoding: "utf-8" })
 
-  const tokenizer = new Tokenizer(specs, filename)
-
-  let tokens = tokenizer.tokenize(input)
-  tokens = new IndentMaker().markIndents(tokens).removeUnwantedTokens().fixColumnNumbers().tokens
-
-  emitTempFile("tokens.json", JSON.stringify(tokens))
-
-  const program = parser.produceAST(tokens)
-
-  evaluate(program, env)
-
-  emitTempFile("ast.json", JSON.stringify(program))
+  interpret(filename, input)
 }

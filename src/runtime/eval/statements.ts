@@ -1,5 +1,10 @@
 import {
+  BreakStatement,
+  ContinueStatement,
   Expr,
+  ForInStatement,
+  ForRangeStatement,
+  ForStatement,
   FunctionDeclaration,
   IfElseStatement,
   MultiVarDeclaration,
@@ -16,7 +21,18 @@ import { ExecutionContext } from "../execution-context"
 import { evaluate } from "../interpreter"
 import { MK_NULL } from "../macros"
 import { areTypesCompatible, getRuntimeType } from "../type-checker"
-import { ArrayVal, BooleanVal, FunctionVal, ParamVal, ReturnVal, RuntimeVal } from "../values"
+import {
+  ArrayVal,
+  BooleanVal,
+  BreakVal,
+  ContinueVal,
+  FunctionVal,
+  NumberVal,
+  ParamVal,
+  ReturnVal,
+  RuntimeVal,
+  StringVal,
+} from "../values"
 import { GenericTypeVal, PrimitiveTypeVal, TypeParameterVal, TypeVal } from "../values.types"
 
 export function eval_program(
@@ -127,22 +143,21 @@ export function eval_fn_declaration(
   env: Environment,
   context: ExecutionContext,
 ): RuntimeVal {
-  const parameters = declaration.parameters.map(
-    (param) =>
-      ({
-        type: "paramter",
-        name: param.name.value,
-        valueType: param.type,
-        default: param.default ? evaluate(param.default, context, env) : MK_NULL(),
-      }) as ParamVal,
-  )
-  const fn = {
+  const parameters: ParamVal[] = declaration.parameters.map((param) => ({
+    type: "paramter",
+    name: param.name.value,
+    valueType: (param.type && evaluate(param.type, context, env)) as TypeVal,
+    default: param.default ? evaluate(param.default, context, env) : MK_NULL(),
+    returned: false, // to satisfy TS
+  }))
+  const fn: FunctionVal = {
     type: "function",
     name: declaration.name.value,
     parameters,
     declarationEnv: env,
     body: declaration.body,
-  } as FunctionVal
+    returned: false, // to satisfy TS
+  }
 
   return env.declareVar(declaration.name.value, fn, "final")
 }
@@ -217,9 +232,332 @@ export function eval_while_statement(
   env: Environment,
   context: ExecutionContext,
 ): RuntimeVal {
+  const loopId = `while_${Math.random().toString(36).substring(2, 9)}`
+  context.enterLoop(loopId, loop.label?.value)
+
+  let result: RuntimeVal = MK_NULL()
+
   while (eval_condition(loop.check, env, context).value) {
-    eval_code_block(loop.body, env, context)
+    try {
+      result = eval_code_block(loop.body, env, context)
+      if (result.type === "break") {
+        if ((result as BreakVal).loopId === loopId) {
+          result = MK_NULL()
+          break
+        }
+        // If break is for a different loop, rethrow
+        throw result
+      }
+      if (result.type === "continue") {
+        if ((result as ContinueVal).loopId === loopId) {
+          result = MK_NULL()
+          continue
+        }
+        // If continue is for a different loop, rethrow
+        throw result
+      }
+      if (result.type === "return" || result.returned) {
+        return result
+      }
+    } catch (e) {
+      if (e instanceof RuntimeError) throw e
+      // Handle break/continue from nested loops
+      if (e && typeof e === "object" && "type" in e) {
+        if (e.type === "break" && (e as BreakVal).loopId === loopId) {
+          break
+        }
+        if (e.type === "continue" && (e as ContinueVal).loopId === loopId) {
+          continue
+        }
+        throw e
+      }
+      throw e
+    }
   }
 
-  return MK_NULL()
+  context.exitLoop()
+  return result
+}
+
+export function eval_for_statement(
+  loop: ForStatement,
+  env: Environment,
+  context: ExecutionContext,
+): RuntimeVal {
+  const loopId = `for_${Math.random().toString(36).substring(2, 9)}`
+  context.enterLoop(loopId, loop.label?.value)
+
+  // Initialize
+  if (loop.initializer) {
+    evaluate(loop.initializer, context, env)
+  }
+
+  let result: RuntimeVal = MK_NULL()
+
+  // Check condition (default to true if not provided)
+  while (loop.condition ? eval_condition(loop.condition, env, context).value : true) {
+    try {
+      // Execute body
+      result = eval_code_block(loop.body, env, context)
+
+      if (result.type === "break") {
+        if ((result as BreakVal).loopId === loopId) {
+          result = MK_NULL()
+          break
+        }
+        throw result
+      }
+      if (result.type === "continue") {
+        if ((result as ContinueVal).loopId === loopId) {
+          result = MK_NULL()
+          // Still execute update before continuing
+          if (loop.update) evaluate(loop.update, context, env)
+          continue
+        }
+        throw result
+      }
+      if (result.type === "return" || result.returned) {
+        return result
+      }
+
+      // Execute update
+      if (loop.update) {
+        evaluate(loop.update, context, env)
+      }
+    } catch (e) {
+      if (e instanceof RuntimeError) throw e
+      if (e && typeof e === "object" && "type" in e) {
+        if (e.type === "break" && (e as BreakVal).loopId === loopId) {
+          break
+        }
+        if (e.type === "continue" && (e as ContinueVal).loopId === loopId) {
+          if (loop.update) evaluate(loop.update, context, env)
+          continue
+        }
+        throw e
+      }
+      throw e
+    }
+  }
+
+  context.exitLoop()
+  return result
+}
+
+export function eval_for_in_statement(
+  loop: ForInStatement,
+  env: Environment,
+  context: ExecutionContext,
+): RuntimeVal {
+  const loopId = `forin_${Math.random().toString(36).substring(2, 9)}`
+  context.enterLoop(loopId, loop.label?.value)
+
+  const iterable = evaluate(loop.iterable, context, env)
+  let result: RuntimeVal = MK_NULL()
+
+  if (iterable.type !== "array" && iterable.type !== "string") {
+    throw new RuntimeError(
+      context,
+      `For..in loops can only iterate over arrays or strings, got ${iterable.type}`,
+    )
+  }
+
+  const elements =
+    iterable.type === "array"
+      ? (iterable as ArrayVal).elements
+      : (iterable as StringVal).value.split("").map(
+          (char) =>
+            ({
+              type: "string",
+              value: char,
+              returned: false,
+            }) as StringVal,
+        )
+
+  for (let i = 0; i < elements.length; i++) {
+    try {
+      // Create block scope for loop iteration
+      const scope = new Environment(context, env)
+
+      // Declare value and index variables
+      scope.declareVar(loop.valueIdentifier.value, elements[i], "variable")
+      scope.declareVar(
+        loop.indexIdentifier.value,
+        { type: "number", value: i } as NumberVal,
+        "variable",
+      )
+
+      // Execute body
+      result = eval_code_block(loop.body, scope, context)
+
+      if (result.type === "break") {
+        if ((result as BreakVal).loopId === loopId) {
+          result = MK_NULL()
+          break
+        }
+        throw result
+      }
+      if (result.type === "continue") {
+        if ((result as ContinueVal).loopId === loopId) {
+          result = MK_NULL()
+          continue
+        }
+        throw result
+      }
+      if (result.type === "return" || result.returned) {
+        return result
+      }
+    } catch (e) {
+      if (e instanceof RuntimeError) throw e
+      if (e && typeof e === "object" && "type" in e) {
+        if (e.type === "break" && (e as BreakVal).loopId === loopId) {
+          break
+        }
+        if (e.type === "continue" && (e as ContinueVal).loopId === loopId) {
+          continue
+        }
+        throw e
+      }
+      throw e
+    }
+  }
+
+  context.exitLoop()
+  return result
+}
+
+export function eval_for_range_statement(
+  loop: ForRangeStatement,
+  env: Environment,
+  context: ExecutionContext,
+): RuntimeVal {
+  const loopId = `forrange_${Math.random().toString(36).substring(2, 9)}`
+  context.enterLoop(loopId, loop.label?.value)
+
+  // Evaluate range parameters
+  const startVal = evaluate(loop.start, context, env) as NumberVal
+  if (startVal.type !== "number") {
+    throw new RuntimeError(context, "Range start must be a number")
+  }
+
+  const endVal = loop.end
+    ? (evaluate(loop.end, context, env) as NumberVal)
+    : ({ type: "number", value: Infinity } as NumberVal)
+
+  if (endVal.type !== "number") {
+    throw new RuntimeError(context, "Range end must be a number")
+  }
+
+  const stepVal = loop.step
+    ? (evaluate(loop.step, context, env) as NumberVal)
+    : ({ type: "number", value: 1 } as NumberVal)
+  if (stepVal.type !== "number") {
+    throw new RuntimeError(context, "Range step must be a number")
+  }
+
+  if (stepVal.value === 0) {
+    throw new RuntimeError(context, "Range step cannot be zero")
+  }
+
+  let result: RuntimeVal = MK_NULL()
+
+  // Determine direction
+  const isIncreasing = stepVal.value > 0
+
+  for (
+    let i = startVal.value, idx = 0;
+    isIncreasing
+      ? loop.inclusive
+        ? i <= endVal.value
+        : i < endVal.value
+      : loop.inclusive
+        ? i >= endVal.value
+        : i > endVal.value;
+    i += stepVal.value, idx++
+  ) {
+    try {
+      // Create block scope for loop iteration
+      const scope = new Environment(context, env)
+
+      // Declare value and index variables
+      scope.declareVar(
+        loop.valueIdentifier.value,
+        { type: "number", value: i } as NumberVal,
+        "variable",
+      )
+      scope.declareVar(
+        loop.indexIdentifier.value,
+        { type: "number", value: idx } as NumberVal,
+        "variable",
+      )
+
+      // Execute body
+      result = eval_code_block(loop.body, scope, context)
+
+      if (result.type === "break") {
+        if ((result as BreakVal).loopId === loopId) {
+          result = MK_NULL()
+          break
+        }
+        throw result
+      }
+      if (result.type === "continue") {
+        if ((result as ContinueVal).loopId === loopId) {
+          result = MK_NULL()
+          continue
+        }
+        throw result
+      }
+      if (result.type === "return" || result.returned) {
+        return result
+      }
+    } catch (e) {
+      if (e instanceof RuntimeError) throw e
+      if (e && typeof e === "object" && "type" in e) {
+        if (e.type === "break" && (e as BreakVal).loopId === loopId) {
+          break
+        }
+        if (e.type === "continue" && (e as ContinueVal).loopId === loopId) {
+          continue
+        }
+        throw e
+      }
+      throw e
+    }
+  }
+
+  context.exitLoop()
+  return result
+}
+
+export function eval_break_statement(
+  stmt: BreakStatement,
+  env: Environment,
+  context: ExecutionContext,
+): RuntimeVal {
+  if (!context.isInLoop()) {
+    throw new RuntimeError(context, "Break statement can only be used inside a loop")
+  }
+
+  return {
+    type: "break",
+    loopId: stmt.loopId,
+    label: stmt.label?.value,
+  } as BreakVal
+}
+
+export function eval_continue_statement(
+  stmt: ContinueStatement,
+  env: Environment,
+  context: ExecutionContext,
+): RuntimeVal {
+  if (!context.isInLoop()) {
+    throw new RuntimeError(context, "Continue statement can only be used inside a loop")
+  }
+
+  return {
+    type: "continue",
+    loopId: stmt.loopId,
+    label: stmt.label?.value,
+  } as ContinueVal
 }
