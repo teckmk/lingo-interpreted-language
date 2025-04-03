@@ -61,6 +61,9 @@ export enum TokenType {
   Get = "GET",
   FulFill = "FULFILL",
   Self = "SELF",
+  Alias = "ALIAS",
+  Mut = "MUT", // mut
+  MutuableReference = "MUTUABLE_REFERENCE", // &mut
 
   // Primitive Types
   NumberType = "NUMBER_TYPE",
@@ -81,9 +84,8 @@ export const specs: Spec[] = [
   { regex: /^([\d]*[.])?[\d]+/, tokenType: TokenType.NumberLiteral },
   { regex: /^"((?:\\.|[^"\\])*)"/, tokenType: TokenType.StringLiteral },
 
-  { regex: /^let mut\b/, tokenType: TokenType.Let },
+  { regex: /^\blet\b/, tokenType: TokenType.Let },
   { regex: /^\bconst\b/, tokenType: TokenType.Const },
-  { regex: /^\blet\b/, tokenType: TokenType.Final },
   { regex: /^\bfn\b/, tokenType: TokenType.Fn },
   { regex: /^\breturn\b/, tokenType: TokenType.Return },
   { regex: /^\bif\b/, tokenType: TokenType.If },
@@ -102,6 +104,9 @@ export const specs: Spec[] = [
   { regex: /^\bget\b/, tokenType: TokenType.Get },
   { regex: /^\bfulfill\b/, tokenType: TokenType.FulFill },
   { regex: /^\bself\b/, tokenType: TokenType.Self },
+  { regex: /^\balias\b/, tokenType: TokenType.Alias },
+  { regex: /^\bmut\b/, tokenType: TokenType.Mut },
+  { regex: /^\b&mut\b/, tokenType: TokenType.MutuableReference },
 
   { regex: /^\bnumber\b/, tokenType: TokenType.NumberType },
   { regex: /^\bstring\b/, tokenType: TokenType.StringType },
@@ -125,7 +130,6 @@ export const specs: Spec[] = [
 
   // operators
   { regex: /^->/, tokenType: TokenType.Arrow },
-
 
   { regex: /^\*\*/, tokenType: TokenType.ExponentOperator },
   { regex: /^[+-]{2}/, tokenType: TokenType.UpdateOperator },

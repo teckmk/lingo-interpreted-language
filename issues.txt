@@ -1,17 +1,10 @@
-ISSUES:
-
-- 4+5 doesn't works, but 4 + 5 works. it treats +5 as a number
-- expressions in string interpolation are not working. e.g:
-    > print("every thing is coool ${5-90} times")
-    every thing is coool 5 times
-
 // Features
 LambdaExpr
 
 fn map<T, U>(mapper: fn(item:T) -> U)
 
 map { item ->
-  item
+  item.toString()
 }
 
 fn outer() {
@@ -19,3 +12,8 @@ fn outer() {
         if(true) return@outer
     }
 }
+
+- orphan rule like rust, to prevent conflicts
+- Update loop labeling syntax. options:
+    - for #lname { break #lname }
+    - @lname for { break @lname } 

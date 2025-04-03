@@ -102,10 +102,11 @@ export default class Parser {
     return this.tokens.shift() as Token
   }
 
-  private expect(type: TokenType, err: any) {
+  private expect(type: TokenType, err?: any) {
     const prev = this.eat() as Token
     if (!prev || prev.type !== type) {
-      throw new Error(`Parser Error:", ${err}, got: ${prev.type}, "Expecting: ", ${type}`)
+      if (err) throw new Error(`Parser Error:", ${err}, got: ${prev.type}, "Expecting: ", ${type}`)
+      else throw new Error(`Parser Error: Expected ${type}, but got ${prev.type}`)
     }
     return prev
   }
@@ -137,7 +138,6 @@ export default class Parser {
     switch (this.at().type) {
       case TokenType.Let:
       case TokenType.Const:
-      case TokenType.Final:
         return this.parse_var_declaration()
       case TokenType.Fn:
         return this.parse_fn_declaration()
@@ -694,8 +694,9 @@ export default class Parser {
     // 2. For in loop
     if (
       this.at().type == TokenType.Let &&
-      this.at(1).type == TokenType.Identifier &&
-      this.at(2).type == TokenType.Comma
+      this.at(1).type == TokenType.Mut &&
+      this.at(2).type == TokenType.Identifier &&
+      this.at(3).type == TokenType.Comma
     ) {
       return this.parse_for_in_statement(hasOpenParen)
     }
@@ -756,7 +757,8 @@ export default class Parser {
   }
 
   private parse_for_in_statement(hasOpenParen: boolean): ForInStatement | ForRangeStatement {
-    this.eat() // eat let token
+    this.expect(TokenType.Let)
+    this.expect(TokenType.Mut)
 
     const indexIdent = this.expect(TokenType.Identifier, "Expected identifier in for loop")
 
@@ -929,9 +931,11 @@ export default class Parser {
     const declaratorType = this.eat().type
 
     const isConstant = declaratorType == TokenType.Const
-    const isFinal = declaratorType == TokenType.Final
+    const isMutable = declaratorType == TokenType.Let && this.at().type == TokenType.Mut
 
-    const modifier = isFinal ? "final" : isConstant ? "constant" : "variable"
+    if (isMutable) this.eat() // eat mut token
+
+    const modifier = isMutable ? "variable" : isConstant ? "constant" : "final"
 
     const identifier = this.expect(
       TokenType.Identifier,

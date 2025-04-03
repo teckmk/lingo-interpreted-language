@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.42% </span>
+                <span class="strong">88.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>489/553</span>
+                <span class='fraction'>492/558</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.41% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>135/179</span>
+                <span class='fraction'>138/184</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.45% </span>
+                <span class="strong">89.32% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>475/531</span>
+                <span class='fraction'>477/534</span>
             </div>
         
             
@@ -1523,7 +1523,11 @@
 <a name='L1458'></a><a href='#L1458'>1458</a>
 <a name='L1459'></a><a href='#L1459'>1459</a>
 <a name='L1460'></a><a href='#L1460'>1460</a>
-<a name='L1461'></a><a href='#L1461'>1461</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L1461'></a><a href='#L1461'>1461</a>
+<a name='L1462'></a><a href='#L1462'>1462</a>
+<a name='L1463'></a><a href='#L1463'>1463</a>
+<a name='L1464'></a><a href='#L1464'>1464</a>
+<a name='L1465'></a><a href='#L1465'>1465</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1620,19 +1624,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6999x</span>
+<span class="cline-any cline-yes">7073x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2248x</span>
+<span class="cline-any cline-yes">2286x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">910x</span>
-<span class="cline-any cline-yes">910x</span>
+<span class="cline-any cline-yes">938x</span>
+<span class="cline-any cline-yes">938x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">910x</span>
+<span class="cline-any cline-yes">938x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1660,7 +1665,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">268x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">64x</span>
@@ -2222,6 +2226,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2281,6 +2286,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
@@ -2454,6 +2460,8 @@
 <span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">66x</span>
@@ -3087,10 +3095,11 @@ export default class Parser {
     return this.tokens.shift() as Token
   }
 &nbsp;
-  private expect(type: TokenType, err: any) {
+  private expect(type: TokenType, err?: any) {
     const prev = this.eat() as Token
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!prev || prev.type !== type) {
-<span class="cstat-no" title="statement not covered" >      throw new Error(`Parser Error:", ${err}, got: ${prev.type}, "Expecting: ", ${type}`)</span>
+<span class="cstat-no" title="statement not covered" >      if (err) <span class="cstat-no" title="statement not covered" >throw new Error(`Parser Error:", ${err}, got: ${prev.type}, "Expecting: ", ${type}`)</span></span>
+      else <span class="cstat-no" title="statement not covered" >throw new Error(`Parser Error: Expected ${type}, but got ${prev.type}`)</span>
     }
     return prev
   }
@@ -3122,7 +3131,6 @@ export default class Parser {
     switch (this.at().type) {
       case TokenType.Let:
       case TokenType.Const:
-      case TokenType.Final:
         return this.parse_var_declaration()
       case TokenType.Fn:
         return this.parse_fn_declaration()
@@ -3130,7 +3138,7 @@ export default class Parser {
         return this.parse_if_statement()
       case TokenType.Return:
         return this.parse_return_statement()
-<span class="branch-6 cbranch-no" title="branch not covered" >      case TokenType.While:</span>
+<span class="branch-5 cbranch-no" title="branch not covered" >      case TokenType.While:</span>
 <span class="cstat-no" title="statement not covered" >        return this.parse_while_statement()</span>
       case TokenType.For:
         return this.parse_for_statement()
@@ -3679,8 +3687,9 @@ export default class Parser {
     // 2. For in loop
     if (
       this.at().type == TokenType.Let &amp;&amp;
-      this.at(1).type == TokenType.Identifier &amp;&amp;
-      this.at(2).type == TokenType.Comma
+      this.at(1).type == TokenType.Mut &amp;&amp;
+      this.at(2).type == TokenType.Identifier &amp;&amp;
+      this.at(3).type == TokenType.Comma
     ) {
       return this.parse_for_in_statement(hasOpenParen)
     }
@@ -3741,7 +3750,8 @@ export default class Parser {
   }
 &nbsp;
   private parse_for_in_statement(hasOpenParen: boolean): ForInStatement | ForRangeStatement {
-    this.eat() // eat let token
+    this.expect(TokenType.Let)
+    this.expect(TokenType.Mut)
 &nbsp;
     const indexIdent = this.expect(TokenType.Identifier, "Expected identifier in for loop")
 &nbsp;
@@ -3914,9 +3924,11 @@ export default class Parser {
     const declaratorType = this.eat().type
 &nbsp;
     const isConstant = declaratorType == TokenType.Const
-    const isFinal = declaratorType == TokenType.Final
+    const isMutable = declaratorType == TokenType.Let &amp;&amp; this.at().type == TokenType.Mut
 &nbsp;
-    const modifier = isFinal ? "final" : isConstant ? "constant" : "variable"
+    if (isMutable) this.eat() // eat mut token
+&nbsp;
+    const modifier = isMutable ? "variable" : isConstant ? "constant" : "final"
 &nbsp;
     const identifier = this.expect(
       TokenType.Identifier,
@@ -4450,7 +4462,7 @@ export function parse(filename: string, code: string): Program {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-03T00:34:53.068Z
+                at 2025-04-03T01:42:13.608Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
