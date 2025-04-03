@@ -34,7 +34,7 @@ describe("Parser - Loops", () => {
     },
     {
       description: "should parse nested for loop with label and break statement with correct loop id",
-      code: "for label outer { for label inner { break outer } break }",
+      code: "for label outer { for label inner { break@outer } break }",
     },
   ];
 

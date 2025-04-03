@@ -153,7 +153,9 @@ exports[`Parser - Loops should parse for loop with break statement 1`] = `
       "body": [
         {
           "kind": "BreakStatement",
+          "label": undefined,
           "loopId": "loop_1",
+          "value": undefined,
         },
       ],
       "kind": "ForStatement",
@@ -855,7 +857,9 @@ exports[`Parser - Loops should parse nested for loop with break statement with c
           "body": [
             {
               "kind": "BreakStatement",
+              "label": undefined,
               "loopId": "loop_2",
+              "value": undefined,
             },
           ],
           "kind": "ForStatement",
@@ -895,6 +899,7 @@ exports[`Parser - Loops should parse nested for loop with label and break statem
                 "value": "outer",
               },
               "loopId": "loop_1",
+              "value": undefined,
             },
           ],
           "kind": "ForStatement",
@@ -915,7 +920,9 @@ exports[`Parser - Loops should parse nested for loop with label and break statem
         },
         {
           "kind": "BreakStatement",
+          "label": undefined,
           "loopId": "loop_1",
+          "value": undefined,
         },
       ],
       "kind": "ForStatement",

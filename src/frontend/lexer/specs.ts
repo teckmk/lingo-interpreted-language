@@ -21,6 +21,7 @@ export enum TokenType {
   SemiColon = "SEMI_COLON", // ;
   Exclamation = "EXLAMATION", // "!"
   Colon = "COLON", //":"
+  At = "AT", // @
   OpenParen = "OPEN_PAREN", //  (
   CloseParen = "CLOSE_PAREN", // )
   OpenBrace = "OPEN_BRACE", // {
@@ -125,6 +126,7 @@ export const specs: Spec[] = [
   // operators
   { regex: /^->/, tokenType: TokenType.Arrow },
 
+
   { regex: /^\*\*/, tokenType: TokenType.ExponentOperator },
   { regex: /^[+-]{2}/, tokenType: TokenType.UpdateOperator },
   { regex: /^[+-]/, tokenType: TokenType.AdditiveOperator },
@@ -151,6 +153,7 @@ export const specs: Spec[] = [
   { regex: /^\[/, tokenType: TokenType.OpenBracket },
   { regex: /^\]/, tokenType: TokenType.CloseBracket },
   { regex: /^\?/, tokenType: TokenType.QuestionMark },
+  { regex: /^@/, tokenType: TokenType.At },
 
   { regex: /^\r\n/, tokenType: TokenType.EOL },
   { regex: /^\n/, tokenType: TokenType.EOL },

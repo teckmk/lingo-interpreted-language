@@ -190,4 +190,24 @@ printTable(5)
       value: " h",
     });
   });
+
+  it("should break iteration with value", () => {
+    const code = `
+    let result = for let mut i,v in "hello" {
+        if (v == "e") {
+            break "cool"
+        }
+        result = result + " " + v
+    }
+
+    result
+    `;
+
+    const val = interpret("test", code);
+
+    expect(val).toEqual({
+      type: "string",
+      value: "cool",
+    });
+  });
 });

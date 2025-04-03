@@ -55,6 +55,21 @@ export function get_leaf(token: Token) {
   }
 }
 
+export function is_expression_start(tokenType: TokenType): boolean {
+  const expressionStartTokens = [
+    TokenType.Identifier,
+    TokenType.NumberLiteral,
+    TokenType.StringLiteral,
+    TokenType.OpenParen,
+    TokenType.CloseParen,
+    TokenType.OpenBracket,
+    TokenType.CloseBracket,
+    TokenType.Exclamation,
+    // Add other tokens that can start expressions
+  ]
+  return expressionStartTokens.includes(tokenType)
+}
+
 function isLessThan(token: Token) {
   return token.type == TokenType.RelationalOperator && token.value == "<"
 }
@@ -828,19 +843,33 @@ export default class Parser {
     }
 
     let loopId = this.loopStack[this.loopStack.length - 1]
+    let label: LeafNode<string> | undefined
+    let value: Expr | undefined
 
-    if (this.at().type == TokenType.Identifier) {
-      const labelToken = this.eat()
+    // Check for label (@identifier)
+    if (this.at().type == TokenType.At) {
+      this.eat() // eat @ token
+      const labelToken = this.expect(TokenType.Identifier, "Expected identifier after @")
 
       if (!this.labelMap.has(labelToken.value)) {
         throw new Error(`Invalid label '${labelToken.value}' for break statement.`)
       }
 
       loopId = this.labelMap.get(labelToken.value) || loopId
-      return { kind: "BreakStatement", loopId, label: get_leaf(labelToken) }
+      label = get_leaf(labelToken)
     }
 
-    return { kind: "BreakStatement", loopId }
+    // Check for break value - look ahead to see if next token could start an expression
+    if (is_expression_start(this.at().type)) {
+      value = this.parse_expr()
+    }
+
+    return {
+      kind: "BreakStatement",
+      loopId,
+      label,
+      value,
+    }
   }
 
   private parse_continue_statement(): ContinueStatement {
