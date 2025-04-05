@@ -24,6 +24,12 @@ export function areTypesCompatible(
   targetType: TypeVal,
   typeArgMap?: Map<string, TypeVal>, // Map of type parameter names to their concrete type arguments
 ): [boolean, TypeVal, TypeVal] {
+  // Check if types are nominally different
+  if (sourceType.isNominal && targetType.isNominal && sourceType.typeName !== targetType.typeName) {
+    // Nominal types with different names are never compatible
+    return [false, sourceType, targetType]
+  }
+
   // Handle type parameters with provided type arguments
   if (sourceType.typeKind === "typeParameter") {
     const sourceParam = sourceType as TypeParameterVal

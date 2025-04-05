@@ -2,8 +2,9 @@ import { RuntimeVal } from "./values"
 
 export interface TypeVal extends RuntimeVal {
   type: "type"
-  typeKind: string // The specific type kind (primitive, struct, etc.)
-  typeName?: string // Optional name for named types
+  typeKind: string
+  typeName?: string
+  isNominal?: boolean // Track if this is a nominal type (created with 'type' keyword)
 }
 
 export interface PrimitiveTypeVal extends TypeVal {

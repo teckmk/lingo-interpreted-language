@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.73% </span>
+                <span class="strong">59.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>148/252</span>
+                <span class='fraction'>151/255</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.57% </span>
+                <span class="strong">60.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>140/235</span>
+                <span class='fraction'>143/238</span>
             </div>
         
             
@@ -713,7 +713,22 @@
 <a name='L648'></a><a href='#L648'>648</a>
 <a name='L649'></a><a href='#L649'>649</a>
 <a name='L650'></a><a href='#L650'>650</a>
-<a name='L651'></a><a href='#L651'>651</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L651'></a><a href='#L651'>651</a>
+<a name='L652'></a><a href='#L652'>652</a>
+<a name='L653'></a><a href='#L653'>653</a>
+<a name='L654'></a><a href='#L654'>654</a>
+<a name='L655'></a><a href='#L655'>655</a>
+<a name='L656'></a><a href='#L656'>656</a>
+<a name='L657'></a><a href='#L657'>657</a>
+<a name='L658'></a><a href='#L658'>658</a>
+<a name='L659'></a><a href='#L659'>659</a>
+<a name='L660'></a><a href='#L660'>660</a>
+<a name='L661'></a><a href='#L661'>661</a>
+<a name='L662'></a><a href='#L662'>662</a>
+<a name='L663'></a><a href='#L663'>663</a>
+<a name='L664'></a><a href='#L664'>664</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -762,7 +777,6 @@
 <span class="cline-any cline-yes">59x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -779,6 +793,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -787,6 +812,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1364,6 +1390,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
+  AliasDeclaration,
   BreakStatement,
   ContinueStatement,
   Expr,
@@ -1371,6 +1398,7 @@
   ForRangeStatement,
   ForStatement,
   FunctionDeclaration,
+  GenericType,
   IfElseStatement,
   MultiVarDeclaration,
   Program,
@@ -1412,9 +1440,8 @@ export function eval_program(
   return evaluated
 }
 &nbsp;
-// Update in eval/statements.ts
 export function eval_type_declaration(
-  node: TypeDeclaration,
+  node: TypeDeclaration | AliasDeclaration,
   env: Environment,
   context: ExecutionContext,
 ): RuntimeVal {
@@ -1427,17 +1454,29 @@ export function eval_type_declaration(
 &nbsp;
   const typeName = node.name.name?.value || <span class="branch-1 cbranch-no" title="branch not covered" >"unnamed"</span>
 &nbsp;
+  // Set nominal flag based on declaration kind (TypeDeclaration or AliasDeclaration)
+  const isNominal = node.kind === "TypeDeclaration"
+&nbsp;
+  // Clone the type value and set the nominal flag
+  const finalTypeVal: TypeVal = {
+    ...typeVal,
+    typeName,
+    isNominal,
+  }
+&nbsp;
   // If this is a generic type declaration, handle parameters
   if (node.name.kind === "GenericType") {
-    if (node.name.parameters &amp;&amp; node.name.parameters.length &gt; 0) {
+    const typeNode = node.name as GenericType
+    if (typeNode.parameters &amp;&amp; typeNode.parameters.length &gt; 0) {
       // Store a template for the generic type
       // The actual instantiation happens in eval_generic_type
       const genericBase: GenericTypeVal = {
         type: "type",
         typeKind: "generic",
         typeName,
-        parameters: node.name.parameters.map((p) =&gt; evaluate(p, context, env) as TypeParameterVal),
-        baseType: typeVal,
+        parameters: typeNode.parameters.map((p) =&gt; evaluate(p, context, env) as TypeParameterVal),
+        baseType: finalTypeVal, // Use the updated type value with isNominal flag
+        isNominal, // Propagate the nominal flag
         returned: false, // to satisfy TS
       }
 &nbsp;
@@ -1446,9 +1485,9 @@ export function eval_type_declaration(
     }
   }
 &nbsp;
-  // For non-generic types, just store the type
-  env.declareType(typeName, typeVal)
-  return typeVal
+  // For non-generic types, store the type with the nominal flag
+  env.declareType(typeName, finalTypeVal)
+  return finalTypeVal
 }
 &nbsp;
 export function eval_var_declaration(
@@ -2020,7 +2059,7 @@ export function eval_continue_statement(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-03T01:54:30.248Z
+                at 2025-04-05T10:49:44.595Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

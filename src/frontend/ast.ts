@@ -32,6 +32,7 @@ export type NodeType =
   | "SelfKeyword"
   // Types
   | "TypeDeclaration"
+  | "AliasDeclaration"
   | "PrimitiveType"
   | "StructType"
   | "AliasType"
@@ -228,20 +229,6 @@ export interface Property extends Expr {
   value?: Expr // its optional to support shorthand i.e. {key}
 }
 
-export interface StructMember extends Expr {
-  kind: "StructMember"
-  name: LeafNode<string>
-  type: TypeNode // Supports structs, generics, etc.
-  optional: boolean
-}
-
-export interface ContractType extends Expr {
-  kind: "ContractType"
-  name?: LeafNode<string>
-
-  members: (GetterType | FunctionType)[]
-}
-
 export interface ArrayLiteral extends Expr {
   kind: "ArrayLiteral"
   elements: []
@@ -251,47 +238,86 @@ export interface DocComment extends Expr {
   kind: "DocComment"
 }
 
+/**
+ * ==========
+ * Types AST
+ * ==========
+ */
+
+export interface TypeNode extends Expr {
+  isNominal: boolean
+  name?: LeafNode<string>
+}
+
+// 'alias' keyword is for creating aliases to existing types
+// ie
+// alias User = Response
+// User == Response // true
+export interface AliasDeclaration extends Stmt {
+  kind: "AliasDeclaration"
+  name: TypeNode
+  type: TypeNode
+
+  // we need this to differentiate b/w generic type:
+  // alias User<T> = Response<T>
+  // and
+  // alias UserR = Response<User> // note: UserR is not generic, on left
+  parameters?: TypeNode[]
+
+  isNominal: false // Added this flag just for clarity
+}
+
+// 'type' keyword is for distinct types
+// ie
+// type User Response
+// User == Response // false
+// User == User // true
 export interface TypeDeclaration extends Stmt {
   kind: "TypeDeclaration"
   name: TypeNode
   type: TypeNode
 
   // we need this to differentiate b/w generic type:
-  // type User<T> = Response<T>
+  // type User<T> Response<T>
   // and
-  // type User = Response<User> // note: User is not generic, on left
+  // type UserR Response<User> // note: UserR is not generic, on left
   parameters?: TypeNode[]
+
+  isNominal: true
 }
 
-export type TypeNode =
-  | PrimitiveType
-  | StructType
-  | AliasType
-  | GenericType
-  | UnionType
-  | ArrayType
-  | ContractType
-  | FunctionType
-  | GetterType
+export interface ContractType extends TypeNode {
+  kind: "ContractType"
+  name?: LeafNode<string>
 
-export interface PrimitiveType extends Expr {
+  members: (GetterType | FunctionType)[]
+}
+
+export interface PrimitiveType extends TypeNode {
   kind: "PrimitiveType"
   name: LeafNode<"string" | "number" | "bool" | "dynamic" | "void">
 }
 
-export interface StructType extends Expr {
+export interface StructType extends TypeNode {
   kind: "StructType"
   name?: LeafNode<string>
   members: StructMember[]
 }
 
-export interface AliasType extends Expr {
+export interface StructMember extends TypeNode {
+  kind: "StructMember"
+  name: LeafNode<string>
+  type: TypeNode // Supports structs, generics, etc.
+  optional: boolean
+}
+
+export interface AliasType extends TypeNode {
   kind: "AliasType"
   name?: LeafNode<string>
   actualType: TypeNode
 }
 
-export interface GenericType extends Expr {
+export interface GenericType extends TypeNode {
   kind: "GenericType"
   name?: LeafNode<string>
   parameters: TypeParameter[] // Changed from TypeNode[] to TypeParameter[]
@@ -304,19 +330,19 @@ export interface TypeParameter extends Expr {
   constraint?: TypeNode // Optional constraint (e.g., "number" in T: number)
 }
 
-export interface UnionType extends Expr {
+export interface UnionType extends TypeNode {
   kind: "UnionType"
   name?: LeafNode<string>
   types: TypeNode[]
 }
 
-export interface ArrayType extends Expr {
+export interface ArrayType extends TypeNode {
   kind: "ArrayType"
   name?: LeafNode<string>
   elementType: TypeNode
 }
 
-export interface FunctionType extends Expr {
+export interface FunctionType extends TypeNode {
   kind: "FunctionType"
   name?: LeafNode<string>
   parameters: FunctionParam[]
@@ -326,10 +352,10 @@ export interface FunctionType extends Expr {
 }
 
 // ie get name -> string
-export interface GetterType extends Expr {
+export interface GetterType extends TypeNode {
   kind: "GetterType"
   name: LeafNode<string>
-  parameters?: FunctionParam[]
+  parameters?: FunctionParam[] // for self keyword in contract
   returnType: TypeNode | TypeNode[]
   body?: Stmt[]
 }

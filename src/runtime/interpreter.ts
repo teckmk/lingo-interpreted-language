@@ -91,6 +91,7 @@ export function evaluate(astNode: Stmt, context: ExecutionContext, env: Environm
     case "ObjectLiteral":
       return eval_object_expr(astNode as ObjectLiteral, env, context)
     case "TypeDeclaration":
+    case "AliasDeclaration":
       return eval_type_declaration(astNode as TypeDeclaration, env, context)
     case "StructType":
       return eval_struct_type(astNode as StructType, env, context)

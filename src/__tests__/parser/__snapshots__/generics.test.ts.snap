@@ -4,8 +4,10 @@ exports[`Parser - Generics - Instantiation should interpret generic type instant
 {
   "body": [
     {
+      "isNominal": true,
       "kind": "TypeDeclaration",
       "name": {
+        "isNominal": true,
         "kind": "GenericType",
         "name": {
           "position": {
@@ -41,9 +43,11 @@ exports[`Parser - Generics - Instantiation should interpret generic type instant
         ],
       },
       "type": {
+        "isNominal": true,
         "kind": "StructType",
         "members": [
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -163,6 +167,7 @@ exports[`Parser - Generics - Instantiation should interpret generic type instant
         ],
         "typeArgs": [
           {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -190,8 +195,10 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
 {
   "body": [
     {
+      "isNominal": true,
       "kind": "TypeDeclaration",
       "name": {
+        "isNominal": true,
         "kind": "GenericType",
         "name": {
           "position": {
@@ -244,9 +251,11 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         ],
       },
       "type": {
+        "isNominal": true,
         "kind": "StructType",
         "members": [
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -296,6 +305,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
             },
           },
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -449,6 +459,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         ],
         "typeArgs": [
           {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -465,6 +476,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
             },
           },
           {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -492,8 +504,10 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
 {
   "body": [
     {
+      "isNominal": true,
       "kind": "TypeDeclaration",
       "name": {
+        "isNominal": true,
         "kind": "GenericType",
         "name": {
           "position": {
@@ -511,6 +525,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         "parameters": [
           {
             "constraint": {
+              "isNominal": true,
               "kind": "PrimitiveType",
               "name": {
                 "position": {
@@ -544,9 +559,11 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         ],
       },
       "type": {
+        "isNominal": true,
         "kind": "StructType",
         "members": [
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -666,6 +683,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         ],
         "typeArgs": [
           {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -693,8 +711,10 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
 {
   "body": [
     {
+      "isNominal": true,
       "kind": "TypeDeclaration",
       "name": {
+        "isNominal": true,
         "kind": "GenericType",
         "name": {
           "position": {
@@ -715,6 +735,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
               "kind": "UnionType",
               "types": [
                 {
+                  "isNominal": true,
                   "kind": "PrimitiveType",
                   "name": {
                     "position": {
@@ -731,6 +752,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
                   },
                 },
                 {
+                  "isNominal": true,
                   "kind": "PrimitiveType",
                   "name": {
                     "position": {
@@ -766,9 +788,11 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         ],
       },
       "type": {
+        "isNominal": true,
         "kind": "StructType",
         "members": [
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -888,6 +912,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         ],
         "typeArgs": [
           {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -915,8 +940,10 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
 {
   "body": [
     {
+      "isNominal": true,
       "kind": "TypeDeclaration",
       "name": {
+        "isNominal": true,
         "kind": "GenericType",
         "name": {
           "position": {
@@ -937,6 +964,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
               "kind": "UnionType",
               "types": [
                 {
+                  "isNominal": true,
                   "kind": "PrimitiveType",
                   "name": {
                     "position": {
@@ -953,6 +981,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
                   },
                 },
                 {
+                  "isNominal": true,
                   "kind": "PrimitiveType",
                   "name": {
                     "position": {
@@ -987,6 +1016,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
           },
           {
             "constraint": {
+              "isNominal": true,
               "kind": "PrimitiveType",
               "name": {
                 "position": {
@@ -1020,9 +1050,11 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         ],
       },
       "type": {
+        "isNominal": true,
         "kind": "StructType",
         "members": [
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -1072,6 +1104,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
             },
           },
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -1223,6 +1256,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
         ],
         "typeArgs": [
           {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -1239,6 +1273,7 @@ exports[`Parser - Generics - Instantiation should parse generic type instantiati
             },
           },
           {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -1266,8 +1301,10 @@ exports[`Parser - Generics should parse generics 1`] = `
 {
   "body": [
     {
+      "isNominal": true,
       "kind": "TypeDeclaration",
       "name": {
+        "isNominal": true,
         "kind": "GenericType",
         "name": {
           "position": {
@@ -1303,9 +1340,11 @@ exports[`Parser - Generics should parse generics 1`] = `
         ],
       },
       "type": {
+        "isNominal": true,
         "kind": "StructType",
         "members": [
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -1366,8 +1405,10 @@ exports[`Parser - Generics should parse generics with multiple type parameters 1
 {
   "body": [
     {
+      "isNominal": true,
       "kind": "TypeDeclaration",
       "name": {
+        "isNominal": true,
         "kind": "GenericType",
         "name": {
           "position": {
@@ -1420,9 +1461,11 @@ exports[`Parser - Generics should parse generics with multiple type parameters 1
         ],
       },
       "type": {
+        "isNominal": true,
         "kind": "StructType",
         "members": [
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -1472,6 +1515,7 @@ exports[`Parser - Generics should parse generics with multiple type parameters 1
             },
           },
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -1532,8 +1576,10 @@ exports[`Parser - Generics should parse generics with type parameters with const
 {
   "body": [
     {
+      "isNominal": true,
       "kind": "TypeDeclaration",
       "name": {
+        "isNominal": true,
         "kind": "GenericType",
         "name": {
           "position": {
@@ -1551,6 +1597,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
         "parameters": [
           {
             "constraint": {
+              "isNominal": true,
               "kind": "PrimitiveType",
               "name": {
                 "position": {
@@ -1584,9 +1631,11 @@ exports[`Parser - Generics should parse generics with type parameters with const
         ],
       },
       "type": {
+        "isNominal": true,
         "kind": "StructType",
         "members": [
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -1647,8 +1696,10 @@ exports[`Parser - Generics should parse generics with type parameters with const
 {
   "body": [
     {
+      "isNominal": true,
       "kind": "TypeDeclaration",
       "name": {
+        "isNominal": true,
         "kind": "GenericType",
         "name": {
           "position": {
@@ -1669,6 +1720,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
               "kind": "UnionType",
               "types": [
                 {
+                  "isNominal": true,
                   "kind": "PrimitiveType",
                   "name": {
                     "position": {
@@ -1685,6 +1737,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
                   },
                 },
                 {
+                  "isNominal": true,
                   "kind": "PrimitiveType",
                   "name": {
                     "position": {
@@ -1720,9 +1773,11 @@ exports[`Parser - Generics should parse generics with type parameters with const
         ],
       },
       "type": {
+        "isNominal": true,
         "kind": "StructType",
         "members": [
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -1783,8 +1838,10 @@ exports[`Parser - Generics should parse generics with type parameters with const
 {
   "body": [
     {
+      "isNominal": true,
       "kind": "TypeDeclaration",
       "name": {
+        "isNominal": true,
         "kind": "GenericType",
         "name": {
           "position": {
@@ -1805,6 +1862,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
               "kind": "UnionType",
               "types": [
                 {
+                  "isNominal": true,
                   "kind": "PrimitiveType",
                   "name": {
                     "position": {
@@ -1821,6 +1879,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
                   },
                 },
                 {
+                  "isNominal": true,
                   "kind": "PrimitiveType",
                   "name": {
                     "position": {
@@ -1855,6 +1914,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
           },
           {
             "constraint": {
+              "isNominal": true,
               "kind": "PrimitiveType",
               "name": {
                 "position": {
@@ -1888,9 +1948,11 @@ exports[`Parser - Generics should parse generics with type parameters with const
         ],
       },
       "type": {
+        "isNominal": true,
         "kind": "StructType",
         "members": [
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -1940,6 +2002,7 @@ exports[`Parser - Generics should parse generics with type parameters with const
             },
           },
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {

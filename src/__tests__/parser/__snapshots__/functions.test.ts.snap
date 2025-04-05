@@ -239,6 +239,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with in
       },
       "parameters": [],
       "returnType": {
+        "isNominal": false,
         "kind": "PrimitiveType",
         "name": {
           "position": {
@@ -283,6 +284,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
       "parameters": [],
       "returnType": [
         {
+          "isNominal": false,
           "kind": "PrimitiveType",
           "name": {
             "position": {
@@ -299,6 +301,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
           },
         },
         {
+          "isNominal": true,
           "kind": "PrimitiveType",
           "name": {
             "position": {
@@ -382,6 +385,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
       "parameters": [],
       "returnType": [
         {
+          "isNominal": false,
           "kind": "PrimitiveType",
           "name": {
             "position": {
@@ -398,6 +402,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
           },
         },
         {
+          "isNominal": true,
           "kind": "PrimitiveType",
           "name": {
             "position": {
@@ -556,6 +561,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "b",
           },
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -588,6 +594,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "c",
           },
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -669,6 +676,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "b",
           },
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -701,6 +709,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "c",
           },
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -762,6 +771,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "b",
           },
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -794,6 +804,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "c",
           },
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -812,6 +823,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
         },
       ],
       "returnType": {
+        "isNominal": false,
         "kind": "PrimitiveType",
         "name": {
           "position": {
@@ -890,6 +902,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "b",
           },
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -922,6 +935,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
             "value": "c",
           },
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -940,6 +954,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
         },
       ],
       "returnType": {
+        "isNominal": false,
         "kind": "PrimitiveType",
         "name": {
           "position": {
@@ -983,6 +998,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with re
       },
       "parameters": [],
       "returnType": {
+        "isNominal": false,
         "kind": "PrimitiveType",
         "name": {
           "position": {
@@ -1046,6 +1062,7 @@ exports[`Parser - FunctionDeclaration should parse function declarations with re
       },
       "parameters": [],
       "returnType": {
+        "isNominal": false,
         "kind": "PrimitiveType",
         "name": {
           "position": {

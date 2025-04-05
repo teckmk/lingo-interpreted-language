@@ -2,7 +2,7 @@ import { parse } from "../../frontend/parser";
 
 describe("Parser - Structs", () => {
   it("should parse structs", () => {
-    const code = `type Point = struct { \n      x: number \n      y: number \n    }`;
+    const code = `type Point struct { \n      x: number \n      y: number \n    }`;
     const ast = parse("test", code);
     expect(ast).toMatchSnapshot();
   });

@@ -64,6 +64,7 @@ export enum TokenType {
   Alias = "ALIAS",
   Mut = "MUT", // mut
   MutuableReference = "MUTUABLE_REFERENCE", // &mut
+  Yield = "YIELD",
 
   // Primitive Types
   NumberType = "NUMBER_TYPE",
@@ -107,6 +108,7 @@ export const specs: Spec[] = [
   { regex: /^\balias\b/, tokenType: TokenType.Alias },
   { regex: /^\bmut\b/, tokenType: TokenType.Mut },
   { regex: /^\b&mut\b/, tokenType: TokenType.MutuableReference },
+  { regex: /^\byield\b/, tokenType: TokenType.Yield },
 
   { regex: /^\bnumber\b/, tokenType: TokenType.NumberType },
   { regex: /^\bstring\b/, tokenType: TokenType.StringType },

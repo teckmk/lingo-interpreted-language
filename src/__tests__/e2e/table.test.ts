@@ -210,4 +210,23 @@ printTable(5)
       value: "cool",
     });
   });
+
+  it.skip("should yield an array of even numbers", () => {
+    const code = `
+    let evens = for let mut i,v in range 1 through 10 {
+        if (v % 2 == 0) {
+            yield v
+        }
+    }
+
+    result
+    `;
+
+    const val = interpret("test", code);
+
+    expect(val).toEqual({
+      type: "string",
+      value: "cool",
+    });
+  });
 });

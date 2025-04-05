@@ -1,4 +1,14 @@
-import { DocComment, LeafNode, StructType, TypeNode } from "../../frontend/ast"
+import {
+  AliasType,
+  ArrayType,
+  DocComment,
+  GenericType,
+  LeafNode,
+  PrimitiveType,
+  StructType,
+  TypeNode,
+  UnionType,
+} from "../../frontend/ast"
 import { ArrayVal, BooleanVal, FunctionVal, NullVal, PlaceholderVal, StringVal } from "./../values"
 import {
   ArrayLiteral,
@@ -299,7 +309,7 @@ function convertTypeNodeToTypeVal(
       return {
         type: "type",
         typeKind: "primitive",
-        primitiveType: typeNode.name.value,
+        primitiveType: (typeNode as PrimitiveType).name.value,
       } as PrimitiveTypeVal
 
     case "AliasType": {
@@ -316,7 +326,7 @@ function convertTypeNodeToTypeVal(
         return type as TypeVal
       }
       // If it's an inline alias type or predefined primitive, convert its actual type
-      return convertTypeNodeToTypeVal(typeNode.actualType, env, context)
+      return convertTypeNodeToTypeVal((typeNode as AliasType).actualType, env, context)
     }
 
     case "StructType":
@@ -328,14 +338,16 @@ function convertTypeNodeToTypeVal(
       return {
         type: "type",
         typeKind: "array",
-        elementType: convertTypeNodeToTypeVal(typeNode.elementType, env, context),
+        elementType: convertTypeNodeToTypeVal((typeNode as ArrayType).elementType, env, context),
       } as ArrayTypeVal
 
     case "UnionType":
       return {
         type: "type",
         typeKind: "union",
-        unionTypes: typeNode.types.map((t) => convertTypeNodeToTypeVal(t, env, context)),
+        unionTypes: (typeNode as UnionType).types.map((t) =>
+          convertTypeNodeToTypeVal(t, env, context),
+        ),
       } as UnionTypeVal
 
     case "GenericType": {
@@ -349,7 +361,7 @@ function convertTypeNodeToTypeVal(
       }
 
       // Convert type parameters
-      const parameters = typeNode.parameters.map((param) => {
+      const parameters = (typeNode as GenericType).parameters.map((param) => {
         return {
           type: "type",
           typeKind: "typeParameter",

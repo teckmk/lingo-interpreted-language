@@ -22,6 +22,7 @@ exports[`Table - E2E should interpret table of 5 1`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -350,6 +351,7 @@ exports[`Table - E2E should interpret table of 5 1`] = `
             "value": "n",
           },
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -368,6 +370,7 @@ exports[`Table - E2E should interpret table of 5 1`] = `
         },
       ],
       "returnType": {
+        "isNominal": false,
         "kind": "PrimitiveType",
         "name": {
           "position": {
@@ -449,6 +452,7 @@ exports[`Table - E2E should interpret table of 5, with inclusive range 1`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -777,6 +781,7 @@ exports[`Table - E2E should interpret table of 5, with inclusive range 1`] = `
             "value": "n",
           },
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -795,6 +800,7 @@ exports[`Table - E2E should interpret table of 5, with inclusive range 1`] = `
         },
       ],
       "returnType": {
+        "isNominal": false,
         "kind": "PrimitiveType",
         "name": {
           "position": {

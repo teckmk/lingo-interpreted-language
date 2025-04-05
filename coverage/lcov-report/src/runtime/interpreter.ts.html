@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.37% </span>
+                <span class="strong">78.94% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>29/37</span>
+                <span class='fraction'>30/38</span>
             </div>
         
             
@@ -229,7 +229,8 @@
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
 <a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -321,6 +322,7 @@
 <span class="cline-any cline-yes">143x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -488,6 +490,7 @@ export function evaluate(astNode: Stmt, context: ExecutionContext, env: Environm
     case "ObjectLiteral":
       return eval_object_expr(astNode as ObjectLiteral, env, context)
     case "TypeDeclaration":
+    case "AliasDeclaration":
       return eval_type_declaration(astNode as TypeDeclaration, env, context)
     case "StructType":
       return eval_struct_type(astNode as StructType, env, context)
@@ -497,11 +500,11 @@ export function evaluate(astNode: Stmt, context: ExecutionContext, env: Environm
       return eval_primitive_type(astNode as PrimitiveType, env, context)
     case "TypeParameter":
       return eval_type_parameter(astNode as TypeParameter, env, context)
-<span class="branch-11 cbranch-no" title="branch not covered" >    case "GenericType":</span>
+<span class="branch-12 cbranch-no" title="branch not covered" >    case "GenericType":</span>
 <span class="cstat-no" title="statement not covered" >      return eval_generic_type(astNode as GenericType, env, context)</span>
     case "UnionType":
       return eval_union_type(astNode as UnionType, env, context)
-<span class="branch-13 cbranch-no" title="branch not covered" >    case "ArrayType":</span>
+<span class="branch-14 cbranch-no" title="branch not covered" >    case "ArrayType":</span>
 <span class="cstat-no" title="statement not covered" >      return eval_array_type(astNode as ArrayType, env, context)</span>
     case "ArrayLiteral":
       return eval_array_expr(astNode as ArrayLiteral, env, context)
@@ -519,9 +522,9 @@ export function evaluate(astNode: Stmt, context: ExecutionContext, env: Environm
       return eval_return_statement(astNode as ReturnStatement, env, context)
     case "IfElseStatement":
       return eval_if_else_statement(astNode as IfElseStatement, env, context)
-<span class="branch-22 cbranch-no" title="branch not covered" >    case "WhileStatement":</span>
+<span class="branch-23 cbranch-no" title="branch not covered" >    case "WhileStatement":</span>
 <span class="cstat-no" title="statement not covered" >      return eval_while_statement(astNode as WhileStatement, env, context)</span>
-<span class="branch-23 cbranch-no" title="branch not covered" >    case "ForStatement":</span>
+<span class="branch-24 cbranch-no" title="branch not covered" >    case "ForStatement":</span>
 <span class="cstat-no" title="statement not covered" >      return eval_for_statement(astNode as ForStatement, env, context)</span>
     case "ForInStatement":
       return eval_for_in_statement(astNode as ForInStatement, env, context)
@@ -531,11 +534,11 @@ export function evaluate(astNode: Stmt, context: ExecutionContext, env: Environm
       return eval_break_statement(astNode as BreakStatement, env, context)
     case "ContinueStatement":
       return eval_continue_statement(astNode as ContinueStatement, env, context)
-<span class="branch-28 cbranch-no" title="branch not covered" >    case "MemberExpr":</span>
+<span class="branch-29 cbranch-no" title="branch not covered" >    case "MemberExpr":</span>
 <span class="cstat-no" title="statement not covered" >      return eval_member_expr(astNode as MemberExpr, env, context)</span>
-<span class="branch-29 cbranch-no" title="branch not covered" >    case "DocComment":</span>
+<span class="branch-30 cbranch-no" title="branch not covered" >    case "DocComment":</span>
 <span class="cstat-no" title="statement not covered" >      return eval_comment_expr(astNode as DocComment, env)</span>
-<span class="branch-30 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-31 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      console.error("This AST can't be interpreted!", astNode)</span>
 <span class="cstat-no" title="statement not covered" >      process.exit(0)</span>
   }
@@ -568,7 +571,7 @@ export function interpret(filename: string, code: string, env?: Environment): Ru
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-03T01:54:30.248Z
+                at 2025-04-05T10:49:44.595Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

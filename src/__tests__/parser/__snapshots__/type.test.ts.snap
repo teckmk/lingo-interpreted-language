@@ -1,0 +1,382 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parser - Type should parse type for getter 1`] = `
+{
+  "body": [
+    {
+      "isNominal": true,
+      "kind": "TypeDeclaration",
+      "name": {
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 13,
+                "line": 1,
+              },
+              "start": {
+                "column": 6,
+                "line": 1,
+              },
+            },
+            "value": "GetUser",
+          },
+        },
+        "isNominal": true,
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 13,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "GetUser",
+        },
+      },
+      "type": {
+        "body": undefined,
+        "isNominal": true,
+        "kind": "GetterType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 22,
+              "line": 1,
+            },
+            "start": {
+              "column": 18,
+              "line": 1,
+            },
+          },
+          "value": "user",
+        },
+        "parameters": undefined,
+        "returnType": {
+          "actualType": {
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 30,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 26,
+                  "line": 1,
+                },
+              },
+              "value": "User",
+            },
+          },
+          "kind": "AliasType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 30,
+                "line": 1,
+              },
+              "start": {
+                "column": 26,
+                "line": 1,
+              },
+            },
+            "value": "User",
+          },
+        },
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Type should parse type with function signature 1`] = `
+{
+  "body": [
+    {
+      "isNominal": true,
+      "kind": "TypeDeclaration",
+      "name": {
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 14,
+                "line": 1,
+              },
+              "start": {
+                "column": 6,
+                "line": 1,
+              },
+            },
+            "value": "Callback",
+          },
+        },
+        "isNominal": true,
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 14,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Callback",
+        },
+      },
+      "type": {
+        "body": undefined,
+        "isNominal": true,
+        "kind": "FunctionType",
+        "name": undefined,
+        "parameters": [
+          {
+            "kind": "FunctionParam",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 20,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 19,
+                  "line": 1,
+                },
+              },
+              "value": "x",
+            },
+            "type": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 28,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 22,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+        ],
+        "returnType": {
+          "isNominal": false,
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 39,
+                "line": 1,
+              },
+              "start": {
+                "column": 33,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+        },
+        "typeParameters": undefined,
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - Type should parse type with function signature 2`] = `
+{
+  "body": [
+    {
+      "isNominal": true,
+      "kind": "TypeDeclaration",
+      "name": {
+        "actualType": {
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 14,
+                "line": 1,
+              },
+              "start": {
+                "column": 6,
+                "line": 1,
+              },
+            },
+            "value": "Callback",
+          },
+        },
+        "isNominal": true,
+        "kind": "AliasType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 14,
+              "line": 1,
+            },
+            "start": {
+              "column": 6,
+              "line": 1,
+            },
+          },
+          "value": "Callback",
+        },
+      },
+      "type": {
+        "body": undefined,
+        "isNominal": true,
+        "kind": "FunctionType",
+        "name": {
+          "position": {
+            "end": {
+              "column": 20,
+              "line": 1,
+            },
+            "start": {
+              "column": 18,
+              "line": 1,
+            },
+          },
+          "value": "cb",
+        },
+        "parameters": [
+          {
+            "kind": "FunctionParam",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 29,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 28,
+                  "line": 1,
+                },
+              },
+              "value": "x",
+            },
+            "type": {
+              "actualType": {
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 32,
+                      "line": 1,
+                    },
+                    "start": {
+                      "column": 31,
+                      "line": 1,
+                    },
+                  },
+                  "value": "T",
+                },
+              },
+              "kind": "AliasType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 32,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 31,
+                    "line": 1,
+                  },
+                },
+                "value": "T",
+              },
+            },
+          },
+        ],
+        "returnType": {
+          "actualType": {
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 38,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 37,
+                  "line": 1,
+                },
+              },
+              "value": "U",
+            },
+          },
+          "kind": "AliasType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 38,
+                "line": 1,
+              },
+              "start": {
+                "column": 37,
+                "line": 1,
+              },
+            },
+            "value": "U",
+          },
+        },
+        "typeParameters": [
+          {
+            "constraint": undefined,
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 22,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 21,
+                  "line": 1,
+                },
+              },
+              "value": "T",
+            },
+          },
+          {
+            "constraint": undefined,
+            "kind": "TypeParameter",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 25,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 24,
+                  "line": 1,
+                },
+              },
+              "value": "U",
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;

@@ -3,6 +3,7 @@
 exports[`Interpreter - Generics should interpret generics 1`] = `
 {
   "baseType": {
+    "isNominal": true,
     "members": {
       "value": {
         "aliasTo": {
@@ -20,8 +21,9 @@ exports[`Interpreter - Generics should interpret generics 1`] = `
     },
     "type": "type",
     "typeKind": "struct",
-    "typeName": undefined,
+    "typeName": "Box",
   },
+  "isNominal": true,
   "parameters": [
     {
       "constraint": undefined,
@@ -41,6 +43,7 @@ exports[`Interpreter - Generics should interpret generics 1`] = `
 exports[`Interpreter - Generics should interpret generics with multiple type parameters 1`] = `
 {
   "baseType": {
+    "isNominal": true,
     "members": {
       "first": {
         "aliasTo": {
@@ -69,8 +72,9 @@ exports[`Interpreter - Generics should interpret generics with multiple type par
     },
     "type": "type",
     "typeKind": "struct",
-    "typeName": undefined,
+    "typeName": "Pair",
   },
+  "isNominal": true,
   "parameters": [
     {
       "constraint": undefined,
@@ -97,6 +101,7 @@ exports[`Interpreter - Generics should interpret generics with multiple type par
 exports[`Interpreter - Generics should interpret generics with type parameters with constraints 1`] = `
 {
   "baseType": {
+    "isNominal": true,
     "members": {
       "value": {
         "aliasTo": {
@@ -114,8 +119,9 @@ exports[`Interpreter - Generics should interpret generics with type parameters w
     },
     "type": "type",
     "typeKind": "struct",
-    "typeName": undefined,
+    "typeName": "Box",
   },
+  "isNominal": true,
   "parameters": [
     {
       "constraint": {
@@ -139,6 +145,7 @@ exports[`Interpreter - Generics should interpret generics with type parameters w
 exports[`Interpreter - Generics should interpret generics with type parameters with constraints and multiple constraints 1`] = `
 {
   "baseType": {
+    "isNominal": true,
     "members": {
       "value": {
         "aliasTo": {
@@ -156,8 +163,9 @@ exports[`Interpreter - Generics should interpret generics with type parameters w
     },
     "type": "type",
     "typeKind": "struct",
-    "typeName": undefined,
+    "typeName": "Box",
   },
+  "isNominal": true,
   "parameters": [
     {
       "constraint": {
@@ -192,6 +200,7 @@ exports[`Interpreter - Generics should interpret generics with type parameters w
 exports[`Interpreter - Generics should interpret generics with type parameters with constraints and multiple constraints and multiple type parameters 1`] = `
 {
   "baseType": {
+    "isNominal": true,
     "members": {
       "first": {
         "aliasTo": {
@@ -220,8 +229,9 @@ exports[`Interpreter - Generics should interpret generics with type parameters w
     },
     "type": "type",
     "typeKind": "struct",
-    "typeName": undefined,
+    "typeName": "Pair",
   },
+  "isNominal": true,
   "parameters": [
     {
       "constraint": {

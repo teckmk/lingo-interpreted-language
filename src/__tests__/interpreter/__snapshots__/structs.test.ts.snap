@@ -2,6 +2,7 @@
 
 exports[`Interpreter - Structs should interpret structs 1`] = `
 {
+  "isNominal": true,
   "members": {
     "x": {
       "primitiveType": "number",
@@ -20,12 +21,13 @@ exports[`Interpreter - Structs should interpret structs 1`] = `
   },
   "type": "type",
   "typeKind": "struct",
-  "typeName": undefined,
+  "typeName": "Point",
 }
 `;
 
 exports[`Interpreter - Structs should interpret structs with optional fields 1`] = `
 {
+  "isNominal": true,
   "members": {
     "x": {
       "primitiveType": "number",
@@ -44,6 +46,6 @@ exports[`Interpreter - Structs should interpret structs with optional fields 1`]
   },
   "type": "type",
   "typeKind": "struct",
-  "typeName": undefined,
+  "typeName": "Point",
 }
 `;

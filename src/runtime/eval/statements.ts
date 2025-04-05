@@ -1,4 +1,5 @@
 import {
+  AliasDeclaration,
   BreakStatement,
   ContinueStatement,
   Expr,
@@ -6,6 +7,7 @@ import {
   ForRangeStatement,
   ForStatement,
   FunctionDeclaration,
+  GenericType,
   IfElseStatement,
   MultiVarDeclaration,
   Program,
@@ -47,9 +49,8 @@ export function eval_program(
   return evaluated
 }
 
-// Update in eval/statements.ts
 export function eval_type_declaration(
-  node: TypeDeclaration,
+  node: TypeDeclaration | AliasDeclaration,
   env: Environment,
   context: ExecutionContext,
 ): RuntimeVal {
@@ -62,17 +63,29 @@ export function eval_type_declaration(
 
   const typeName = node.name.name?.value || "unnamed"
 
+  // Set nominal flag based on declaration kind (TypeDeclaration or AliasDeclaration)
+  const isNominal = node.kind === "TypeDeclaration"
+
+  // Clone the type value and set the nominal flag
+  const finalTypeVal: TypeVal = {
+    ...typeVal,
+    typeName,
+    isNominal,
+  }
+
   // If this is a generic type declaration, handle parameters
   if (node.name.kind === "GenericType") {
-    if (node.name.parameters && node.name.parameters.length > 0) {
+    const typeNode = node.name as GenericType
+    if (typeNode.parameters && typeNode.parameters.length > 0) {
       // Store a template for the generic type
       // The actual instantiation happens in eval_generic_type
       const genericBase: GenericTypeVal = {
         type: "type",
         typeKind: "generic",
         typeName,
-        parameters: node.name.parameters.map((p) => evaluate(p, context, env) as TypeParameterVal),
-        baseType: typeVal,
+        parameters: typeNode.parameters.map((p) => evaluate(p, context, env) as TypeParameterVal),
+        baseType: finalTypeVal, // Use the updated type value with isNominal flag
+        isNominal, // Propagate the nominal flag
         returned: false, // to satisfy TS
       }
 
@@ -81,9 +94,9 @@ export function eval_type_declaration(
     }
   }
 
-  // For non-generic types, just store the type
-  env.declareType(typeName, typeVal)
-  return typeVal
+  // For non-generic types, store the type with the nominal flag
+  env.declareType(typeName, finalTypeVal)
+  return finalTypeVal
 }
 
 export function eval_var_declaration(

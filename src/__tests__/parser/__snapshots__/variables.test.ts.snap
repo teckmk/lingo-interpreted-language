@@ -46,6 +46,7 @@ exports[`Parser - Statements should parse various variable declarations 2`] = `
       "kind": "VarDeclaration",
       "modifier": "variable",
       "type": {
+        "isNominal": false,
         "kind": "PrimitiveType",
         "name": {
           "position": {
@@ -129,6 +130,7 @@ exports[`Parser - Statements should parse various variable declarations 4`] = `
       "kind": "VarDeclaration",
       "modifier": "constant",
       "type": {
+        "isNominal": false,
         "kind": "PrimitiveType",
         "name": {
           "position": {
@@ -238,6 +240,7 @@ exports[`Parser - Statements should parse various variable declarations 6`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -271,6 +274,7 @@ exports[`Parser - Statements should parse various variable declarations 6`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -398,6 +402,7 @@ exports[`Parser - Statements should parse various variable declarations 8`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -447,6 +452,7 @@ exports[`Parser - Statements should parse various variable declarations 8`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -590,6 +596,7 @@ exports[`Parser - Statements should parse various variable declarations 10`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -639,6 +646,7 @@ exports[`Parser - Statements should parse various variable declarations 10`] = `
           "kind": "VarDeclaration",
           "modifier": "variable",
           "type": {
+            "isNominal": false,
             "kind": "PrimitiveType",
             "name": {
               "position": {
@@ -698,6 +706,7 @@ exports[`Parser - Statements should parse various variable declarations 11`] = `
       "kind": "VarDeclaration",
       "modifier": "variable",
       "type": {
+        "isNominal": false,
         "kind": "PrimitiveType",
         "name": {
           "position": {

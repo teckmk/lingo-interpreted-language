@@ -16,4 +16,5 @@ fn outer() {
 - orphan rule like rust, to prevent conflicts
 - Update loop labeling syntax. options:
     - for #lname { break #lname }
-    - @lname for { break @lname } 
+    - @lname for { break @lname }
+- require type if var is not initialized 

@@ -113,6 +113,7 @@ exports[`Parser - Structs should parse structs 1`] = `
 {
   "body": [
     {
+      "isNominal": true,
       "kind": "TypeDeclaration",
       "name": {
         "actualType": {
@@ -131,6 +132,7 @@ exports[`Parser - Structs should parse structs 1`] = `
             "value": "Point",
           },
         },
+        "isNominal": true,
         "kind": "AliasType",
         "name": {
           "position": {
@@ -147,9 +149,11 @@ exports[`Parser - Structs should parse structs 1`] = `
         },
       },
       "type": {
+        "isNominal": true,
         "kind": "StructType",
         "members": [
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -166,6 +170,7 @@ exports[`Parser - Structs should parse structs 1`] = `
             },
             "optional": false,
             "type": {
+              "isNominal": false,
               "kind": "PrimitiveType",
               "name": {
                 "position": {
@@ -183,6 +188,7 @@ exports[`Parser - Structs should parse structs 1`] = `
             },
           },
           {
+            "isNominal": false,
             "kind": "StructMember",
             "name": {
               "position": {
@@ -199,6 +205,7 @@ exports[`Parser - Structs should parse structs 1`] = `
             },
             "optional": false,
             "type": {
+              "isNominal": false,
               "kind": "PrimitiveType",
               "name": {
                 "position": {

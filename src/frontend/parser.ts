@@ -37,16 +37,14 @@ import {
   GetterType,
   ContractFulfillment,
   SelfKeyword,
+  AliasDeclaration,
+  ArrayType,
+  UnionType,
+  AliasType,
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType } from "./lexer/specs"
 import { Token, tokenize } from "./lexer/tokenizer"
-
-enum TypesGroup {
-  TypeAnnotation,
-  BlockOpening,
-  BlockClosing,
-}
 
 export function get_leaf(token: Token) {
   return {
@@ -105,16 +103,16 @@ export default class Parser {
   private expect(type: TokenType, err?: any) {
     const prev = this.eat() as Token
     if (!prev || prev.type !== type) {
-      if (err) throw new Error(`Parser Error:", ${err}, got: ${prev.type}, "Expecting: ", ${type}`)
+      if (err) throw new Error(`Parser Error: ${err}. Expected: ${type}, but got: ${prev.type}`)
       else throw new Error(`Parser Error: Expected ${type}, but got ${prev.type}`)
     }
     return prev
   }
 
-  private expectOneOf(label: TypesGroup, types: TokenType[], err: any) {
+  private expectOneOf(types: TokenType[], err: any) {
     const token = this.eat() as Token
     if (!token || !types.includes(token.type)) {
-      throw new Error(`Parser Error:", ${err},got: ${token.type}, "Expecting: ", ${label}`)
+      throw new Error(`Parser Error: ${err}, but got: ${token.type}`)
     }
     return token
   }
@@ -141,6 +139,8 @@ export default class Parser {
         return this.parse_var_declaration()
       case TokenType.Fn:
         return this.parse_fn_declaration()
+      case TokenType.Get:
+        return this.parse_getter_definition({ parseBody: true })
       case TokenType.If:
         return this.parse_if_statement()
       case TokenType.Return:
@@ -154,6 +154,7 @@ export default class Parser {
       case TokenType.Continue:
         return this.parse_continue_statement()
       case TokenType.Type:
+      case TokenType.Alias:
         return this.parse_type_declaration()
       case TokenType.FulFill:
         return this.parse_contract_fulfillment()
@@ -162,24 +163,46 @@ export default class Parser {
     }
   }
 
-  private parse_type_declaration(): TypeDeclaration {
-    this.eat() // eat type token
+  private parse_type_declaration(): TypeDeclaration | AliasDeclaration {
+    const token = this.eat() // eat type/alias token
+    const isAlias = token.type == TokenType.Alias
+    const isNominal = token.type == TokenType.Type
+
     if (this.at().type != TokenType.TypeIdentifier) {
       throw new Error(`Type name '${this.at().value}' must start with a capital letter.`)
     }
-    const name = this.parse_type_name()
-    this.expect(TokenType.Equals, "Expected '=' following type name")
-    const type = this.parse_type()
-    return { kind: "TypeDeclaration", name, type }
+
+    const name = this.parse_type_name({ isNominal })
+
+    if (isAlias) this.expect(TokenType.Equals, "Expected '=' following type name")
+
+    let type
+    if (isAlias) {
+      type = this.parse_single_type({ isNominal })
+      return {
+        kind: "AliasDeclaration",
+        name,
+        type,
+        isNominal: false,
+      }
+    } else {
+      type = this.parse_type({ isNominal })
+      return {
+        kind: "TypeDeclaration",
+        name,
+        type,
+        isNominal: true,
+      }
+    }
   }
 
-  private parse_type_name(): TypeNode {
+  private parse_type_name({ isNominal = true } = {}): TypeNode {
     // Check if it's a named type (could be a struct, alias, or generic)
     const typeName = this.expect(TokenType.TypeIdentifier, "Expected type name")
 
     // Check if it's a generic type with parameters
     if (isLessThan(this.at())) {
-      return this.parse_generic_type(typeName)
+      return this.parse_generic_type(typeName, { isNominal })
     }
 
     // Regular named type
@@ -190,20 +213,11 @@ export default class Parser {
         kind: "PrimitiveType",
         name: get_leaf(typeName),
       },
-    }
+      isNominal,
+    } as AliasType
   }
 
-  private parse_type_anotation(typeSeparator: TokenType = TokenType.Colon): TypeNode | undefined {
-    // Skip the colon/arrow that typically precedes a type annotation
-    if (this.at().type === typeSeparator) {
-      this.eat()
-      return this.parse_type()
-    }
-
-    return undefined // No type annotation present
-  }
-
-  private parse_type(): TypeNode {
+  private parse_type({ isNominal = true } = {}): TypeNode {
     const token = this.at()
     if (token.type == TokenType.StructType) {
       return this.parse_struct_type()
@@ -214,22 +228,22 @@ export default class Parser {
     }
 
     // Start by parsing the first type in a potential union
-    let type = this.parse_single_type()
+    let type = this.parse_single_type({ isNominal })
 
     // Check if it's a union type
     while (this.at().type === TokenType.PipeOperator) {
       this.eat() // consume '|'
-      const right = this.parse_single_type()
+      const right = this.parse_single_type({ isNominal })
 
       // If we already have a union, add to it
       if (type.kind === "UnionType") {
-        type.types.push(right)
+        (type as UnionType).types.push(right)
       } else {
         // Create a new union type
         type = {
           kind: "UnionType",
           types: [type, right],
-        }
+        } as UnionType
       }
     }
 
@@ -245,7 +259,7 @@ export default class Parser {
     while (this.not_eof() && this.at().type != TokenType.CloseBrace) {
       const name = this.expect(TokenType.Identifier, "Struct literal key expected")
       this.expect(TokenType.Colon, `Missing colon following '${name.value}' in struct`)
-      const type = this.parse_type()
+      const type = this.parse_type({ isNominal: false })
 
       if (!type) {
         throw new Error("Struct member must have a type")
@@ -257,24 +271,32 @@ export default class Parser {
         optional = true
       }
 
-      members.push({ kind: "StructMember", name: get_leaf(name), type, optional })
+      members.push({ kind: "StructMember", name: get_leaf(name), type, optional, isNominal: false })
     }
 
     this.expect(TokenType.CloseBrace, "Struct literal missing closing brace.")
 
-    return { kind: "StructType", members }
+    return { kind: "StructType", members, isNominal: true }
   }
 
-  private parse_contract_body(): Array<FunctionType | GetterType> {
+  private parse_contract_body({ parseFunctionBodies = false }): Array<FunctionType | GetterType> {
     const members = new Array<FunctionType | GetterType>()
 
     this.parse_block(() => {
       switch (this.at().type) {
         case TokenType.Fn:
-          members.push(this.parse_fn_definition())
+          members.push(
+            this.parse_fn_definition({
+              isNominal: false,
+              parseBody: parseFunctionBodies,
+              parseFunctionName: true,
+            }),
+          )
           break
         case TokenType.Get:
-          members.push(this.parse_getter_definition())
+          members.push(
+            this.parse_getter_definition({ isNominal: false, parseBody: parseFunctionBodies }),
+          )
           break
         default:
           throw new Error("Contract member must be a function or getter")
@@ -286,17 +308,30 @@ export default class Parser {
 
   private parse_contract_type(): ContractType {
     this.eat() // eat contract token
-    const members = this.parse_contract_body()
-    return { kind: "ContractType", members }
+    const members = this.parse_contract_body({ parseFunctionBodies: false })
+    return { kind: "ContractType", members, isNominal: true }
   }
 
-  private parse_fn_definition(): FunctionType {
+  private parse_fn_definition({
+    isNominal = true,
+    parseBody = true,
+    parseFunctionName = false,
+  } = {}): FunctionType {
     this.eat() // eat fn token
-    const name = this.expect(TokenType.Identifier, "Expected function name following fn keyword")
+    let name: Token | undefined = undefined
+
+    if (parseFunctionName) {
+      name = this.expect(TokenType.Identifier, "Expected function name following fn keyword")
+    } else if (this.at().type == TokenType.Identifier) {
+      name = this.eat()
+    }
 
     let typeParameters: TypeParameter[] | undefined = undefined
     if (isLessThan(this.at())) {
-      typeParameters = this.parse_generic_type(name).parameters
+      if (!name) {
+        throw new Error("Expected function name before generic type parameters")
+      }
+      typeParameters = this.parse_generic_type(name, { isNominal }).parameters
     }
 
     const params: FunctionParam[] = this.parse_params()
@@ -312,21 +347,22 @@ export default class Parser {
     }
 
     let body: Stmt[] | undefined = undefined
-    if (this.insideContractFulfillment) {
+    if (parseBody) {
       body = this.parse_code_block()
     }
 
     return {
       kind: "FunctionType",
-      name: get_leaf(name),
+      name: name ? get_leaf(name) : undefined,
       parameters: params,
       typeParameters,
       returnType,
+      isNominal,
       body,
     }
   }
 
-  private parse_getter_definition(): GetterType {
+  private parse_getter_definition({ isNominal = true, parseBody = true } = {}): GetterType {
     this.eat() // eat get token
     const name = this.expect(TokenType.Identifier, "Expected getter name following get keyword")
 
@@ -346,7 +382,7 @@ export default class Parser {
     }
 
     let body: Stmt[] | undefined = undefined
-    if (this.insideContractFulfillment) {
+    if (parseBody) {
       body = this.parse_code_block()
     }
 
@@ -356,6 +392,7 @@ export default class Parser {
       returnType,
       parameters: params,
       body,
+      isNominal,
     }
   }
 
@@ -381,7 +418,7 @@ export default class Parser {
 
     this.insideContractFulfillment = true
 
-    const members = this.parse_contract_body()
+    const members = this.parse_contract_body({ parseFunctionBodies: true })
 
     this.insideContractFulfillment = false
 
@@ -394,9 +431,16 @@ export default class Parser {
     }
   }
 
-  private parse_single_type(): TypeNode {
+  private parse_single_type({ isNominal = true } = {}): TypeNode {
+    const tokenType = this.at().type
+    if (tokenType == TokenType.Fn) {
+      return this.parse_fn_definition({ isNominal, parseBody: false })
+    } else if (tokenType == TokenType.Get) {
+      return this.parse_getter_definition({ isNominal, parseBody: false })
+    }
+
     // Parse the base type (primitive or named)
-    let type = this.parse_base_type()
+    let type = this.parse_base_type({ isNominal })
 
     // Check for array notation that follows the type
     while (this.at().type === TokenType.OpenBracket) {
@@ -407,20 +451,21 @@ export default class Parser {
       type = {
         kind: "ArrayType",
         elementType: type,
-      }
+        isNominal,
+      } as ArrayType
     }
 
     return type
   }
 
-  private parse_base_type(): TypeNode {
+  private parse_base_type({ isNominal = true } = {}): TypeNode {
     // Check if it's a named type (could be a struct, alias, or generic)
     if (this.at().type === TokenType.TypeIdentifier) {
       const typeName = this.eat()
 
       // Check if it's a generic type with parameters
       if (isLessThan(this.at())) {
-        if (typeName) return this.parse_generic_type(typeName)
+        if (typeName) return this.parse_generic_type(typeName, { isNominal })
       }
 
       // Regular named type
@@ -431,12 +476,11 @@ export default class Parser {
           kind: "PrimitiveType",
           name: get_leaf(typeName),
         },
-      }
+      } as AliasType
     }
 
     // Primitive types
     const typeToken = this.expectOneOf(
-      TypesGroup.TypeAnnotation,
       [
         TokenType.NumberType,
         TokenType.StringType,
@@ -450,10 +494,11 @@ export default class Parser {
     return {
       kind: "PrimitiveType",
       name: get_leaf(typeToken),
+      isNominal,
     }
   }
 
-  private parse_generic_type(nameToken: Token): GenericType {
+  private parse_generic_type(nameToken: Token, { isNominal = true } = {}): GenericType {
     this.eat() // consume '<'
 
     const parameters: TypeParameter[] = []
@@ -468,7 +513,7 @@ export default class Parser {
       // Check for constraint (T: number)
       if (this.at().type === TokenType.Colon) {
         this.eat() // consume ':'
-        constraint = this.parse_type()
+        constraint = this.parse_type({ isNominal })
       }
 
       // Create TypeParameter
@@ -495,7 +540,18 @@ export default class Parser {
       kind: "GenericType",
       name: get_leaf(nameToken),
       parameters,
+      isNominal,
     }
+  }
+
+  private parse_type_anotation(typeSeparator: TokenType = TokenType.Colon): TypeNode | undefined {
+    // Skip the colon/arrow that typically precedes a type annotation
+    if (this.at().type === typeSeparator) {
+      this.eat()
+      return this.parse_type({ isNominal: false })
+    }
+
+    return undefined // No type annotation present
   }
 
   private parse_block(parser: () => any) {
@@ -528,7 +584,7 @@ export default class Parser {
     return block
   }
 
-  private parse_return_type(): TypeNode | TypeNode[] | undefined {
+  private parse_return_type({ isNominal = true } = {}): TypeNode | TypeNode[] | undefined {
     let returnType = undefined
     if (this.at().type == TokenType.Arrow) {
       returnType = this.parse_type_anotation(TokenType.Arrow)
@@ -539,7 +595,7 @@ export default class Parser {
       if (!returnType) returnType = []
       else if (!Array.isArray(returnType)) returnType = [returnType]
 
-      returnType.push(this.parse_type())
+      returnType.push(this.parse_type({ isNominal }))
     }
 
     return returnType
@@ -551,7 +607,7 @@ export default class Parser {
 
     let typeParameters: TypeParameter[] | undefined = undefined
     if (isLessThan(this.at())) {
-      typeParameters = this.parse_generic_type(name).parameters
+      typeParameters = this.parse_generic_type(name, { isNominal: false }).parameters
     }
 
     const params = this.parse_params()
@@ -1096,18 +1152,18 @@ export default class Parser {
     return { kind: "ArrayLiteral", elements } as ArrayLiteral
   }
 
-  private parse_generic_type_args(): TypeNode[] {
+  private parse_generic_type_args({ isNominal = true } = {}): TypeNode[] {
     this.expect_less_than()
 
     const typeArgs: TypeNode[] = []
 
     // Parse first type argument
-    typeArgs.push(this.parse_type())
+    typeArgs.push(this.parse_type({ isNominal }))
 
     // Parse remaining type arguments separated by commas
     while (this.at().type === TokenType.Comma) {
       this.eat() // eat comma
-      typeArgs.push(this.parse_type())
+      typeArgs.push(this.parse_type({ isNominal }))
     }
 
     this.expect_greater_than()
@@ -1121,7 +1177,7 @@ export default class Parser {
     let typeArgs = undefined
 
     if (isLessThan(this.at())) {
-      typeArgs = this.parse_generic_type_args()
+      typeArgs = this.parse_generic_type_args({ isNominal: false })
     }
 
     this.eat() // eat open brace
