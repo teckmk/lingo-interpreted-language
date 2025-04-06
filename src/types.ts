@@ -4,5 +4,5 @@ import { RuntimeVal } from "./runtime/values"
 export type BuiltIn = {
   name: string
   value: RuntimeVal
-  modifier: VarModifier
+  modifier?: VarModifier
 }

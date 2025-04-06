@@ -36,6 +36,7 @@ describe("Interpreter - Generics - Instantiation", () => {
     expect(runtimeVal).toEqual({
       type: "object",
       returned: false,
+      instanceOf: "Box",
       properties: new Map([["value", { type: "number", value: 10 }]]),
     });
   });
@@ -47,6 +48,7 @@ describe("Interpreter - Generics - Instantiation", () => {
     expect(runtimeVal).toEqual({
       type: "object",
       returned: false,
+      instanceOf: "Pair",
       properties: new Map([
         ["first", { type: "number", value: 10 }],
         ["second", { type: "string", value: "hello" }],
@@ -61,6 +63,7 @@ describe("Interpreter - Generics - Instantiation", () => {
     expect(runtimeVal).toEqual({
       type: "object",
       returned: false,
+      instanceOf: "Box",
       properties: new Map([["value", { type: "number", value: 10 }]]),
     });
   });
@@ -72,6 +75,7 @@ describe("Interpreter - Generics - Instantiation", () => {
     expect(runtimeVal).toEqual({
       type: "object",
       returned: false,
+      instanceOf: "Box",
       properties: new Map([["value", { type: "number", value: 10 }]]),
     });
   });
@@ -83,6 +87,7 @@ describe("Interpreter - Generics - Instantiation", () => {
     expect(runtimeVal).toEqual({
       type: "object",
       returned: false,
+      instanceOf: "Pair",
       properties: new Map([
         ["first", { type: "number", value: 10 }],
         ["second", { type: "number", value: 20 }],

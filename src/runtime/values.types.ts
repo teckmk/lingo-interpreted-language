@@ -1,8 +1,17 @@
 import { RuntimeVal } from "./values"
 
+export type TypeKind =
+  | "primitive"
+  | "struct"
+  | "alias"
+  | "typeParameter"
+  | "generic"
+  | "union"
+  | "array"
+
 export interface TypeVal extends RuntimeVal {
   type: "type"
-  typeKind: string
+  typeKind: TypeKind
   typeName?: string
   isNominal?: boolean // Track if this is a nominal type (created with 'type' keyword)
 }

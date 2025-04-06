@@ -22,7 +22,7 @@ import { RuntimeError } from "../error"
 import { ExecutionContext } from "../execution-context"
 import { evaluate } from "../interpreter"
 import { MK_NULL, MK_PLACEHOLDER } from "../macros"
-import { areTypesCompatible, getRuntimeType, getTypeName } from "../type-checker"
+import { areTypesCompatible, getRuntimeType, getTypeName, getTypeOfKind } from "../type-checker"
 import {
   ArrayVal,
   BooleanVal,
@@ -89,13 +89,13 @@ export function eval_type_declaration(
         returned: false, // to satisfy TS
       }
 
-      env.declareType(typeName, genericBase as TypeVal)
+      env.declareType(typeName, genericBase as TypeVal, isNominal)
       return genericBase as RuntimeVal
     }
   }
 
-  // For non-generic types, store the type with the nominal flag
-  env.declareType(typeName, finalTypeVal)
+  // For non-generic types
+  env.declareType(typeName, finalTypeVal, isNominal)
   return finalTypeVal
 }
 
@@ -129,19 +129,30 @@ export function eval_var_declaration(
 
   // If a type is specified, check compatibility
   if (node.type) {
-    const declaredType = evaluate(node.type, context, env) as TypeVal
+    let annotatedType = evaluate(node.type, context, env) as TypeVal
 
-    if (declaredType.type !== "type") {
-      throw new RuntimeError(context, `Expected a type, got ${declaredType.type}`)
+    if (annotatedType.type !== "type") {
+      throw new RuntimeError(context, `Expected a type, got ${annotatedType.type}`)
+    }
+
+    const annotatedTypeName = getTypeName(annotatedType)
+
+    if (annotatedType.typeKind == "alias") {
+      const primitive = getTypeOfKind(annotatedType, "primitive")
+
+      if (primitive) {
+        annotatedType = env.lookupType(annotatedTypeName) as TypeVal
+      }
     }
 
     // Check if the value's type matches the declared type
     // This requires tracking runtime type information
-    const [isCompatible, , targetType] = areTypesCompatible(getRuntimeType(value), declaredType)
+    const valueType = getRuntimeType(value)
+    const [isCompatible, , targetType] = areTypesCompatible(valueType, annotatedType)
     if (value.type !== "null" && !isCompatible) {
       throw new RuntimeError(
         context,
-        `Type mismatch: Cannot assign value of type ${value.type} to variable of type ${getTypeName(declaredType)}`,
+        `Type mismatch: Cannot assign value of type ${getTypeName(valueType)} to variable of type ${annotatedTypeName}`,
       )
     }
 

@@ -1,14 +1,4 @@
-import {
-  AliasType,
-  ArrayType,
-  DocComment,
-  GenericType,
-  LeafNode,
-  PrimitiveType,
-  StructType,
-  TypeNode,
-  UnionType,
-} from "../../frontend/ast"
+import { DocComment, LeafNode, StructType } from "../../frontend/ast"
 import { ArrayVal, BooleanVal, FunctionVal, NullVal, PlaceholderVal, StringVal } from "./../values"
 import {
   ArrayLiteral,
@@ -28,22 +18,16 @@ import { NativeFnVal, NumberVal, ObjectVal, RuntimeVal } from "../values"
 import { eval_code_block } from "./statements"
 import { RuntimeError } from "../error"
 import { ExecutionContext } from "../execution-context"
-import {
-  ArrayTypeVal,
-  GenericTypeVal,
-  PrimitiveTypeVal,
-  StructTypeVal,
-  TypeParameterVal,
-  TypeVal,
-  UnionTypeVal,
-} from "../values.types"
+import { GenericTypeVal, PrimitiveTypeVal, StructTypeVal, TypeVal } from "../values.types"
 import {
   areTypesCompatible,
+  convertTypeNodeToTypeVal,
   createTypeArgMap,
   getRuntimeType,
+  getStructTypeFromGeneric,
   getTypeName,
   getTypeOfKind,
-  instantiateGenericType,
+  isAliasOfType,
 } from "../type-checker"
 
 function eval_numeric_binary_expr(
@@ -203,9 +187,14 @@ export function eval_object_expr(
   env: Environment,
   context: ExecutionContext,
 ): RuntimeVal {
-  const object = { type: "object", properties: new Map(), returned: false } as ObjectVal
-
   const typeName = obj.instanceOf.value
+  const object = {
+    type: "object",
+    properties: new Map(),
+    returned: false,
+    instanceOf: typeName,
+  } as ObjectVal
+
   const type = env.lookupType(typeName) as TypeVal
 
   // Handle generic types and type arguments
@@ -231,8 +220,6 @@ export function eval_object_expr(
 
     // Convert AST type nodes to TypeVal
     const typeArgValues: TypeVal[] = obj.typeArgs.map((arg) => {
-      // This assumes you have a function to convert AST type nodes to TypeVal
-      // You might need to implement this function or adapt an existing one
       return convertTypeNodeToTypeVal(arg, env, context)
     })
 
@@ -244,16 +231,32 @@ export function eval_object_expr(
   } else {
     // For non-generic types, just get the struct type directly
     structType = getTypeOfKind(type as TypeVal, "struct") as StructTypeVal
+
+    if (!structType) {
+      // Check if struct is behind an alias
+      // ie alias Employee = Person
+      const primitive = getTypeOfKind(type as TypeVal, "primitive") as PrimitiveTypeVal
+      if (primitive) {
+        structType = env.lookupType(primitive.primitiveType) as StructTypeVal
+        structType = {
+          ...structType,
+          isNominal: type.isNominal,
+        }
+      }
+    }
   }
 
-  if (!structType) {
+  if (!structType || structType.typeKind !== "struct") {
     throw new RuntimeError(context, `Type '${typeName}' is not a struct`)
   }
 
+  if (structType.typeName) object.instanceOf = structType.typeName
+
   // Ensure all required fields are initialized
-  for (const [fieldName, fieldType] of Object.entries(structType.members)) {
+  for (const [fieldName, _fieldType] of Object.entries(structType.members)) {
     const providedProperty = obj.properties.find(({ key }) => key.value === fieldName)
     const isOptional = structType.optional[fieldName]
+    let fieldType = _fieldType
 
     if (!providedProperty && !isOptional) {
       throw new RuntimeError(
@@ -269,21 +272,76 @@ export function eval_object_expr(
         ? evaluate(providedProperty.value, context, env)
         : env.lookupVar(fieldName)
 
-      // Get the runtime type of the value
-      const runtimeType = getRuntimeType(runtimeVal)
+      // Handle object types with proper nominal/structural typing
+      if (runtimeVal.type === "object" && (runtimeVal as ObjectVal).instanceOf) {
+        const objectVal = runtimeVal as ObjectVal
+        const expectedTypeName = fieldType.typeName ?? getTypeName(fieldType)
+        const actualTypeName = objectVal.instanceOf
 
-      // Type check with type arguments if available
-      const [isCompatible] = areTypesCompatible(runtimeType, fieldType, typeArgMap)
+        let fieldTypeVal: TypeVal = fieldType
+        if (fieldType.typeKind == "alias") {
+          fieldTypeVal = getTypeOfKind(fieldType as TypeVal, "primitive") as PrimitiveTypeVal
 
-      if (!isCompatible) {
-        // Improved error message that handles complex types
-        const expectedTypeName = getTypeName(fieldType)
-        const actualTypeName = getTypeName(runtimeType)
+          if (fieldTypeVal) {
+            fieldType = env.lookupType(expectedTypeName) as TypeVal
+          }
+        }
 
-        throw new RuntimeError(
-          context,
-          `Field '${fieldName}' in struct '${typeName}' must be of type '${expectedTypeName}', but got '${actualTypeName}'`,
-        )
+        if (fieldType.isNominal) {
+          // For nominal typing, need to handle aliases
+          if (actualTypeName !== expectedTypeName) {
+            // Check if the actual type is an alias of the expected type or vice versa
+            let isCompatibleAlias = false
+
+            // Check if actualTypeName is an alias of expectedTypeName
+            const actualTypeVal = env.lookupType(actualTypeName) as TypeVal
+            if (actualTypeVal && isAliasOfType(actualTypeVal, expectedTypeName, env)) {
+              isCompatibleAlias = true
+            }
+
+            // Check if expectedTypeName is an alias of actualTypeName
+            const expectedTypeVal = env.lookupType(expectedTypeName) as TypeVal
+            if (
+              !isCompatibleAlias &&
+              expectedTypeVal &&
+              isAliasOfType(expectedTypeVal, actualTypeName, env)
+            ) {
+              isCompatibleAlias = true
+            }
+
+            if (!isCompatibleAlias) {
+              throw new RuntimeError(
+                context,
+                `Field '${fieldName}' in struct '${typeName}' must be of nominal type '${expectedTypeName}', but got '${actualTypeName}'`,
+              )
+            }
+          }
+        } else {
+          // Structural typing - check field compatibility
+          const runtimeType = getRuntimeType(runtimeVal)
+          const [isCompatible] = areTypesCompatible(runtimeType, fieldType, typeArgMap)
+
+          if (!isCompatible) {
+            throw new RuntimeError(
+              context,
+              `Field '${fieldName}' in struct '${typeName}' is incompatible: types do not match structurally`,
+            )
+          }
+        }
+      } else {
+        // Handle non-object types
+        const runtimeType = getRuntimeType(runtimeVal)
+        const [isCompatible] = areTypesCompatible(runtimeType, fieldType, typeArgMap)
+
+        if (!isCompatible) {
+          const expectedTypeName = getTypeName(fieldType)
+          const actualTypeName = getTypeName(runtimeType)
+
+          throw new RuntimeError(
+            context,
+            `Field '${fieldName}' in struct '${typeName}' must be of type '${expectedTypeName}', but got '${actualTypeName}'`,
+          )
+        }
       }
     }
 
@@ -299,112 +357,6 @@ export function eval_object_expr(
 
   return object
 }
-function convertTypeNodeToTypeVal(
-  typeNode: TypeNode,
-  env: Environment,
-  context: ExecutionContext,
-): TypeVal {
-  switch (typeNode.kind) {
-    case "PrimitiveType":
-      return {
-        type: "type",
-        typeKind: "primitive",
-        primitiveType: (typeNode as PrimitiveType).name.value,
-      } as PrimitiveTypeVal
-
-    case "AliasType": {
-      // Look up the actual type in the environment
-      const typeName = typeNode.name?.value
-      const isPredefinedPrimitive =
-        typeName === "string" || typeName === "number" || typeName === "bool"
-
-      if (typeName && !isPredefinedPrimitive) {
-        const type = env.lookupType(typeName)
-        if (!type) {
-          throw new RuntimeError(context, `Unknown type '${typeName}'`)
-        }
-        return type as TypeVal
-      }
-      // If it's an inline alias type or predefined primitive, convert its actual type
-      return convertTypeNodeToTypeVal((typeNode as AliasType).actualType, env, context)
-    }
-
-    case "StructType":
-      // This would need to handle converting struct type nodes to StructTypeVal
-      // Implementation depends on how you represent structs in your AST
-      throw new RuntimeError(context, "Inline struct types not supported as type arguments yet")
-
-    case "ArrayType":
-      return {
-        type: "type",
-        typeKind: "array",
-        elementType: convertTypeNodeToTypeVal((typeNode as ArrayType).elementType, env, context),
-      } as ArrayTypeVal
-
-    case "UnionType":
-      return {
-        type: "type",
-        typeKind: "union",
-        unionTypes: (typeNode as UnionType).types.map((t) =>
-          convertTypeNodeToTypeVal(t, env, context),
-        ),
-      } as UnionTypeVal
-
-    case "GenericType": {
-      // For generic types, convert the base type and parameters
-      const baseType = typeNode.name?.value ? env.lookupType(typeNode.name.value) : null
-      if (!baseType) {
-        throw new RuntimeError(
-          context,
-          `Unknown generic type '${typeNode.name?.value || "anonymous"}'`,
-        )
-      }
-
-      // Convert type parameters
-      const parameters = (typeNode as GenericType).parameters.map((param) => {
-        return {
-          type: "type",
-          typeKind: "typeParameter",
-          name: param.name.value,
-          constraint: param.constraint
-            ? convertTypeNodeToTypeVal(param.constraint, env, context)
-            : undefined,
-        } as TypeParameterVal
-      })
-
-      return {
-        type: "type",
-        typeKind: "generic",
-        typeName: typeNode.name?.value,
-        baseType: baseType as TypeVal,
-        parameters,
-      } as GenericTypeVal
-    }
-    default:
-      throw new RuntimeError(context, `Unsupported type node kind: ${(typeNode as TypeNode).kind}`)
-  }
-}
-
-// Helper function to get struct type from a generic type
-function getStructTypeFromGeneric(
-  genericType: GenericTypeVal,
-  typeArgs: TypeVal[],
-  context: ExecutionContext,
-): StructTypeVal {
-  // Instantiate the generic type with concrete type arguments
-  const instantiatedType = instantiateGenericType(genericType, typeArgs)
-
-  // Get the struct type from the instantiated type
-  const structType = getTypeOfKind(instantiatedType, "struct") as StructTypeVal
-
-  if (!structType) {
-    throw new RuntimeError(context, `Generic type does not resolve to a struct`)
-  }
-
-  return structType
-}
-
-// Helper function to get a human-readable type name
 
 export function eval_array_expr(
   arr: ArrayLiteral,
@@ -596,7 +548,7 @@ export function eval_member_expr(
     }
     case "object":
       // const obj = ident as ObjectVal
-      return {} as RuntimeVal
+      throw new RuntimeError(context, "Object member access not implemented yet")
 
     default:
       throw new RuntimeError(context, "Cannot identify the type of variable")

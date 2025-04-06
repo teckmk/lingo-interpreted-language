@@ -56,6 +56,7 @@ export interface StringVal extends RuntimeVal {
 export interface ObjectVal extends RuntimeVal {
   type: "object"
   properties: Map<string, RuntimeVal>
+  instanceOf: string
 }
 
 export type FunctionCall = (args: RuntimeVal[], env: Environment) => RuntimeVal

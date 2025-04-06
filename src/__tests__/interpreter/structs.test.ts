@@ -24,6 +24,7 @@ describe("Interpreter - Structs", () => {
     const runtimeVal = interpret("test", code);
     expect(runtimeVal).toEqual({
       type: "object",
+      instanceOf: "Point",
       properties: new Map([
         ["x", { type: "number", value: 1 }],
         ["y", { type: "number", value: 2 }],
@@ -43,6 +44,7 @@ describe("Interpreter - Structs", () => {
     const runtimeVal = interpret("test", code);
     expect(runtimeVal).toEqual({
       type: "object",
+      instanceOf: "Point",
       properties: new Map([
         ["x", { type: "number", value: 1 }],
         ["y", { type: "null", value: null }],
@@ -67,11 +69,13 @@ describe("Interpreter - Structs", () => {
 
     expect(runtimeVal).toEqual({
       type: "object",
+      instanceOf: "Location",
       properties: new Map([
         [
           "point",
           {
             type: "object",
+            instanceOf: "Point",
             properties: new Map([
               ["x", { type: "number", value: 1 }],
               ["y", { type: "number", value: 2 }],
