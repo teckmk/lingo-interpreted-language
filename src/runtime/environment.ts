@@ -1,9 +1,16 @@
 import { VarModifier } from "../frontend/ast"
 import { ExecutionContext } from "./execution-context"
 import { RuntimeError } from "./error"
-import { RuntimeVal, ValueType } from "./values"
-import { TypeVal, PrimitiveTypeVal, AliasTypeVal } from "./values.types"
-import { areTypesCompatible, getRuntimeType } from "./type-checker"
+import { ContractFulfillmentVal, FunctionVal, RuntimeVal, ValueType } from "./values"
+import {
+  TypeVal,
+  PrimitiveTypeVal,
+  AliasTypeVal,
+  FunctionTypeVal,
+  GetterTypeVal,
+  ContractTypeVal,
+} from "./values.types"
+import { areTypesCompatible, createTypeArgMap, getRuntimeType, getTypeName } from "./type-checker"
 
 import functions from "./built-ins/functions"
 import variables from "./built-ins/variables"
@@ -18,6 +25,7 @@ export default class Environment {
   private finals: Set<string>
   private executionContext: ExecutionContext
   private variableTypes: Map<string, TypeVal>
+  private contractFulfillments: Map<string, RuntimeVal>
 
   constructor(executionContext: ExecutionContext, parentEnv?: Environment) {
     this.parent = parentEnv
@@ -28,6 +36,7 @@ export default class Environment {
     this.typeDefinitions = new Map()
     this.aliasDefinitions = new Map()
     this.variableTypes = new Map()
+    this.contractFulfillments = new Map()
 
     const global = Boolean(parentEnv) == false
     if (global) {
@@ -269,5 +278,144 @@ export default class Environment {
   public lookupVar(varname: string): RuntimeVal {
     const env = this.resolve(varname)
     return env.variables.get(varname) as RuntimeVal
+  }
+
+  public fulfillContract(
+    structName: string,
+    contractName: string,
+    implementations: FunctionVal[],
+    typeArgs: RuntimeVal[] = [],
+  ): RuntimeVal {
+    // Check if the struct exists
+    if (!this.typeDefinitions.has(structName)) {
+      // Check if it exists in a parent environment
+      const structExists = this.parent && this.lookupType(structName)
+      if (!structExists) {
+        throw new RuntimeError(
+          this.executionContext,
+          `Cannot implement contract for ${structName}. The struct does not exist.`,
+        )
+      }
+    }
+
+    // Check if the contract exists
+    if (!this.typeDefinitions.has(contractName)) {
+      // Check if it exists in a parent environment
+      const contractExists = this.parent && this.lookupType(contractName)
+      if (!contractExists) {
+        throw new RuntimeError(
+          this.executionContext,
+          `Cannot implement contract ${contractName}. The contract does not exist.`,
+        )
+      }
+    }
+
+    // Get the contract definition
+    const contractType = this.lookupType(contractName) as ContractTypeVal
+    if (contractType.typeKind !== "contract") {
+      throw new RuntimeError(
+        this.executionContext,
+        `Cannot implement ${contractName} because it is not a contract.`,
+      )
+    }
+
+    // Enforce the orphan rule:
+    // The implementation is valid only if either the contract or the struct is defined in this environment
+    const isStructLocal = this.typeDefinitions.has(structName)
+    const isContractLocal = this.typeDefinitions.has(contractName)
+
+    if (!isStructLocal && !isContractLocal) {
+      throw new RuntimeError(
+        this.executionContext,
+        `Orphan rule violation: Cannot implement contract ${contractName} for struct ${structName} because neither is defined in the current scope.`,
+      )
+    }
+
+    // Generate a unique key for this implementation
+    const fulfillmentKey = `${structName}:${contractName}`
+
+    // Check if this contract is already implemented for this struct
+    // We need to check the entire hierarchy to prevent duplicate implementations
+    if (this.hasContractImplementation(structName, contractName)) {
+      throw new RuntimeError(
+        this.executionContext,
+        `Contract ${contractName} is already implemented for ${structName}.`,
+      )
+    }
+
+    // Verify that all required methods are implemented
+    const contractMethods = Object.keys(contractType.members)
+    const implementedMethods = implementations.map((fn) => fn.signature.name)
+
+    // Check if all required methods are implemented
+    for (const methodName of contractMethods) {
+      if (!implementedMethods.includes(methodName)) {
+        throw new RuntimeError(
+          this.executionContext,
+          `Implementation of contract ${contractName} is missing method ${methodName}, for struct ${structName}.`,
+        )
+      }
+
+      // Verify method signatures match the contract
+      const contractMethod = contractType.members[methodName] as FunctionTypeVal | GetterTypeVal
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const implementation = implementations.find((fn) => fn.signature.name === methodName)!
+
+      // Check that the implementation's signature matches the contract's signature
+      let argsMap
+      const providedImpl = getRuntimeType(implementation)
+      if (contractType.parameters) {
+        argsMap = createTypeArgMap(contractType.parameters, typeArgs as TypeVal[])
+      }
+      const [isCompatible] = areTypesCompatible(providedImpl, contractMethod, argsMap)
+      if (!isCompatible) {
+        throw new RuntimeError(
+          this.executionContext,
+          `Method ${getTypeName(providedImpl)} of struct ${structName}, does not satisfy signature ${contractName}.${getTypeName(contractMethod)}.`,
+        )
+      }
+    }
+
+    // Create the contract fulfillment value
+    const fulfillment: ContractFulfillmentVal = {
+      type: "fulfillment",
+      contractName,
+      for: structName,
+      args: typeArgs,
+      body: implementations,
+      returned: false,
+    }
+
+    // Store the fulfillment
+    this.contractFulfillments.set(fulfillmentKey, fulfillment)
+
+    return fulfillment
+  }
+
+  public hasContractImplementation(structName: string, contractName: string): boolean {
+    if (this.contractFulfillments.has(`${structName}:${contractName}`)) {
+      return true
+    }
+
+    // Check parent environments
+    return this.parent ? this.parent.hasContractImplementation(structName, contractName) : false
+  }
+
+  public getContractImplementation(
+    structName: string,
+    contractName: string,
+  ): ContractFulfillmentVal | null {
+    if (this.contractFulfillments.has(`${structName}:${contractName}`)) {
+      return this.contractFulfillments.get(
+        `${structName}:${contractName}`,
+      ) as ContractFulfillmentVal
+    }
+
+    // Look in parent environments
+    return this.parent ? this.parent.getContractImplementation(structName, contractName) : null
+  }
+
+  public doesImplementContract(structName: string, contractName: string): boolean {
+    return this.hasContractImplementation(structName, contractName)
   }
 }

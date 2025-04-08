@@ -9,11 +9,13 @@ import {
 import Environment from "./environment"
 import { RuntimeError } from "./error"
 import { ExecutionContext } from "./execution-context"
-import { ObjectVal, RuntimeVal } from "./values"
+import { FunctionSignature, ObjectVal, RuntimeVal } from "./values"
 import {
   AliasTypeVal,
   ArrayTypeVal,
+  FunctionTypeVal,
   GenericTypeVal,
+  GetterTypeVal,
   PrimitiveTypeVal,
   StructTypeVal,
   TypeKind,
@@ -257,6 +259,115 @@ export function areTypesCompatible(
     return [true, resolvedSourceType, resolvedTargetType]
   }
 
+  // Contract compatibility checks
+  if (targetType.typeKind === "contract") {
+    // A struct is compatible with a contract if it has implemented the contract
+    // This requires runtime knowledge from the environment
+    if (sourceType.typeKind === "struct") {
+      // This typically would be checked in the runtime environment
+      // but for type checking purposes, we return false as a default
+      // The actual check would happen through the environment.doesImplementContract method
+      return [false, sourceType, targetType]
+    }
+
+    // Contract-to-contract compatibility - exact match or inheritance
+    if (sourceType.typeKind === "contract") {
+      if (sourceType.typeName === targetType.typeName) {
+        return [true, sourceType, targetType]
+      }
+
+      // For inheritance between contracts, would need to add a mechanism to track contract hierarchy
+      return [false, sourceType, targetType]
+    }
+
+    return [false, sourceType, targetType]
+  }
+
+  // Function/Method type compatibility (including signature checking)
+  if (
+    (sourceType.typeKind === "function" || sourceType.typeKind === "getter") &&
+    (targetType.typeKind === "function" || targetType.typeKind === "getter")
+  ) {
+    const sourceFunction = sourceType as FunctionTypeVal | GetterTypeVal
+    const targetFunction = targetType as FunctionTypeVal | GetterTypeVal
+
+    // Check if both are methods or both are functions
+    const sourceIsMethod = sourceFunction.signature.meta.isMethod
+    // const targetIsMethod = targetFunction.signature.meta.isMethod
+
+    // // If one is a method and one is a function, they're not compatible
+    // if (sourceIsMethod !== targetIsMethod) {
+    //   return [false, sourceType, targetType]
+    // }
+
+    // Check parameter count (adjusted for methods)
+    const getEffectiveParamCount = (signature: FunctionSignature) =>
+      signature.meta.isMethod ? signature.parameters.length - 1 : signature.parameters.length
+
+    const sourceParamCount = getEffectiveParamCount(sourceFunction.signature)
+    const targetParamCount = getEffectiveParamCount(targetFunction.signature)
+
+    if (sourceParamCount !== targetParamCount) {
+      return [false, sourceType, targetType]
+    }
+
+    // Check parameter types
+    // For methods, start at index 1 to skip 'this' parameter
+
+    for (let i = 0; i < targetFunction.signature.parameters.length; i++) {
+      const sourceParam = sourceFunction.signature.parameters[i + (sourceIsMethod ? 1 : 0)]
+      const targetParam = targetFunction.signature.parameters[i]
+
+      // If types are specified, they must be compatible
+      if (sourceParam.valueType && targetParam?.valueType) {
+        // For parameters, the target parameter type must be assignable to the source parameter type
+        // (contravariance for parameters)
+        const [isCompatible] = areTypesCompatible(
+          targetParam.valueType,
+          sourceParam.valueType,
+          typeArgMap,
+        )
+
+        if (!isCompatible) {
+          return [false, sourceType, targetType]
+        }
+      } else if (sourceParam.valueType || targetParam.valueType) {
+        // If one has a type and the other doesn't, they're not compatible
+        return [false, sourceType, targetType]
+      }
+    }
+
+    // Check return type compatibility
+    const sourceReturnType = sourceFunction.signature.returnType
+    const targetReturnType = targetFunction.signature.returnType
+
+    if (sourceReturnType && targetReturnType) {
+      if (sourceReturnType.length !== targetReturnType.length) {
+        return [false, sourceType, targetType]
+      }
+
+      // For return types, the source return type must be assignable to the target return type
+      // (covariance for return types)
+      for (let i = 0; i < sourceReturnType.length; i++) {
+        const [isCompatible] = areTypesCompatible(
+          sourceReturnType[i],
+          targetReturnType[i],
+          typeArgMap,
+        )
+
+        if (!isCompatible) {
+          return [false, sourceType, targetType]
+        }
+      }
+    } else if (sourceReturnType || targetReturnType) {
+      // One has a return type and the other doesn't
+      return [false, sourceType, targetType]
+    }
+
+    // If we get here, the function signatures are compatible
+    return [true, sourceType, targetType]
+  }
+
   // Generic types - compare base types and parameters with constraint checking
   if (sourceType.typeKind === "generic" && targetType.typeKind === "generic") {
     if (sourceType.typeName !== targetType.typeName) {
@@ -304,7 +415,6 @@ export function areTypesCompatible(
 
   return [false, sourceType, targetType]
 }
-
 // Helper function to create a type argument map from type parameters and arguments
 export function createTypeArgMap(
   typeParameters: TypeParameterVal[],
@@ -428,6 +538,14 @@ export function getRuntimeType(value: RuntimeVal): TypeVal {
         isNominal: true,
       } as StructTypeVal
 
+    // Getter is also a function, so we can use the same type
+    case "function":
+      return {
+        type: "type",
+        typeKind: "function",
+        signature: (value as FunctionTypeVal).signature,
+      } as FunctionTypeVal
+
     // Handle other types as needed
 
     default:
@@ -489,6 +607,28 @@ export function getTypeName(type: TypeVal): string {
       const baseTypeName = genericType.typeName || "generic"
       const paramNames = genericType.parameters.map((p) => p.name).join(", ")
       return `${baseTypeName}<${paramNames}>`
+    }
+
+    case "function": {
+      const _type = type as FunctionTypeVal
+      const name = _type.signature.name
+      const isMethod = _type.signature.meta.isMethod
+      const params = isMethod ? _type.signature.parameters.slice(1) : _type.signature.parameters
+      const paramTypes = params
+        .map((p) => (p.valueType ? getTypeName(p.valueType) : "dynamic"))
+        .join(", ")
+      const returnTypes = _type.signature.returnType
+      return `${name}(${paramTypes}) -> ${
+        returnTypes ? returnTypes.map((t) => (t ? getTypeName(t) : "dynamic")).join(", ") : "void"
+      }`
+    }
+
+    case "getter": {
+      const name = (type as GetterTypeVal).signature.name
+      const returnTypes = (type as GetterTypeVal).signature.returnType
+      return `${name} -> ${
+        returnTypes ? returnTypes.map((t) => (t ? getTypeName(t) : "dynamic")).join(", ") : "void"
+      }`
     }
 
     case "typeParameter":

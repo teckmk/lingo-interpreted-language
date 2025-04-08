@@ -29,7 +29,7 @@ const functions: BuiltIn[] = [
           return (arg as ArrayVal).elements.map(getValue)
         } else if (argType == "function") {
           const fn = arg as FunctionVal
-          return `fn ${fn.name}(${fn.parameters
+          return `fn ${fn.signature.name}(${fn.signature.parameters
             .map((p) => `${p.name}: ${p.valueType || "dynamic"}`)
             .join()})`
         } else if (argType == "return") {

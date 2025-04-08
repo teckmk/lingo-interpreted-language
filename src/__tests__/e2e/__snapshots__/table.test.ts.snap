@@ -321,72 +321,81 @@ exports[`Table - E2E should interpret table of 5 1`] = `
         },
       ],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 14,
-            "line": 2,
-          },
-          "start": {
-            "column": 4,
-            "line": 2,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "printTable",
-      },
-      "parameters": [
-        {
-          "kind": "FunctionParam",
-          "name": {
-            "position": {
-              "end": {
-                "column": 16,
-                "line": 2,
-              },
-              "start": {
-                "column": 15,
-                "line": 2,
-              },
-            },
-            "value": "n",
-          },
-          "type": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 24,
-                  "line": 2,
-                },
-                "start": {
-                  "column": 18,
-                  "line": 2,
-                },
-              },
-              "value": "number",
-            },
-          },
-        },
-      ],
-      "returnType": {
-        "isNominal": false,
-        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
-              "column": 35,
+              "column": 14,
               "line": 2,
             },
             "start": {
-              "column": 29,
+              "column": 4,
               "line": 2,
             },
           },
-          "value": "string",
+          "value": "printTable",
         },
+        "parameters": [
+          {
+            "kind": "FunctionParam",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 16,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 15,
+                  "line": 2,
+                },
+              },
+              "value": "n",
+            },
+            "type": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 24,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 18,
+                    "line": 2,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+        ],
+        "returnType": {
+          "isNominal": false,
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 35,
+                "line": 2,
+              },
+              "start": {
+                "column": 29,
+                "line": 2,
+              },
+            },
+            "value": "string",
+          },
+        },
+        "typeParameters": undefined,
       },
-      "typeParameters": undefined,
     },
     {
       "args": [
@@ -751,72 +760,81 @@ exports[`Table - E2E should interpret table of 5, with inclusive range 1`] = `
         },
       ],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 14,
-            "line": 2,
-          },
-          "start": {
-            "column": 4,
-            "line": 2,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "printTable",
-      },
-      "parameters": [
-        {
-          "kind": "FunctionParam",
-          "name": {
-            "position": {
-              "end": {
-                "column": 16,
-                "line": 2,
-              },
-              "start": {
-                "column": 15,
-                "line": 2,
-              },
-            },
-            "value": "n",
-          },
-          "type": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 24,
-                  "line": 2,
-                },
-                "start": {
-                  "column": 18,
-                  "line": 2,
-                },
-              },
-              "value": "number",
-            },
-          },
-        },
-      ],
-      "returnType": {
-        "isNominal": false,
-        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
-              "column": 35,
+              "column": 14,
               "line": 2,
             },
             "start": {
-              "column": 29,
+              "column": 4,
               "line": 2,
             },
           },
-          "value": "string",
+          "value": "printTable",
         },
+        "parameters": [
+          {
+            "kind": "FunctionParam",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 16,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 15,
+                  "line": 2,
+                },
+              },
+              "value": "n",
+            },
+            "type": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 24,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 18,
+                    "line": 2,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+        ],
+        "returnType": {
+          "isNominal": false,
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 35,
+                "line": 2,
+              },
+              "start": {
+                "column": 29,
+                "line": 2,
+              },
+            },
+            "value": "string",
+          },
+        },
+        "typeParameters": undefined,
       },
-      "typeParameters": undefined,
     },
     {
       "args": [

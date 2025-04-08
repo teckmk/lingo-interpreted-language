@@ -1,4 +1,12 @@
-import { DocComment, LeafNode, StructType } from "../../frontend/ast"
+import {
+  ContractFulfillment,
+  ContractType,
+  DocComment,
+  FunctionType,
+  GetterType,
+  LeafNode,
+  StructType,
+} from "../../frontend/ast"
 import { ArrayVal, BooleanVal, FunctionVal, NullVal, PlaceholderVal, StringVal } from "./../values"
 import {
   ArrayLiteral,
@@ -15,10 +23,18 @@ import Environment from "../environment"
 import { evaluate } from "../interpreter"
 import { MK_NULL } from "../macros"
 import { NativeFnVal, NumberVal, ObjectVal, RuntimeVal } from "../values"
-import { eval_code_block } from "./statements"
+import { eval_code_block, eval_function_signature } from "./statements"
 import { RuntimeError } from "../error"
 import { ExecutionContext } from "../execution-context"
-import { GenericTypeVal, PrimitiveTypeVal, StructTypeVal, TypeVal } from "../values.types"
+import {
+  ContractTypeVal,
+  FunctionTypeVal,
+  GenericTypeVal,
+  GetterTypeVal,
+  PrimitiveTypeVal,
+  StructTypeVal,
+  TypeVal,
+} from "../values.types"
 import {
   areTypesCompatible,
   convertTypeNodeToTypeVal,
@@ -180,6 +196,91 @@ export function eval_struct_type(
     members,
     optional,
   } as StructTypeVal
+}
+
+export function eval_getter_type(
+  node: GetterType,
+  env: Environment,
+  context: ExecutionContext,
+): GetterTypeVal {
+  const signature = eval_function_signature(node.signature, env, context)
+  return {
+    type: "type",
+    typeKind: "getter",
+    signature,
+    returned: false,
+  }
+}
+
+export function eval_function_type(
+  node: FunctionType,
+  env: Environment,
+  context: ExecutionContext,
+): FunctionTypeVal {
+  const signature = eval_function_signature(node.signature, env, context)
+  return {
+    type: "type",
+    typeKind: "function",
+    signature,
+    returned: false,
+  }
+}
+
+export function eval_contract_type(
+  node: ContractType,
+  env: Environment,
+  context: ExecutionContext,
+): ContractTypeVal {
+  const members: Record<string, FunctionTypeVal | GetterTypeVal> = {}
+
+  for (const member of node.members) {
+    const memberType = evaluate(member, context, env) as TypeVal
+    if (memberType.type !== "type") {
+      throw new RuntimeError(
+        context,
+        `Expected type for contract member but got ${memberType.type}`,
+      )
+    }
+
+    const name = member.signature.name?.value
+
+    if (!name) {
+      throw new RuntimeError(context, "Contract member must have a name")
+    }
+
+    if (memberType.typeKind === "function") {
+      members[name] = memberType as FunctionTypeVal
+    } else if (memberType.typeKind === "getter") {
+      members[name] = memberType as GetterTypeVal
+    } else {
+      throw new RuntimeError(
+        context,
+        `Contract members must be of type function or getter but got ${memberType.typeKind}`,
+      )
+    }
+  }
+
+  return {
+    type: "type",
+    typeKind: "contract",
+    typeName: node.name?.value,
+    members,
+    returned: false,
+  }
+}
+
+export function eval_contract_fullfillment(
+  node: ContractFulfillment,
+  env: Environment,
+  context: ExecutionContext,
+) {
+  const structName = node.for.value
+  const contractName = node.contract?.value ?? structName
+  const implementations = node.members.map(
+    (member) => evaluate(member, context, env) as FunctionVal,
+  )
+  const typeArgs = node.typeArgs?.map((arg) => evaluate(arg, context, env))
+  return env.fulfillContract(structName, contractName, implementations, typeArgs)
 }
 
 export function eval_object_expr(
@@ -452,7 +553,7 @@ export function eval_call_expr(
 
   const fnc = fn as FunctionVal
   const scope = new Environment(context, fnc.declarationEnv)
-  const numParams = fnc.parameters.length
+  const numParams = fnc.signature.parameters.length
 
   // Check if we got args for all params (params are required by default)
   // TODO Better error handling here
@@ -464,7 +565,7 @@ export function eval_call_expr(
 
   // create variables for params
   for (let i = 0; i < numParams; i++) {
-    const param = fnc.parameters[i]
+    const param = fnc.signature.parameters[i]
     const arg = args[i]
     scope.declareVar(
       param.name,

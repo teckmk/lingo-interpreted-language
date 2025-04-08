@@ -41,6 +41,7 @@ import {
   ArrayType,
   UnionType,
   AliasType,
+  FunctionSignature,
 } from "./ast"
 import { Placholder } from "../helpers"
 import { TokenType } from "./lexer/specs"
@@ -139,8 +140,6 @@ export default class Parser {
         return this.parse_var_declaration()
       case TokenType.Fn:
         return this.parse_fn_declaration()
-      case TokenType.Get:
-        return this.parse_getter_definition({ parseBody: true })
       case TokenType.If:
         return this.parse_if_statement()
       case TokenType.Return:
@@ -237,7 +236,8 @@ export default class Parser {
 
       // If we already have a union, add to it
       if (type.kind === "UnionType") {
-        (type as UnionType).types.push(right)
+        // eslint-disable-next-line @typescript-eslint/no-extra-semi
+        ;(type as UnionType).types.push(right)
       } else {
         // Create a new union type
         type = {
@@ -279,27 +279,30 @@ export default class Parser {
     return { kind: "StructType", members, isNominal: true }
   }
 
-  private parse_contract_body({ parseFunctionBodies = false }): Array<FunctionType | GetterType> {
-    const members = new Array<FunctionType | GetterType>()
+  private parse_contract_body({
+    parseFunctionBodies = false,
+  }): (FunctionType | GetterType | FunctionDeclaration)[] {
+    const members = new Array<FunctionType | GetterType | FunctionDeclaration>()
 
     this.parse_block(() => {
-      switch (this.at().type) {
-        case TokenType.Fn:
-          members.push(
-            this.parse_fn_definition({
-              isNominal: false,
-              parseBody: parseFunctionBodies,
-              parseFunctionName: true,
-            }),
-          )
-          break
-        case TokenType.Get:
-          members.push(
-            this.parse_getter_definition({ isNominal: false, parseBody: parseFunctionBodies }),
-          )
-          break
-        default:
-          throw new Error("Contract member must be a function or getter")
+      if (parseFunctionBodies) {
+        members.push(this.parse_fn_declaration())
+      } else {
+        switch (this.at().type) {
+          case TokenType.Fn:
+            members.push(
+              this.parse_fn_definition({
+                isNominal: false,
+                functionNameRequired: true,
+              }),
+            )
+            break
+          case TokenType.Get:
+            members.push(this.parse_getter_definition({ isNominal: false }))
+            break
+          default:
+            throw new Error("Contract member must be a function or getter")
+        }
       }
     })
 
@@ -308,19 +311,22 @@ export default class Parser {
 
   private parse_contract_type(): ContractType {
     this.eat() // eat contract token
-    const members = this.parse_contract_body({ parseFunctionBodies: false })
+    const members = this.parse_contract_body({ parseFunctionBodies: false }) as (
+      | GetterType
+      | FunctionType
+    )[]
     return { kind: "ContractType", members, isNominal: true }
   }
 
-  private parse_fn_definition({
-    isNominal = true,
-    parseBody = true,
-    parseFunctionName = false,
-  } = {}): FunctionType {
-    this.eat() // eat fn token
+  private parse_function_signature({
+    functionNameRequired = false,
+    returnTypeRequired = true,
+    parseParams = true,
+  }): FunctionSignature {
+    const { type: fnType } = this.eat() // eat fn/get token
     let name: Token | undefined = undefined
 
-    if (parseFunctionName) {
+    if (functionNameRequired) {
       name = this.expect(TokenType.Identifier, "Expected function name following fn keyword")
     } else if (this.at().type == TokenType.Identifier) {
       name = this.eat()
@@ -331,67 +337,57 @@ export default class Parser {
       if (!name) {
         throw new Error("Expected function name before generic type parameters")
       }
-      typeParameters = this.parse_generic_type(name, { isNominal }).parameters
+      typeParameters = this.parse_generic_type(name, { isNominal: false }).parameters
     }
 
-    const params: FunctionParam[] = this.parse_params()
-
-    if (this.at().type != TokenType.Arrow) {
-      throw new Error("Expected '->' after function parameters")
-    }
+    const params: FunctionParam[] = parseParams ? this.parse_params() : []
 
     const returnType = this.parse_return_type()
-
-    if (!returnType) {
-      throw new Error("Function definition must have a return type")
-    }
-
-    let body: Stmt[] | undefined = undefined
-    if (parseBody) {
-      body = this.parse_code_block()
+    if (returnTypeRequired && !returnType) {
+      throw new Error("Expected '->' after function parameters, missing return type")
     }
 
     return {
-      kind: "FunctionType",
       name: name ? get_leaf(name) : undefined,
       parameters: params,
       typeParameters,
       returnType,
-      isNominal,
-      body,
+      meta: {
+        isMethod: params[0]?.name.value == "self",
+        isStatic: params.length == 0 && this.insideContractFulfillment,
+        isConstructor: false,
+        isAsync: false,
+        isGetter: fnType == TokenType.Get,
+      },
     }
   }
 
-  private parse_getter_definition({ isNominal = true, parseBody = true } = {}): GetterType {
-    this.eat() // eat get token
-    const name = this.expect(TokenType.Identifier, "Expected getter name following get keyword")
+  private parse_fn_definition({
+    isNominal = true,
+    functionNameRequired = false,
+  } = {}): FunctionType {
+    const signature = this.parse_function_signature({
+      functionNameRequired,
+      returnTypeRequired: true,
+    })
 
-    let params: FunctionParam[] | undefined = undefined
-    if (this.insideContractFulfillment) {
-      params = this.parse_params()
+    return {
+      kind: "FunctionType",
+      signature,
+      isNominal,
     }
+  }
 
-    if (this.at().type != TokenType.Arrow) {
-      throw new Error("Expected '->' after function parameters")
-    }
-
-    const returnType = this.parse_return_type()
-
-    if (!returnType) {
-      throw new Error("Getter definition must have a return type")
-    }
-
-    let body: Stmt[] | undefined = undefined
-    if (parseBody) {
-      body = this.parse_code_block()
-    }
+  private parse_getter_definition({ isNominal = true } = {}): GetterType {
+    const signature = this.parse_function_signature({
+      functionNameRequired: true,
+      parseParams: this.insideContractFulfillment,
+      returnTypeRequired: true,
+    })
 
     return {
       kind: "GetterType",
-      name: get_leaf(name),
-      returnType,
-      parameters: params,
-      body,
+      signature,
       isNominal,
     }
   }
@@ -418,7 +414,7 @@ export default class Parser {
 
     this.insideContractFulfillment = true
 
-    const members = this.parse_contract_body({ parseFunctionBodies: true })
+    const members = this.parse_contract_body({ parseFunctionBodies: true }) as FunctionDeclaration[]
 
     this.insideContractFulfillment = false
 
@@ -434,9 +430,9 @@ export default class Parser {
   private parse_single_type({ isNominal = true } = {}): TypeNode {
     const tokenType = this.at().type
     if (tokenType == TokenType.Fn) {
-      return this.parse_fn_definition({ isNominal, parseBody: false })
+      return this.parse_fn_definition({ isNominal, functionNameRequired: false })
     } else if (tokenType == TokenType.Get) {
-      return this.parse_getter_definition({ isNominal, parseBody: false })
+      return this.parse_getter_definition({ isNominal })
     }
 
     // Parse the base type (primitive or named)
@@ -602,27 +598,18 @@ export default class Parser {
   }
 
   private parse_fn_declaration(): FunctionDeclaration {
-    this.eat() // eat fn token
-    const name = this.expect(TokenType.Identifier, "Expected function name following fn keyword")
-
-    let typeParameters: TypeParameter[] | undefined = undefined
-    if (isLessThan(this.at())) {
-      typeParameters = this.parse_generic_type(name, { isNominal: false }).parameters
-    }
-
-    const params = this.parse_params()
-
-    const returnType = this.parse_return_type()
+    const signature = this.parse_function_signature({
+      functionNameRequired: true,
+      returnTypeRequired: false,
+      parseParams: true,
+    })
 
     const body = this.parse_code_block()
 
     return {
       kind: "FunctionDeclaration",
-      name: get_leaf(name),
-      parameters: params,
-      typeParameters,
+      signature,
       body,
-      returnType,
     }
   }
 
@@ -1350,29 +1337,28 @@ export default class Parser {
 
   private parse_params_list(): FunctionParam[] {
     // inside contract fulfillment, first param is self
-    const params = [this.parse_parameter(this.insideContractFulfillment)]
+    const params = [
+      this.at().type == TokenType.Self ? this.parse_self_param() : this.parse_parameter(),
+    ]
 
     while (this.at().type == TokenType.Comma && this.eat()) params.push(this.parse_parameter())
 
     return params
   }
 
-  private parse_parameter(parse_self = false): FunctionParam {
-    let ident
-    if (parse_self) {
-      ident = this.expect(TokenType.Self, "Expected self keyword")
-    } else {
-      ident = this.expect(TokenType.Identifier, "Expected identifier in function parameter")
-    }
+  private parse_self_param(): FunctionParam {
+    const self = this.expect(TokenType.Self, "Expected self keyword")
+    return { kind: "FunctionParam", name: get_leaf(self), type: undefined }
+  }
 
-    // self keyword can't have type anotation
-    const type = parse_self ? undefined : this.parse_type_anotation()
+  private parse_parameter(): FunctionParam {
+    const ident = this.expect(TokenType.Identifier, "Expected identifier in function parameter")
+
+    const type = this.parse_type_anotation()
 
     // check for default values
     if (this.at().type == TokenType.Equals) {
-      if (parse_self) throw new Error("Self keyword can't have default value")
-
-      this.eat() // eat = token
+      this.eat() // eat =
 
       const defaultVal = this.parse_expr()
 
@@ -1382,6 +1368,11 @@ export default class Parser {
         type,
         default: defaultVal,
       } as FunctionParam
+    }
+
+    // if no default value and no type
+    if (!type) {
+      throw new Error("Expected type annotation for function parameter")
     }
 
     return { kind: "FunctionParam", name: get_leaf(ident), type } as FunctionParam

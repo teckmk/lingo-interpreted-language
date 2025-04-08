@@ -1,4 +1,4 @@
-import { RuntimeVal } from "./values"
+import { FunctionSignature, RuntimeVal } from "./values"
 
 export type TypeKind =
   | "primitive"
@@ -8,6 +8,9 @@ export type TypeKind =
   | "generic"
   | "union"
   | "array"
+  | "contract"
+  | "function"
+  | "getter"
 
 export interface TypeVal extends RuntimeVal {
   type: "type"
@@ -25,6 +28,22 @@ export interface StructTypeVal extends TypeVal {
   typeKind: "struct"
   members: Record<string, TypeVal>
   optional: Record<string, boolean> // Track which members are optional
+}
+
+export interface ContractTypeVal extends TypeVal {
+  typeKind: "contract"
+  members: Record<string, FunctionTypeVal | GetterTypeVal>
+  parameters?: TypeParameterVal[]
+}
+
+export interface FunctionTypeVal extends TypeVal {
+  typeKind: "function"
+  signature: FunctionSignature
+}
+
+export interface GetterTypeVal extends TypeVal {
+  typeKind: "getter"
+  signature: FunctionSignature
 }
 
 export interface AliasTypeVal extends TypeVal {

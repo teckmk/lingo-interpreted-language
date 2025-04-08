@@ -22,6 +22,7 @@ export type ValueType =
   | "break"
   | "continue"
   | "placeholder"
+  | "fulfillment"
 
 export interface RuntimeVal {
   type: ValueType
@@ -73,12 +74,32 @@ export interface ParamVal extends RuntimeVal {
   default: RuntimeVal // to assign a default value
 }
 
+export interface FunctionSignature {
+  name?: string
+  parameters: ParamVal[]
+  returnType?: TypeVal[]
+  typeParameters?: TypeVal[]
+  meta: {
+    isMethod: boolean
+    isStatic: boolean
+    isConstructor: boolean
+    isAsync: boolean
+  }
+}
+
 export interface FunctionVal extends RuntimeVal {
   type: "function"
-  name: string
-  parameters: ParamVal[]
+  signature: FunctionSignature
   declarationEnv: Environment
   body: Stmt[]
+}
+
+export interface ContractFulfillmentVal extends RuntimeVal {
+  type: "fulfillment"
+  contractName?: string
+  for: string
+  args: RuntimeVal[] // args for type parameters
+  body: FunctionVal[]
 }
 
 export interface ReturnVal extends RuntimeVal {

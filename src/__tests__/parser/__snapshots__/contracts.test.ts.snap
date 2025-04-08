@@ -44,179 +44,205 @@ exports[`Parser - Contracts should parse contract fullfillment 1`] = `
         "kind": "ContractType",
         "members": [
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "FunctionType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 24,
-                  "line": 3,
-                },
-                "start": {
-                  "column": 16,
-                  "line": 3,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": false,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "setPoint",
-            },
-            "parameters": [
-              {
-                "kind": "FunctionParam",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 26,
-                      "line": 3,
-                    },
-                    "start": {
-                      "column": 25,
-                      "line": 3,
-                    },
-                  },
-                  "value": "x",
-                },
-                "type": {
-                  "isNominal": false,
-                  "kind": "PrimitiveType",
-                  "name": {
-                    "position": {
-                      "end": {
-                        "column": 33,
-                        "line": 3,
-                      },
-                      "start": {
-                        "column": 27,
-                        "line": 3,
-                      },
-                    },
-                    "value": "number",
-                  },
-                },
-              },
-              {
-                "kind": "FunctionParam",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 36,
-                      "line": 3,
-                    },
-                    "start": {
-                      "column": 35,
-                      "line": 3,
-                    },
-                  },
-                  "value": "y",
-                },
-                "type": {
-                  "isNominal": false,
-                  "kind": "PrimitiveType",
-                  "name": {
-                    "position": {
-                      "end": {
-                        "column": 43,
-                        "line": 3,
-                      },
-                      "start": {
-                        "column": 37,
-                        "line": 3,
-                      },
-                    },
-                    "value": "number",
-                  },
-                },
-              },
-            ],
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 52,
+                    "column": 24,
                     "line": 3,
                   },
                   "start": {
-                    "column": 48,
+                    "column": 16,
                     "line": 3,
                   },
                 },
-                "value": "void",
+                "value": "setPoint",
               },
+              "parameters": [
+                {
+                  "kind": "FunctionParam",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 26,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 25,
+                        "line": 3,
+                      },
+                    },
+                    "value": "x",
+                  },
+                  "type": {
+                    "isNominal": false,
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 33,
+                          "line": 3,
+                        },
+                        "start": {
+                          "column": 27,
+                          "line": 3,
+                        },
+                      },
+                      "value": "number",
+                    },
+                  },
+                },
+                {
+                  "kind": "FunctionParam",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 36,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 35,
+                        "line": 3,
+                      },
+                    },
+                    "value": "y",
+                  },
+                  "type": {
+                    "isNominal": false,
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 43,
+                          "line": 3,
+                        },
+                        "start": {
+                          "column": 37,
+                          "line": 3,
+                        },
+                      },
+                      "value": "number",
+                    },
+                  },
+                },
+              ],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 52,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 48,
+                      "line": 3,
+                    },
+                  },
+                  "value": "void",
+                },
+              },
+              "typeParameters": undefined,
             },
-            "typeParameters": undefined,
           },
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "GetterType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 18,
-                  "line": 4,
-                },
-                "start": {
-                  "column": 17,
-                  "line": 4,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": true,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "x",
-            },
-            "parameters": undefined,
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 28,
+                    "column": 18,
                     "line": 4,
                   },
                   "start": {
-                    "column": 22,
+                    "column": 17,
                     "line": 4,
                   },
                 },
-                "value": "number",
+                "value": "x",
               },
+              "parameters": [],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 28,
+                      "line": 4,
+                    },
+                    "start": {
+                      "column": 22,
+                      "line": 4,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+              "typeParameters": undefined,
             },
           },
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "GetterType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 18,
-                  "line": 5,
-                },
-                "start": {
-                  "column": 17,
-                  "line": 5,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": true,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "y",
-            },
-            "parameters": undefined,
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 28,
+                    "column": 18,
                     "line": 5,
                   },
                   "start": {
-                    "column": 22,
+                    "column": 17,
                     "line": 5,
                   },
                 },
-                "value": "number",
+                "value": "y",
               },
+              "parameters": [],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 28,
+                      "line": 5,
+                    },
+                    "start": {
+                      "column": 22,
+                      "line": 5,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+              "typeParameters": undefined,
             },
           },
         ],
@@ -512,124 +538,132 @@ exports[`Parser - Contracts should parse contract fullfillment 1`] = `
               },
             },
           ],
-          "isNominal": false,
-          "kind": "FunctionType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 24,
-                "line": 15,
-              },
-              "start": {
-                "column": 16,
-                "line": 15,
-              },
+          "kind": "FunctionDeclaration",
+          "signature": {
+            "meta": {
+              "isAsync": false,
+              "isConstructor": false,
+              "isGetter": false,
+              "isMethod": true,
+              "isStatic": false,
             },
-            "value": "setPoint",
-          },
-          "parameters": [
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 29,
-                    "line": 15,
-                  },
-                  "start": {
-                    "column": 25,
-                    "line": 15,
-                  },
-                },
-                "value": "self",
-              },
-              "type": undefined,
-            },
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 32,
-                    "line": 15,
-                  },
-                  "start": {
-                    "column": 31,
-                    "line": 15,
-                  },
-                },
-                "value": "x",
-              },
-              "type": {
-                "isNominal": false,
-                "kind": "PrimitiveType",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 39,
-                      "line": 15,
-                    },
-                    "start": {
-                      "column": 33,
-                      "line": 15,
-                    },
-                  },
-                  "value": "number",
-                },
-              },
-            },
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 42,
-                    "line": 15,
-                  },
-                  "start": {
-                    "column": 41,
-                    "line": 15,
-                  },
-                },
-                "value": "y",
-              },
-              "type": {
-                "isNominal": false,
-                "kind": "PrimitiveType",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 49,
-                      "line": 15,
-                    },
-                    "start": {
-                      "column": 43,
-                      "line": 15,
-                    },
-                  },
-                  "value": "number",
-                },
-              },
-            },
-          ],
-          "returnType": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
-                  "column": 58,
+                  "column": 24,
                   "line": 15,
                 },
                 "start": {
-                  "column": 54,
+                  "column": 16,
                   "line": 15,
                 },
               },
-              "value": "void",
+              "value": "setPoint",
             },
+            "parameters": [
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 29,
+                      "line": 15,
+                    },
+                    "start": {
+                      "column": 25,
+                      "line": 15,
+                    },
+                  },
+                  "value": "self",
+                },
+                "type": undefined,
+              },
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 32,
+                      "line": 15,
+                    },
+                    "start": {
+                      "column": 31,
+                      "line": 15,
+                    },
+                  },
+                  "value": "x",
+                },
+                "type": {
+                  "isNominal": false,
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 39,
+                        "line": 15,
+                      },
+                      "start": {
+                        "column": 33,
+                        "line": 15,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+              },
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 42,
+                      "line": 15,
+                    },
+                    "start": {
+                      "column": 41,
+                      "line": 15,
+                    },
+                  },
+                  "value": "y",
+                },
+                "type": {
+                  "isNominal": false,
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 49,
+                        "line": 15,
+                      },
+                      "start": {
+                        "column": 43,
+                        "line": 15,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+              },
+            ],
+            "returnType": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 58,
+                    "line": 15,
+                  },
+                  "start": {
+                    "column": 54,
+                    "line": 15,
+                  },
+                },
+                "value": "void",
+              },
+            },
+            "typeParameters": undefined,
           },
-          "typeParameters": undefined,
         },
         {
           "body": [
@@ -670,56 +704,65 @@ exports[`Parser - Contracts should parse contract fullfillment 1`] = `
               },
             },
           ],
-          "isNominal": false,
-          "kind": "GetterType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 18,
-                "line": 19,
-              },
-              "start": {
-                "column": 17,
-                "line": 19,
-              },
+          "kind": "FunctionDeclaration",
+          "signature": {
+            "meta": {
+              "isAsync": false,
+              "isConstructor": false,
+              "isGetter": true,
+              "isMethod": true,
+              "isStatic": false,
             },
-            "value": "x",
-          },
-          "parameters": [
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 23,
-                    "line": 19,
-                  },
-                  "start": {
-                    "column": 19,
-                    "line": 19,
-                  },
-                },
-                "value": "self",
-              },
-              "type": undefined,
-            },
-          ],
-          "returnType": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
-                  "column": 34,
+                  "column": 18,
                   "line": 19,
                 },
                 "start": {
-                  "column": 28,
+                  "column": 17,
                   "line": 19,
                 },
               },
-              "value": "number",
+              "value": "x",
             },
+            "parameters": [
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 23,
+                      "line": 19,
+                    },
+                    "start": {
+                      "column": 19,
+                      "line": 19,
+                    },
+                  },
+                  "value": "self",
+                },
+                "type": undefined,
+              },
+            ],
+            "returnType": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 34,
+                    "line": 19,
+                  },
+                  "start": {
+                    "column": 28,
+                    "line": 19,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "typeParameters": undefined,
           },
         },
         {
@@ -761,56 +804,65 @@ exports[`Parser - Contracts should parse contract fullfillment 1`] = `
               },
             },
           ],
-          "isNominal": false,
-          "kind": "GetterType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 18,
-                "line": 22,
-              },
-              "start": {
-                "column": 17,
-                "line": 22,
-              },
+          "kind": "FunctionDeclaration",
+          "signature": {
+            "meta": {
+              "isAsync": false,
+              "isConstructor": false,
+              "isGetter": true,
+              "isMethod": true,
+              "isStatic": false,
             },
-            "value": "y",
-          },
-          "parameters": [
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 23,
-                    "line": 22,
-                  },
-                  "start": {
-                    "column": 19,
-                    "line": 22,
-                  },
-                },
-                "value": "self",
-              },
-              "type": undefined,
-            },
-          ],
-          "returnType": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
-                  "column": 34,
+                  "column": 18,
                   "line": 22,
                 },
                 "start": {
-                  "column": 28,
+                  "column": 17,
                   "line": 22,
                 },
               },
-              "value": "number",
+              "value": "y",
             },
+            "parameters": [
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 23,
+                      "line": 22,
+                    },
+                    "start": {
+                      "column": 19,
+                      "line": 22,
+                    },
+                  },
+                  "value": "self",
+                },
+                "type": undefined,
+              },
+            ],
+            "returnType": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 34,
+                    "line": 22,
+                  },
+                  "start": {
+                    "column": 28,
+                    "line": 22,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "typeParameters": undefined,
           },
         },
       ],
@@ -868,41 +920,63 @@ exports[`Parser - Contracts should parse contract fullfillment with generic para
         "kind": "ContractType",
         "members": [
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "FunctionType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 24,
-                  "line": 3,
-                },
-                "start": {
-                  "column": 16,
-                  "line": 3,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": false,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "setPoint",
-            },
-            "parameters": [
-              {
-                "kind": "FunctionParam",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 26,
-                      "line": 3,
-                    },
-                    "start": {
-                      "column": 25,
-                      "line": 3,
-                    },
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 24,
+                    "line": 3,
                   },
-                  "value": "x",
+                  "start": {
+                    "column": 16,
+                    "line": 3,
+                  },
                 },
-                "type": {
-                  "actualType": {
-                    "kind": "PrimitiveType",
+                "value": "setPoint",
+              },
+              "parameters": [
+                {
+                  "kind": "FunctionParam",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 26,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 25,
+                        "line": 3,
+                      },
+                    },
+                    "value": "x",
+                  },
+                  "type": {
+                    "actualType": {
+                      "kind": "PrimitiveType",
+                      "name": {
+                        "position": {
+                          "end": {
+                            "column": 28,
+                            "line": 3,
+                          },
+                          "start": {
+                            "column": 27,
+                            "line": 3,
+                          },
+                        },
+                        "value": "T",
+                      },
+                    },
+                    "kind": "AliasType",
                     "name": {
                       "position": {
                         "end": {
@@ -917,40 +991,40 @@ exports[`Parser - Contracts should parse contract fullfillment with generic para
                       "value": "T",
                     },
                   },
-                  "kind": "AliasType",
+                },
+                {
+                  "kind": "FunctionParam",
                   "name": {
                     "position": {
                       "end": {
-                        "column": 28,
+                        "column": 31,
                         "line": 3,
                       },
                       "start": {
-                        "column": 27,
+                        "column": 30,
                         "line": 3,
                       },
                     },
-                    "value": "T",
+                    "value": "y",
                   },
-                },
-              },
-              {
-                "kind": "FunctionParam",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 31,
-                      "line": 3,
+                  "type": {
+                    "actualType": {
+                      "kind": "PrimitiveType",
+                      "name": {
+                        "position": {
+                          "end": {
+                            "column": 33,
+                            "line": 3,
+                          },
+                          "start": {
+                            "column": 32,
+                            "line": 3,
+                          },
+                        },
+                        "value": "T",
+                      },
                     },
-                    "start": {
-                      "column": 30,
-                      "line": 3,
-                    },
-                  },
-                  "value": "y",
-                },
-                "type": {
-                  "actualType": {
-                    "kind": "PrimitiveType",
+                    "kind": "AliasType",
                     "name": {
                       "position": {
                         "end": {
@@ -965,63 +1039,71 @@ exports[`Parser - Contracts should parse contract fullfillment with generic para
                       "value": "T",
                     },
                   },
-                  "kind": "AliasType",
+                },
+              ],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 42,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 38,
+                      "line": 3,
+                    },
+                  },
+                  "value": "void",
+                },
+              },
+              "typeParameters": undefined,
+            },
+          },
+          {
+            "isNominal": false,
+            "kind": "GetterType",
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": true,
+                "isMethod": false,
+                "isStatic": false,
+              },
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 18,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 17,
+                    "line": 4,
+                  },
+                },
+                "value": "x",
+              },
+              "parameters": [],
+              "returnType": {
+                "actualType": {
+                  "kind": "PrimitiveType",
                   "name": {
                     "position": {
                       "end": {
-                        "column": 33,
-                        "line": 3,
+                        "column": 23,
+                        "line": 4,
                       },
                       "start": {
-                        "column": 32,
-                        "line": 3,
+                        "column": 22,
+                        "line": 4,
                       },
                     },
                     "value": "T",
                   },
                 },
-              },
-            ],
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 42,
-                    "line": 3,
-                  },
-                  "start": {
-                    "column": 38,
-                    "line": 3,
-                  },
-                },
-                "value": "void",
-              },
-            },
-            "typeParameters": undefined,
-          },
-          {
-            "body": undefined,
-            "isNominal": false,
-            "kind": "GetterType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 18,
-                  "line": 4,
-                },
-                "start": {
-                  "column": 17,
-                  "line": 4,
-                },
-              },
-              "value": "x",
-            },
-            "parameters": undefined,
-            "returnType": {
-              "actualType": {
-                "kind": "PrimitiveType",
+                "kind": "AliasType",
                 "name": {
                   "position": {
                     "end": {
@@ -1036,43 +1118,52 @@ exports[`Parser - Contracts should parse contract fullfillment with generic para
                   "value": "T",
                 },
               },
-              "kind": "AliasType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 23,
-                    "line": 4,
-                  },
-                  "start": {
-                    "column": 22,
-                    "line": 4,
-                  },
-                },
-                "value": "T",
-              },
+              "typeParameters": undefined,
             },
           },
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "GetterType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 18,
-                  "line": 5,
-                },
-                "start": {
-                  "column": 17,
-                  "line": 5,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": true,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "y",
-            },
-            "parameters": undefined,
-            "returnType": {
-              "actualType": {
-                "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 18,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 17,
+                    "line": 5,
+                  },
+                },
+                "value": "y",
+              },
+              "parameters": [],
+              "returnType": {
+                "actualType": {
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 23,
+                        "line": 5,
+                      },
+                      "start": {
+                        "column": 22,
+                        "line": 5,
+                      },
+                    },
+                    "value": "T",
+                  },
+                },
+                "kind": "AliasType",
                 "name": {
                   "position": {
                     "end": {
@@ -1087,20 +1178,7 @@ exports[`Parser - Contracts should parse contract fullfillment with generic para
                   "value": "T",
                 },
               },
-              "kind": "AliasType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 23,
-                    "line": 5,
-                  },
-                  "start": {
-                    "column": 22,
-                    "line": 5,
-                  },
-                },
-                "value": "T",
-              },
+              "typeParameters": undefined,
             },
           },
         ],
@@ -1396,124 +1474,132 @@ exports[`Parser - Contracts should parse contract fullfillment with generic para
               },
             },
           ],
-          "isNominal": false,
-          "kind": "FunctionType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 24,
-                "line": 15,
-              },
-              "start": {
-                "column": 16,
-                "line": 15,
-              },
+          "kind": "FunctionDeclaration",
+          "signature": {
+            "meta": {
+              "isAsync": false,
+              "isConstructor": false,
+              "isGetter": false,
+              "isMethod": true,
+              "isStatic": false,
             },
-            "value": "setPoint",
-          },
-          "parameters": [
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 29,
-                    "line": 15,
-                  },
-                  "start": {
-                    "column": 25,
-                    "line": 15,
-                  },
-                },
-                "value": "self",
-              },
-              "type": undefined,
-            },
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 32,
-                    "line": 15,
-                  },
-                  "start": {
-                    "column": 31,
-                    "line": 15,
-                  },
-                },
-                "value": "x",
-              },
-              "type": {
-                "isNominal": false,
-                "kind": "PrimitiveType",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 39,
-                      "line": 15,
-                    },
-                    "start": {
-                      "column": 33,
-                      "line": 15,
-                    },
-                  },
-                  "value": "number",
-                },
-              },
-            },
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 42,
-                    "line": 15,
-                  },
-                  "start": {
-                    "column": 41,
-                    "line": 15,
-                  },
-                },
-                "value": "y",
-              },
-              "type": {
-                "isNominal": false,
-                "kind": "PrimitiveType",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 49,
-                      "line": 15,
-                    },
-                    "start": {
-                      "column": 43,
-                      "line": 15,
-                    },
-                  },
-                  "value": "number",
-                },
-              },
-            },
-          ],
-          "returnType": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
-                  "column": 58,
+                  "column": 24,
                   "line": 15,
                 },
                 "start": {
-                  "column": 54,
+                  "column": 16,
                   "line": 15,
                 },
               },
-              "value": "void",
+              "value": "setPoint",
             },
+            "parameters": [
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 29,
+                      "line": 15,
+                    },
+                    "start": {
+                      "column": 25,
+                      "line": 15,
+                    },
+                  },
+                  "value": "self",
+                },
+                "type": undefined,
+              },
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 32,
+                      "line": 15,
+                    },
+                    "start": {
+                      "column": 31,
+                      "line": 15,
+                    },
+                  },
+                  "value": "x",
+                },
+                "type": {
+                  "isNominal": false,
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 39,
+                        "line": 15,
+                      },
+                      "start": {
+                        "column": 33,
+                        "line": 15,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+              },
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 42,
+                      "line": 15,
+                    },
+                    "start": {
+                      "column": 41,
+                      "line": 15,
+                    },
+                  },
+                  "value": "y",
+                },
+                "type": {
+                  "isNominal": false,
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 49,
+                        "line": 15,
+                      },
+                      "start": {
+                        "column": 43,
+                        "line": 15,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+              },
+            ],
+            "returnType": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 58,
+                    "line": 15,
+                  },
+                  "start": {
+                    "column": 54,
+                    "line": 15,
+                  },
+                },
+                "value": "void",
+              },
+            },
+            "typeParameters": undefined,
           },
-          "typeParameters": undefined,
         },
         {
           "body": [
@@ -1554,56 +1640,65 @@ exports[`Parser - Contracts should parse contract fullfillment with generic para
               },
             },
           ],
-          "isNominal": false,
-          "kind": "GetterType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 18,
-                "line": 19,
-              },
-              "start": {
-                "column": 17,
-                "line": 19,
-              },
+          "kind": "FunctionDeclaration",
+          "signature": {
+            "meta": {
+              "isAsync": false,
+              "isConstructor": false,
+              "isGetter": true,
+              "isMethod": true,
+              "isStatic": false,
             },
-            "value": "x",
-          },
-          "parameters": [
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 23,
-                    "line": 19,
-                  },
-                  "start": {
-                    "column": 19,
-                    "line": 19,
-                  },
-                },
-                "value": "self",
-              },
-              "type": undefined,
-            },
-          ],
-          "returnType": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
-                  "column": 34,
+                  "column": 18,
                   "line": 19,
                 },
                 "start": {
-                  "column": 28,
+                  "column": 17,
                   "line": 19,
                 },
               },
-              "value": "number",
+              "value": "x",
             },
+            "parameters": [
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 23,
+                      "line": 19,
+                    },
+                    "start": {
+                      "column": 19,
+                      "line": 19,
+                    },
+                  },
+                  "value": "self",
+                },
+                "type": undefined,
+              },
+            ],
+            "returnType": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 34,
+                    "line": 19,
+                  },
+                  "start": {
+                    "column": 28,
+                    "line": 19,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "typeParameters": undefined,
           },
         },
         {
@@ -1645,56 +1740,65 @@ exports[`Parser - Contracts should parse contract fullfillment with generic para
               },
             },
           ],
-          "isNominal": false,
-          "kind": "GetterType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 18,
-                "line": 22,
-              },
-              "start": {
-                "column": 17,
-                "line": 22,
-              },
+          "kind": "FunctionDeclaration",
+          "signature": {
+            "meta": {
+              "isAsync": false,
+              "isConstructor": false,
+              "isGetter": true,
+              "isMethod": true,
+              "isStatic": false,
             },
-            "value": "y",
-          },
-          "parameters": [
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 23,
-                    "line": 22,
-                  },
-                  "start": {
-                    "column": 19,
-                    "line": 22,
-                  },
-                },
-                "value": "self",
-              },
-              "type": undefined,
-            },
-          ],
-          "returnType": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
-                  "column": 34,
+                  "column": 18,
                   "line": 22,
                 },
                 "start": {
-                  "column": 28,
+                  "column": 17,
                   "line": 22,
                 },
               },
-              "value": "number",
+              "value": "y",
             },
+            "parameters": [
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 23,
+                      "line": 22,
+                    },
+                    "start": {
+                      "column": 19,
+                      "line": 22,
+                    },
+                  },
+                  "value": "self",
+                },
+                "type": undefined,
+              },
+            ],
+            "returnType": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 34,
+                    "line": 22,
+                  },
+                  "start": {
+                    "column": 28,
+                    "line": 22,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "typeParameters": undefined,
           },
         },
       ],
@@ -1767,179 +1871,205 @@ exports[`Parser - Contracts should parse contract fullfillment with indented bod
         "kind": "ContractType",
         "members": [
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "FunctionType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 16,
-                  "line": 3,
-                },
-                "start": {
-                  "column": 8,
-                  "line": 3,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": false,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "setPoint",
-            },
-            "parameters": [
-              {
-                "kind": "FunctionParam",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 18,
-                      "line": 3,
-                    },
-                    "start": {
-                      "column": 17,
-                      "line": 3,
-                    },
-                  },
-                  "value": "x",
-                },
-                "type": {
-                  "isNominal": false,
-                  "kind": "PrimitiveType",
-                  "name": {
-                    "position": {
-                      "end": {
-                        "column": 25,
-                        "line": 3,
-                      },
-                      "start": {
-                        "column": 19,
-                        "line": 3,
-                      },
-                    },
-                    "value": "number",
-                  },
-                },
-              },
-              {
-                "kind": "FunctionParam",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 28,
-                      "line": 3,
-                    },
-                    "start": {
-                      "column": 27,
-                      "line": 3,
-                    },
-                  },
-                  "value": "y",
-                },
-                "type": {
-                  "isNominal": false,
-                  "kind": "PrimitiveType",
-                  "name": {
-                    "position": {
-                      "end": {
-                        "column": 35,
-                        "line": 3,
-                      },
-                      "start": {
-                        "column": 29,
-                        "line": 3,
-                      },
-                    },
-                    "value": "number",
-                  },
-                },
-              },
-            ],
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 44,
+                    "column": 16,
                     "line": 3,
                   },
                   "start": {
-                    "column": 40,
+                    "column": 8,
                     "line": 3,
                   },
                 },
-                "value": "void",
+                "value": "setPoint",
               },
+              "parameters": [
+                {
+                  "kind": "FunctionParam",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 18,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 17,
+                        "line": 3,
+                      },
+                    },
+                    "value": "x",
+                  },
+                  "type": {
+                    "isNominal": false,
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 25,
+                          "line": 3,
+                        },
+                        "start": {
+                          "column": 19,
+                          "line": 3,
+                        },
+                      },
+                      "value": "number",
+                    },
+                  },
+                },
+                {
+                  "kind": "FunctionParam",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 28,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 27,
+                        "line": 3,
+                      },
+                    },
+                    "value": "y",
+                  },
+                  "type": {
+                    "isNominal": false,
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 35,
+                          "line": 3,
+                        },
+                        "start": {
+                          "column": 29,
+                          "line": 3,
+                        },
+                      },
+                      "value": "number",
+                    },
+                  },
+                },
+              ],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 44,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 40,
+                      "line": 3,
+                    },
+                  },
+                  "value": "void",
+                },
+              },
+              "typeParameters": undefined,
             },
-            "typeParameters": undefined,
           },
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "GetterType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 10,
-                  "line": 4,
-                },
-                "start": {
-                  "column": 9,
-                  "line": 4,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": true,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "x",
-            },
-            "parameters": undefined,
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 20,
+                    "column": 10,
                     "line": 4,
                   },
                   "start": {
-                    "column": 14,
+                    "column": 9,
                     "line": 4,
                   },
                 },
-                "value": "number",
+                "value": "x",
               },
+              "parameters": [],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 20,
+                      "line": 4,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 4,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+              "typeParameters": undefined,
             },
           },
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "GetterType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 10,
-                  "line": 5,
-                },
-                "start": {
-                  "column": 9,
-                  "line": 5,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": true,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "y",
-            },
-            "parameters": undefined,
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 20,
+                    "column": 10,
                     "line": 5,
                   },
                   "start": {
-                    "column": 14,
+                    "column": 9,
                     "line": 5,
                   },
                 },
-                "value": "number",
+                "value": "y",
               },
+              "parameters": [],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 20,
+                      "line": 5,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 5,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+              "typeParameters": undefined,
             },
           },
         ],
@@ -2087,124 +2217,132 @@ exports[`Parser - Contracts should parse contract fullfillment with indented bod
               },
             },
           ],
-          "isNominal": false,
-          "kind": "FunctionType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 16,
-                "line": 8,
-              },
-              "start": {
-                "column": 8,
-                "line": 8,
-              },
+          "kind": "FunctionDeclaration",
+          "signature": {
+            "meta": {
+              "isAsync": false,
+              "isConstructor": false,
+              "isGetter": false,
+              "isMethod": true,
+              "isStatic": false,
             },
-            "value": "setPoint",
-          },
-          "parameters": [
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 21,
-                    "line": 8,
-                  },
-                  "start": {
-                    "column": 17,
-                    "line": 8,
-                  },
-                },
-                "value": "self",
-              },
-              "type": undefined,
-            },
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 24,
-                    "line": 8,
-                  },
-                  "start": {
-                    "column": 23,
-                    "line": 8,
-                  },
-                },
-                "value": "x",
-              },
-              "type": {
-                "isNominal": false,
-                "kind": "PrimitiveType",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 31,
-                      "line": 8,
-                    },
-                    "start": {
-                      "column": 25,
-                      "line": 8,
-                    },
-                  },
-                  "value": "number",
-                },
-              },
-            },
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 34,
-                    "line": 8,
-                  },
-                  "start": {
-                    "column": 33,
-                    "line": 8,
-                  },
-                },
-                "value": "y",
-              },
-              "type": {
-                "isNominal": false,
-                "kind": "PrimitiveType",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 41,
-                      "line": 8,
-                    },
-                    "start": {
-                      "column": 35,
-                      "line": 8,
-                    },
-                  },
-                  "value": "number",
-                },
-              },
-            },
-          ],
-          "returnType": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
-                  "column": 50,
+                  "column": 16,
                   "line": 8,
                 },
                 "start": {
-                  "column": 46,
+                  "column": 8,
                   "line": 8,
                 },
               },
-              "value": "void",
+              "value": "setPoint",
             },
+            "parameters": [
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 21,
+                      "line": 8,
+                    },
+                    "start": {
+                      "column": 17,
+                      "line": 8,
+                    },
+                  },
+                  "value": "self",
+                },
+                "type": undefined,
+              },
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 24,
+                      "line": 8,
+                    },
+                    "start": {
+                      "column": 23,
+                      "line": 8,
+                    },
+                  },
+                  "value": "x",
+                },
+                "type": {
+                  "isNominal": false,
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 31,
+                        "line": 8,
+                      },
+                      "start": {
+                        "column": 25,
+                        "line": 8,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+              },
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 34,
+                      "line": 8,
+                    },
+                    "start": {
+                      "column": 33,
+                      "line": 8,
+                    },
+                  },
+                  "value": "y",
+                },
+                "type": {
+                  "isNominal": false,
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 41,
+                        "line": 8,
+                      },
+                      "start": {
+                        "column": 35,
+                        "line": 8,
+                      },
+                    },
+                    "value": "number",
+                  },
+                },
+              },
+            ],
+            "returnType": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 50,
+                    "line": 8,
+                  },
+                  "start": {
+                    "column": 46,
+                    "line": 8,
+                  },
+                },
+                "value": "void",
+              },
+            },
+            "typeParameters": undefined,
           },
-          "typeParameters": undefined,
         },
         {
           "body": [
@@ -2245,56 +2383,65 @@ exports[`Parser - Contracts should parse contract fullfillment with indented bod
               },
             },
           ],
-          "isNominal": false,
-          "kind": "GetterType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 10,
-                "line": 11,
-              },
-              "start": {
-                "column": 9,
-                "line": 11,
-              },
+          "kind": "FunctionDeclaration",
+          "signature": {
+            "meta": {
+              "isAsync": false,
+              "isConstructor": false,
+              "isGetter": true,
+              "isMethod": true,
+              "isStatic": false,
             },
-            "value": "x",
-          },
-          "parameters": [
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 15,
-                    "line": 11,
-                  },
-                  "start": {
-                    "column": 11,
-                    "line": 11,
-                  },
-                },
-                "value": "self",
-              },
-              "type": undefined,
-            },
-          ],
-          "returnType": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
-                  "column": 26,
+                  "column": 10,
                   "line": 11,
                 },
                 "start": {
-                  "column": 20,
+                  "column": 9,
                   "line": 11,
                 },
               },
-              "value": "number",
+              "value": "x",
             },
+            "parameters": [
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 11,
+                    },
+                    "start": {
+                      "column": 11,
+                      "line": 11,
+                    },
+                  },
+                  "value": "self",
+                },
+                "type": undefined,
+              },
+            ],
+            "returnType": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 26,
+                    "line": 11,
+                  },
+                  "start": {
+                    "column": 20,
+                    "line": 11,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "typeParameters": undefined,
           },
         },
         {
@@ -2336,56 +2483,65 @@ exports[`Parser - Contracts should parse contract fullfillment with indented bod
               },
             },
           ],
-          "isNominal": false,
-          "kind": "GetterType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 10,
-                "line": 13,
-              },
-              "start": {
-                "column": 9,
-                "line": 13,
-              },
+          "kind": "FunctionDeclaration",
+          "signature": {
+            "meta": {
+              "isAsync": false,
+              "isConstructor": false,
+              "isGetter": true,
+              "isMethod": true,
+              "isStatic": false,
             },
-            "value": "y",
-          },
-          "parameters": [
-            {
-              "kind": "FunctionParam",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 15,
-                    "line": 13,
-                  },
-                  "start": {
-                    "column": 11,
-                    "line": 13,
-                  },
-                },
-                "value": "self",
-              },
-              "type": undefined,
-            },
-          ],
-          "returnType": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
             "name": {
               "position": {
                 "end": {
-                  "column": 26,
+                  "column": 10,
                   "line": 13,
                 },
                 "start": {
-                  "column": 20,
+                  "column": 9,
                   "line": 13,
                 },
               },
-              "value": "number",
+              "value": "y",
             },
+            "parameters": [
+              {
+                "kind": "FunctionParam",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 15,
+                      "line": 13,
+                    },
+                    "start": {
+                      "column": 11,
+                      "line": 13,
+                    },
+                  },
+                  "value": "self",
+                },
+                "type": undefined,
+              },
+            ],
+            "returnType": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 26,
+                    "line": 13,
+                  },
+                  "start": {
+                    "column": 20,
+                    "line": 13,
+                  },
+                },
+                "value": "number",
+              },
+            },
+            "typeParameters": undefined,
           },
         },
       ],
@@ -2440,179 +2596,205 @@ exports[`Parser - Contracts should parse contract with indented body 1`] = `
         "kind": "ContractType",
         "members": [
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "FunctionType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 16,
-                  "line": 3,
-                },
-                "start": {
-                  "column": 8,
-                  "line": 3,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": false,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "setPoint",
-            },
-            "parameters": [
-              {
-                "kind": "FunctionParam",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 18,
-                      "line": 3,
-                    },
-                    "start": {
-                      "column": 17,
-                      "line": 3,
-                    },
-                  },
-                  "value": "x",
-                },
-                "type": {
-                  "isNominal": false,
-                  "kind": "PrimitiveType",
-                  "name": {
-                    "position": {
-                      "end": {
-                        "column": 25,
-                        "line": 3,
-                      },
-                      "start": {
-                        "column": 19,
-                        "line": 3,
-                      },
-                    },
-                    "value": "number",
-                  },
-                },
-              },
-              {
-                "kind": "FunctionParam",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 28,
-                      "line": 3,
-                    },
-                    "start": {
-                      "column": 27,
-                      "line": 3,
-                    },
-                  },
-                  "value": "y",
-                },
-                "type": {
-                  "isNominal": false,
-                  "kind": "PrimitiveType",
-                  "name": {
-                    "position": {
-                      "end": {
-                        "column": 35,
-                        "line": 3,
-                      },
-                      "start": {
-                        "column": 29,
-                        "line": 3,
-                      },
-                    },
-                    "value": "number",
-                  },
-                },
-              },
-            ],
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 44,
+                    "column": 16,
                     "line": 3,
                   },
                   "start": {
-                    "column": 40,
+                    "column": 8,
                     "line": 3,
                   },
                 },
-                "value": "void",
+                "value": "setPoint",
               },
+              "parameters": [
+                {
+                  "kind": "FunctionParam",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 18,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 17,
+                        "line": 3,
+                      },
+                    },
+                    "value": "x",
+                  },
+                  "type": {
+                    "isNominal": false,
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 25,
+                          "line": 3,
+                        },
+                        "start": {
+                          "column": 19,
+                          "line": 3,
+                        },
+                      },
+                      "value": "number",
+                    },
+                  },
+                },
+                {
+                  "kind": "FunctionParam",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 28,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 27,
+                        "line": 3,
+                      },
+                    },
+                    "value": "y",
+                  },
+                  "type": {
+                    "isNominal": false,
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 35,
+                          "line": 3,
+                        },
+                        "start": {
+                          "column": 29,
+                          "line": 3,
+                        },
+                      },
+                      "value": "number",
+                    },
+                  },
+                },
+              ],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 44,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 40,
+                      "line": 3,
+                    },
+                  },
+                  "value": "void",
+                },
+              },
+              "typeParameters": undefined,
             },
-            "typeParameters": undefined,
           },
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "GetterType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 10,
-                  "line": 4,
-                },
-                "start": {
-                  "column": 9,
-                  "line": 4,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": true,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "x",
-            },
-            "parameters": undefined,
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 20,
+                    "column": 10,
                     "line": 4,
                   },
                   "start": {
-                    "column": 14,
+                    "column": 9,
                     "line": 4,
                   },
                 },
-                "value": "number",
+                "value": "x",
               },
+              "parameters": [],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 20,
+                      "line": 4,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 4,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+              "typeParameters": undefined,
             },
           },
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "GetterType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 10,
-                  "line": 5,
-                },
-                "start": {
-                  "column": 9,
-                  "line": 5,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": true,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "y",
-            },
-            "parameters": undefined,
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 20,
+                    "column": 10,
                     "line": 5,
                   },
                   "start": {
-                    "column": 14,
+                    "column": 9,
                     "line": 5,
                   },
                 },
-                "value": "number",
+                "value": "y",
               },
+              "parameters": [],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 20,
+                      "line": 5,
+                    },
+                    "start": {
+                      "column": 14,
+                      "line": 5,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+              "typeParameters": undefined,
             },
           },
         ],
@@ -2667,179 +2849,205 @@ exports[`Parser - Contracts should parse contracts 1`] = `
         "kind": "ContractType",
         "members": [
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "FunctionType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 24,
-                  "line": 3,
-                },
-                "start": {
-                  "column": 16,
-                  "line": 3,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": false,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "setPoint",
-            },
-            "parameters": [
-              {
-                "kind": "FunctionParam",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 26,
-                      "line": 3,
-                    },
-                    "start": {
-                      "column": 25,
-                      "line": 3,
-                    },
-                  },
-                  "value": "x",
-                },
-                "type": {
-                  "isNominal": false,
-                  "kind": "PrimitiveType",
-                  "name": {
-                    "position": {
-                      "end": {
-                        "column": 33,
-                        "line": 3,
-                      },
-                      "start": {
-                        "column": 27,
-                        "line": 3,
-                      },
-                    },
-                    "value": "number",
-                  },
-                },
-              },
-              {
-                "kind": "FunctionParam",
-                "name": {
-                  "position": {
-                    "end": {
-                      "column": 36,
-                      "line": 3,
-                    },
-                    "start": {
-                      "column": 35,
-                      "line": 3,
-                    },
-                  },
-                  "value": "y",
-                },
-                "type": {
-                  "isNominal": false,
-                  "kind": "PrimitiveType",
-                  "name": {
-                    "position": {
-                      "end": {
-                        "column": 43,
-                        "line": 3,
-                      },
-                      "start": {
-                        "column": 37,
-                        "line": 3,
-                      },
-                    },
-                    "value": "number",
-                  },
-                },
-              },
-            ],
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 52,
+                    "column": 24,
                     "line": 3,
                   },
                   "start": {
-                    "column": 48,
+                    "column": 16,
                     "line": 3,
                   },
                 },
-                "value": "void",
+                "value": "setPoint",
               },
+              "parameters": [
+                {
+                  "kind": "FunctionParam",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 26,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 25,
+                        "line": 3,
+                      },
+                    },
+                    "value": "x",
+                  },
+                  "type": {
+                    "isNominal": false,
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 33,
+                          "line": 3,
+                        },
+                        "start": {
+                          "column": 27,
+                          "line": 3,
+                        },
+                      },
+                      "value": "number",
+                    },
+                  },
+                },
+                {
+                  "kind": "FunctionParam",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 36,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 35,
+                        "line": 3,
+                      },
+                    },
+                    "value": "y",
+                  },
+                  "type": {
+                    "isNominal": false,
+                    "kind": "PrimitiveType",
+                    "name": {
+                      "position": {
+                        "end": {
+                          "column": 43,
+                          "line": 3,
+                        },
+                        "start": {
+                          "column": 37,
+                          "line": 3,
+                        },
+                      },
+                      "value": "number",
+                    },
+                  },
+                },
+              ],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 52,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 48,
+                      "line": 3,
+                    },
+                  },
+                  "value": "void",
+                },
+              },
+              "typeParameters": undefined,
             },
-            "typeParameters": undefined,
           },
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "GetterType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 18,
-                  "line": 4,
-                },
-                "start": {
-                  "column": 17,
-                  "line": 4,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": true,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "x",
-            },
-            "parameters": undefined,
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 28,
+                    "column": 18,
                     "line": 4,
                   },
                   "start": {
-                    "column": 22,
+                    "column": 17,
                     "line": 4,
                   },
                 },
-                "value": "number",
+                "value": "x",
               },
+              "parameters": [],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 28,
+                      "line": 4,
+                    },
+                    "start": {
+                      "column": 22,
+                      "line": 4,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+              "typeParameters": undefined,
             },
           },
           {
-            "body": undefined,
             "isNominal": false,
             "kind": "GetterType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 18,
-                  "line": 5,
-                },
-                "start": {
-                  "column": 17,
-                  "line": 5,
-                },
+            "signature": {
+              "meta": {
+                "isAsync": false,
+                "isConstructor": false,
+                "isGetter": true,
+                "isMethod": false,
+                "isStatic": false,
               },
-              "value": "y",
-            },
-            "parameters": undefined,
-            "returnType": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 28,
+                    "column": 18,
                     "line": 5,
                   },
                   "start": {
-                    "column": 22,
+                    "column": 17,
                     "line": 5,
                   },
                 },
-                "value": "number",
+                "value": "y",
               },
+              "parameters": [],
+              "returnType": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 28,
+                      "line": 5,
+                    },
+                    "start": {
+                      "column": 22,
+                      "line": 5,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+              "typeParameters": undefined,
             },
           },
         ],

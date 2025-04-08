@@ -18,3 +18,16 @@ fn outer() {
     - for #lname { break #lname }
     - @lname for { break @lname }
 - require type if var is not initialized 
+
+Task List:
+- interpret contracts
+- default definitions in contracts
+- member expressions: obj.prop = "somthing"
+
+- built-in contracts on types:
+    - number -> .toString()
+    - string -> .split() .join() .match() .find() .findAll() .replace() .trim() etc
+- modules (code splitting)
+- built-in contracts:
+    - Iterable
+    - Serializable

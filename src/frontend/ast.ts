@@ -84,13 +84,24 @@ export interface FunctionParam extends Stmt {
   default?: Expr // to assign a default value
 }
 
+export interface FunctionSignature {
+  name?: LeafNode<string>
+  parameters: FunctionParam[]
+  returnType?: TypeNode | TypeNode[]
+  typeParameters?: TypeParameter[] // to support generic type parameters
+  meta: {
+    isMethod: boolean // contains "self" as first parameter
+    isStatic: boolean // missing "self" as first parameter, but in contract
+    isConstructor: boolean // returns a new instance of the contract
+    isAsync: boolean
+    isGetter: boolean // for contract getters
+  }
+}
+
 export interface FunctionDeclaration extends Stmt {
   kind: "FunctionDeclaration"
-  name: LeafNode<string>
-  parameters: FunctionParam[]
-  returnType: TypeNode | TypeNode[] | undefined
+  signature: FunctionSignature
   body: Stmt[]
-  typeParameters?: TypeParameter[] // to support generic type parameters
 }
 
 export interface CallExpr extends Expr {
@@ -167,7 +178,7 @@ export interface ContractFulfillment extends Stmt {
   contract?: LeafNode<string> // undefined for default contract
   typeArgs?: TypeNode[] // Add support for type arguments in contract fulfillment
   for: LeafNode<string>
-  members: (GetterType | FunctionType)[]
+  members: FunctionDeclaration[]
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -344,18 +355,11 @@ export interface ArrayType extends TypeNode {
 
 export interface FunctionType extends TypeNode {
   kind: "FunctionType"
-  name?: LeafNode<string>
-  parameters: FunctionParam[]
-  returnType: TypeNode | TypeNode[]
-  typeParameters?: TypeParameter[]
-  body?: Stmt[] // undefined in contracts, and defined in contract fulfillment
+  signature: FunctionSignature
 }
 
 // ie get name -> string
 export interface GetterType extends TypeNode {
   kind: "GetterType"
-  name: LeafNode<string>
-  parameters?: FunctionParam[] // for self keyword in contract
-  returnType: TypeNode | TypeNode[]
-  body?: Stmt[]
+  signature: FunctionSignature
 }

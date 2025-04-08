@@ -117,63 +117,71 @@ exports[`Parser - Alias should parse alias for function signature 1`] = `
         },
       },
       "type": {
-        "body": undefined,
         "isNominal": false,
         "kind": "FunctionType",
-        "name": undefined,
-        "parameters": [
-          {
-            "kind": "FunctionParam",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 23,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 22,
-                  "line": 1,
-                },
-              },
-              "value": "x",
-            },
-            "type": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
+        "signature": {
+          "meta": {
+            "isAsync": false,
+            "isConstructor": false,
+            "isGetter": false,
+            "isMethod": false,
+            "isStatic": false,
+          },
+          "name": undefined,
+          "parameters": [
+            {
+              "kind": "FunctionParam",
               "name": {
                 "position": {
                   "end": {
-                    "column": 31,
+                    "column": 23,
                     "line": 1,
                   },
                   "start": {
-                    "column": 25,
+                    "column": 22,
                     "line": 1,
                   },
                 },
-                "value": "number",
+                "value": "x",
+              },
+              "type": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 31,
+                      "line": 1,
+                    },
+                    "start": {
+                      "column": 25,
+                      "line": 1,
+                    },
+                  },
+                  "value": "number",
+                },
               },
             },
-          },
-        ],
-        "returnType": {
-          "isNominal": false,
-          "kind": "PrimitiveType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 42,
-                "line": 1,
+          ],
+          "returnType": {
+            "isNominal": false,
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 42,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 36,
+                  "line": 1,
+                },
               },
-              "start": {
-                "column": 36,
-                "line": 1,
-              },
+              "value": "number",
             },
-            "value": "number",
           },
+          "typeParameters": undefined,
         },
-        "typeParameters": undefined,
       },
     },
   ],
@@ -221,75 +229,83 @@ exports[`Parser - Alias should parse alias for function signature with name 1`] 
         },
       },
       "type": {
-        "body": undefined,
         "isNominal": false,
         "kind": "FunctionType",
-        "name": {
-          "position": {
-            "end": {
-              "column": 29,
-              "line": 1,
-            },
-            "start": {
-              "column": 21,
-              "line": 1,
-            },
+        "signature": {
+          "meta": {
+            "isAsync": false,
+            "isConstructor": false,
+            "isGetter": false,
+            "isMethod": false,
+            "isStatic": false,
           },
-          "value": "callback",
-        },
-        "parameters": [
-          {
-            "kind": "FunctionParam",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 32,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 31,
-                  "line": 1,
-                },
-              },
-              "value": "x",
-            },
-            "type": {
-              "isNominal": false,
-              "kind": "PrimitiveType",
-              "name": {
-                "position": {
-                  "end": {
-                    "column": 40,
-                    "line": 1,
-                  },
-                  "start": {
-                    "column": 34,
-                    "line": 1,
-                  },
-                },
-                "value": "number",
-              },
-            },
-          },
-        ],
-        "returnType": {
-          "isNominal": false,
-          "kind": "PrimitiveType",
           "name": {
             "position": {
               "end": {
-                "column": 51,
+                "column": 29,
                 "line": 1,
               },
               "start": {
-                "column": 45,
+                "column": 21,
                 "line": 1,
               },
             },
-            "value": "number",
+            "value": "callback",
           },
+          "parameters": [
+            {
+              "kind": "FunctionParam",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 32,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 31,
+                    "line": 1,
+                  },
+                },
+                "value": "x",
+              },
+              "type": {
+                "isNominal": false,
+                "kind": "PrimitiveType",
+                "name": {
+                  "position": {
+                    "end": {
+                      "column": 40,
+                      "line": 1,
+                    },
+                    "start": {
+                      "column": 34,
+                      "line": 1,
+                    },
+                  },
+                  "value": "number",
+                },
+              },
+            },
+          ],
+          "returnType": {
+            "isNominal": false,
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 51,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 45,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
+          },
+          "typeParameters": undefined,
         },
-        "typeParameters": undefined,
       },
     },
   ],
@@ -337,41 +353,63 @@ exports[`Parser - Alias should parse alias for function signature with name and 
         },
       },
       "type": {
-        "body": undefined,
         "isNominal": false,
         "kind": "FunctionType",
-        "name": {
-          "position": {
-            "end": {
-              "column": 29,
-              "line": 1,
-            },
-            "start": {
-              "column": 21,
-              "line": 1,
-            },
+        "signature": {
+          "meta": {
+            "isAsync": false,
+            "isConstructor": false,
+            "isGetter": false,
+            "isMethod": false,
+            "isStatic": false,
           },
-          "value": "callback",
-        },
-        "parameters": [
-          {
-            "kind": "FunctionParam",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 38,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 37,
-                  "line": 1,
-                },
+          "name": {
+            "position": {
+              "end": {
+                "column": 29,
+                "line": 1,
               },
-              "value": "x",
+              "start": {
+                "column": 21,
+                "line": 1,
+              },
             },
-            "type": {
-              "actualType": {
-                "kind": "PrimitiveType",
+            "value": "callback",
+          },
+          "parameters": [
+            {
+              "kind": "FunctionParam",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 38,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 37,
+                    "line": 1,
+                  },
+                },
+                "value": "x",
+              },
+              "type": {
+                "actualType": {
+                  "kind": "PrimitiveType",
+                  "name": {
+                    "position": {
+                      "end": {
+                        "column": 41,
+                        "line": 1,
+                      },
+                      "start": {
+                        "column": 40,
+                        "line": 1,
+                      },
+                    },
+                    "value": "T",
+                  },
+                },
+                "kind": "AliasType",
                 "name": {
                   "position": {
                     "end": {
@@ -386,26 +424,26 @@ exports[`Parser - Alias should parse alias for function signature with name and 
                   "value": "T",
                 },
               },
-              "kind": "AliasType",
+            },
+          ],
+          "returnType": {
+            "actualType": {
+              "kind": "PrimitiveType",
               "name": {
                 "position": {
                   "end": {
-                    "column": 41,
+                    "column": 47,
                     "line": 1,
                   },
                   "start": {
-                    "column": 40,
+                    "column": 46,
                     "line": 1,
                   },
                 },
-                "value": "T",
+                "value": "U",
               },
             },
-          },
-        ],
-        "returnType": {
-          "actualType": {
-            "kind": "PrimitiveType",
+            "kind": "AliasType",
             "name": {
               "position": {
                 "end": {
@@ -420,57 +458,43 @@ exports[`Parser - Alias should parse alias for function signature with name and 
               "value": "U",
             },
           },
-          "kind": "AliasType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 47,
-                "line": 1,
-              },
-              "start": {
-                "column": 46,
-                "line": 1,
+          "typeParameters": [
+            {
+              "constraint": undefined,
+              "kind": "TypeParameter",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 31,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 30,
+                    "line": 1,
+                  },
+                },
+                "value": "T",
               },
             },
-            "value": "U",
-          },
+            {
+              "constraint": undefined,
+              "kind": "TypeParameter",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 34,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 33,
+                    "line": 1,
+                  },
+                },
+                "value": "U",
+              },
+            },
+          ],
         },
-        "typeParameters": [
-          {
-            "constraint": undefined,
-            "kind": "TypeParameter",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 31,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 30,
-                  "line": 1,
-                },
-              },
-              "value": "T",
-            },
-          },
-          {
-            "constraint": undefined,
-            "kind": "TypeParameter",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 34,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 33,
-                  "line": 1,
-                },
-              },
-              "value": "U",
-            },
-          },
-        ],
       },
     },
   ],
@@ -602,26 +626,48 @@ exports[`Parser - Alias should parse alias for getter 1`] = `
         },
       },
       "type": {
-        "body": undefined,
         "isNominal": false,
         "kind": "GetterType",
-        "name": {
-          "position": {
-            "end": {
-              "column": 25,
-              "line": 1,
-            },
-            "start": {
-              "column": 21,
-              "line": 1,
-            },
+        "signature": {
+          "meta": {
+            "isAsync": false,
+            "isConstructor": false,
+            "isGetter": true,
+            "isMethod": false,
+            "isStatic": false,
           },
-          "value": "user",
-        },
-        "parameters": undefined,
-        "returnType": {
-          "actualType": {
-            "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 25,
+                "line": 1,
+              },
+              "start": {
+                "column": 21,
+                "line": 1,
+              },
+            },
+            "value": "user",
+          },
+          "parameters": [],
+          "returnType": {
+            "actualType": {
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 33,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 29,
+                    "line": 1,
+                  },
+                },
+                "value": "User",
+              },
+            },
+            "kind": "AliasType",
             "name": {
               "position": {
                 "end": {
@@ -636,20 +682,7 @@ exports[`Parser - Alias should parse alias for getter 1`] = `
               "value": "User",
             },
           },
-          "kind": "AliasType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 33,
-                "line": 1,
-              },
-              "start": {
-                "column": 29,
-                "line": 1,
-              },
-            },
-            "value": "User",
-          },
+          "typeParameters": undefined,
         },
       },
     },

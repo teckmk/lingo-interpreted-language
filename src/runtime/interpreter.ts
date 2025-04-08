@@ -9,12 +9,16 @@ import {
   BreakStatement,
   CallExpr,
   ContinueStatement,
+  ContractFulfillment,
+  ContractType,
   DocComment,
   ForInStatement,
   ForRangeStatement,
   ForStatement,
   FunctionDeclaration,
+  FunctionType,
   GenericType,
+  GetterType,
   Identifier,
   IfElseStatement,
   MemberExpr,
@@ -55,6 +59,10 @@ import {
   eval_binary_expr,
   eval_call_expr,
   eval_comment_expr,
+  eval_contract_fullfillment,
+  eval_contract_type,
+  eval_function_type,
+  eval_getter_type,
   eval_identifier,
   eval_member_expr,
   eval_object_expr,
@@ -107,6 +115,14 @@ export function evaluate(astNode: Stmt, context: ExecutionContext, env: Environm
       return eval_union_type(astNode as UnionType, env, context)
     case "ArrayType":
       return eval_array_type(astNode as ArrayType, env, context)
+    case "ContractType":
+      return eval_contract_type(astNode as ContractType, env, context)
+    case "ContractFulfillment":
+      return eval_contract_fullfillment(astNode as ContractFulfillment, env, context)
+    case "FunctionType":
+      return eval_function_type(astNode as FunctionType, env, context)
+    case "GetterType":
+      return eval_getter_type(astNode as GetterType, env, context)
     case "ArrayLiteral":
       return eval_array_expr(astNode as ArrayLiteral, env, context)
     case "CallExpr":

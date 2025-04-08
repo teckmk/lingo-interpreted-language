@@ -26,22 +26,31 @@ exports[`Parser - FunctionDeclaration should parse function declarations with bo
         },
       ],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "a",
+        "name": {
+          "position": {
+            "end": {
+              "column": 5,
+              "line": 1,
+            },
+            "start": {
+              "column": 4,
+              "line": 1,
+            },
+          },
+          "value": "a",
+        },
+        "parameters": [],
+        "returnType": undefined,
+        "typeParameters": undefined,
       },
-      "parameters": [],
-      "returnType": undefined,
-      "typeParameters": undefined,
     },
   ],
   "kind": "Program",
@@ -125,22 +134,31 @@ exports[`Parser - FunctionDeclaration should parse function declarations with in
         },
       ],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "a",
+        "name": {
+          "position": {
+            "end": {
+              "column": 5,
+              "line": 1,
+            },
+            "start": {
+              "column": 4,
+              "line": 1,
+            },
+          },
+          "value": "a",
+        },
+        "parameters": [],
+        "returnType": undefined,
+        "typeParameters": undefined,
       },
-      "parameters": [],
-      "returnType": undefined,
-      "typeParameters": undefined,
     },
   ],
   "kind": "Program",
@@ -224,66 +242,29 @@ exports[`Parser - FunctionDeclaration should parse function declarations with in
         },
       ],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "a",
-      },
-      "parameters": [],
-      "returnType": {
-        "isNominal": false,
-        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
-              "column": 17,
+              "column": 5,
               "line": 1,
             },
             "start": {
-              "column": 11,
+              "column": 4,
               "line": 1,
             },
           },
-          "value": "number",
+          "value": "a",
         },
-      },
-      "typeParameters": undefined,
-    },
-  ],
-  "kind": "Program",
-}
-`;
-
-exports[`Parser - FunctionDeclaration should parse function declarations with multiple return types 1`] = `
-{
-  "body": [
-    {
-      "body": [],
-      "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
-        },
-        "value": "a",
-      },
-      "parameters": [],
-      "returnType": [
-        {
+        "parameters": [],
+        "returnType": {
           "isNominal": false,
           "kind": "PrimitiveType",
           "name": {
@@ -300,25 +281,80 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
             "value": "number",
           },
         },
-        {
-          "isNominal": true,
-          "kind": "PrimitiveType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 25,
-                "line": 1,
-              },
-              "start": {
-                "column": 19,
-                "line": 1,
-              },
-            },
-            "value": "string",
-          },
+        "typeParameters": undefined,
+      },
+    },
+  ],
+  "kind": "Program",
+}
+`;
+
+exports[`Parser - FunctionDeclaration should parse function declarations with multiple return types 1`] = `
+{
+  "body": [
+    {
+      "body": [],
+      "kind": "FunctionDeclaration",
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-      ],
-      "typeParameters": undefined,
+        "name": {
+          "position": {
+            "end": {
+              "column": 5,
+              "line": 1,
+            },
+            "start": {
+              "column": 4,
+              "line": 1,
+            },
+          },
+          "value": "a",
+        },
+        "parameters": [],
+        "returnType": [
+          {
+            "isNominal": false,
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 17,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
+          },
+          {
+            "isNominal": true,
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 25,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 19,
+                  "line": 1,
+                },
+              },
+              "value": "string",
+            },
+          },
+        ],
+        "typeParameters": undefined,
+      },
     },
   ],
   "kind": "Program",
@@ -369,57 +405,66 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
         },
       ],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "a",
+        "name": {
+          "position": {
+            "end": {
+              "column": 5,
+              "line": 1,
+            },
+            "start": {
+              "column": 4,
+              "line": 1,
+            },
+          },
+          "value": "a",
+        },
+        "parameters": [],
+        "returnType": [
+          {
+            "isNominal": false,
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 17,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 11,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
+          },
+          {
+            "isNominal": true,
+            "kind": "PrimitiveType",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 25,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 19,
+                  "line": 1,
+                },
+              },
+              "value": "number",
+            },
+          },
+        ],
+        "typeParameters": undefined,
       },
-      "parameters": [],
-      "returnType": [
-        {
-          "isNominal": false,
-          "kind": "PrimitiveType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 17,
-                "line": 1,
-              },
-              "start": {
-                "column": 11,
-                "line": 1,
-              },
-            },
-            "value": "number",
-          },
-        },
-        {
-          "isNominal": true,
-          "kind": "PrimitiveType",
-          "name": {
-            "position": {
-              "end": {
-                "column": 25,
-                "line": 1,
-              },
-              "start": {
-                "column": 19,
-                "line": 1,
-              },
-            },
-            "value": "number",
-          },
-        },
-      ],
-      "typeParameters": undefined,
     },
   ],
   "kind": "Program",
@@ -503,22 +548,31 @@ exports[`Parser - FunctionDeclaration should parse function declarations with mu
         },
       ],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "a",
+        "name": {
+          "position": {
+            "end": {
+              "column": 5,
+              "line": 1,
+            },
+            "start": {
+              "column": 4,
+              "line": 1,
+            },
+          },
+          "value": "a",
+        },
+        "parameters": [],
+        "returnType": undefined,
+        "typeParameters": undefined,
       },
-      "parameters": [],
-      "returnType": undefined,
-      "typeParameters": undefined,
     },
   ],
   "kind": "Program",
@@ -531,89 +585,98 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
     {
       "body": [],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "a",
+        "name": {
+          "position": {
+            "end": {
+              "column": 5,
+              "line": 1,
+            },
+            "start": {
+              "column": 4,
+              "line": 1,
+            },
+          },
+          "value": "a",
+        },
+        "parameters": [
+          {
+            "kind": "FunctionParam",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 7,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 6,
+                  "line": 1,
+                },
+              },
+              "value": "b",
+            },
+            "type": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 9,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+          {
+            "kind": "FunctionParam",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 18,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 1,
+                },
+              },
+              "value": "c",
+            },
+            "type": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 26,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 20,
+                    "line": 1,
+                  },
+                },
+                "value": "string",
+              },
+            },
+          },
+        ],
+        "returnType": undefined,
+        "typeParameters": undefined,
       },
-      "parameters": [
-        {
-          "kind": "FunctionParam",
-          "name": {
-            "position": {
-              "end": {
-                "column": 7,
-                "line": 1,
-              },
-              "start": {
-                "column": 6,
-                "line": 1,
-              },
-            },
-            "value": "b",
-          },
-          "type": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 15,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 9,
-                  "line": 1,
-                },
-              },
-              "value": "number",
-            },
-          },
-        },
-        {
-          "kind": "FunctionParam",
-          "name": {
-            "position": {
-              "end": {
-                "column": 18,
-                "line": 1,
-              },
-              "start": {
-                "column": 17,
-                "line": 1,
-              },
-            },
-            "value": "c",
-          },
-          "type": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 26,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 20,
-                  "line": 1,
-                },
-              },
-              "value": "string",
-            },
-          },
-        },
-      ],
-      "returnType": undefined,
-      "typeParameters": undefined,
     },
   ],
   "kind": "Program",
@@ -646,89 +709,98 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
         },
       ],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "a",
+        "name": {
+          "position": {
+            "end": {
+              "column": 5,
+              "line": 1,
+            },
+            "start": {
+              "column": 4,
+              "line": 1,
+            },
+          },
+          "value": "a",
+        },
+        "parameters": [
+          {
+            "kind": "FunctionParam",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 7,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 6,
+                  "line": 1,
+                },
+              },
+              "value": "b",
+            },
+            "type": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 9,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+          {
+            "kind": "FunctionParam",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 18,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 1,
+                },
+              },
+              "value": "c",
+            },
+            "type": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 26,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 20,
+                    "line": 1,
+                  },
+                },
+                "value": "string",
+              },
+            },
+          },
+        ],
+        "returnType": undefined,
+        "typeParameters": undefined,
       },
-      "parameters": [
-        {
-          "kind": "FunctionParam",
-          "name": {
-            "position": {
-              "end": {
-                "column": 7,
-                "line": 1,
-              },
-              "start": {
-                "column": 6,
-                "line": 1,
-              },
-            },
-            "value": "b",
-          },
-          "type": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 15,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 9,
-                  "line": 1,
-                },
-              },
-              "value": "number",
-            },
-          },
-        },
-        {
-          "kind": "FunctionParam",
-          "name": {
-            "position": {
-              "end": {
-                "column": 18,
-                "line": 1,
-              },
-              "start": {
-                "column": 17,
-                "line": 1,
-              },
-            },
-            "value": "c",
-          },
-          "type": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 26,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 20,
-                  "line": 1,
-                },
-              },
-              "value": "string",
-            },
-          },
-        },
-      ],
-      "returnType": undefined,
-      "typeParameters": undefined,
     },
   ],
   "kind": "Program",
@@ -741,105 +813,114 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
     {
       "body": [],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "a",
-      },
-      "parameters": [
-        {
-          "kind": "FunctionParam",
-          "name": {
-            "position": {
-              "end": {
-                "column": 7,
-                "line": 1,
-              },
-              "start": {
-                "column": 6,
-                "line": 1,
-              },
-            },
-            "value": "b",
-          },
-          "type": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 15,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 9,
-                  "line": 1,
-                },
-              },
-              "value": "number",
-            },
-          },
-        },
-        {
-          "kind": "FunctionParam",
-          "name": {
-            "position": {
-              "end": {
-                "column": 18,
-                "line": 1,
-              },
-              "start": {
-                "column": 17,
-                "line": 1,
-              },
-            },
-            "value": "c",
-          },
-          "type": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 26,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 20,
-                  "line": 1,
-                },
-              },
-              "value": "string",
-            },
-          },
-        },
-      ],
-      "returnType": {
-        "isNominal": false,
-        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
-              "column": 37,
+              "column": 5,
               "line": 1,
             },
             "start": {
-              "column": 31,
+              "column": 4,
               "line": 1,
             },
           },
-          "value": "number",
+          "value": "a",
         },
+        "parameters": [
+          {
+            "kind": "FunctionParam",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 7,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 6,
+                  "line": 1,
+                },
+              },
+              "value": "b",
+            },
+            "type": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 9,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+          {
+            "kind": "FunctionParam",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 18,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 1,
+                },
+              },
+              "value": "c",
+            },
+            "type": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 26,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 20,
+                    "line": 1,
+                  },
+                },
+                "value": "string",
+              },
+            },
+          },
+        ],
+        "returnType": {
+          "isNominal": false,
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 37,
+                "line": 1,
+              },
+              "start": {
+                "column": 31,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+        },
+        "typeParameters": undefined,
       },
-      "typeParameters": undefined,
     },
   ],
   "kind": "Program",
@@ -872,105 +953,114 @@ exports[`Parser - FunctionDeclaration should parse function declarations with pa
         },
       ],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "a",
-      },
-      "parameters": [
-        {
-          "kind": "FunctionParam",
-          "name": {
-            "position": {
-              "end": {
-                "column": 7,
-                "line": 1,
-              },
-              "start": {
-                "column": 6,
-                "line": 1,
-              },
-            },
-            "value": "b",
-          },
-          "type": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 15,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 9,
-                  "line": 1,
-                },
-              },
-              "value": "number",
-            },
-          },
-        },
-        {
-          "kind": "FunctionParam",
-          "name": {
-            "position": {
-              "end": {
-                "column": 18,
-                "line": 1,
-              },
-              "start": {
-                "column": 17,
-                "line": 1,
-              },
-            },
-            "value": "c",
-          },
-          "type": {
-            "isNominal": false,
-            "kind": "PrimitiveType",
-            "name": {
-              "position": {
-                "end": {
-                  "column": 26,
-                  "line": 1,
-                },
-                "start": {
-                  "column": 20,
-                  "line": 1,
-                },
-              },
-              "value": "string",
-            },
-          },
-        },
-      ],
-      "returnType": {
-        "isNominal": false,
-        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
-              "column": 37,
+              "column": 5,
               "line": 1,
             },
             "start": {
-              "column": 31,
+              "column": 4,
               "line": 1,
             },
           },
-          "value": "number",
+          "value": "a",
         },
+        "parameters": [
+          {
+            "kind": "FunctionParam",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 7,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 6,
+                  "line": 1,
+                },
+              },
+              "value": "b",
+            },
+            "type": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 15,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 9,
+                    "line": 1,
+                  },
+                },
+                "value": "number",
+              },
+            },
+          },
+          {
+            "kind": "FunctionParam",
+            "name": {
+              "position": {
+                "end": {
+                  "column": 18,
+                  "line": 1,
+                },
+                "start": {
+                  "column": 17,
+                  "line": 1,
+                },
+              },
+              "value": "c",
+            },
+            "type": {
+              "isNominal": false,
+              "kind": "PrimitiveType",
+              "name": {
+                "position": {
+                  "end": {
+                    "column": 26,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 20,
+                    "line": 1,
+                  },
+                },
+                "value": "string",
+              },
+            },
+          },
+        ],
+        "returnType": {
+          "isNominal": false,
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 37,
+                "line": 1,
+              },
+              "start": {
+                "column": 31,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+        },
+        "typeParameters": undefined,
       },
-      "typeParameters": undefined,
     },
   ],
   "kind": "Program",
@@ -983,38 +1073,47 @@ exports[`Parser - FunctionDeclaration should parse function declarations with re
     {
       "body": [],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "a",
-      },
-      "parameters": [],
-      "returnType": {
-        "isNominal": false,
-        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
-              "column": 17,
+              "column": 5,
               "line": 1,
             },
             "start": {
-              "column": 11,
+              "column": 4,
               "line": 1,
             },
           },
-          "value": "number",
+          "value": "a",
         },
+        "parameters": [],
+        "returnType": {
+          "isNominal": false,
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 17,
+                "line": 1,
+              },
+              "start": {
+                "column": 11,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+        },
+        "typeParameters": undefined,
       },
-      "typeParameters": undefined,
     },
   ],
   "kind": "Program",
@@ -1047,38 +1146,47 @@ exports[`Parser - FunctionDeclaration should parse function declarations with re
         },
       ],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "a",
-      },
-      "parameters": [],
-      "returnType": {
-        "isNominal": false,
-        "kind": "PrimitiveType",
         "name": {
           "position": {
             "end": {
-              "column": 17,
+              "column": 5,
               "line": 1,
             },
             "start": {
-              "column": 11,
+              "column": 4,
               "line": 1,
             },
           },
-          "value": "number",
+          "value": "a",
         },
+        "parameters": [],
+        "returnType": {
+          "isNominal": false,
+          "kind": "PrimitiveType",
+          "name": {
+            "position": {
+              "end": {
+                "column": 17,
+                "line": 1,
+              },
+              "start": {
+                "column": 11,
+                "line": 1,
+              },
+            },
+            "value": "number",
+          },
+        },
+        "typeParameters": undefined,
       },
-      "typeParameters": undefined,
     },
   ],
   "kind": "Program",
@@ -1091,22 +1199,31 @@ exports[`Parser - FunctionDeclaration should parse function declarations without
     {
       "body": [],
       "kind": "FunctionDeclaration",
-      "name": {
-        "position": {
-          "end": {
-            "column": 5,
-            "line": 1,
-          },
-          "start": {
-            "column": 4,
-            "line": 1,
-          },
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": false,
+          "isStatic": false,
         },
-        "value": "a",
+        "name": {
+          "position": {
+            "end": {
+              "column": 5,
+              "line": 1,
+            },
+            "start": {
+              "column": 4,
+              "line": 1,
+            },
+          },
+          "value": "a",
+        },
+        "parameters": [],
+        "returnType": undefined,
+        "typeParameters": undefined,
       },
-      "parameters": [],
-      "returnType": undefined,
-      "typeParameters": undefined,
     },
   ],
   "kind": "Program",

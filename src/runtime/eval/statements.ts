@@ -28,6 +28,7 @@ import {
   BooleanVal,
   BreakVal,
   ContinueVal,
+  FunctionSignature,
   FunctionVal,
   NumberVal,
   ParamVal,
@@ -179,28 +180,54 @@ export function eval_multi_var_declaration(
   return { type: "array", elements: values, returned: false }
 }
 
-export function eval_fn_declaration(
-  declaration: FunctionDeclaration,
+export function eval_function_signature(
+  signature: FunctionDeclaration["signature"],
   env: Environment,
   context: ExecutionContext,
-): RuntimeVal {
-  const parameters: ParamVal[] = declaration.parameters.map((param) => ({
+): FunctionSignature {
+  const parameters: ParamVal[] = signature.parameters.map((param) => ({
     type: "paramter",
     name: param.name.value,
     valueType: (param.type && evaluate(param.type, context, env)) as TypeVal,
     default: param.default ? evaluate(param.default, context, env) : MK_NULL(),
     returned: false, // to satisfy TS
   }))
+
+  const { returnType } = signature
+  let returnTypeVal: TypeVal[] = []
+
+  if (returnType) {
+    if (Array.isArray(returnType)) {
+      returnTypeVal = returnType.map((r) => evaluate(r, context, env)) as TypeVal[]
+    } else {
+      returnTypeVal = [evaluate(returnType, context, env) as TypeVal]
+    }
+  }
+
+  return {
+    name: signature.name?.value ?? "unnamed",
+    parameters,
+    returnType: returnTypeVal,
+    meta: signature.meta,
+  }
+}
+
+export function eval_fn_declaration(
+  declaration: FunctionDeclaration,
+  env: Environment,
+  context: ExecutionContext,
+): RuntimeVal {
+  const signature = eval_function_signature(declaration.signature, env, context)
+
   const fn: FunctionVal = {
     type: "function",
-    name: declaration.name.value,
-    parameters,
+    signature,
     declarationEnv: env,
     body: declaration.body,
     returned: false, // to satisfy TS
   }
 
-  return env.declareVar(declaration.name.value, fn, "final")
+  return env.declareVar(fn.signature.name as string, fn, "final")
 }
 
 export function eval_return_statement(
