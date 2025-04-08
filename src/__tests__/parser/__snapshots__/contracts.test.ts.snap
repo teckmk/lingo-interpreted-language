@@ -408,6 +408,7 @@ exports[`Parser - Contracts should parse contract fullfillment 1`] = `
             "line": 14,
           },
         },
+        "type": "TYPE_IDENTIFIER",
         "value": "Point",
       },
       "for": {
@@ -1344,6 +1345,7 @@ exports[`Parser - Contracts should parse contract fullfillment with generic para
             "line": 14,
           },
         },
+        "type": "TYPE_IDENTIFIER",
         "value": "Point",
       },
       "for": {
@@ -2087,6 +2089,7 @@ exports[`Parser - Contracts should parse contract fullfillment with indented bod
             "line": 7,
           },
         },
+        "type": "TYPE_IDENTIFIER",
         "value": "Point",
       },
       "for": {

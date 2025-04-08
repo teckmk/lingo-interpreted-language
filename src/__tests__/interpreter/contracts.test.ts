@@ -43,6 +43,24 @@ describe("Interpreter - Contracts", () => {
     expect(runtimeVal).toMatchSnapshot();
   });
 
+  it("should interpret default contract fullfillment", () => {
+    const code = `
+        type Point3D struct {
+            x: number
+            y: number
+            z: number
+        }
+        fulfill Point3D {
+            fn setPoint(self, x:number, y:number) -> void {
+                self.x = x
+                self.y = y
+            }
+          
+        }`;
+    const runtimeVal = interpret("test", code);
+    expect(runtimeVal).toMatchSnapshot();
+  });
+
   it("should not interpret contract fullfillment with wrong function signature", () => {
     const code = `
         type Point contract {

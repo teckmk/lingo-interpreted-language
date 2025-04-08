@@ -117,515 +117,7 @@ exports[`Interpreter - Contracts should interpret contract fullfillment 1`] = `
           },
         },
       ],
-      "declarationEnv": Environment {
-        "aliasDefinitions": Map {},
-        "constants": Set {
-          "true",
-          "false",
-          "null",
-        },
-        "contractFulfillments": Map {
-          "Point3D:Point" => [Circular],
-        },
-        "executionContext": ExecutionContext {
-          "callStack": [],
-          "loopStack": [],
-        },
-        "finals": Set {
-          "print",
-          "length",
-          "setPoint",
-          "x",
-          "y",
-        },
-        "parent": undefined,
-        "typeDefinitions": Map {
-          "number" => {
-            "primitiveType": "number",
-            "returned": false,
-            "type": "type",
-            "typeKind": "primitive",
-            "typeName": "number",
-          },
-          "bool" => {
-            "primitiveType": "bool",
-            "returned": false,
-            "type": "type",
-            "typeKind": "primitive",
-            "typeName": "bool",
-          },
-          "string" => {
-            "primitiveType": "string",
-            "returned": false,
-            "type": "type",
-            "typeKind": "primitive",
-            "typeName": "string",
-          },
-          "dynamic" => {
-            "primitiveType": "dynamic",
-            "returned": false,
-            "type": "type",
-            "typeKind": "primitive",
-            "typeName": "dynamic",
-          },
-          "Point" => {
-            "isNominal": true,
-            "members": {
-              "setPoint": {
-                "returned": false,
-                "signature": {
-                  "meta": {
-                    "isAsync": false,
-                    "isConstructor": false,
-                    "isGetter": false,
-                    "isMethod": false,
-                    "isStatic": false,
-                  },
-                  "name": "setPoint",
-                  "parameters": [
-                    {
-                      "default": {
-                        "type": "null",
-                        "value": null,
-                      },
-                      "name": "x",
-                      "returned": false,
-                      "type": "paramter",
-                      "valueType": {
-                        "primitiveType": "number",
-                        "type": "type",
-                        "typeKind": "primitive",
-                      },
-                    },
-                    {
-                      "default": {
-                        "type": "null",
-                        "value": null,
-                      },
-                      "name": "y",
-                      "returned": false,
-                      "type": "paramter",
-                      "valueType": {
-                        "primitiveType": "number",
-                        "type": "type",
-                        "typeKind": "primitive",
-                      },
-                    },
-                  ],
-                  "returnType": [
-                    {
-                      "primitiveType": "void",
-                      "type": "type",
-                      "typeKind": "primitive",
-                    },
-                  ],
-                },
-                "type": "type",
-                "typeKind": "function",
-              },
-              "x": {
-                "returned": false,
-                "signature": {
-                  "meta": {
-                    "isAsync": false,
-                    "isConstructor": false,
-                    "isGetter": true,
-                    "isMethod": false,
-                    "isStatic": false,
-                  },
-                  "name": "x",
-                  "parameters": [],
-                  "returnType": [
-                    {
-                      "primitiveType": "number",
-                      "type": "type",
-                      "typeKind": "primitive",
-                    },
-                  ],
-                },
-                "type": "type",
-                "typeKind": "getter",
-              },
-              "y": {
-                "returned": false,
-                "signature": {
-                  "meta": {
-                    "isAsync": false,
-                    "isConstructor": false,
-                    "isGetter": true,
-                    "isMethod": false,
-                    "isStatic": false,
-                  },
-                  "name": "y",
-                  "parameters": [],
-                  "returnType": [
-                    {
-                      "primitiveType": "number",
-                      "type": "type",
-                      "typeKind": "primitive",
-                    },
-                  ],
-                },
-                "type": "type",
-                "typeKind": "getter",
-              },
-            },
-            "returned": false,
-            "type": "type",
-            "typeKind": "contract",
-            "typeName": "Point",
-          },
-          "Point3D" => {
-            "isNominal": true,
-            "members": {
-              "x": {
-                "primitiveType": "number",
-                "type": "type",
-                "typeKind": "primitive",
-              },
-              "y": {
-                "primitiveType": "number",
-                "type": "type",
-                "typeKind": "primitive",
-              },
-              "z": {
-                "primitiveType": "number",
-                "type": "type",
-                "typeKind": "primitive",
-              },
-            },
-            "optional": {
-              "x": false,
-              "y": false,
-              "z": false,
-            },
-            "type": "type",
-            "typeKind": "struct",
-            "typeName": "Point3D",
-          },
-        },
-        "variableTypes": Map {
-          "true" => {
-            "primitiveType": "bool",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "false" => {
-            "primitiveType": "bool",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "null" => {
-            "primitiveType": "dynamic",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "print" => {
-            "primitiveType": "dynamic",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "length" => {
-            "primitiveType": "dynamic",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "setPoint" => {
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": false,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "setPoint",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "x",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": {
-                    "primitiveType": "number",
-                    "type": "type",
-                    "typeKind": "primitive",
-                  },
-                },
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "y",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": {
-                    "primitiveType": "number",
-                    "type": "type",
-                    "typeKind": "primitive",
-                  },
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "void",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "type",
-            "typeKind": "function",
-          },
-          "x" => {
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": true,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "x",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "number",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "type",
-            "typeKind": "function",
-          },
-          "y" => {
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": true,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "y",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "number",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "type",
-            "typeKind": "function",
-          },
-        },
-        "variables": Map {
-          "true" => {
-            "type": "boolean",
-            "value": true,
-          },
-          "false" => {
-            "type": "boolean",
-            "value": false,
-          },
-          "null" => {
-            "type": "null",
-            "value": null,
-          },
-          "print" => {
-            "call": [Function],
-            "type": "nativefn",
-          },
-          "length" => {
-            "call": [Function],
-            "type": "nativefn",
-          },
-          "setPoint" => [Circular],
-          "x" => {
-            "body": [
-              {
-                "computed": false,
-                "kind": "MemberExpr",
-                "object": {
-                  "kind": "SelfKeyword",
-                  "symbol": {
-                    "position": {
-                      "end": {
-                        "column": 21,
-                        "line": 20,
-                      },
-                      "start": {
-                        "column": 17,
-                        "line": 20,
-                      },
-                    },
-                    "value": "self",
-                  },
-                },
-                "property": {
-                  "kind": "Identifier",
-                  "symbol": {
-                    "position": {
-                      "end": {
-                        "column": 23,
-                        "line": 20,
-                      },
-                      "start": {
-                        "column": 22,
-                        "line": 20,
-                      },
-                    },
-                    "value": "x",
-                  },
-                },
-              },
-            ],
-            "declarationEnv": [Circular],
-            "returned": false,
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": true,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "x",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "number",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "function",
-          },
-          "y" => {
-            "body": [
-              {
-                "computed": false,
-                "kind": "MemberExpr",
-                "object": {
-                  "kind": "SelfKeyword",
-                  "symbol": {
-                    "position": {
-                      "end": {
-                        "column": 21,
-                        "line": 23,
-                      },
-                      "start": {
-                        "column": 17,
-                        "line": 23,
-                      },
-                    },
-                    "value": "self",
-                  },
-                },
-                "property": {
-                  "kind": "Identifier",
-                  "symbol": {
-                    "position": {
-                      "end": {
-                        "column": 23,
-                        "line": 23,
-                      },
-                      "start": {
-                        "column": 22,
-                        "line": 23,
-                      },
-                    },
-                    "value": "y",
-                  },
-                },
-              },
-            ],
-            "declarationEnv": [Circular],
-            "returned": false,
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": true,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "y",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "number",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "function",
-          },
-        },
-      },
+      "declarationEnv": "{}",
       "returned": false,
       "signature": {
         "meta": {
@@ -725,617 +217,7 @@ exports[`Interpreter - Contracts should interpret contract fullfillment 1`] = `
           },
         },
       ],
-      "declarationEnv": Environment {
-        "aliasDefinitions": Map {},
-        "constants": Set {
-          "true",
-          "false",
-          "null",
-        },
-        "contractFulfillments": Map {
-          "Point3D:Point" => [Circular],
-        },
-        "executionContext": ExecutionContext {
-          "callStack": [],
-          "loopStack": [],
-        },
-        "finals": Set {
-          "print",
-          "length",
-          "setPoint",
-          "x",
-          "y",
-        },
-        "parent": undefined,
-        "typeDefinitions": Map {
-          "number" => {
-            "primitiveType": "number",
-            "returned": false,
-            "type": "type",
-            "typeKind": "primitive",
-            "typeName": "number",
-          },
-          "bool" => {
-            "primitiveType": "bool",
-            "returned": false,
-            "type": "type",
-            "typeKind": "primitive",
-            "typeName": "bool",
-          },
-          "string" => {
-            "primitiveType": "string",
-            "returned": false,
-            "type": "type",
-            "typeKind": "primitive",
-            "typeName": "string",
-          },
-          "dynamic" => {
-            "primitiveType": "dynamic",
-            "returned": false,
-            "type": "type",
-            "typeKind": "primitive",
-            "typeName": "dynamic",
-          },
-          "Point" => {
-            "isNominal": true,
-            "members": {
-              "setPoint": {
-                "returned": false,
-                "signature": {
-                  "meta": {
-                    "isAsync": false,
-                    "isConstructor": false,
-                    "isGetter": false,
-                    "isMethod": false,
-                    "isStatic": false,
-                  },
-                  "name": "setPoint",
-                  "parameters": [
-                    {
-                      "default": {
-                        "type": "null",
-                        "value": null,
-                      },
-                      "name": "x",
-                      "returned": false,
-                      "type": "paramter",
-                      "valueType": {
-                        "primitiveType": "number",
-                        "type": "type",
-                        "typeKind": "primitive",
-                      },
-                    },
-                    {
-                      "default": {
-                        "type": "null",
-                        "value": null,
-                      },
-                      "name": "y",
-                      "returned": false,
-                      "type": "paramter",
-                      "valueType": {
-                        "primitiveType": "number",
-                        "type": "type",
-                        "typeKind": "primitive",
-                      },
-                    },
-                  ],
-                  "returnType": [
-                    {
-                      "primitiveType": "void",
-                      "type": "type",
-                      "typeKind": "primitive",
-                    },
-                  ],
-                },
-                "type": "type",
-                "typeKind": "function",
-              },
-              "x": {
-                "returned": false,
-                "signature": {
-                  "meta": {
-                    "isAsync": false,
-                    "isConstructor": false,
-                    "isGetter": true,
-                    "isMethod": false,
-                    "isStatic": false,
-                  },
-                  "name": "x",
-                  "parameters": [],
-                  "returnType": [
-                    {
-                      "primitiveType": "number",
-                      "type": "type",
-                      "typeKind": "primitive",
-                    },
-                  ],
-                },
-                "type": "type",
-                "typeKind": "getter",
-              },
-              "y": {
-                "returned": false,
-                "signature": {
-                  "meta": {
-                    "isAsync": false,
-                    "isConstructor": false,
-                    "isGetter": true,
-                    "isMethod": false,
-                    "isStatic": false,
-                  },
-                  "name": "y",
-                  "parameters": [],
-                  "returnType": [
-                    {
-                      "primitiveType": "number",
-                      "type": "type",
-                      "typeKind": "primitive",
-                    },
-                  ],
-                },
-                "type": "type",
-                "typeKind": "getter",
-              },
-            },
-            "returned": false,
-            "type": "type",
-            "typeKind": "contract",
-            "typeName": "Point",
-          },
-          "Point3D" => {
-            "isNominal": true,
-            "members": {
-              "x": {
-                "primitiveType": "number",
-                "type": "type",
-                "typeKind": "primitive",
-              },
-              "y": {
-                "primitiveType": "number",
-                "type": "type",
-                "typeKind": "primitive",
-              },
-              "z": {
-                "primitiveType": "number",
-                "type": "type",
-                "typeKind": "primitive",
-              },
-            },
-            "optional": {
-              "x": false,
-              "y": false,
-              "z": false,
-            },
-            "type": "type",
-            "typeKind": "struct",
-            "typeName": "Point3D",
-          },
-        },
-        "variableTypes": Map {
-          "true" => {
-            "primitiveType": "bool",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "false" => {
-            "primitiveType": "bool",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "null" => {
-            "primitiveType": "dynamic",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "print" => {
-            "primitiveType": "dynamic",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "length" => {
-            "primitiveType": "dynamic",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "setPoint" => {
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": false,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "setPoint",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "x",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": {
-                    "primitiveType": "number",
-                    "type": "type",
-                    "typeKind": "primitive",
-                  },
-                },
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "y",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": {
-                    "primitiveType": "number",
-                    "type": "type",
-                    "typeKind": "primitive",
-                  },
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "void",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "type",
-            "typeKind": "function",
-          },
-          "x" => {
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": true,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "x",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "number",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "type",
-            "typeKind": "function",
-          },
-          "y" => {
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": true,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "y",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "number",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "type",
-            "typeKind": "function",
-          },
-        },
-        "variables": Map {
-          "true" => {
-            "type": "boolean",
-            "value": true,
-          },
-          "false" => {
-            "type": "boolean",
-            "value": false,
-          },
-          "null" => {
-            "type": "null",
-            "value": null,
-          },
-          "print" => {
-            "call": [Function],
-            "type": "nativefn",
-          },
-          "length" => {
-            "call": [Function],
-            "type": "nativefn",
-          },
-          "setPoint" => {
-            "body": [
-              {
-                "assigne": {
-                  "computed": false,
-                  "kind": "MemberExpr",
-                  "object": {
-                    "kind": "SelfKeyword",
-                    "symbol": {
-                      "position": {
-                        "end": {
-                          "column": 21,
-                          "line": 16,
-                        },
-                        "start": {
-                          "column": 17,
-                          "line": 16,
-                        },
-                      },
-                      "value": "self",
-                    },
-                  },
-                  "property": {
-                    "kind": "Identifier",
-                    "symbol": {
-                      "position": {
-                        "end": {
-                          "column": 23,
-                          "line": 16,
-                        },
-                        "start": {
-                          "column": 22,
-                          "line": 16,
-                        },
-                      },
-                      "value": "x",
-                    },
-                  },
-                },
-                "kind": "AssignmentExpr",
-                "value": {
-                  "kind": "Identifier",
-                  "symbol": {
-                    "position": {
-                      "end": {
-                        "column": 27,
-                        "line": 16,
-                      },
-                      "start": {
-                        "column": 26,
-                        "line": 16,
-                      },
-                    },
-                    "value": "x",
-                  },
-                },
-              },
-              {
-                "assigne": {
-                  "computed": false,
-                  "kind": "MemberExpr",
-                  "object": {
-                    "kind": "SelfKeyword",
-                    "symbol": {
-                      "position": {
-                        "end": {
-                          "column": 21,
-                          "line": 17,
-                        },
-                        "start": {
-                          "column": 17,
-                          "line": 17,
-                        },
-                      },
-                      "value": "self",
-                    },
-                  },
-                  "property": {
-                    "kind": "Identifier",
-                    "symbol": {
-                      "position": {
-                        "end": {
-                          "column": 23,
-                          "line": 17,
-                        },
-                        "start": {
-                          "column": 22,
-                          "line": 17,
-                        },
-                      },
-                      "value": "y",
-                    },
-                  },
-                },
-                "kind": "AssignmentExpr",
-                "value": {
-                  "kind": "Identifier",
-                  "symbol": {
-                    "position": {
-                      "end": {
-                        "column": 27,
-                        "line": 17,
-                      },
-                      "start": {
-                        "column": 26,
-                        "line": 17,
-                      },
-                    },
-                    "value": "y",
-                  },
-                },
-              },
-            ],
-            "declarationEnv": [Circular],
-            "returned": false,
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": false,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "setPoint",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "x",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": {
-                    "primitiveType": "number",
-                    "type": "type",
-                    "typeKind": "primitive",
-                  },
-                },
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "y",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": {
-                    "primitiveType": "number",
-                    "type": "type",
-                    "typeKind": "primitive",
-                  },
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "void",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "function",
-          },
-          "x" => [Circular],
-          "y" => {
-            "body": [
-              {
-                "computed": false,
-                "kind": "MemberExpr",
-                "object": {
-                  "kind": "SelfKeyword",
-                  "symbol": {
-                    "position": {
-                      "end": {
-                        "column": 21,
-                        "line": 23,
-                      },
-                      "start": {
-                        "column": 17,
-                        "line": 23,
-                      },
-                    },
-                    "value": "self",
-                  },
-                },
-                "property": {
-                  "kind": "Identifier",
-                  "symbol": {
-                    "position": {
-                      "end": {
-                        "column": 23,
-                        "line": 23,
-                      },
-                      "start": {
-                        "column": 22,
-                        "line": 23,
-                      },
-                    },
-                    "value": "y",
-                  },
-                },
-              },
-            ],
-            "declarationEnv": [Circular],
-            "returned": false,
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": true,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "y",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "number",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "function",
-          },
-        },
-      },
+      "declarationEnv": "{}",
       "returned": false,
       "signature": {
         "meta": {
@@ -1407,617 +289,7 @@ exports[`Interpreter - Contracts should interpret contract fullfillment 1`] = `
           },
         },
       ],
-      "declarationEnv": Environment {
-        "aliasDefinitions": Map {},
-        "constants": Set {
-          "true",
-          "false",
-          "null",
-        },
-        "contractFulfillments": Map {
-          "Point3D:Point" => [Circular],
-        },
-        "executionContext": ExecutionContext {
-          "callStack": [],
-          "loopStack": [],
-        },
-        "finals": Set {
-          "print",
-          "length",
-          "setPoint",
-          "x",
-          "y",
-        },
-        "parent": undefined,
-        "typeDefinitions": Map {
-          "number" => {
-            "primitiveType": "number",
-            "returned": false,
-            "type": "type",
-            "typeKind": "primitive",
-            "typeName": "number",
-          },
-          "bool" => {
-            "primitiveType": "bool",
-            "returned": false,
-            "type": "type",
-            "typeKind": "primitive",
-            "typeName": "bool",
-          },
-          "string" => {
-            "primitiveType": "string",
-            "returned": false,
-            "type": "type",
-            "typeKind": "primitive",
-            "typeName": "string",
-          },
-          "dynamic" => {
-            "primitiveType": "dynamic",
-            "returned": false,
-            "type": "type",
-            "typeKind": "primitive",
-            "typeName": "dynamic",
-          },
-          "Point" => {
-            "isNominal": true,
-            "members": {
-              "setPoint": {
-                "returned": false,
-                "signature": {
-                  "meta": {
-                    "isAsync": false,
-                    "isConstructor": false,
-                    "isGetter": false,
-                    "isMethod": false,
-                    "isStatic": false,
-                  },
-                  "name": "setPoint",
-                  "parameters": [
-                    {
-                      "default": {
-                        "type": "null",
-                        "value": null,
-                      },
-                      "name": "x",
-                      "returned": false,
-                      "type": "paramter",
-                      "valueType": {
-                        "primitiveType": "number",
-                        "type": "type",
-                        "typeKind": "primitive",
-                      },
-                    },
-                    {
-                      "default": {
-                        "type": "null",
-                        "value": null,
-                      },
-                      "name": "y",
-                      "returned": false,
-                      "type": "paramter",
-                      "valueType": {
-                        "primitiveType": "number",
-                        "type": "type",
-                        "typeKind": "primitive",
-                      },
-                    },
-                  ],
-                  "returnType": [
-                    {
-                      "primitiveType": "void",
-                      "type": "type",
-                      "typeKind": "primitive",
-                    },
-                  ],
-                },
-                "type": "type",
-                "typeKind": "function",
-              },
-              "x": {
-                "returned": false,
-                "signature": {
-                  "meta": {
-                    "isAsync": false,
-                    "isConstructor": false,
-                    "isGetter": true,
-                    "isMethod": false,
-                    "isStatic": false,
-                  },
-                  "name": "x",
-                  "parameters": [],
-                  "returnType": [
-                    {
-                      "primitiveType": "number",
-                      "type": "type",
-                      "typeKind": "primitive",
-                    },
-                  ],
-                },
-                "type": "type",
-                "typeKind": "getter",
-              },
-              "y": {
-                "returned": false,
-                "signature": {
-                  "meta": {
-                    "isAsync": false,
-                    "isConstructor": false,
-                    "isGetter": true,
-                    "isMethod": false,
-                    "isStatic": false,
-                  },
-                  "name": "y",
-                  "parameters": [],
-                  "returnType": [
-                    {
-                      "primitiveType": "number",
-                      "type": "type",
-                      "typeKind": "primitive",
-                    },
-                  ],
-                },
-                "type": "type",
-                "typeKind": "getter",
-              },
-            },
-            "returned": false,
-            "type": "type",
-            "typeKind": "contract",
-            "typeName": "Point",
-          },
-          "Point3D" => {
-            "isNominal": true,
-            "members": {
-              "x": {
-                "primitiveType": "number",
-                "type": "type",
-                "typeKind": "primitive",
-              },
-              "y": {
-                "primitiveType": "number",
-                "type": "type",
-                "typeKind": "primitive",
-              },
-              "z": {
-                "primitiveType": "number",
-                "type": "type",
-                "typeKind": "primitive",
-              },
-            },
-            "optional": {
-              "x": false,
-              "y": false,
-              "z": false,
-            },
-            "type": "type",
-            "typeKind": "struct",
-            "typeName": "Point3D",
-          },
-        },
-        "variableTypes": Map {
-          "true" => {
-            "primitiveType": "bool",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "false" => {
-            "primitiveType": "bool",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "null" => {
-            "primitiveType": "dynamic",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "print" => {
-            "primitiveType": "dynamic",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "length" => {
-            "primitiveType": "dynamic",
-            "type": "type",
-            "typeKind": "primitive",
-          },
-          "setPoint" => {
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": false,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "setPoint",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "x",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": {
-                    "primitiveType": "number",
-                    "type": "type",
-                    "typeKind": "primitive",
-                  },
-                },
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "y",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": {
-                    "primitiveType": "number",
-                    "type": "type",
-                    "typeKind": "primitive",
-                  },
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "void",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "type",
-            "typeKind": "function",
-          },
-          "x" => {
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": true,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "x",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "number",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "type",
-            "typeKind": "function",
-          },
-          "y" => {
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": true,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "y",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "number",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "type",
-            "typeKind": "function",
-          },
-        },
-        "variables": Map {
-          "true" => {
-            "type": "boolean",
-            "value": true,
-          },
-          "false" => {
-            "type": "boolean",
-            "value": false,
-          },
-          "null" => {
-            "type": "null",
-            "value": null,
-          },
-          "print" => {
-            "call": [Function],
-            "type": "nativefn",
-          },
-          "length" => {
-            "call": [Function],
-            "type": "nativefn",
-          },
-          "setPoint" => {
-            "body": [
-              {
-                "assigne": {
-                  "computed": false,
-                  "kind": "MemberExpr",
-                  "object": {
-                    "kind": "SelfKeyword",
-                    "symbol": {
-                      "position": {
-                        "end": {
-                          "column": 21,
-                          "line": 16,
-                        },
-                        "start": {
-                          "column": 17,
-                          "line": 16,
-                        },
-                      },
-                      "value": "self",
-                    },
-                  },
-                  "property": {
-                    "kind": "Identifier",
-                    "symbol": {
-                      "position": {
-                        "end": {
-                          "column": 23,
-                          "line": 16,
-                        },
-                        "start": {
-                          "column": 22,
-                          "line": 16,
-                        },
-                      },
-                      "value": "x",
-                    },
-                  },
-                },
-                "kind": "AssignmentExpr",
-                "value": {
-                  "kind": "Identifier",
-                  "symbol": {
-                    "position": {
-                      "end": {
-                        "column": 27,
-                        "line": 16,
-                      },
-                      "start": {
-                        "column": 26,
-                        "line": 16,
-                      },
-                    },
-                    "value": "x",
-                  },
-                },
-              },
-              {
-                "assigne": {
-                  "computed": false,
-                  "kind": "MemberExpr",
-                  "object": {
-                    "kind": "SelfKeyword",
-                    "symbol": {
-                      "position": {
-                        "end": {
-                          "column": 21,
-                          "line": 17,
-                        },
-                        "start": {
-                          "column": 17,
-                          "line": 17,
-                        },
-                      },
-                      "value": "self",
-                    },
-                  },
-                  "property": {
-                    "kind": "Identifier",
-                    "symbol": {
-                      "position": {
-                        "end": {
-                          "column": 23,
-                          "line": 17,
-                        },
-                        "start": {
-                          "column": 22,
-                          "line": 17,
-                        },
-                      },
-                      "value": "y",
-                    },
-                  },
-                },
-                "kind": "AssignmentExpr",
-                "value": {
-                  "kind": "Identifier",
-                  "symbol": {
-                    "position": {
-                      "end": {
-                        "column": 27,
-                        "line": 17,
-                      },
-                      "start": {
-                        "column": 26,
-                        "line": 17,
-                      },
-                    },
-                    "value": "y",
-                  },
-                },
-              },
-            ],
-            "declarationEnv": [Circular],
-            "returned": false,
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": false,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "setPoint",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "x",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": {
-                    "primitiveType": "number",
-                    "type": "type",
-                    "typeKind": "primitive",
-                  },
-                },
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "y",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": {
-                    "primitiveType": "number",
-                    "type": "type",
-                    "typeKind": "primitive",
-                  },
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "void",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "function",
-          },
-          "x" => {
-            "body": [
-              {
-                "computed": false,
-                "kind": "MemberExpr",
-                "object": {
-                  "kind": "SelfKeyword",
-                  "symbol": {
-                    "position": {
-                      "end": {
-                        "column": 21,
-                        "line": 20,
-                      },
-                      "start": {
-                        "column": 17,
-                        "line": 20,
-                      },
-                    },
-                    "value": "self",
-                  },
-                },
-                "property": {
-                  "kind": "Identifier",
-                  "symbol": {
-                    "position": {
-                      "end": {
-                        "column": 23,
-                        "line": 20,
-                      },
-                      "start": {
-                        "column": 22,
-                        "line": 20,
-                      },
-                    },
-                    "value": "x",
-                  },
-                },
-              },
-            ],
-            "declarationEnv": [Circular],
-            "returned": false,
-            "signature": {
-              "meta": {
-                "isAsync": false,
-                "isConstructor": false,
-                "isGetter": true,
-                "isMethod": true,
-                "isStatic": false,
-              },
-              "name": "x",
-              "parameters": [
-                {
-                  "default": {
-                    "type": "null",
-                    "value": null,
-                  },
-                  "name": "self",
-                  "returned": false,
-                  "type": "paramter",
-                  "valueType": undefined,
-                },
-              ],
-              "returnType": [
-                {
-                  "primitiveType": "number",
-                  "type": "type",
-                  "typeKind": "primitive",
-                },
-              ],
-            },
-            "type": "function",
-          },
-          "y" => [Circular],
-        },
-      },
+      "declarationEnv": "{}",
       "returned": false,
       "signature": {
         "meta": {
@@ -2165,5 +437,191 @@ exports[`Interpreter - Contracts should interpret contracts 1`] = `
   "type": "type",
   "typeKind": "contract",
   "typeName": "Point",
+}
+`;
+
+exports[`Interpreter - Contracts should interpret default contract fullfillment 1`] = `
+{
+  "args": [],
+  "body": [
+    {
+      "body": [
+        {
+          "assigne": {
+            "computed": false,
+            "kind": "MemberExpr",
+            "object": {
+              "kind": "SelfKeyword",
+              "symbol": {
+                "position": {
+                  "end": {
+                    "column": 21,
+                    "line": 9,
+                  },
+                  "start": {
+                    "column": 17,
+                    "line": 9,
+                  },
+                },
+                "value": "self",
+              },
+            },
+            "property": {
+              "kind": "Identifier",
+              "symbol": {
+                "position": {
+                  "end": {
+                    "column": 23,
+                    "line": 9,
+                  },
+                  "start": {
+                    "column": 22,
+                    "line": 9,
+                  },
+                },
+                "value": "x",
+              },
+            },
+          },
+          "kind": "AssignmentExpr",
+          "value": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 27,
+                  "line": 9,
+                },
+                "start": {
+                  "column": 26,
+                  "line": 9,
+                },
+              },
+              "value": "x",
+            },
+          },
+        },
+        {
+          "assigne": {
+            "computed": false,
+            "kind": "MemberExpr",
+            "object": {
+              "kind": "SelfKeyword",
+              "symbol": {
+                "position": {
+                  "end": {
+                    "column": 21,
+                    "line": 10,
+                  },
+                  "start": {
+                    "column": 17,
+                    "line": 10,
+                  },
+                },
+                "value": "self",
+              },
+            },
+            "property": {
+              "kind": "Identifier",
+              "symbol": {
+                "position": {
+                  "end": {
+                    "column": 23,
+                    "line": 10,
+                  },
+                  "start": {
+                    "column": 22,
+                    "line": 10,
+                  },
+                },
+                "value": "y",
+              },
+            },
+          },
+          "kind": "AssignmentExpr",
+          "value": {
+            "kind": "Identifier",
+            "symbol": {
+              "position": {
+                "end": {
+                  "column": 27,
+                  "line": 10,
+                },
+                "start": {
+                  "column": 26,
+                  "line": 10,
+                },
+              },
+              "value": "y",
+            },
+          },
+        },
+      ],
+      "declarationEnv": "{}",
+      "returned": false,
+      "signature": {
+        "meta": {
+          "isAsync": false,
+          "isConstructor": false,
+          "isGetter": false,
+          "isMethod": true,
+          "isStatic": false,
+        },
+        "name": "setPoint",
+        "parameters": [
+          {
+            "default": {
+              "type": "null",
+              "value": null,
+            },
+            "name": "self",
+            "returned": false,
+            "type": "paramter",
+            "valueType": undefined,
+          },
+          {
+            "default": {
+              "type": "null",
+              "value": null,
+            },
+            "name": "x",
+            "returned": false,
+            "type": "paramter",
+            "valueType": {
+              "primitiveType": "number",
+              "type": "type",
+              "typeKind": "primitive",
+            },
+          },
+          {
+            "default": {
+              "type": "null",
+              "value": null,
+            },
+            "name": "y",
+            "returned": false,
+            "type": "paramter",
+            "valueType": {
+              "primitiveType": "number",
+              "type": "type",
+              "typeKind": "primitive",
+            },
+          },
+        ],
+        "returnType": [
+          {
+            "primitiveType": "void",
+            "type": "type",
+            "typeKind": "primitive",
+          },
+        ],
+      },
+      "type": "function",
+    },
+  ],
+  "contractName": "Point3D",
+  "for": "Point3D",
+  "returned": false,
+  "type": "fulfillment",
 }
 `;

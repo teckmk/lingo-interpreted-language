@@ -312,7 +312,8 @@ export default class Environment {
 
     // Get the contract definition
     const contractType = this.lookupType(contractName) as ContractTypeVal
-    if (contractType.typeKind !== "contract") {
+    const isDefaultContract = contractName === structName
+    if (contractType.typeKind !== "contract" && !isDefaultContract) {
       throw new RuntimeError(
         this.executionContext,
         `Cannot implement ${contractName} because it is not a contract.`,
@@ -348,31 +349,33 @@ export default class Environment {
     const implementedMethods = implementations.map((fn) => fn.signature.name)
 
     // Check if all required methods are implemented
-    for (const methodName of contractMethods) {
-      if (!implementedMethods.includes(methodName)) {
-        throw new RuntimeError(
-          this.executionContext,
-          `Implementation of contract ${contractName} is missing method ${methodName}, for struct ${structName}.`,
-        )
-      }
+    if (!isDefaultContract) {
+      for (const methodName of contractMethods) {
+        if (!implementedMethods.includes(methodName)) {
+          throw new RuntimeError(
+            this.executionContext,
+            `Implementation of contract ${contractName} is missing method ${methodName}, for struct ${structName}.`,
+          )
+        }
 
-      // Verify method signatures match the contract
-      const contractMethod = contractType.members[methodName] as FunctionTypeVal | GetterTypeVal
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const implementation = implementations.find((fn) => fn.signature.name === methodName)!
+        // Verify method signatures match the contract
+        const contractMethod = contractType.members[methodName] as FunctionTypeVal | GetterTypeVal
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const implementation = implementations.find((fn) => fn.signature.name === methodName)!
 
-      // Check that the implementation's signature matches the contract's signature
-      let argsMap
-      const providedImpl = getRuntimeType(implementation)
-      if (contractType.parameters) {
-        argsMap = createTypeArgMap(contractType.parameters, typeArgs as TypeVal[])
-      }
-      const [isCompatible] = areTypesCompatible(providedImpl, contractMethod, argsMap)
-      if (!isCompatible) {
-        throw new RuntimeError(
-          this.executionContext,
-          `Method ${getTypeName(providedImpl)} of struct ${structName}, does not satisfy signature ${contractName}.${getTypeName(contractMethod)}.`,
-        )
+        // Check that the implementation's signature matches the contract's signature
+        let argsMap
+        const providedImpl = getRuntimeType(implementation)
+        if (contractType.parameters) {
+          argsMap = createTypeArgMap(contractType.parameters, typeArgs as TypeVal[])
+        }
+        const [isCompatible] = areTypesCompatible(providedImpl, contractMethod, argsMap)
+        if (!isCompatible) {
+          throw new RuntimeError(
+            this.executionContext,
+            `Method ${getTypeName(providedImpl)} of struct ${structName}, does not satisfy signature ${contractName}.${getTypeName(contractMethod)}.`,
+          )
+        }
       }
     }
 
@@ -417,5 +420,13 @@ export default class Environment {
 
   public doesImplementContract(structName: string, contractName: string): boolean {
     return this.hasContractImplementation(structName, contractName)
+  }
+
+  toJSON(): string {
+    return "{}"
+  }
+
+  toString(): string {
+    return "Environment"
   }
 }

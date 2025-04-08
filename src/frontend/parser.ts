@@ -395,13 +395,13 @@ export default class Parser {
   private parse_contract_fulfillment(): ContractFulfillment {
     this.eat() // eat fulfill token
 
-    let contractName: LeafNode<string> | undefined = undefined
+    let contractName: Token | undefined = undefined
     let structName: Token | undefined = undefined
     let typeArgs = undefined
 
     // contract name may not present for default contract fulfillment
     if (this.at().type == TokenType.TypeIdentifier) {
-      contractName = get_leaf(this.eat())
+      contractName = this.eat()
 
       // Check if it's a generic type with parameters
       if (isLessThan(this.at())) {
@@ -409,8 +409,16 @@ export default class Parser {
       }
     }
 
-    this.eat() // eat for token
-    structName = this.expect(TokenType.TypeIdentifier, "Expected struct name following for keyword")
+    const token = this.at() // eat for token
+    if (token.type == TokenType.For) {
+      this.eat() // eat for token
+      structName = this.expect(
+        TokenType.TypeIdentifier,
+        "Expected struct name following for keyword",
+      )
+    } else {
+      structName = contractName
+    }
 
     this.insideContractFulfillment = true
 
@@ -423,7 +431,7 @@ export default class Parser {
       contract: contractName,
       members,
       typeArgs,
-      for: get_leaf(structName),
+      for: get_leaf(structName as Token),
     }
   }
 
